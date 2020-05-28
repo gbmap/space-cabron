@@ -6,7 +6,7 @@ public class TurnTable : MonoBehaviour
 {
     [SerializeField] public AudioSource audioSource;
 
-    public int BPM = 30;
+    public int BPM = 80;
     public float Speed = 1f;
     public float DelayFactor { get { return (120f / BPM) * (1f / Speed); } }
     
@@ -18,7 +18,7 @@ public class TurnTable : MonoBehaviour
     public System.Action<int> OnBar;
     public System.Action<int> OnSection;
 
-    int _nBeats = 8;
+    public int NBeats = 4;
 
     bool _playing;
     public void Stop()
@@ -57,7 +57,7 @@ public class TurnTable : MonoBehaviour
 
     private void Awake()
     {
-        loop = LoopCreator.Create(_nBeats);
+        loop = LoopCreator.Create(NBeats);
         Run();
     }
 
@@ -70,19 +70,8 @@ public class TurnTable : MonoBehaviour
 
         if (Time.time > _lastBeat + CalculateBeatCooldown(BeatsPerSecond))
         {
-            EInstrumentAudio audio;
             bool endBeat;
-            bool endBar = loop.GetInstrumentAudio(out audio, out endBeat);
-            
-            if (audio != EInstrumentAudio.None)
-            {
-                audioSource.PlayOneShot(instrument.GetAudio(audio));
-            }
-
-            OnBeat?.Invoke(audio);
-
-            _lastBeat = Time.time;
-
+            bool endBar = loop.Advance(out endBeat);
             if (endBar)
             {
                 OnBar?.Invoke(_currentBar);
@@ -96,6 +85,16 @@ public class TurnTable : MonoBehaviour
                 }
                 _currentBar++;
             }
+
+
+            EInstrumentAudio audio = loop.GetInstrumentAudio();
+            if (audio != EInstrumentAudio.None)
+            {
+                audioSource.PlayOneShot(instrument.GetAudio(audio));
+            }
+            
+            OnBeat?.Invoke(audio);
+            _lastBeat = Time.time;
         }
 
         Control();
@@ -112,11 +111,11 @@ public class TurnTable : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.KeypadPlus)) { _nBeats++; }
-            if (Input.GetKeyDown(KeyCode.KeypadMinus)) { _nBeats--; }
+            if (Input.GetKeyDown(KeyCode.KeypadPlus)) { NBeats++; }
+            if (Input.GetKeyDown(KeyCode.KeypadMinus)) { NBeats--; }
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) { loop = LoopCreator.Create(_nBeats); }
+        if (Input.GetKeyDown(KeyCode.R)) { loop = LoopCreator.Create(NBeats); }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -143,12 +142,13 @@ public class TurnTable : MonoBehaviour
 
     public void Debug()
     {
+        GUILayout.Label("Audio: " + loop.CurrentBeat.CurrentAudio);
         GUILayout.Label("Sub-beat: " + loop.CurrentBeat.Index);
         GUILayout.Label("Beat: " + loop.Index);
         GUILayout.Label("Bar: " + _currentBar);
         GUILayout.Label("Section: " + _currentSection);
         GUILayout.Label("===========");
-        GUILayout.Label("(- / +) N Beats: " + _nBeats);
+        GUILayout.Label("(- / +) N Beats: " + NBeats);
         GUILayout.Label("(shft - / +) Max Sub-beats: " + LoopCreator.MaxSubBeats);
         GUILayout.Label("===== WEIGHTS =====");
         for (int i = 0; i < LoopCreator.Weights.Length; i++)

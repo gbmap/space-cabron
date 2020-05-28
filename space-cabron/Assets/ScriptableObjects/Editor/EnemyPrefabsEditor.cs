@@ -7,7 +7,7 @@ public static class EnumPrefabEditor<T, P> where T : Enum where P : UnityEngine.
     {
         var values = Enum.GetValues(typeof(T));
 
-        if (ps == null) ps = new P[values.Length];
+        if (ps == null) return;
 
         for (int i = 0; i < values.Length; i++)
         {

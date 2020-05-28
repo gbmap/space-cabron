@@ -8,17 +8,12 @@ public class Beat
     public int Index;
 
     public EInstrumentAudio CurrentAudio { get { return instrumentAudio[Index]; } }
+    public EInstrumentAudio LastAudio { get { return instrumentAudio[Mathf.Max(0, Index - 1)]; } }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="audio"></param>
-    /// <returns>If the beat ended or not.</returns>
-    public bool GetInstrumentAudio(out EInstrumentAudio audio)
+    public bool Advance()
     {
-        audio = instrumentAudio[Index];
         Index++;
-        if (Index > instrumentAudio.Length - 1)
+        if (Index == instrumentAudio.Length)
         {
             Index = 0;
             return true;
@@ -33,19 +28,20 @@ public class Loop
     public int Index;
 
     public Beat CurrentBeat { get { return Beats[Index]; } }
+    public Beat LastBeat { get { return Beats[Mathf.Max(0, Index - 1)]; } }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="audio"></param>
-    /// <returns>If the loop ended or not.</returns>
-    public bool GetInstrumentAudio(out EInstrumentAudio audio, out bool endBeat)
+    public EInstrumentAudio GetInstrumentAudio()
     {
-        endBeat = CurrentBeat.GetInstrumentAudio(out audio);
+        return CurrentBeat.CurrentAudio;
+    }
+
+    public bool Advance(out bool endBeat)
+    {
+        endBeat = CurrentBeat.Advance();
         if (endBeat)
         {
             Index++;
-            if (Index > Beats.Length-1)
+            if (Index == Beats.Length)
             {
                 Index = 0;
                 return true;
@@ -57,6 +53,8 @@ public class Loop
 
 public class LoopCreator
 {
+    public const int MAX_LOOPBEATS = 16;
+
     public static int[] Weights = new int[] { 2, 2, 2, 1, 1 };
     public static int MaxSubBeats = 1;
     public static int RandomSubBeats(int MaxSubBeats)
