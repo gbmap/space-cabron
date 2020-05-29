@@ -6,9 +6,6 @@ namespace SC {
 
     using E = EditorGUILayout;
 
-
-
-
     [CustomEditor(typeof(Synth))]
     public class SynthEditor : Editor
     {

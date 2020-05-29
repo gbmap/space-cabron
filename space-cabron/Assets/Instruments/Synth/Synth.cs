@@ -6,10 +6,19 @@ using Utils;
 [System.Serializable]
 public class EnvelopeASDR
 {
+    [Range(0f, 5f)]
     public double attackTime = 0.25f;
+
+    [Range(0f, 1f)]
     public double attackAmplitude = 1f;
+
+    [Range(0f, 5f)]
     public double decayTime = 0.25f;
+
+    [Range(0f, 1f)]
     public double sustainAmplitude = 0.8f;
+
+    [Range(0f, 5f)]
     public double releaseTime = 0.3f;
 
     bool pressed;
