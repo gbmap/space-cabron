@@ -2,7 +2,7 @@
 
 public enum EInstrumentAudio
 {
-    None,
+    None = 0,
     Kick,
     Snare,
     FloorTom,
@@ -13,7 +13,7 @@ public enum EInstrumentAudio
 }
 
 [System.Serializable]
-public class Instrument : ScriptableObject
+public class InstrumentAudioSample : ScriptableObject
 {
     public AudioClip[] Instruments;
 

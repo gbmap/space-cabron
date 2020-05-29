@@ -34,12 +34,24 @@ public class UITurntableButtons : MonoBehaviour
             }
 
             int t = tt.loop.Index;
-            //var s = tt.loop.Beats[x].instrumentAudio.Cast<int>().Select(ss => ss - 1); //((int)tt.loop.Beats[x].instrumentAudio[0])-1;
-            int s = -1 + ((int)tt.loop.Beats[x].CurrentAudio);
-
             if (x == t) img.color = Color.green;
-            if (s == y) img.color = Color.white;
+            //var s = tt.loop.Beats[x].instrumentAudio.Cast<int>().Select(ss => ss - 1); //((int)tt.loop.Beats[x].instrumentAudio[0])-1;
+
+            Beat b = tt.loop.Beats[x];
+            EInstrumentAudio[][] subBeats = b.subBeats;
+            EInstrumentAudio[] insts = subBeats[b.Index];
+
+            for (int j = 0; j < insts.Length; j++)
+            {
+                var inst = insts[j];
+                int s = -1 + ((int)inst);
+                if (s == y) img.color = Color.white;
+            }
+            //int s = -1 + ((int)tt.loop.Beats[x].CurrentAudio);
+            // if (s == y) img.color = Color.white;
         }
+
+
         /*for (int i = 0; i < LoopCreator.MAX_LOOPBEATS; i++)
         {
             Beat b = tt.loop.CurrentBeat; ;

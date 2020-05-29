@@ -12,7 +12,7 @@ public class TurnTable : MonoBehaviour
     
     [HideInInspector]
     public Loop loop;
-    public Instrument instrument;
+    public InstrumentAudioSample instrument;
     
     public System.Action<EInstrumentAudio> OnBeat;
     public System.Action<int> OnBar;
@@ -52,7 +52,7 @@ public class TurnTable : MonoBehaviour
     float BeatsPerSecond { get { return (60f/BPM); } }
     private float CalculateBeatCooldown(float bps)
     {
-        return BeatsPerSecond / loop.CurrentBeat.instrumentAudio.Length;
+        return BeatsPerSecond / loop.CurrentBeat.subBeats.Length;
     }
 
     private void Awake()
@@ -86,21 +86,27 @@ public class TurnTable : MonoBehaviour
                 _currentBar++;
             }
 
-
+            /*
             EInstrumentAudio audio = loop.GetInstrumentAudio();
             if (audio != EInstrumentAudio.None)
             {
                 audioSource.PlayOneShot(instrument.GetAudio(audio));
             }
+            */
+
+            EInstrumentAudio[] audios = loop.GetInstrumentAudios();
+            foreach (var audio in audios)
+            {
+                if (audio == EInstrumentAudio.None) continue;
+                audioSource.PlayOneShot(instrument.GetAudio(audio));
+            }
             
-            OnBeat?.Invoke(audio);
+            OnBeat?.Invoke(audios[0]);
             _lastBeat = Time.time;
         }
 
         Control();
     }
-
-    
 
     private void Control()
     {
@@ -115,6 +121,9 @@ public class TurnTable : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.KeypadMinus)) { NBeats--; }
         }
 
+        if (Input.GetKeyDown(KeyCode.KeypadMultiply)) { LoopCreator.MaxInstrumentsInBeat++; }
+        if (Input.GetKeyDown(KeyCode.KeypadDivide)) { LoopCreator.MaxInstrumentsInBeat--; }
+        
         if (Input.GetKeyDown(KeyCode.R)) { loop = LoopCreator.Create(NBeats); }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -150,6 +159,7 @@ public class TurnTable : MonoBehaviour
         GUILayout.Label("===========");
         GUILayout.Label("(- / +) N Beats: " + NBeats);
         GUILayout.Label("(shft - / +) Max Sub-beats: " + LoopCreator.MaxSubBeats);
+        GUILayout.Label("Max Instruments in Beat: " + LoopCreator.MaxInstrumentsInBeat);
         GUILayout.Label("===== WEIGHTS =====");
         for (int i = 0; i < LoopCreator.Weights.Length; i++)
         {

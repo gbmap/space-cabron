@@ -3,11 +3,11 @@ using UnityEditor;
 
 public static class EnumPrefabEditor<T, P> where T : Enum where P : UnityEngine.Object
 {
-    public static void Draw(ref P[] ps)
+    public static P[] Draw(P[] ps)
     {
         var values = Enum.GetValues(typeof(T));
 
-        if (ps == null) return;
+        if (ps == null) return null;
 
         for (int i = 0; i < values.Length; i++)
         {
@@ -19,6 +19,8 @@ public static class EnumPrefabEditor<T, P> where T : Enum where P : UnityEngine.
             T t = (T)values.GetValue(i);
             ps[i] = (P)EditorGUILayout.ObjectField(t.ToString(), ps[i], typeof(P), false);
         }
+
+        return ps;
     }
 }
 
@@ -28,6 +30,6 @@ public class EnemyPrefabsEditor : Editor
     public override void OnInspectorGUI()
     {
         var p = target as EnemyPrefabs;
-        EnumPrefabEditor<EEnemyType, UnityEngine.GameObject>.Draw(ref p.prefabs);
+        p.prefabs = EnumPrefabEditor<EEnemyType, UnityEngine.GameObject>.Draw(p.prefabs);
     }
 }

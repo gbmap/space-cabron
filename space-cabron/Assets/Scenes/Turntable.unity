@@ -1691,6 +1691,10 @@ GameObject:
   - component: {fileID: 370646154}
   - component: {fileID: 370646153}
   - component: {fileID: 370646152}
+  - component: {fileID: 370646155}
+  - component: {fileID: 370646158}
+  - component: {fileID: 370646156}
+  - component: {fileID: 370646157}
   m_Layer: 0
   m_Name: Turntable
   m_TagString: Untagged
@@ -1825,6 +1829,143 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &370646155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370646151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a675396f15339e541acb9ca4cb61477f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tt: {fileID: 370646153}
+  noteTime: 0
+  HoldNote: 1
+  NoteWeights:
+  - note: 0
+    Weight: 2
+  - note: 1
+    Weight: 0
+  - note: 2
+    Weight: 0
+  - note: 3
+    Weight: 0
+  - note: 4
+    Weight: 0
+  - note: 5
+    Weight: 0
+  - note: 6
+    Weight: 0
+  - note: 7
+    Weight: 0
+  - note: 8
+    Weight: 0
+  - note: 9
+    Weight: 0
+  - note: 10
+    Weight: 5
+  - note: 11
+    Weight: 0
+  - note: 12
+    Weight: 0
+  IgnoreTurnTableSilence: 1
+  Gain: 0.1
+  Instrument: {fileID: 11400000, guid: 36af290d1f069a04db0cb541f33eb7a4, type: 2}
+  Envelope:
+    attackTime: 0.25
+    attackAmplitude: 1
+    decayTime: 0.25
+    sustainAmplitude: 0.800000011920929
+    releaseTime: 0.30000001192092896
+--- !u!169 &370646156
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370646151}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.004092769
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!165 &370646157
+AudioHighPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370646151}
+  m_Enabled: 0
+  m_CutoffFrequency: 880
+  m_HighpassResonanceQ: 1
+--- !u!114 &370646158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370646151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a675396f15339e541acb9ca4cb61477f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tt: {fileID: 370646153}
+  noteTime: 2
+  HoldNote: 0
+  NoteWeights:
+  - note: 0
+    Weight: 0
+  - note: 1
+    Weight: 0
+  - note: 2
+    Weight: 3
+  - note: 3
+    Weight: 3
+  - note: 4
+    Weight: 0
+  - note: 5
+    Weight: 0
+  - note: 6
+    Weight: 0
+  - note: 7
+    Weight: 0
+  - note: 8
+    Weight: 0
+  - note: 9
+    Weight: 0
+  - note: 10
+    Weight: 3
+  - note: 11
+    Weight: 0
+  - note: 12
+    Weight: 0
+  IgnoreTurnTableSilence: 1
+  Gain: 0.05
+  Instrument: {fileID: 11400000, guid: 59d5ad87ea0e8114f9d17610e6ffc884, type: 2}
+  Envelope:
+    attackTime: 0.5
+    attackAmplitude: 0.8
+    decayTime: 0
+    sustainAmplitude: 0.8
+    releaseTime: 5
 --- !u!1001 &373466263
 PrefabInstance:
   m_ObjectHideFlags: 0
