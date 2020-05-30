@@ -12,7 +12,7 @@ public enum ESpawnerType
 
 public class SpawnerTypeShuffle : MonoBehaviour
 {
-    public TurnTable TurnTable;
+    public BeatMaker TurnTable;
     public ESpawnerType Type;
 
     private void OnEnable()

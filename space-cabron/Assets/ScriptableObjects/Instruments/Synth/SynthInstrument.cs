@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class SynthInstrument : ScriptableObject
@@ -43,8 +41,10 @@ public class Oscillator
         switch (Wave)
         {
             default:
+            case EWave.Tri: return Mathf.PingPong(f, 1f);
             case EWave.Sine: return Mathf.Sin(f);
             case EWave.Square: return Mathf.Sin(f) > 0.0f ? 1f : -1f;
+            case EWave.Noise: return Random.value;
         }
     }
 }

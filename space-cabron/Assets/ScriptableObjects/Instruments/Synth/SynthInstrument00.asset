@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: SynthInstrument00
   m_EditorClassIdentifier: UnityEngine.CoreModule:UnityEngine:ScriptableObject
   oscs:
-  - Wave: 0
-    Amplitude: 1
-    FrequencyFactor: 1
   - Wave: 1
-    Amplitude: 0.654
-    FrequencyFactor: 0.1
+    Amplitude: 0.49
+    FrequencyFactor: 2
+  - Wave: 2
+    Amplitude: 0.211
+    FrequencyFactor: 2
+  - Wave: 0
+    Amplitude: 0.278
+    FrequencyFactor: 2
+  - Wave: 0
+    Amplitude: 0.106
+    FrequencyFactor: 5

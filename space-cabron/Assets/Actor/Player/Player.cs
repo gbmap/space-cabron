@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     
     public AudioClip ShotSound;
 
-    public TurnTable Turntable;
+    public BeatMaker Turntable;
 
     private void Awake()
     {
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         Turntable.OnBeat -= OnBeat;
     }
 
-    private void OnBeat(EInstrumentAudio obj)
+    private void OnBeat(int[] obj)
     {
         _currentBeat = (++_currentBeat) % _shotPattern.Length;
 

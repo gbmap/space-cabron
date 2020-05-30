@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 
@@ -83,7 +84,6 @@ public enum ENote
     Fsharp,
     G,
     Gsharp,
-
     None
 }
 
@@ -103,13 +103,13 @@ public class NoteChance
 
 public class Synth : MonoBehaviour
 {
-    public TurnTable tt;
+    public AudioSource audioSource;
+    public BeatMaker tt;
     public ENoteTime noteTime;
     public bool HoldNote;
     public List<NoteChance> NoteWeights = new List<NoteChance>();
     public bool IgnoreTurnTableSilence = true;
 
-    private string[] Pattern;
     int noteIndex;
     
     [Range(0f, 1f)]
@@ -131,7 +131,8 @@ public class Synth : MonoBehaviour
 
     private void Awake()
     {
-        Pattern = GeneratePattern();
+        tt = new BeatMaker(NoteWeights.Select(n => n.Weight).ToArray(), 1, 1, 8);
+        tt.Run();
     }
 
     private void OnEnable()
@@ -148,40 +149,31 @@ public class Synth : MonoBehaviour
 
     private void OnBar(int bar)
     {
-        if (noteTime == ENoteTime.OnBar && !string.IsNullOrEmpty(Pattern[noteIndex]))
-        {
-            Envelope.KeyOff();
-            Envelope.KeyOn();
-            frequency = NoteToFrequency(Pattern[noteIndex]);
-            if (!HoldNote) Envelope.KeyOff();
-            noteIndex = (noteIndex + 1) % Pattern.Length;
-        }
-
-        if (bar == 4)
-        {
-            Pattern = GeneratePattern();
-            noteIndex = 0;
-        }
+        
     }
 
-    private void OnBeat(EInstrumentAudio audio)
+    private void OnBeat(int[] notes)
     {
-        if (audio == EInstrumentAudio.None && !IgnoreTurnTableSilence) return;
+        if (noteTime != ENoteTime.OnBeat) return;
 
-        if (noteTime == ENoteTime.OnBeat && !string.IsNullOrEmpty(Pattern[noteIndex]))
+        foreach (int n in notes)
         {
+            if (n == (int)ENote.None && !IgnoreTurnTableSilence) return;
+
             Envelope.KeyOff();
             Envelope.KeyOn();
-            frequency = NoteToFrequency(Pattern[noteIndex]);
+            ENote note = (ENote)n;
+            frequency = NoteToFrequency(note, 3);
             if (!HoldNote) Envelope.KeyOff();
         }
-        noteIndex = (noteIndex + 1) % Pattern.Length;
     }
 
     private void Update()
     {
+        tt.Update(true);
         t = Time.time;
         a = (float)Envelope.GetAmplitude(t);
+        audioSource.volume =(float)a;
     }
 
     double f;
@@ -194,11 +186,16 @@ public class Synth : MonoBehaviour
         {
             phase += f;
             float p = (float)phase;
-            data[i] += Gain * Instrument.Sample(p) * (float)a;
+            data[i] += Gain * Instrument.Sample(p);
 
             if (channels == 2)
             {
                 data[i + 1] = data[i];
+            }
+
+            if (phase > 2f*Mathf.PI)
+            {
+                phase = 0f;
             }
         }
 
@@ -247,6 +244,11 @@ public class Synth : MonoBehaviour
         return n;
     }
 
+    public void ChangePattern()
+    {
+        tt.RefreshLoop();
+    }
+
     public static List<NoteChance> GenerateNoteWeights(int[] weights)
     {
         List<NoteChance> notes = new List<NoteChance>();
@@ -268,14 +270,8 @@ public class Synth : MonoBehaviour
 
     private void OnGUI()
     {
-        float rectW = 10f;
+        tt.OnGUI();
 
-        for (int i = 0; i < prevData.Length/2; i+=2)
-        {
-            float rectH = prevData[i] * 300f;
-            Rect r = new Rect(new Vector2(i * rectW, Screen.height), new Vector2(rectW, rectH));
-            GUI.Box(r, rectH.ToString());
-        }
     }
 
 }

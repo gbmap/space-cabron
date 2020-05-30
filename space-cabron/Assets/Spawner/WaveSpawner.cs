@@ -47,7 +47,7 @@ public class WaveGenerator
 
 public class WaveSpawner : MonoBehaviour
 {
-    public TurnTable tt;
+    public BeatMaker tt;
     public EnemySpawner spawner;
 
     private WaveGenerator gen;
@@ -84,7 +84,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    private void OnBeat(EInstrumentAudio obj)
+    private void OnBeat(int[] obj)
     {
         var w = CurrentWave;
         if (CurrentWave.enemiesSpawned < w.enemies)

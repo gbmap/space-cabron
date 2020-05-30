@@ -2,14 +2,11 @@
 
 public enum EInstrumentAudio
 {
-    None = 0,
     Kick,
     Snare,
     FloorTom,
     HiHat,
-    Spawn1,
-    Spawn2,
-    Spawn3,
+    None,
 }
 
 [System.Serializable]

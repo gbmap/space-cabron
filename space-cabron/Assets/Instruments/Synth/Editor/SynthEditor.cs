@@ -15,10 +15,10 @@ namespace SC {
         {
             var s = target as Synth;
 
-            E.PropertyField(serializedObject.FindProperty("tt"));
+            E.PropertyField(serializedObject.FindProperty("audioSource"));
 
             E.Separator();
-            E.LabelField("Note Configuration", EditorStyles.boldLabel);
+            E.LabelField("Melody Configuration", EditorStyles.boldLabel);
 
             s.noteTime = (ENoteTime)E.EnumPopup("Note Time", s.noteTime);
             E.PropertyField(serializedObject.FindProperty("HoldNote"));
@@ -45,6 +45,11 @@ namespace SC {
 
             E.PropertyField(serializedObject.FindProperty("Instrument"));
             E.PropertyField(serializedObject.FindProperty("Envelope"));
+
+            if (GUILayout.Button("Generate New Notes"))
+            {
+                s.ChangePattern();
+            }
 
 
             serializedObject.ApplyModifiedProperties();

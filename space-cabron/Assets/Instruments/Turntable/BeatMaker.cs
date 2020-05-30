@@ -1,23 +1,17 @@
 ﻿using UnityEngine;
 
-
-[System.Serializable]
-public class TurnTable : MonoBehaviour
+public class BeatMaker
 {
-    [SerializeField] public AudioSource audioSource;
+    public int BPM;
 
-    public int BPM = 80;
-    public float Speed = 1f;
-    public float DelayFactor { get { return (120f / BPM) * (1f / Speed); } }
-    
-    [HideInInspector]
-    public Loop loop;
-    public InstrumentAudioSample instrument;
-    
-    public System.Action<EInstrumentAudio> OnBeat;
+    public Loop Loop { get; private set; }
+    public LoopCreator LoopCreator { get; private set; }
+
+    public System.Action<int[]> OnBeat;
     public System.Action<int> OnBar;
     public System.Action<int> OnSection;
 
+    // TODO: jogar pra dentro do loop creator
     public int NBeats = 4;
 
     bool _playing;
@@ -28,7 +22,7 @@ public class TurnTable : MonoBehaviour
         _currentBar = 0;
         _currentSection = 0;
     }
-
+    
     public void Pause()
     {
         _playing = false;
@@ -52,16 +46,22 @@ public class TurnTable : MonoBehaviour
     float BeatsPerSecond { get { return (60f/BPM); } }
     private float CalculateBeatCooldown(float bps)
     {
-        return BeatsPerSecond / loop.CurrentBeat.subBeats.Length;
+        return BeatsPerSecond / Loop.CurrentBeat.subBeats.Length;
     }
 
-    private void Awake()
+    public BeatMaker(int[] weights, int maxSubBeats, int maxInstrumentsInBeat, int nBeats, int bpm = 100)
     {
-        loop = LoopCreator.Create(NBeats);
-        Run();
+        BPM = bpm;
+        LoopCreator = new LoopCreator(weights, maxSubBeats, maxInstrumentsInBeat);
+        Loop = LoopCreator.Create(nBeats);
     }
 
-    public void Update()
+    public void RefreshLoop()
+    {
+        Loop = LoopCreator.Create(NBeats);
+    }
+
+    public void Update(bool control = false)
     {
         if (!_playing)
         {
@@ -71,7 +71,7 @@ public class TurnTable : MonoBehaviour
         if (Time.time > _lastBeat + CalculateBeatCooldown(BeatsPerSecond))
         {
             bool endBeat;
-            bool endBar = loop.Advance(out endBeat);
+            bool endBar = Loop.Advance(out endBeat);
             if (endBar)
             {
                 OnBar?.Invoke(_currentBar);
@@ -94,18 +94,21 @@ public class TurnTable : MonoBehaviour
             }
             */
 
-            EInstrumentAudio[] audios = loop.GetInstrumentAudios();
-            foreach (var audio in audios)
+            int[] notes = Loop.GetInstrumentAudios();
+            /*foreach (var audio in notes)
             {
                 if (audio == EInstrumentAudio.None) continue;
-                audioSource.PlayOneShot(instrument.GetAudio(audio));
-            }
+                //audioSource.PlayOneShot(instrument.GetAudio(audio));
+            }*/
             
-            OnBeat?.Invoke(audios[0]);
+            OnBeat?.Invoke(notes);
             _lastBeat = Time.time;
         }
 
-        Control();
+        if (control)
+        {
+            Control();
+        }
     }
 
     private void Control()
@@ -124,7 +127,7 @@ public class TurnTable : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.KeypadMultiply)) { LoopCreator.MaxInstrumentsInBeat++; }
         if (Input.GetKeyDown(KeyCode.KeypadDivide)) { LoopCreator.MaxInstrumentsInBeat--; }
         
-        if (Input.GetKeyDown(KeyCode.R)) { loop = LoopCreator.Create(NBeats); }
+        if (Input.GetKeyDown(KeyCode.R)) { Loop = LoopCreator.Create(NBeats); }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -144,16 +147,16 @@ public class TurnTable : MonoBehaviour
         }
     }
 
-    private void OnGUI()
+    public void OnGUI()
     {
         Debug();
     }
 
     public void Debug()
     {
-        GUILayout.Label("Audio: " + loop.CurrentBeat.CurrentAudio);
-        GUILayout.Label("Sub-beat: " + loop.CurrentBeat.Index);
-        GUILayout.Label("Beat: " + loop.Index);
+        GUILayout.Label("Audio: " + Loop.CurrentBeat.CurrentAudio);
+        GUILayout.Label("Sub-beat: " + Loop.CurrentBeat.Index);
+        GUILayout.Label("Beat: " + Loop.Index);
         GUILayout.Label("Bar: " + _currentBar);
         GUILayout.Label("Section: " + _currentSection);
         GUILayout.Label("===========");
@@ -163,7 +166,7 @@ public class TurnTable : MonoBehaviour
         GUILayout.Label("===== WEIGHTS =====");
         for (int i = 0; i < LoopCreator.Weights.Length; i++)
         {
-            GUILayout.Label("("+i+") "+((EInstrumentAudio)i).ToString() + ": " + LoopCreator.Weights[i]);
+            GUILayout.Label("("+i+") "+((i).ToString() + ": " + LoopCreator.Weights[i]));
         }
     }
 }

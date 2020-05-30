@@ -4,14 +4,14 @@ using System.Linq;
 
 public class UITurntableButtons : MonoBehaviour
 {
-    public TurnTable tt;
+    public Drum tt;
 
     private void Start()
     {
-        tt.OnBeat += OnBeat;
+        tt.tt.OnBeat += OnBeat;
     }
 
-    private void OnBeat(EInstrumentAudio obj)
+    private void OnBeat(int[] obj)
     {
         UpdateButtons();
     }
@@ -27,24 +27,24 @@ public class UITurntableButtons : MonoBehaviour
             var img = c.GetComponent<Image>();
             img.color = Color.gray;
 
-            if (x >= tt.loop.Beats.Length)
+            if (x >= tt.tt.Loop.Beats.Length)
             {
                 img.color = new Color(0.1f, 0.1f, 0.1f);
                 continue;
             }
 
-            int t = tt.loop.Index;
+            int t = tt.tt.Loop.Index;
             if (x == t) img.color = Color.green;
             //var s = tt.loop.Beats[x].instrumentAudio.Cast<int>().Select(ss => ss - 1); //((int)tt.loop.Beats[x].instrumentAudio[0])-1;
 
-            Beat b = tt.loop.Beats[x];
-            EInstrumentAudio[][] subBeats = b.subBeats;
-            EInstrumentAudio[] insts = subBeats[b.Index];
+            Beat b = tt.tt.Loop.Beats[x];
+            int[][] subBeats = b.subBeats;
+            int[] insts = subBeats[b.Index];
 
             for (int j = 0; j < insts.Length; j++)
             {
                 var inst = insts[j];
-                int s = -1 + ((int)inst);
+                int s = -1 + inst;
                 if (s == y) img.color = Color.white;
             }
             //int s = -1 + ((int)tt.loop.Beats[x].CurrentAudio);

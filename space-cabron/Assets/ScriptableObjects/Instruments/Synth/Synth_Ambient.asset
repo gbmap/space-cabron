@@ -16,9 +16,9 @@ MonoBehaviour:
   - Wave: 0
     Amplitude: 1
     FrequencyFactor: 1
-  - Wave: 0
-    Amplitude: 0.5
-    FrequencyFactor: 0.333
+  - Wave: 1
+    Amplitude: 0.163
+    FrequencyFactor: 1.14
   - Wave: 0
     Amplitude: 0.25
     FrequencyFactor: 0.2
