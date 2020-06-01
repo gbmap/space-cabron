@@ -15,27 +15,24 @@ namespace SC
             Drum d = target as Drum;
 
             E.LabelField("References");
-            E.PropertyField(serializedObject.FindProperty("source"));
-            E.PropertyField(serializedObject.FindProperty("instrument"));
+            E.PropertyField(serializedObject.FindProperty("BeatMaker"));
+            E.PropertyField(serializedObject.FindProperty("Source"));
+            E.PropertyField(serializedObject.FindProperty("Instrument"));
 
             E.Separator();
             E.Space();
 
-            BeatMakerEditorUtility.DrawInspector(ref d.BPM, ref d.MaxSubBeats, ref d.MaxInstrumentsPerBeat, ref d.NBeats);
-
             if (sampleChances = E.Foldout(sampleChances, "Sample Chances"))
             {
-                if (d.SampleWeights == null || d.SampleWeights.Count == 0) d.GenerateNewWeights();
-
-                foreach (EInstrumentAudio sample in System.Enum.GetValues(typeof(EInstrumentAudio)))
+                if (InstrumentEditor<EInstrumentAudio>.DrawChancesInspector(ref d.NoteWeights))
                 {
-                    d.SampleWeights[(int)sample].Weight = E.IntSlider(sample.ToString(), d.SampleWeights[(int)sample].Weight, 0, 10);
+                    EditorUtility.SetDirty(target);
                 }
             }
 
             if (GUILayout.Button("Generate New Pattern"))
             {
-                d.GenerateNewPattern(true);
+                d.UpdateNoteBag();
             }
 
 

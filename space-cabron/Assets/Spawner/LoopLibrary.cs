@@ -3,24 +3,24 @@ using Utils;
 
 public class Beat
 {
-    public int[][] subBeats;
+    public int SubBeats;
     public int Index;
-
-    public int CurrentAudio { get { return subBeats[Index][0]; } }
-    public int[] GetCurrentBeatNotes()
-    {
-        return subBeats[Index];
-    }
 
     public bool Advance()
     {
         Index++;
-        if (Index == subBeats.Length)
+        if (Index == SubBeats)
         {
             Index = 0;
             return true;
         }
         return false;
+    }
+
+    public Beat(int subBeats)
+    {
+        SubBeats = subBeats;
+        Index = 0;
     }
 }
 
@@ -31,16 +31,6 @@ public class Loop
 
     public Beat CurrentBeat { get { return Beats[Index]; } }
     public Beat LastBeat { get { return Beats[Mathf.Max(0, Index - 1)]; } }
-
-    public int GetInstrumentAudio()
-    {
-        return CurrentBeat.CurrentAudio;
-    }
-
-    public int[] GetInstrumentAudios()
-    {
-        return CurrentBeat.GetCurrentBeatNotes();
-    }
 
     public bool Advance(out bool endBeat)
     {
@@ -62,127 +52,39 @@ public class LoopCreator
 {
     public const int MAX_LOOPBEATS = 16;
 
-    public int[] Weights = new int[] { 2, 2, 2, 1, 1 };
     public int NBeats = 8;
     public int MaxSubBeats = 1;
-    public int MaxInstrumentsInBeat = 1;
 
-    public LoopCreator(int[] weights, int nBeats, int maxSubBeats, int maxInstrumentsInBeat)
+    public LoopCreator(int nBeats, int maxSubBeats)
     {
-        Weights = weights;
         NBeats = nBeats;
         MaxSubBeats = maxSubBeats;
-        MaxInstrumentsInBeat = maxInstrumentsInBeat;
     }
 
-    public int RandomSubBeats(int MaxSubBeats)
+    public static int RandomSubBeats(int MaxSubBeats)
     {
         return 1+Mathf.RoundToInt(Mathf.Round(Mathf.Pow(UnityEngine.Random.value, 1f)*MaxSubBeats) % MaxSubBeats);
     }
 
-    private Loop Create(int nBeats, ShuffleBag<int> beats)
-    {
-        return Create(nBeats, MaxSubBeats, MaxInstrumentsInBeat, beats);
-    }
-
-    public Loop Create(int nBeats, int maxSubBeats, int maxInstrumentsInBeat, int[] weights)
-    {
-        return Create(nBeats, maxSubBeats, maxInstrumentsInBeat, CreateBag(weights));
-    }
-
-    public Loop Create(int nBeats, int maxSubBeats, int maxInstrumentsInBeat, ShuffleBag<int> weights)
-    {
-        Loop l = new Loop();
-        l.Beats = new Beat[nBeats];
-
-        for (int i = 0; i < nBeats; i++)
-        {
-            Beat b = new Beat();
-
-            int nSubBeats = RandomSubBeats(maxSubBeats);
-            int nInstruments = UnityEngine.Random.Range(1, maxInstrumentsInBeat);
-
-            b.subBeats = new int[nSubBeats][];
-            for (int iSubBeat = 0; iSubBeat < nSubBeats; iSubBeat++)
-            {
-                b.subBeats[iSubBeat] = GenerateBeatInstruments(nInstruments, weights);
-            }
-
-            l.Beats[i] = b;
-        }
-
-        return l;
-    }
-
-    /*
-    public Loop Create(int nBeats, int maxSubBeats, int maxInstrumentsInBeat, ShuffleBag<int> weights)
-    {
-        Loop l = new Loop();
-        l.Beats = new Beat[nBeats];
-
-        for (int i = 0; i < nBeats; i++)
-        {
-            Beat b = new Beat();
-
-            int nSubBeats = RandomSubBeats(maxSubBeats);
-            int nInstruments = UnityEngine.Random.Range(1, maxInstrumentsInBeat);
-
-            b.subBeats = new int[nSubBeats][];
-            for (int iSubBeat = 0; iSubBeat < nSubBeats; iSubBeat++)
-            {
-                b.subBeats[iSubBeat] = GenerateBeatInstruments(nInstruments, weights);
-            }
-
-            l.Beats[i] = b;
-        }
-
-        return l;
-    }
-    */
-
-    public Loop Create(int nBeats, int[] weights)
-    {
-        ShuffleBag<int> beats = CreateBag(weights);
-        return Create(nBeats, beats);
-    }
-
-    public Loop Create(int nBeats)
-    {
-        return Create(nBeats, Weights);
-    }
-
     public Loop Create()
     {
-        return Create(NBeats, Weights);
+        Loop l = new Loop();
+        l.Beats = new Beat[NBeats];
+
+        for (int i = 0; i < NBeats; i++)
+            l.Beats[i] = new Beat(RandomSubBeats(MaxSubBeats));
+
+        return l;
     }
 
-    private static ShuffleBag<int> CreateBag(int[] weights)
+    public static Loop Create(int nBeats, int maxSubBeats)
     {
-        ShuffleBag<int> beats = new ShuffleBag<int>();
+        Loop l = new Loop();
+        l.Beats = new Beat[nBeats];
 
-        for (int i = 0; i < weights.Length; i++)
-        {
-            beats.Add(i, weights[i]);
-        }
+        for (int i = 0; i < nBeats; i++)
+            l.Beats[i] = new Beat(RandomSubBeats(maxSubBeats));
 
-        return beats;
-    }
-
-    private static int[] GenerateBeatInstruments(int nInstruments, ShuffleBag<int> beats, int none=-1)
-    {
-        int[] insts = new int[nInstruments];
-        for (int i = 0; i < nInstruments; i++)
-        {
-            insts[i] = beats.Next();
-            if (insts[i] == none)
-            {
-                for (int j = i; j < nInstruments; j++)
-                {
-                    insts[j] = none;
-                }
-                break;
-            }
-        }
-        return insts;
+        return l;
     }
 }

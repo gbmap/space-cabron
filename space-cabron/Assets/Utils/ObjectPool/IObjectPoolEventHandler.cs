@@ -8,6 +8,6 @@ namespace ObjectPool
 {
     public interface IObjectPoolEventHandler : IEventSystemHandler
     {
-        void Reset();
+        void PoolReset();
     }
 }

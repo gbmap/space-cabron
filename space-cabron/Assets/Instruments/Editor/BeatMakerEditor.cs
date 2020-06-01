@@ -6,17 +6,20 @@ using UnityEditor;
 namespace SC
 {
     using E = EditorGUILayout;
-    /*
+    
     [CustomEditor(typeof(BeatMaker))]
     public class BeatMakerEditor : Editor
     {
         public override void OnInspectorGUI()
         {
+            DrawDefaultInspector();
             var bm = target as BeatMaker;
-            //BeatMakerEditorUtility.DrawInspector(ref bm.BPM, ref bm.MaxSubBeats, ref bm.MaxInstrumentsInBeat, ref bm.BeatsInBar);
+            if (GUILayout.Button("Generate New Beat"))
+            {
+                bm.RefreshLoop();
+            }
         }
     }
-    */
     public static class BeatMakerEditorUtility
     {
         public static void DrawInspector(ref int BPM,

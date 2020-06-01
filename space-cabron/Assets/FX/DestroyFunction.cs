@@ -3,19 +3,12 @@ using ObjectPool;
 
 public class DestroyFunction : MonoBehaviour, IObjectPoolEventHandler
 {
-    public void Destroy()
+    public void AnimDestroy()
     {
-        if (GetComponent<ObjectPoolBehavior>())
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        this.DestroyOrDisable();
     }
 
-    public void Reset()
+    public void PoolReset()
     {
 
     }

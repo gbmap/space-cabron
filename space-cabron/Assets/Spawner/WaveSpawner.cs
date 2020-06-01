@@ -41,14 +41,11 @@ public class WaveGenerator
         //w.enemiesSpawned = w.enemies;
         return w;
     }
-
 }
-
 
 public class WaveSpawner : MonoBehaviour
 {
-    public BeatMakerBehaviour BeatMakerBehaviour;
-    public BeatMaker Beatmaker { get { return BeatMakerBehaviour.BeatMaker; } }
+    public BeatMaker Beatmaker;
     public EnemySpawner spawner;
 
     private WaveGenerator gen;
@@ -87,7 +84,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    private void OnBeat(int[] obj)
+    private void OnBeat()
     {
         var w = CurrentWave;
         if (w == null) return;

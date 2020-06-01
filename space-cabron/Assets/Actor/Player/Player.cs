@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -10,7 +7,7 @@ public class Player : MonoBehaviour
     // ==== ANIMATION CONTROL
     Animator _animator;
     int _animatorXHash;
-    
+
     // ===== MOVEMENT CONTROL
     public float Speed;
 
@@ -21,11 +18,9 @@ public class Player : MonoBehaviour
 
     EInstrumentAudio[] _shotPattern;
     int _currentBeat;
-    
-    public AudioClip ShotSound;
-    public BeatMakerBehaviour BeatMakerBehaviour;
 
-    public BeatMaker BeatMaker { get { return BeatMakerBehaviour.BeatMaker; } }
+    public AudioClip ShotSound;
+    public Synth Instrument;
 
     private void Awake()
     {
@@ -39,7 +34,13 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        BeatMaker.OnBeat += OnBeat;
+        Instrument.OnNote += OnNote;
+    }
+
+    private void OnNote(ENote obj)
+    {
+        _pool.Instantiate(transform.position + transform.right * 0.1f, Quaternion.identity);
+        _pool.Instantiate(transform.position - transform.right * 0.1f, Quaternion.identity);
     }
 
     private void ShuffleShotPattern()
@@ -57,17 +58,7 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        BeatMaker.OnBeat -= OnBeat;
-    }
-
-    private void OnBeat(int[] obj)
-    {
-        if (obj[0] < 12)
-        {
-            _pool.Instantiate(transform.position + transform.right*0.1f, Quaternion.identity);
-            _pool.Instantiate(transform.position - transform.right*0.1f, Quaternion.identity);
-            //AudioSource.PlayClipAtPoint(ShotSound, transform.position);
-        }
+        Instrument.OnNote -= OnNote;
     }
 
     private void FixedUpdate()
@@ -75,14 +66,5 @@ public class Player : MonoBehaviour
         Vector2 input = Vector2.right * Input.GetAxis("Horizontal") + Vector2.up * Input.GetAxis("Vertical");
         _animator.SetFloat(_animatorXHash, input.x);
         _rbody.MovePosition(_rbody.position + input * Speed);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("IncreaseBPM"))
-        {
-            BeatMaker.BPM += 5;
-            Destroy(collision.gameObject);
-        }
     }
 }

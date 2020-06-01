@@ -94,26 +94,16 @@ public enum ENoteTime
     OnBar
 }
 
-[System.Serializable]
-public class NoteChance
+public class Synth : Instrument<ENote>
 {
-    public ENote note;
-    public int Weight;
-}
+    public override int NoNote => (int)ENote.None;
 
-public class Synth : BeatMakerBehaviour
-{
     public AudioSource audioSource;
-    public int BPM = 100;
-    public int MaxSubBeats = 1;
-    public int MaxInstrumentsPerBeat = 1;
-    public int NBeats = 8;
 
     public int Octave = 3;
 
     public ENoteTime noteTime;
     public bool HoldNote;
-    public List<NoteChance> NoteWeights = new List<NoteChance>();
 
     int noteIndex;
     
@@ -134,49 +124,19 @@ public class Synth : BeatMakerBehaviour
 
     private double a;
 
-    private void Awake()
-    {
-        BeatMaker = new BeatMaker(NoteWeights.Select(n => n.Weight).ToArray(), 
-            MaxSubBeats, 
-            MaxInstrumentsPerBeat, 
-            NBeats, 
-            BPM
-        );
-        BeatMaker.Run();
-        BeatMaker.OnBar += OnBar;
-        BeatMaker.OnBeat += OnBeat;
-    }
-
-    private void OnDisable()
-    {
-        BeatMaker.OnBar -= OnBar;
-        BeatMaker.OnBeat -= OnBeat;
-    }
-
-    private void OnBar(int bar)
-    {
-        
-    }
-
-    private void OnBeat(int[] notes)
+    protected override void OnNoteCallback(ENote note)
     {
         if (noteTime != ENoteTime.OnBeat) return;
 
-        foreach (int n in notes)
-        {
-            if (n == (int)ENote.None) return;
+        Envelope.KeyOff();
+        Envelope.KeyOn();
 
-            Envelope.KeyOff();
-            Envelope.KeyOn();
-            ENote note = (ENote)n;
-            Frequency = NoteToFrequency(note, Octave);
-            if (!HoldNote) Envelope.KeyOff();
-        }
+        Frequency = NoteToFrequency(note, Octave);
+        if (!HoldNote) Envelope.KeyOff();
     }
 
     private void Update()
     {
-        BeatMaker.Update(true);
         t = Time.time;
         a = (float)Envelope.GetAmplitude(t);
         audioSource.volume =(float)a;
@@ -205,6 +165,7 @@ public class Synth : BeatMakerBehaviour
     }
 
     public static string[] Notes = { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "None" };
+
     public float NoteToFrequency(string note)
     {
         int octave = (note.Length == 3 ? note[2] : note[1]) - '0';
@@ -228,42 +189,8 @@ public class Synth : BeatMakerBehaviour
         return NoteToFrequency(n);
     }
 
-    public void ChangePattern(bool updateValues = false)
+    protected override ENote FromInt(int v)
     {
-        if (updateValues)
-        {
-            BeatMaker.BPM = BPM;
-            BeatMaker.LoopCreator.MaxSubBeats = MaxSubBeats;
-            BeatMaker.LoopCreator.MaxInstrumentsInBeat = MaxInstrumentsPerBeat;
-            BeatMaker.LoopCreator.NBeats = NBeats;
-            BeatMaker.LoopCreator.Weights = NoteWeights.Select(n => n.Weight).ToArray();
-        }
-        BeatMaker.RefreshLoop();
+        return (ENote)v;
     }
-
-    public static List<NoteChance> GenerateNoteWeights(int[] weights)
-    {
-        List<NoteChance> notes = new List<NoteChance>();
-
-        var values = Enum.GetValues(typeof(ENote));
-        int i = 0;
-        foreach (var v in values)
-        {
-            notes.Add(new NoteChance
-            {
-                note = (ENote)v,
-                Weight = weights[i]
-            });
-            i++;
-        }
-
-        return notes;
-    }
-
-    private void OnGUI()
-    {
-        BeatMaker.OnGUI();
-
-    }
-
 }

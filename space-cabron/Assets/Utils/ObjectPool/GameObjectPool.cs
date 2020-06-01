@@ -53,7 +53,7 @@ namespace ObjectPool {
             obj.transform.position = pPos;
             obj.transform.rotation = pRot;
             //obj.SendMessage<IObjectPoolEventHandler>(o => o.Reset());
-            obj.SendMessage<IObjectPoolEventHandler>(o => o.Reset());
+            obj.SendMessage<IObjectPoolEventHandler>(o => o.PoolReset());
             return obj;
         }
 

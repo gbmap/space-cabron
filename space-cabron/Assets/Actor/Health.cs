@@ -57,7 +57,7 @@ public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
         }
     }
 
-    void IObjectPoolEventHandler.Reset()
+    void IObjectPoolEventHandler.PoolReset()
     {
         _currentHealth = MaxHealth;
     }

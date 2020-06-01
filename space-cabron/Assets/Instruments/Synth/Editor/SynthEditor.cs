@@ -22,8 +22,7 @@ namespace SC {
             E.LabelField("Beat", EditorStyles.boldLabel);
 
             E.PropertyField(serializedObject.FindProperty("audioSource"));
-
-            BeatMakerEditorUtility.DrawInspector(ref s.BPM, ref s.MaxSubBeats, ref s.MaxInstrumentsPerBeat, ref s.NBeats);
+            E.PropertyField(serializedObject.FindProperty("BeatMaker"));
 
             s.noteTime = (ENoteTime)E.EnumPopup("Note Time", s.noteTime);
 
@@ -37,17 +36,15 @@ namespace SC {
             noteChances = E.Foldout(noteChances, "Note Chances");
             if (noteChances)
             {
-                if (s.NoteWeights.Count == 0) s.NoteWeights = Synth.GenerateNoteWeights(new int[13]);
-
-                foreach (ENote note in System.Enum.GetValues(typeof(ENote)))
+                if (InstrumentEditor<ENote>.DrawChancesInspector(ref s.NoteWeights))
                 {
-                    s.NoteWeights[(int)note].Weight = E.IntSlider(Synth.Notes[(int)note], s.NoteWeights[(int)note].Weight, 0, 10);
+                    EditorUtility.SetDirty(target);
                 }
             }
 
             if (GUILayout.Button("Generate New Notes"))
             {
-                s.ChangePattern(true);
+                s.UpdateNoteBag();
             }
 
             E.Space();
@@ -63,6 +60,7 @@ namespace SC {
 
             E.PropertyField(serializedObject.FindProperty("Envelope"));
 
+            //EditorUtility.SetDirty(target);
             serializedObject.ApplyModifiedProperties();
 
         }
