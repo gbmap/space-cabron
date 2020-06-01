@@ -20,10 +20,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3491617036780379380, guid: a158df808659c1c40a605ae3ab61debf,
+    - target: {fileID: -5460570813271817069, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
-      propertyPath: m_Name
-      value: EnemyFollow
+      propertyPath: SpawnFactor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5460570813271817069, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: DamageFactor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
@@ -80,18 +85,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8742632640915627268, guid: a158df808659c1c40a605ae3ab61debf,
+    - target: {fileID: 3491617036780379380, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 22100000, guid: b1676da8350d0d24a9953414e52b1da6,
-        type: 2}
-    - target: {fileID: 6279716415127280445, guid: a158df808659c1c40a605ae3ab61debf,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1220633518762566809, guid: 1254e9e47b13c6540a477e38e30c804f,
-        type: 3}
+      propertyPath: m_Name
+      value: EnemyFollow
+      objectReference: {fileID: 0}
     - target: {fileID: 3866330673829711138, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -107,6 +105,18 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.17
       objectReference: {fileID: 0}
+    - target: {fileID: 6279716415127280445, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1220633518762566809, guid: 1254e9e47b13c6540a477e38e30c804f,
+        type: 3}
+    - target: {fileID: 8742632640915627268, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: b1676da8350d0d24a9953414e52b1da6,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a158df808659c1c40a605ae3ab61debf, type: 3}
 --- !u!1 &2871415668028923354 stripped

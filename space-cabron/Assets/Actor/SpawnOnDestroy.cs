@@ -28,7 +28,7 @@ public class SpawnOnDestroy : MonoBehaviour
         health.OnDestroy -= OnDestruction;
     }
 
-    private void OnDestruction()
+    private void OnDestruction(Health destroyed)
     {
         foreach (var item in items)
         {

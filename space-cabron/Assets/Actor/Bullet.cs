@@ -19,6 +19,8 @@ public class Bullet : MonoBehaviour
             health.TakeDamage();
         }
 
+        FX.Instance.SpawnExplosion(FX.EExplosionSize.Medium, transform.position);
+
         if (_poolBehavior)
         {
             gameObject.SetActive(false);

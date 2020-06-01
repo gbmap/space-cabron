@@ -18,7 +18,7 @@ TagManager:
   - Enemy
   - PlayerBullet
   - EnemyBullet
-  - 
+  - NeutralBullet
   - 
   - 
   - 
@@ -41,4 +41,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Bullet
+    uniqueID: 4290426991
+    locked: 0
+  - name: FX
+    uniqueID: 591459781
     locked: 0

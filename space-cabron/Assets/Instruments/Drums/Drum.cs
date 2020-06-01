@@ -1,46 +1,96 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Drum : MonoBehaviour
+public class BeatMakerBehaviour : MonoBehaviour
+{
+    public BeatMaker BeatMaker;
+}
+
+[System.Serializable]
+public class SampleChance
+{
+    public EInstrumentAudio Sample;
+    public int Weight;
+}
+
+public class Drum : BeatMakerBehaviour
 {
     public AudioSource source;
     public InstrumentAudioSample instrument;
-    public BeatMaker tt;
+
+    public int BPM = 100;
+    public int MaxSubBeats = 1;
+    public int MaxInstrumentsPerBeat = 1;
+    public int NBeats = 8;
+
+    public List<SampleChance> SampleWeights = new List<SampleChance>();
 
     void Awake()
     {
-        tt = new BeatMaker(new int[] { 3, 1, 1, 1, 2 }, 1, 1, 8);
-        tt.Run();
+        BeatMaker = new BeatMaker(SampleWeights.Select(w=>w.Weight).ToArray(), 
+            MaxSubBeats,
+            MaxInstrumentsPerBeat,
+            NBeats,
+            BPM);
+        BeatMaker.Run();
+
+        BeatMaker.OnBeat += OnBeat;
     }
 
-    private void OnEnable()
+    public void GenerateNewWeights()
     {
-        tt.OnBeat += OnBeat;
+        SampleWeights = new List<SampleChance>();
+        var values = System.Enum.GetValues(typeof(EInstrumentAudio));
+        foreach (EInstrumentAudio v in values)
+        {
+            SampleWeights.Add(new SampleChance
+            {
+                Sample = v,
+                Weight = 0
+            });
+        }
+    }
+
+    public void GenerateNewPattern(bool updateValues = false)
+    {
+        if (updateValues)
+        {
+            BeatMaker.BPM = BPM;
+            BeatMaker.LoopCreator.MaxSubBeats = MaxSubBeats;
+            BeatMaker.LoopCreator.MaxInstrumentsInBeat = MaxInstrumentsPerBeat;
+            BeatMaker.LoopCreator.NBeats = NBeats;
+            BeatMaker.LoopCreator.Weights = SampleWeights.Select(n => n.Weight).ToArray();
+        }
+        BeatMaker.RefreshLoop();
     }
 
     private void OnDisable()
     {
-        tt.OnBeat -= OnBeat;    
+        BeatMaker.OnBeat -= OnBeat;    
     }
 
     // Update is called once per frame
     void Update()
     {
-        tt.Update();
+        BeatMaker.Update();
     }
 
     private void OnBeat(int[] notes)
     {
         EInstrumentAudio[] samples = notes.Select(n => (EInstrumentAudio)n).ToArray();
+
         foreach (var sample in samples)
         {
+            if (sample == EInstrumentAudio.None) return;
             source.PlayOneShot(instrument.GetAudio(sample));
         }
     }
 
     private void OnGUI()
     {
-        tt.OnGUI();
+        return;
+        BeatMaker.OnGUI();
     }
 }

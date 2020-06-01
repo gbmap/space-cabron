@@ -2,8 +2,9 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
-		[PerRendererData] _Damage ("Damage Float", Float) = 0.0
+        [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
+		[PerRendererData] _Damage ("Damage Float", Range(0.0, 1.0)) = 0.0
+		[PerRendererData] _Spawn ("Spawn Float", Range(0.0, 1.0)) = 0.0
     }
     SubShader
     {
@@ -38,12 +39,20 @@
             float4 _MainTex_ST;
 
 			float _Damage;
+			float _Spawn;
+
+
+
+			fixed3 spawnfx(fixed2 uv) 
+			{
+				return fixed3(0.0, 0.0, 0.0);
+			}
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
 
@@ -51,7 +60,8 @@
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
-				col.rgb += fixed4(1.0, 1.0, 1.0, 1.0) * _Damage;
+				col.rgb += fixed3(1.0, 1.0, 1.0) * _Damage;
+				col.rgb += spawnfx(i.uv) * _Spawn;
 				col.rgb *= col.a;
                 // apply fog
                 return col;

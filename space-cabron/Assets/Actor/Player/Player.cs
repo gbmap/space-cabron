@@ -23,8 +23,9 @@ public class Player : MonoBehaviour
     int _currentBeat;
     
     public AudioClip ShotSound;
+    public BeatMakerBehaviour BeatMakerBehaviour;
 
-    public BeatMaker Turntable;
+    public BeatMaker BeatMaker { get { return BeatMakerBehaviour.BeatMaker; } }
 
     private void Awake()
     {
@@ -34,8 +35,11 @@ public class Player : MonoBehaviour
 
         _pool = new ObjectPool.GameObjectPool(Bullet);
         _pool.InitPool(200);
+    }
 
-        ShuffleShotPattern();
+    private void Start()
+    {
+        BeatMaker.OnBeat += OnBeat;
     }
 
     private void ShuffleShotPattern()
@@ -51,25 +55,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        Turntable.OnBeat += OnBeat;
-    }
-
     private void OnDisable()
     {
-        Turntable.OnBeat -= OnBeat;
+        BeatMaker.OnBeat -= OnBeat;
     }
 
     private void OnBeat(int[] obj)
     {
-        _currentBeat = (++_currentBeat) % _shotPattern.Length;
-
-        if (_shotPattern[_currentBeat] != EInstrumentAudio.None)
+        if (obj[0] < 12)
         {
             _pool.Instantiate(transform.position + transform.right*0.1f, Quaternion.identity);
             _pool.Instantiate(transform.position - transform.right*0.1f, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(ShotSound, transform.position);
+            //AudioSource.PlayClipAtPoint(ShotSound, transform.position);
         }
     }
 
@@ -84,7 +81,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("IncreaseBPM"))
         {
-            Turntable.BPM += 5;
+            BeatMaker.BPM += 5;
             Destroy(collision.gameObject);
         }
     }

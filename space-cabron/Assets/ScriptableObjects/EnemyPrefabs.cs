@@ -8,9 +8,11 @@ public enum EEnemyType
     Dasher,
     Follow,
     Mine,
-    Thug
+    Thug,
+    Test
 }
 
+[System.Serializable]
 public class EnemyPrefabs : ScriptableObject
 {
     public GameObject enemyBullet;

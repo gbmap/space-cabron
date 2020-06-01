@@ -1,0 +1,159 @@
+{ "frames": {
+   "enemy_dasher 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 1.ase": {
+    "frame": { "x": 37, "y": 0, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 2.ase": {
+    "frame": { "x": 74, "y": 0, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 3.ase": {
+    "frame": { "x": 111, "y": 0, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 4.ase": {
+    "frame": { "x": 0, "y": 47, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 5.ase": {
+    "frame": { "x": 37, "y": 47, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 6.ase": {
+    "frame": { "x": 74, "y": 47, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 7.ase": {
+    "frame": { "x": 111, "y": 47, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 8.ase": {
+    "frame": { "x": 0, "y": 94, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 9.ase": {
+    "frame": { "x": 74, "y": 0, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 10.ase": {
+    "frame": { "x": 37, "y": 94, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 11.ase": {
+    "frame": { "x": 74, "y": 94, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 12.ase": {
+    "frame": { "x": 111, "y": 94, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 13.ase": {
+    "frame": { "x": 0, "y": 141, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 14.ase": {
+    "frame": { "x": 37, "y": 141, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 15.ase": {
+    "frame": { "x": 74, "y": 141, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 16.ase": {
+    "frame": { "x": 74, "y": 0, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   },
+   "enemy_dasher 17.ase": {
+    "frame": { "x": 74, "y": 0, "w": 37, "h": 47 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 47 },
+    "sourceSize": { "w": 37, "h": 47 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.19.2-x64",
+  "image": "enemy_dasher.png",
+  "format": "I8",
+  "size": { "w": 148, "h": 188 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle", "from": 0, "to": 1, "direction": "forward" },
+   { "name": "disabled", "from": 2, "to": 17, "direction": "forward" }
+  ]
+ }
+}

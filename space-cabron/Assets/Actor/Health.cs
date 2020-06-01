@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Frictionless;
+﻿using Frictionless;
 using ObjectPool;
 using UnityEngine;
 
@@ -13,11 +11,10 @@ public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     SpriteRenderer _spriteRenderer;
     int _damageId = Shader.PropertyToID("_Damage");
 
-
     MessageRouter _messageRouter;
     ObjectPool.ObjectPoolBehavior _poolBehavior;
 
-    public System.Action OnDestroy;
+    public System.Action<Health> OnDestroy;
 
     void Awake()
     {
@@ -31,20 +28,20 @@ public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     void Update()
     {
         float _damage = _spriteRenderer.material.GetFloat(_damageId);
-        _spriteRenderer.material.SetFloat(_damageId, Mathf.Lerp(_damage, 0f, Time.deltaTime * 3f));
+        _spriteRenderer.material.SetFloat(_damageId, Mathf.Lerp(_damage, 0f, Time.deltaTime*2f));
     }
 
     public void TakeDamage()
     {
         _currentHealth--;
+        
         _spriteRenderer.material.SetFloat(_damageId, 1.0f);
 
         if (_currentHealth == 0)
         {
-            if (OnDestroy != null)
-            {
-                OnDestroy();
-            }
+            FX.Instance.SpawnExplosionCluster(MaxHealth, transform.position);
+
+            OnDestroy?.Invoke(this);
 
             if (_poolBehavior)
             {

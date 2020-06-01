@@ -6,7 +6,7 @@ public enum EInstrumentAudio
     Snare,
     FloorTom,
     HiHat,
-    None,
+    None
 }
 
 [System.Serializable]

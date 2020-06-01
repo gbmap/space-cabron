@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5611dd9930b2d14f849e5a98c417db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 374685456115509819, guid: 6012ac78e1f25254992123d664194be5, type: 3}
+  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
   Cooldown: 0.25
   _angle: -90
 --- !u!114 &2130818594
@@ -54,11 +54,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3491617036780379380, guid: a158df808659c1c40a605ae3ab61debf,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemyThug
-      objectReference: {fileID: 0}
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -114,6 +109,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3491617036780379380, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemyThug
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866330673829711138, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866330673829711138, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279716415127280445, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1517045262845579119, guid: c939291984ba812418f637b752e3a1ea,
+        type: 3}
     - target: {fileID: 8070258353430109735, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: MaxHealth
@@ -125,22 +141,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 63bbfaa557d3b88489a95c3fb50e62a1,
         type: 2}
-    - target: {fileID: 6279716415127280445, guid: a158df808659c1c40a605ae3ab61debf,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1517045262845579119, guid: c939291984ba812418f637b752e3a1ea,
-        type: 3}
-    - target: {fileID: 3866330673829711138, guid: a158df808659c1c40a605ae3ab61debf,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 3866330673829711138, guid: a158df808659c1c40a605ae3ab61debf,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.64
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a158df808659c1c40a605ae3ab61debf, type: 3}
 --- !u!1 &5460528552418457928 stripped

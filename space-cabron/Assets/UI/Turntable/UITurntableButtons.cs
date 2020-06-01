@@ -8,7 +8,7 @@ public class UITurntableButtons : MonoBehaviour
 
     private void Start()
     {
-        tt.tt.OnBeat += OnBeat;
+        tt.BeatMaker.OnBeat += OnBeat;
     }
 
     private void OnBeat(int[] obj)
@@ -27,24 +27,24 @@ public class UITurntableButtons : MonoBehaviour
             var img = c.GetComponent<Image>();
             img.color = Color.gray;
 
-            if (x >= tt.tt.Loop.Beats.Length)
+            if (x >= tt.BeatMaker.Loop.Beats.Length)
             {
                 img.color = new Color(0.1f, 0.1f, 0.1f);
                 continue;
             }
 
-            int t = tt.tt.Loop.Index;
+            int t = tt.BeatMaker.Loop.Index;
             if (x == t) img.color = Color.green;
             //var s = tt.loop.Beats[x].instrumentAudio.Cast<int>().Select(ss => ss - 1); //((int)tt.loop.Beats[x].instrumentAudio[0])-1;
 
-            Beat b = tt.tt.Loop.Beats[x];
+            Beat b = tt.BeatMaker.Loop.Beats[x];
             int[][] subBeats = b.subBeats;
             int[] insts = subBeats[b.Index];
 
             for (int j = 0; j < insts.Length; j++)
             {
                 var inst = insts[j];
-                int s = -1 + inst;
+                int s = inst;
                 if (s == y) img.color = Color.white;
             }
             //int s = -1 + ((int)tt.loop.Beats[x].CurrentAudio);

@@ -47,7 +47,8 @@ public class WaveGenerator
 
 public class WaveSpawner : MonoBehaviour
 {
-    public BeatMaker tt;
+    public BeatMakerBehaviour BeatMakerBehaviour;
+    public BeatMaker Beatmaker { get { return BeatMakerBehaviour.BeatMaker; } }
     public EnemySpawner spawner;
 
     private WaveGenerator gen;
@@ -58,6 +59,8 @@ public class WaveSpawner : MonoBehaviour
         get { return _waveQueue.Count > 0 ? _waveQueue.Peek() : null; }
     }
 
+    int _currentEnemies;
+
     private void Awake()
     {
         gen = new WaveGenerator();
@@ -66,12 +69,12 @@ public class WaveSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        tt.OnBar += OnBar;
+        Beatmaker.OnBar += OnBar;
     }
 
     private void OnDisable()
     {
-        tt.OnBar -= OnBar;
+        Beatmaker.OnBar -= OnBar;
     }
 
     private void OnBar(int obj)
@@ -80,29 +83,45 @@ public class WaveSpawner : MonoBehaviour
         {
             // gerar nova wave
             _waveQueue.Enqueue(gen.GenerateRandomWave());
-            tt.OnBeat += OnBeat;
+            Beatmaker.OnBeat += OnBeat;
         }
     }
 
     private void OnBeat(int[] obj)
     {
         var w = CurrentWave;
-        if (CurrentWave.enemiesSpawned < w.enemies)
+        if (w == null) return;
+
+        if (w.enemiesSpawned < w.enemies)
         {
             float t = (float)w.enemiesSpawned / w.enemies;
             float offset = 1f;
             float x0 = (offset * (w.enemies-1)) * -0.5f;
             float xo = x0 + offset * w.enemiesSpawned;
 
-            Vector3 pos = new Vector3(xo, 1f, 0f);
-            spawner.Spawn(EEnemyType.Follow, pos);
+            Vector3 worldPos = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.9f, 0f));
+
+            Vector3 pos = new Vector3(xo, worldPos.y, 0f);
+
+            GameObject enemy = spawner.Spawn(EEnemyType.Follow, pos);
+            enemy.GetComponent<Health>().OnDestroy += OnEnemyDestroyed;
 
             w.enemiesSpawned++;
+            _currentEnemies++;
         }
         else
         {
+        
+            Beatmaker.OnBeat -= OnBeat;
+        }
+    }
+
+    void OnEnemyDestroyed(Health objectDestroyed)
+    {
+        _currentEnemies--;
+        if (_currentEnemies <= 0)
+        {
             _waveQueue.Dequeue();
-            tt.OnBeat -= OnBeat;
         }
     }
 }

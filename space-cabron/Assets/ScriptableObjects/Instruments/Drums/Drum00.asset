@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450a8d3488398a348be5ef7971b02865, type: 3}
   m_Name: Drum00
   m_EditorClassIdentifier: UnityEngine.CoreModule:UnityEngine:ScriptableObject
-  Kick: {fileID: 8300000, guid: 313feccb07c2a1c4486449e4a34bffe6, type: 3}
-  Snare: {fileID: 8300000, guid: 87ca5566d4156e14aa4baa39a1d808df, type: 3}
-  FloorTom: {fileID: 8300000, guid: 788d7348b0bfac140aa36e630f0158a4, type: 3}
-  HiHat: {fileID: 8300000, guid: 8e832fd5ea390484294ae8e86c84329f, type: 3}
+  Instruments:
+  - {fileID: 8300000, guid: 313feccb07c2a1c4486449e4a34bffe6, type: 3}
+  - {fileID: 8300000, guid: 87ca5566d4156e14aa4baa39a1d808df, type: 3}
+  - {fileID: 8300000, guid: 788d7348b0bfac140aa36e630f0158a4, type: 3}
+  - {fileID: 8300000, guid: 8e832fd5ea390484294ae8e86c84329f, type: 3}
+  - {fileID: 0}

@@ -42,6 +42,8 @@ public class EnemySpawner : MonoBehaviour
         _poolEnemies = new Dictionary<GameObject, ObjectPool.GameObjectPool>();
         foreach (GameObject prefab in EnemyPrefabs.prefabs)
         {
+            if (prefab == null) continue;
+
             _poolEnemies[prefab] = new ObjectPool.GameObjectPool(prefab);
             _poolEnemies[prefab].InitPool(50);
         }

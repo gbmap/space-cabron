@@ -26,7 +26,7 @@ public class UISynthWaves : MonoBehaviour
         float tIncrement = 1f / cells.Length;
         for (int i = 0; i < cells.Length; i++)
         {
-            float ss = synth.Instrument.Sample(t*Mathf.PI*2f) * (float)a;
+            float ss = synth.Instrument.Sample(t*Mathf.PI*2f, (float)synth.Frequency) * (float)a;
 
             RectTransform c = cells[i];
 

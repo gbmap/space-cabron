@@ -101,14 +101,19 @@ public class NoteChance
     public int Weight;
 }
 
-public class Synth : MonoBehaviour
+public class Synth : BeatMakerBehaviour
 {
     public AudioSource audioSource;
-    public BeatMaker tt;
+    public int BPM = 100;
+    public int MaxSubBeats = 1;
+    public int MaxInstrumentsPerBeat = 1;
+    public int NBeats = 8;
+
+    public int Octave = 3;
+
     public ENoteTime noteTime;
     public bool HoldNote;
     public List<NoteChance> NoteWeights = new List<NoteChance>();
-    public bool IgnoreTurnTableSilence = true;
 
     int noteIndex;
     
@@ -118,7 +123,7 @@ public class Synth : MonoBehaviour
     public SynthInstrument Instrument;
     public EnvelopeASDR Envelope;
 
-    double frequency = 440.0;
+    public double Frequency = 440.0;
 
     float[] prevData;
     double increment;
@@ -131,20 +136,21 @@ public class Synth : MonoBehaviour
 
     private void Awake()
     {
-        tt = new BeatMaker(NoteWeights.Select(n => n.Weight).ToArray(), 1, 1, 8);
-        tt.Run();
-    }
-
-    private void OnEnable()
-    {
-        tt.OnBar += OnBar;
-        tt.OnBeat += OnBeat;
+        BeatMaker = new BeatMaker(NoteWeights.Select(n => n.Weight).ToArray(), 
+            MaxSubBeats, 
+            MaxInstrumentsPerBeat, 
+            NBeats, 
+            BPM
+        );
+        BeatMaker.Run();
+        BeatMaker.OnBar += OnBar;
+        BeatMaker.OnBeat += OnBeat;
     }
 
     private void OnDisable()
     {
-        tt.OnBar -= OnBar;
-        tt.OnBeat -= OnBeat;
+        BeatMaker.OnBar -= OnBar;
+        BeatMaker.OnBeat -= OnBeat;
     }
 
     private void OnBar(int bar)
@@ -158,19 +164,19 @@ public class Synth : MonoBehaviour
 
         foreach (int n in notes)
         {
-            if (n == (int)ENote.None && !IgnoreTurnTableSilence) return;
+            if (n == (int)ENote.None) return;
 
             Envelope.KeyOff();
             Envelope.KeyOn();
             ENote note = (ENote)n;
-            frequency = NoteToFrequency(note, 3);
+            Frequency = NoteToFrequency(note, Octave);
             if (!HoldNote) Envelope.KeyOff();
         }
     }
 
     private void Update()
     {
-        tt.Update(true);
+        BeatMaker.Update(true);
         t = Time.time;
         a = (float)Envelope.GetAmplitude(t);
         audioSource.volume =(float)a;
@@ -179,24 +185,20 @@ public class Synth : MonoBehaviour
     double f;
     private void OnAudioFilterRead(float[] data, int channels)
     {
-        double w = frequency * 2.0 * Mathf.PI;
+        double w = Frequency * 2.0 * Mathf.PI;
         f = w / samplingFrequency;
 
         for (int i = 0; i < data.Length; i += channels)
         {
             phase += f;
             float p = (float)phase;
-            data[i] += Gain * Instrument.Sample(p);
+            data[i] += Gain * Instrument.Sample(p, (float)Frequency);
 
             if (channels == 2)
             {
                 data[i + 1] = data[i];
             }
 
-            if (phase > 2f*Mathf.PI)
-            {
-                phase = 0f;
-            }
         }
 
         prevData = data;
@@ -210,7 +212,7 @@ public class Synth : MonoBehaviour
         int keyNumber = Array.IndexOf(Notes, note.Substring(0, note.Length - 1));
         if (keyNumber < 3)
         {
-            keyNumber = keyNumber + 12 + ((octave - 1) * 12) + 1;
+            keyNumber = keyNumber + ((octave - 1) * 12) + 1;
         }
         else
         {
@@ -226,27 +228,17 @@ public class Synth : MonoBehaviour
         return NoteToFrequency(n);
     }
 
-    private string[] GeneratePattern()
+    public void ChangePattern(bool updateValues = false)
     {
-        ShuffleBag<ENote> notes = new ShuffleBag<ENote>();
-        foreach (var noteWeight in NoteWeights)
+        if (updateValues)
         {
-            notes.Add(noteWeight.note, noteWeight.Weight);
+            BeatMaker.BPM = BPM;
+            BeatMaker.LoopCreator.MaxSubBeats = MaxSubBeats;
+            BeatMaker.LoopCreator.MaxInstrumentsInBeat = MaxInstrumentsPerBeat;
+            BeatMaker.LoopCreator.NBeats = NBeats;
+            BeatMaker.LoopCreator.Weights = NoteWeights.Select(n => n.Weight).ToArray();
         }
-
-        string[] n = new string[tt.NBeats];
-        for (int i = 0; i < tt.NBeats; i++)
-        {
-            int v = (int)notes.Next();
-            if (v == (int)ENote.None) n[i] = "";
-            else n[i] = Notes[v] + "3";
-        }
-        return n;
-    }
-
-    public void ChangePattern()
-    {
-        tt.RefreshLoop();
+        BeatMaker.RefreshLoop();
     }
 
     public static List<NoteChance> GenerateNoteWeights(int[] weights)
@@ -270,7 +262,7 @@ public class Synth : MonoBehaviour
 
     private void OnGUI()
     {
-        tt.OnGUI();
+        BeatMaker.OnGUI();
 
     }
 

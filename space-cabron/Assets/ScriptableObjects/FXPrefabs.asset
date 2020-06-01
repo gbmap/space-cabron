@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 278c9502098d8384e8391fce23bca8d8, type: 3}
+  m_Name: FXPrefabs
+  m_EditorClassIdentifier: UnityEngine.CoreModule:UnityEngine:ScriptableObject
+  Explosions:
+  - {fileID: 7623507080045574984, guid: 0e2afddf9a7421c48a916a70d73232de, type: 3}
+  - {fileID: 5726426320504031278, guid: af65608056550bd458c91e9a5d7243b8, type: 3}
+  - {fileID: 0}

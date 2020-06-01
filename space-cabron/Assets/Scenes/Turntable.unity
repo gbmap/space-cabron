@@ -2142,6 +2142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 370646152}
+  BPM: 100
+  MaxSubBeats: 1
+  MaxInstrumentsPerBeat: 1
+  NBeats: 8
+  Octave: 3
   noteTime: 0
   HoldNote: 1
   NoteWeights:
@@ -2171,15 +2176,16 @@ MonoBehaviour:
     Weight: 0
   - note: 12
     Weight: 0
-  IgnoreTurnTableSilence: 1
   Gain: 0.1
-  Instrument: {fileID: 11400000, guid: 36af290d1f069a04db0cb541f33eb7a4, type: 2}
+  Instrument:
+    oscs: []
   Envelope:
     attackTime: 0.25
     attackAmplitude: 1
     decayTime: 0.25
     sustainAmplitude: 0.800000011920929
     releaseTime: 0.30000001192092896
+  Frequency: 440
 --- !u!114 &370646158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2193,6 +2199,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 370646152}
+  BPM: 100
+  MaxSubBeats: 1
+  MaxInstrumentsPerBeat: 1
+  NBeats: 8
+  Octave: 3
   noteTime: 2
   HoldNote: 0
   NoteWeights:
@@ -2222,15 +2233,16 @@ MonoBehaviour:
     Weight: 0
   - note: 12
     Weight: 0
-  IgnoreTurnTableSilence: 1
   Gain: 0.05
-  Instrument: {fileID: 11400000, guid: 59d5ad87ea0e8114f9d17610e6ffc884, type: 2}
+  Instrument:
+    oscs: []
   Envelope:
     attackTime: 0.5
     attackAmplitude: 0.8
     decayTime: 0
     sustainAmplitude: 0.8
     releaseTime: 5
+  Frequency: 440
 --- !u!1001 &373466263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5236,7 +5248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 284.5, y: -300}
+  m_AnchoredPosition: {x: 284.5, y: -350}
   m_SizeDelta: {x: 567.4, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &956944808
@@ -5435,6 +5447,7 @@ GameObject:
   - component: {fileID: 986054625}
   - component: {fileID: 986054627}
   - component: {fileID: 986054626}
+  - component: {fileID: 986054628}
   m_Layer: 0
   m_Name: Synth
   m_TagString: Untagged
@@ -5463,50 +5476,62 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986054624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a675396f15339e541acb9ca4cb61477f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 986054627}
+  BPM: 100
+  MaxSubBeats: 1
+  MaxInstrumentsPerBeat: 1
+  NBeats: 8
+  Octave: 3
   noteTime: 0
-  HoldNote: 0
+  HoldNote: 1
   NoteWeights:
   - note: 0
-    Weight: 2
+    Weight: 5
   - note: 1
     Weight: 0
   - note: 2
-    Weight: 0
+    Weight: 5
   - note: 3
-    Weight: 0
+    Weight: 5
   - note: 4
     Weight: 0
   - note: 5
-    Weight: 0
+    Weight: 5
   - note: 6
     Weight: 0
   - note: 7
-    Weight: 0
+    Weight: 5
   - note: 8
     Weight: 0
   - note: 9
-    Weight: 0
+    Weight: 3
   - note: 10
     Weight: 5
   - note: 11
     Weight: 0
   - note: 12
     Weight: 0
-  IgnoreTurnTableSilence: 1
   Gain: 0.1
-  Instrument: {fileID: 11400000, guid: 36af290d1f069a04db0cb541f33eb7a4, type: 2}
+  Instrument:
+    oscs:
+    - Wave: 0
+      Amplitude: 1
+      FrequencyFactor: 1
+      Modulators:
+      - Amplitude: 0.01
+        Frequency: 0.02
   Envelope:
-    attackTime: 0.25
+    attackTime: 0
     attackAmplitude: 1
     decayTime: 0.25
     sustainAmplitude: 0.800000011920929
-    releaseTime: 0.30000001192092896
+    releaseTime: 0.8500000238418579
+  Frequency: 440
 --- !u!82 &986054627
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5603,6 +5628,73 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &986054628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986054624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a675396f15339e541acb9ca4cb61477f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 986054627}
+  BPM: 30
+  MaxSubBeats: 1
+  MaxInstrumentsPerBeat: 1
+  NBeats: 2
+  Octave: 2
+  noteTime: 0
+  HoldNote: 1
+  NoteWeights:
+  - note: 0
+    Weight: 5
+  - note: 1
+    Weight: 0
+  - note: 2
+    Weight: 0
+  - note: 3
+    Weight: 5
+  - note: 4
+    Weight: 0
+  - note: 5
+    Weight: 0
+  - note: 6
+    Weight: 0
+  - note: 7
+    Weight: 0
+  - note: 8
+    Weight: 0
+  - note: 9
+    Weight: 0
+  - note: 10
+    Weight: 5
+  - note: 11
+    Weight: 0
+  - note: 12
+    Weight: 0
+  Gain: 0.1
+  Instrument:
+    oscs:
+    - Wave: 0
+      Amplitude: 1
+      FrequencyFactor: 1
+      Modulators:
+      - Amplitude: 0.01
+        Frequency: 0.015
+    - Wave: 2
+      Amplitude: 0.159
+      FrequencyFactor: 0.5
+      Modulators: []
+  Envelope:
+    attackTime: 0
+    attackAmplitude: 1
+    decayTime: 0.25
+    sustainAmplitude: 0.800000011920929
+    releaseTime: 1
+  Frequency: 65.40638732910156
 --- !u!1001 &1004581767
 PrefabInstance:
   m_ObjectHideFlags: 0

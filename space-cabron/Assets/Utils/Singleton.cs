@@ -2,6 +2,15 @@
 
 namespace Useful
 {
+    public abstract class SimpleSingleton<T> : MonoBehaviour where T : MonoBehaviour
+    {
+        private static T _instance;
+        public static T Instance
+        {
+            get { return _instance ?? (_instance = FindObjectOfType<T>()); }
+        }
+    }
+
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
