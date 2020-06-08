@@ -159,6 +159,7 @@ MonoBehaviour:
   renderer: {fileID: 569090007880489849}
   DamageFactor: 0
   SpawnFactor: 0
+  UpgradeValue: 0.227
 --- !u!114 &1808694483522459046
 MonoBehaviour:
   m_ObjectHideFlags: 0

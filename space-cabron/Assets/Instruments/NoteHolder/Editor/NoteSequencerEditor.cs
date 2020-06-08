@@ -13,7 +13,7 @@ public class NoteSequencerEditor : Editor
 
         DrawDefaultInspector();
 
-        if (InstrumentEditor<ENote>.DrawChancesInspector(ref nc.NoteWeights))
+        if (NoteChancesEditor<ENote>.DrawChancesInspector(ref nc.NoteWeights))
         {
             EditorUtility.SetDirty(target);
         }

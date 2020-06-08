@@ -30,7 +30,7 @@ namespace SC
 
             if (sampleChances = E.Foldout(sampleChances, "Sample Chances"))
             {
-                if (InstrumentEditor<EInstrumentAudio>.DrawChancesInspector(ref d.NoteWeights))
+                if (NoteChancesEditor<EInstrumentAudio>.DrawChancesInspector(ref d.NoteWeights))
                 {
                     EditorUtility.SetDirty(target);
                 }

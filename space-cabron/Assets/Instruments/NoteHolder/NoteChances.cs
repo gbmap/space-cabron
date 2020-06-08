@@ -12,9 +12,10 @@ public class NoteChance
     public int Weight;
 }
 
-public abstract class Instrument<T> : MonoBehaviour where T : System.Enum
+public abstract class NoteChances<T> : MonoBehaviour where T : System.Enum
 {
     public BeatMaker BeatMaker;
+    public ENote Root;
 
     [HideInInspector]
     public List<NoteChance> NoteWeights = new List<NoteChance>();
@@ -46,21 +47,18 @@ public abstract class Instrument<T> : MonoBehaviour where T : System.Enum
     {
         BeatMaker.OnBeat += OnBeat;
         BeatMaker.OnNewBeat += OnNewBeat;
-        OnNote += OnNoteCallback;
     }
 
     protected virtual void OnDisable()
     {
         BeatMaker.OnBeat -= OnBeat;
         BeatMaker.OnNewBeat -= OnNewBeat;
-        OnNote -= OnNoteCallback;
     }
     
     private void OnBeat()
     {
         var notes = Notes[BeatMaker.CurrentBeat];
-        //if (note == NoNote) return;
-        OnNote?.Invoke(notes.Select(n => FromInt(n)).ToArray());
+        OnNoteCallback(notes.Select(n => FromInt(n)).ToArray());
     }
 
     private void OnNewBeat(int beatCount)
@@ -77,6 +75,7 @@ public abstract class Instrument<T> : MonoBehaviour where T : System.Enum
             Notes = new int[BeatMaker.Loop.BeatCount][];
             for (int i = 0; i < Notes.Length; i++)
             {
+                // sub notas, não confundir com uma sequência de notas dentro da bar
                 Notes[i] = NoteBag.NextNoRepeat(UnityEngine.Random.Range(1, MaxNotesPerBeat), -1);
             }
         }
@@ -101,9 +100,19 @@ public abstract class Instrument<T> : MonoBehaviour where T : System.Enum
         Notes[UnityEngine.Random.Range(0, Notes.Length)][0] = n.Note;
     }
 
-    public void StartWithRandomNote()
+    public void ReplaceNote(int noteIndex, ENote newNote)
+    {
+        Notes[noteIndex][0] = (int)newNote;
+    }
+
+    public void StartWithRandomNote(bool addSilence = true)
     {
         int targetWeight = UnityEngine.Random.Range(0, NoteWeights.Count-1);
+        Root = (ENote)targetWeight;
+
+        var scale = Zapperz.GetScale(EScale.Major, Root);
+
+
         for (int i = 0; i < NoteWeights.Count; i++)
         {
             var nw = NoteWeights[i];
@@ -111,9 +120,14 @@ public abstract class Instrument<T> : MonoBehaviour where T : System.Enum
             {
                 nw.Weight = UnityEngine.Random.Range(2, 4);
             }
-            else if (i == NoNote)
+            else if (nw.Note == (int)scale[1] ||
+                nw.Note == (int)scale[2])
             {
                 nw.Weight = 1;
+            }
+            else if (i == NoNote)
+            {
+                nw.Weight = System.Convert.ToInt32(addSilence);
             }
             else
             {
@@ -122,5 +136,10 @@ public abstract class Instrument<T> : MonoBehaviour where T : System.Enum
         }
 
         UpdateNoteBag();
+    }
+
+    public void StartWithNotes(ENote[] notes, bool addSilence = true)
+    {
+
     }
 }

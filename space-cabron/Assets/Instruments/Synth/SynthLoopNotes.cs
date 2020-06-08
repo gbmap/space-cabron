@@ -7,6 +7,7 @@ public class SynthLoopNotes : MonoBehaviour
     public int octave = 4;
 
 
+    public NoteSequencer sequencer;
     public Synth synth;
 
     float lastHit;
@@ -30,17 +31,12 @@ public class SynthLoopNotes : MonoBehaviour
         if (!synth)
             throw new System.Exception("No Synth configured!");
 
-        synth.PlayKey(currentNote, octave, 0.01);
-
-        currentNote++;
-        if (currentNote == ENote.None)
+        var n = ENote.None;
+        while (n == ENote.None)
         {
-            currentNote = ENote.A;
+            n = (ENote)sequencer.NoteBag.Next();
         }
-        else if (currentNote == ENote.B)
-        {
-            octave++;
-        }
+        synth.PlayKey(n, octave, 0.01);
 
         lastHit = Time.time;
     }

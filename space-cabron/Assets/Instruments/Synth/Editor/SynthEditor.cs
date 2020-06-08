@@ -42,7 +42,6 @@ namespace SC {
             E.LabelField("Beat", EditorStyles.boldLabel);
 
             E.PropertyField(serializedObject.FindProperty("audioSource"));
-            E.PropertyField(serializedObject.FindProperty("NoteSequencer"));
 
             s.noteTime = (ENoteTime)E.EnumPopup("Note Time", s.noteTime);
 

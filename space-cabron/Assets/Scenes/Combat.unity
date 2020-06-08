@@ -183,7 +183,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 766428749}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &37510333
 MonoBehaviour:
@@ -200,6 +200,7 @@ MonoBehaviour:
   startingNote: 3
   currentNote: 0
   octave: 4
+  sequencer: {fileID: 1028778849}
   synth: {fileID: 37510334}
 --- !u!114 &37510334
 MonoBehaviour:
@@ -214,7 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 37510335}
-  noteSequencer: {fileID: 0}
   Octave: 3
   noteTime: 0
   HoldNote: 0
@@ -581,6 +581,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Trauma: 0
+--- !u!1 &532689123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532689124}
+  - component: {fileID: 532689125}
+  m_Layer: 0
+  m_Name: PlayerBeatmaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &532689124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532689123}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.8737667, y: -0.16141227, z: -0.14240958}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 766428749}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &532689125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532689123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60bce32dc7e9ae74999bcf9902f9f4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSubBeats: 1
+  BeatsPerFourBeats: 4
+  BeatsInBar: 4
+  BeatNumber: 0
 --- !u!1001 &714477951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -768,8 +815,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c5f4e3423319343b993c303f59ae83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BeatMaker: {fileID: 1080166547}
-  EnemySpawnerDrum: {fileID: 0}
+  EnemySpawnerDrum: {fileID: 795828598}
+  EnemyBeatMaker: {fileID: 1080166547}
+  PlayerSynth: {fileID: 1028778848}
+  PlayerBeatMaker: {fileID: 1080166547}
   BulletsSynth: {fileID: 37510333}
 --- !u!4 &766428749
 Transform:
@@ -783,6 +832,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1080166548}
+  - {fileID: 532689124}
   - {fileID: 795828600}
   - {fileID: 1028778847}
   - {fileID: 37510332}
@@ -899,15 +949,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeatMaker: {fileID: 1080166547}
+  Root: 0
   NoteWeights:
   - Note: 0
     Weight: 2
   - Note: 1
     Weight: 1
   - Note: 2
-    Weight: 0
+    Weight: 1
   - Note: 3
-    Weight: 0
+    Weight: 1
   - Note: 4
     Weight: 1
   MaxNotesPerBeat: 1
@@ -1022,7 +1073,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 766428749}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1028778846
 GameObject:
@@ -1055,7 +1106,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 766428749}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1028778848
 MonoBehaviour:
@@ -1070,15 +1121,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1028778850}
-  noteSequencer: {fileID: 1028778849}
-  Octave: 3
+  Octave: 4
   noteTime: 0
   HoldNote: 0
-  Gain: 0.10000000149011612
+  Gain: 0.15000000596046448
   Instrument:
     oscs:
     - Oscillator:
-        Wave: 1
+        Wave: 2
       FrequencyFactor:
         Value: 1
         CurrentValue: 0
@@ -1113,6 +1163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeatMaker: {fileID: 1080166547}
+  Root: 0
   NoteWeights:
   - Note: 0
     Weight: 3
@@ -1293,7 +1344,7 @@ GameObject:
   - component: {fileID: 1080166548}
   - component: {fileID: 1080166547}
   m_Layer: 0
-  m_Name: Beatmaker
+  m_Name: EnemyBeatmaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1312,8 +1363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSubBeats: 1
+  BeatsPerFourBeats: 4
   BeatsInBar: 4
-  NBeats: 4
   BeatNumber: 0
 --- !u!4 &1080166548
 Transform:
@@ -1403,6 +1454,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e6e0714bc62ff4883de3db5e575663, type: 3}
+--- !u!1001 &1411310985
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2929
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0086
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901925, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerBot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f5b876d251f216d4c96c6bcf61790c93, type: 3}
 --- !u!1001 &1413161554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1927,10 +2047,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 569090007880489849, guid: e39d571db65214a4dbb2986ce7aab1ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ba367f37235a0de43a976f84432b3d02, type: 2}
     - target: {fileID: 5621981252508601616, guid: e39d571db65214a4dbb2986ce7aab1ca,
         type: 3}
       propertyPath: m_Name
       value: Upgrade
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162897682721974425, guid: e39d571db65214a4dbb2986ce7aab1ca,
+        type: 3}
+      propertyPath: UpgradeValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162897682721974425, guid: e39d571db65214a4dbb2986ce7aab1ca,
+        type: 3}
+      propertyPath: SpawnFactor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162897682721974425, guid: e39d571db65214a4dbb2986ce7aab1ca,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9134005305382111753, guid: e39d571db65214a4dbb2986ce7aab1ca,
         type: 3}

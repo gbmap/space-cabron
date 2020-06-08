@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using Frictionless;
+using Managers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class Wave
     
     [HideInInspector]
     public int enemiesSpawned;
+
+    public int Index;
 }
 
 [System.Serializable]
@@ -26,6 +29,8 @@ public class WaveCellBlock : Wave
 
 public class WaveGenerator
 {
+    private int WaveIndex;
+
     public WaveGenerator()
     {
     }
@@ -38,6 +43,7 @@ public class WaveGenerator
         Wave w = new Wave();
         w.type = EWaveType.CellBlock;
         w.enemies = Random.Range(3, 5);
+        w.Index = WaveIndex++;
         //w.enemiesSpawned = w.enemies;
         return w;
     }
@@ -49,6 +55,8 @@ public class WaveSpawner : MonoBehaviour
     public EnemySpawner spawner;
 
     private WaveGenerator gen;
+
+    MessageRouter _router;
 
     private Wave CurrentWave
     {
@@ -65,6 +73,7 @@ public class WaveSpawner : MonoBehaviour
     private void OnEnable()
     {
         Beatmaker.OnBar += OnBar;
+        _router = ServiceFactory.Instance.Resolve<MessageRouter>();
     }
 
     private void OnDisable()
@@ -117,6 +126,10 @@ public class WaveSpawner : MonoBehaviour
         objectDestroyed.GetComponent<ObjectPool.ObjectPoolBehavior>().Destroyed -= OnEnemyDestroyed;
         if (_currentEnemies == 0)
         {
+            _router.RaiseMessage(new MsgOnWaveEnded
+            {
+                Wave = CurrentWave
+            });
             CurrentWave = null;
         }
     }

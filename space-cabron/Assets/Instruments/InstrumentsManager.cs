@@ -1,5 +1,4 @@
-﻿using System;
-using Frictionless;
+﻿using Frictionless;
 using Useful;
 
 public class InstrumentsManager : Singleton<InstrumentsManager>
@@ -15,7 +14,6 @@ public class InstrumentsManager : Singleton<InstrumentsManager>
 
     private void Start()
     {
-        PlayerSynth.NoteSequencer.StartWithRandomNote();
         EnemySpawnerDrum.StartWithRandomNote();
     }
 
@@ -23,11 +21,19 @@ public class InstrumentsManager : Singleton<InstrumentsManager>
     {
         _router = ServiceFactory.Instance.Resolve<MessageRouter>();
         _router.AddHandler<MsgOnEnemyHit>(Cb_OnEnemyHit);
+        _router.AddHandler<MsgOnWaveEnded>(Cb_OnWaveEnded);
     }
 
     private void OnDisable()
     {
         _router.RemoveHandler<MsgOnEnemyHit>(Cb_OnEnemyHit);
+        _router.RemoveHandler<MsgOnWaveEnded>(Cb_OnWaveEnded);
+    }
+
+    private void Cb_OnWaveEnded(MsgOnWaveEnded obj)
+    {
+        if (obj.Wave.Index % 5 != 0) return;
+        EnemySpawnerDrum.UpdateNoteBag(true);
     }
 
     private void Cb_OnEnemyHit(MsgOnEnemyHit msg)

@@ -21,37 +21,6 @@ public class EnvelopeASDR
 
     [Range(0f, 5f)]
     public double releaseTime = 0.3f;
-
-    /*
-
-    public double GetAmplitude(double p, double tPress, double tRelease, bool pressed, double A = 0.0)
-    {
-        double a = A;
-        double t = p - tPress;
-
-        if (pressed)
-        {
-            if (t <= attackTime)
-            {
-                //a = ((t / attackTime) * attackAmplitude);
-                a = Synth.dLerp(a, attackAmplitude, (t / attackTime));
-            }
-            if (t > attackTime)
-            {
-                a = Synth.dLerp(a, sustainAmplitude, (t - attackTime) / decayTime);
-                //a = ((t - attackTime) / decayTime) * (sustainAmplitude - attackAmplitude) + attackAmplitude;
-            }
-        }
-        else
-        {
-            a = Synth.dLerp(a, 0.0, (p - tRelease) / releaseTime);
-            //a = ((p - tRelease) / releaseTime) * (0.0 - sustainAmplitude) + sustainAmplitude;
-        }
-
-        return System.Math.Max(0.0, System.Math.Min(1.0, a));
-    }
-
-    */
     
     public double GetAmplitude(double t, double tPress, double tRelease, bool pressed, double A = 0.0)
     {
@@ -132,7 +101,6 @@ public struct SynthNote
 public class Synth : MonoBehaviour
 {
     public AudioSource audioSource;
-    public NoteSequencer NoteSequencer;
 
     public int Octave = 3;
 
@@ -221,29 +189,6 @@ public class Synth : MonoBehaviour
         return sn;
     }
 
-    protected virtual void OnNoteCallback(ENote[] note)
-    {
-        for (int i = 0; i < notes.Count; i++)
-        {
-            SynthNote sn = notes[i];
-            if (AudioSettings.dspTime > sn.tPress + sn.Duration && sn.Pressed)
-            {
-                notes[i] = StopKey(sn);
-            }
-        }
-
-        if (note[0] == ENote.None) return;
-
-        SynthNote n;
-        int index = PlayKey(note[0], Octave, out n, 0.01);
-        if (!HoldNote)
-        {
-            //notes[index] = StopKey(n);
-        }
-
-        //Frequency = NoteToFrequency(note[0], Octave); // todo: implementar multiplas notas
-    }
-
     public static string[] Notes = { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "None" };
 
     public double NoteToFrequency(string note)
@@ -272,16 +217,16 @@ public class Synth : MonoBehaviour
     ////////////////////////
     /// MONO BEHAVIOUR
     /// 
-    private void OnEnable()
+    private void FixedUpdate()
     {
-        if (!NoteSequencer) return;
-        NoteSequencer.OnNotePlayed += OnNoteCallback;
-    }
-
-    private void OnDisable()
-    {
-        if (!NoteSequencer) return;
-        NoteSequencer.OnNotePlayed -= OnNoteCallback;
+        for (int i = 0; i < notes.Count; i++)
+        {
+            SynthNote sn = notes[i];
+            if (AudioSettings.dspTime > sn.tPress + sn.Duration && sn.Pressed)
+            {
+                notes[i] = StopKey(sn);
+            }
+        }
     }
 
     private void OnAudioFilterRead(float[] data, int channels)
@@ -324,7 +269,6 @@ public class Synth : MonoBehaviour
     ///////////////
     /// UTILITY
     /// 
-
     public static double dLerp(double x, double y, double t)
     {
         t = System.Math.Max(0.0, System.Math.Min(t, 1.0));

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 
-public class Drum : Instrument<EInstrumentAudio>
+public class Drum : NoteChances<EInstrumentAudio>
 {
     public AudioSource Source;
     public InstrumentAudioSample Instrument;

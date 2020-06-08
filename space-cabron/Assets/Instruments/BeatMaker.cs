@@ -3,34 +3,50 @@
 public class BeatMaker : MonoBehaviour
 {
     [Range(1, 360)]
-    public static int BPM = 80;
+    public static int BPM = 120;
 
     [Range(1, 8)]
     public int MaxSubBeats = 1;
 
     [Range(1, 8)]
-    public int BeatsInBar = 4;
+    public int BeatsPerFourBeats = 4;
 
     [Range(1, 16)]
-    public int NBeats = 4;
+    public int BeatsInBar = 4;
 
     public int BeatNumber = 0;
 
     public Loop Loop { get; private set; }
+
+    public int CurrentBeat
+    {
+        get; private set;
+    }
+
+    public int CurrentBar
+    {
+        get; private set;
+    }
+
+    public int CurrentSection
+    {
+        get; private set;
+    }
 
     public System.Action OnBeat;
     public System.Action<int> OnBar;
     public System.Action<int> OnSection;
     public System.Action<int> OnNewBeat;
 
-    // TODO: jogar pra dentro do loop creator
+    bool playedBeat;
     bool _playing;
+
     public void Stop()
     {
         _playing = false;
         CurrentBeat = 0;
-        _currentBar = 0;
-        _currentSection = 0;
+        CurrentBar = 0;
+        CurrentSection = 0;
     }
     
     public void Pause()
@@ -42,42 +58,32 @@ public class BeatMaker : MonoBehaviour
     {
         _playing = true;
         CurrentBeat = 0;
-        _currentBar = 0;
-        _currentSection = 0;
+        CurrentBar = 0;
+        CurrentSection = 0;
     }
-
-    public int CurrentBeat
-    {
-        get; private set;
-    }
-
-    float _lastBeat;
-    int _currentBar;
-    int _currentSection;
-    bool playedBeat;
 
     private const int SectionBarCount = 8;
 
     float BeatsPerSecond { get { return ((60f/BPM)); } }
     private float CalculateBeatCooldown(float bps)
     {
-        return BeatsPerSecond * (4f/BeatsInBar) / Loop.CurrentBeat.SubBeats;
+        return BeatsPerSecond * (4f/BeatsPerFourBeats) / Loop.CurrentBeat.SubBeats;
     }
     
     private void Awake()
     {
-        _lastBeat = Time.time;
         RefreshLoop();
         Run();
     }
 
     public void RefreshLoop()
     {
-        Loop = LoopCreator.Create(NBeats, MaxSubBeats);
+        Loop = LoopCreator.Create(BeatsInBar, MaxSubBeats);
         CurrentBeat = 0;
         OnNewBeat?.Invoke(Loop.BeatCount);
     }
 
+    private float t;
     public void Update()
     {
         if (!_playing)
@@ -86,23 +92,23 @@ public class BeatMaker : MonoBehaviour
         }
 
         float bcd = CalculateBeatCooldown(BeatsPerSecond);
-        float p = Time.time % bcd;
-        if (p > bcd*0.95 && !playedBeat)
+        t = Mathf.Min(bcd, t + Time.deltaTime);
+        if (Mathf.Approximately(t, bcd))
         {
             bool endBeat;
             bool endBar = Loop.Advance(out endBeat);
             if (endBar)
             {
-                OnBar?.Invoke(_currentBar);
+                OnBar?.Invoke(CurrentBar);
 
-                if (_currentBar == SectionBarCount)
+                if (CurrentBar == SectionBarCount)
                 {
-                    _currentBar = 0;
-                    _currentSection++;
+                    CurrentBar = 0;
+                    CurrentSection++;
 
-                    OnSection?.Invoke(_currentSection);
+                    OnSection?.Invoke(CurrentSection);
                 }
-                _currentBar++;
+                CurrentBar++;
                 CurrentBeat = 0;
             }
         
@@ -110,11 +116,7 @@ public class BeatMaker : MonoBehaviour
             playedBeat = true;
             CurrentBeat++;
             BeatNumber++;
-            _lastBeat = _lastBeat+bcd; // ajustar tempo da nota
-        }
-        else if (p < bcd*0.95f)
-        {
-            playedBeat = false;
+            t = 0f;
         }
     }
 }

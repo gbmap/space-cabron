@@ -11,3 +11,8 @@ public class MsgOnEnemyHit : Message
 
 public class MsgOnEnemyDestroyed : MsgOnEnemyHit
 { }
+
+public class MsgOnWaveEnded : Message
+{
+    public Wave Wave;
+}

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
-public class NoteSequencer : Instrument<ENote>
+public class NoteSequencer : NoteChances<ENote>
 {
     public System.Action<ENote[]> OnNotePlayed;
 
@@ -22,4 +20,6 @@ public class NoteSequencer : Instrument<ENote>
     {
         return (int)v;
     }
+
+  
 }

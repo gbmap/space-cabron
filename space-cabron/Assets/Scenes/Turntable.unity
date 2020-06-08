@@ -660,7 +660,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 370646152}
-  noteSequencer: {fileID: 0}
   Octave: 3
   noteTime: 0
   HoldNote: 1
@@ -687,7 +686,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 370646152}
-  noteSequencer: {fileID: 0}
   Octave: 3
   noteTime: 2
   HoldNote: 0
@@ -1700,11 +1698,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861485043}
-  - component: {fileID: 861485042}
-  - component: {fileID: 861485041}
-  - component: {fileID: 861485040}
   - component: {fileID: 861485039}
-  - component: {fileID: 861485044}
+  - component: {fileID: 861485040}
+  - component: {fileID: 861485041}
+  - component: {fileID: 861485042}
   m_Layer: 0
   m_Name: Synth
   m_TagString: Untagged
@@ -1821,7 +1818,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 861485039}
-  noteSequencer: {fileID: 861485041}
   Octave: 3
   noteTime: 0
   HoldNote: 0
@@ -1829,9 +1825,25 @@ MonoBehaviour:
   Instrument:
     oscs:
     - Oscillator:
-        Wave: 1
+        Wave: 2
       FrequencyFactor:
         Value: 1
+        CurrentValue: 0
+        Controlled: 0
+        ValueRange: {x: 0, y: 0}
+        Invert: 0
+        Driver: 0
+      Amplitude:
+        Value: 1
+        CurrentValue: 0
+        Controlled: 0
+        ValueRange: {x: 0, y: 0}
+        Invert: 0
+        Driver: 0
+    - Oscillator:
+        Wave: 1
+      FrequencyFactor:
+        Value: 0.5
         CurrentValue: 0
         Controlled: 0
         ValueRange: {x: 0, y: 0}
@@ -1849,7 +1861,7 @@ MonoBehaviour:
     attackAmplitude: 1
     decayTime: 0.25
     sustainAmplitude: 0
-    releaseTime: 0.30000001192092896
+    releaseTime: 0.20000000298023224
   Frequency: 440
 --- !u!114 &861485041
 MonoBehaviour:
@@ -1860,38 +1872,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 861485038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee327646c8e63e74cb56a12830934f5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 14fd138ac4444b840913247cfd33c930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BeatMaker: {fileID: 861485042}
-  NoteWeights:
-  - Note: 0
-    Weight: 1
-  - Note: 1
-    Weight: 0
-  - Note: 2
-    Weight: 0
-  - Note: 3
-    Weight: 0
-  - Note: 4
-    Weight: 0
-  - Note: 5
-    Weight: 0
-  - Note: 6
-    Weight: 0
-  - Note: 7
-    Weight: 0
-  - Note: 8
-    Weight: 0
-  - Note: 9
-    Weight: 0
-  - Note: 10
-    Weight: 0
-  - Note: 11
-    Weight: 0
-  - Note: 12
-    Weight: 0
-  MaxNotesPerBeat: 0
+  marcher: {fileID: 861485042}
+  synth: {fileID: 861485040}
+  MelodyType: 0
+  rootNote: 0
+  scale: 0
+  octave: 3
+  numberOfNotes: 1
+  notes:
+    notes: 
+    octaves: 
+  currentNote: 0
+  currentOctave: 0
+  currentNoteIndex: 0
 --- !u!114 &861485042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1901,13 +1897,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 861485038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60bce32dc7e9ae74999bcf9902f9f4ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 878603e33e5a50f4eb031a6e8d2a9108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSubBeats: 1
-  BeatsInBar: 4
-  NBeats: 4
-  BeatNumber: 0
+  BPM: 80
+  NotesInBar: 4
+  NoteType: 4
+  NoteRange: {x: 2, y: 6}
+  bar:
+    Beats: 
+    Cursor: 0
 --- !u!4 &861485043
 Transform:
   m_ObjectHideFlags: 0
@@ -1922,15 +1921,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!170 &861485044
-AudioDistortionFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861485038}
-  m_Enabled: 1
-  m_DistortionLevel: 0.2
 --- !u!1 &921294219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,8 +2277,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSubBeats: 1
+  BeatsPerFourBeats: 4
   BeatsInBar: 4
-  NBeats: 4
   BeatNumber: 0
 --- !u!82 &986054627
 AudioSource:
@@ -2399,7 +2389,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 986054627}
-  noteSequencer: {fileID: 986054630}
   Octave: 2
   noteTime: 0
   HoldNote: 0
@@ -2442,6 +2431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeatMaker: {fileID: 986054626}
+  Root: 0
   NoteWeights:
   - Note: 0
     Weight: 0
@@ -3896,6 +3886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeatMaker: {fileID: 1700948302}
+  Root: 0
   NoteWeights:
   - Note: 0
     Weight: 3
@@ -3923,8 +3914,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSubBeats: 1
+  BeatsPerFourBeats: 4
   BeatsInBar: 4
-  NBeats: 8
   BeatNumber: 0
 --- !u!82 &1700948303
 AudioSource:
@@ -4877,6 +4868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeatMaker: {fileID: 0}
+  Root: 0
   NoteWeights: []
   MaxNotesPerBeat: 0
   Source: {fileID: 0}

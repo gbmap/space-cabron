@@ -23,22 +23,27 @@ public class UpgradeSpawner : MonoBehaviour
 
     private void OnUpgradeToken(MsgOnUpgradeTaken msg)
     {
+
+        BeatMaker targetMaker = Random.value < 0.25f ?
+            InstrumentsManager.Instance.EnemyBeatMaker :
+            InstrumentsManager.Instance.PlayerBeatMaker;
+
         switch (msg.Type)
         {
             case EUpgrade.BPM:
                 BeatMaker.BPM += (int)msg.Value;
                 break;
             case EUpgrade.BeatsInBar:
-                AddToInt(ref InstrumentsManager.Instance.EnemySpawnerDrum.BeatMaker.BeatsInBar, (int)msg.Value, 4, 8);
+                AddToInt(ref targetMaker.BeatsPerFourBeats, (int)msg.Value, 4, 8);
                 break;
             case EUpgrade.MaxSubBeats:
-                AddToInt(ref InstrumentsManager.Instance.EnemySpawnerDrum.BeatMaker.MaxSubBeats, (int)msg.Value, 1, 4);
+                AddToInt(ref targetMaker.MaxSubBeats, (int)msg.Value, 1, 4);
                 break;
             case EUpgrade.NBeats:
-                AddToInt(ref InstrumentsManager.Instance.EnemySpawnerDrum.BeatMaker.NBeats, (int)msg.Value, 3, 12);
+                AddToInt(ref targetMaker.BeatsInBar, (int)msg.Value, 3, 12);
                 break;
             case EUpgrade.AddNoteToPlayerSynth:
-                InstrumentsManager.Instance.PlayerSynth.NoteSequencer.AddNote(RandomEnum<ENote>());
+                //InstrumentsManager.Instance.PlayerSynth.NoteSequencer.AddNote(RandomEnum<ENote>());
                 break;
             case EUpgrade.AddNoteToEnemyDrum:
                 InstrumentsManager.Instance.EnemySpawnerDrum.AddNote(RandomEnum<EInstrumentAudio>());
@@ -53,7 +58,7 @@ public class UpgradeSpawner : MonoBehaviour
 
     private void Cb_OnEnemyDestroyed(MsgOnEnemyDestroyed msg)
     {
-        if (Random.value < 0.9f) return;
+        if (Random.value < 0.5f) return;
 
         var instance = Instantiate(Upgrade, msg.enemy.transform.position, Quaternion.identity);
         var up = instance.GetComponent<Upgrade>();
@@ -70,6 +75,8 @@ public class UpgradeSpawner : MonoBehaviour
                 up.Value = Random.value < 0.1f ? -1 : 1;
                 break;
         }
+
+        instance.GetComponent<EnemyMaterialController>().UpgradeValue = ((int)up.Value) < 0 ? 0f : 1f;
     }
 
     EUpgrade RandomUpgradeType()

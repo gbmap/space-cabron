@@ -8,7 +8,7 @@ namespace SC
 {
     using E = EditorGUILayout;
 
-    public static class InstrumentEditor<T> where T : System.Enum
+    public static class NoteChancesEditor<T> where T : System.Enum
     {
         public static bool DrawChancesInspector(ref List<NoteChance> list)
         {
