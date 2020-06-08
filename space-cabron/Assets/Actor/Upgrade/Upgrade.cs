@@ -1,33 +1,40 @@
 ﻿using Frictionless;
+using ObjectPool;
 using UnityEngine;
 
 public enum EUpgrade
 {
-    BPM
+    // beat maker
+    BPM,
+    MaxSubBeats,
+    BeatsInBar,
+    NBeats,
+
+    AddNoteToPlayerSynth,
+    AddNoteToEnemyDrum
 }
 
 public class MsgOnUpgradeTaken
 {
     public EUpgrade Type;
-    public int Value;
+    public object Value;
 }
 
 public class Upgrade : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
 {
+    [HideInInspector]
     public EUpgrade Type;
 
-    [Range(-10, 10)]
-    public int Value;
+    [HideInInspector]
+    public object Value;
 
     MessageRouter _msg;
 
-    public void PoolReset()
-    {
-        Value = Random.Range(-10, 11);
-    }
-
     private void Awake()
     {
+        Type = EUpgrade.BPM;
+        Value = 10;
+
         _msg = ServiceFactory.Instance.Resolve<MessageRouter>();
     }
 
@@ -40,5 +47,10 @@ public class Upgrade : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
         });
 
         this.DestroyOrDisable();
+    }
+
+    void IObjectPoolEventHandler.PoolReset()
+    {
+
     }
 }

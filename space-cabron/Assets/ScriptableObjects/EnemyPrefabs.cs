@@ -8,8 +8,8 @@ public enum EEnemyType
     Dasher,
     Follow,
     Mine,
-    Thug,
-    Test
+    Thug
+    //Test
 }
 
 [System.Serializable]

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Direction: {x: 0, y: 1}
   Rotation: 0
-  Speed: 0.1
+  Speed: 0.05
   Absolute: 0
 --- !u!114 &6683701834355981165
 MonoBehaviour:

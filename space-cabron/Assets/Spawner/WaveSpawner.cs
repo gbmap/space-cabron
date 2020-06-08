@@ -50,18 +50,16 @@ public class WaveSpawner : MonoBehaviour
 
     private WaveGenerator gen;
 
-    private Queue<Wave> _waveQueue;
     private Wave CurrentWave
     {
-        get { return _waveQueue.Count > 0 ? _waveQueue.Peek() : null; }
+        get; set; 
     }
 
-    int _currentEnemies;
+    private int _currentEnemies;
 
     private void Awake()
     {
         gen = new WaveGenerator();
-        _waveQueue = new Queue<Wave>();
     }
 
     private void OnEnable()
@@ -79,7 +77,7 @@ public class WaveSpawner : MonoBehaviour
         if (CurrentWave == null)
         {
             // gerar nova wave
-            _waveQueue.Enqueue(gen.GenerateRandomWave());
+            CurrentWave = gen.GenerateRandomWave();
             Beatmaker.OnBeat += OnBeat;
         }
     }
@@ -97,28 +95,29 @@ public class WaveSpawner : MonoBehaviour
             float xo = x0 + offset * w.enemiesSpawned;
 
             Vector3 worldPos = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.9f, 0f));
-
             Vector3 pos = new Vector3(xo, worldPos.y, 0f);
 
-            GameObject enemy = spawner.Spawn(EEnemyType.Follow, pos);
-            enemy.GetComponent<Health>().OnDestroy += OnEnemyDestroyed;
+            var values = System.Enum.GetValues(typeof(EEnemyType));
+
+            GameObject enemy = spawner.Spawn((EEnemyType)values.GetValue(Random.Range(0, values.Length)), pos);
+            enemy.GetComponent<ObjectPool.ObjectPoolBehavior>().Destroyed += OnEnemyDestroyed;
 
             w.enemiesSpawned++;
             _currentEnemies++;
         }
         else
         {
-        
             Beatmaker.OnBeat -= OnBeat;
         }
     }
 
-    void OnEnemyDestroyed(Health objectDestroyed)
+    void OnEnemyDestroyed(GameObject objectDestroyed)
     {
         _currentEnemies--;
-        if (_currentEnemies <= 0)
+        objectDestroyed.GetComponent<ObjectPool.ObjectPoolBehavior>().Destroyed -= OnEnemyDestroyed;
+        if (_currentEnemies == 0)
         {
-            _waveQueue.Dequeue();
+            CurrentWave = null;
         }
     }
 }

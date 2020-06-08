@@ -13,16 +13,36 @@ namespace SC {
         bool instruments = false;
         Vector2 modulatorsScroll = new Vector2(0, 0);
 
+        Material mat;
+
+        public override bool RequiresConstantRepaint()
+        {
+            return true;
+        }
+
+        private void OnEnable()
+        {
+            var shader = Shader.Find("Hidden/Internal-Colored");
+            mat = new Material(shader);
+        }
+
+        private void OnDisable()
+        {
+            DestroyImmediate(mat);
+        }
+
         public override void OnInspectorGUI()
         {
             var s = target as Synth;
+
+            ShitesizerEditor.DrawWave(Vector2.one * 100f, s.PrevData, mat);
 
             E.Space();
             E.Separator();
             E.LabelField("Beat", EditorStyles.boldLabel);
 
             E.PropertyField(serializedObject.FindProperty("audioSource"));
-            E.PropertyField(serializedObject.FindProperty("BeatMaker"));
+            E.PropertyField(serializedObject.FindProperty("NoteSequencer"));
 
             s.noteTime = (ENoteTime)E.EnumPopup("Note Time", s.noteTime);
 
@@ -33,20 +53,6 @@ namespace SC {
             E.PropertyField(serializedObject.FindProperty("HoldNote"));
             s.Octave = E.IntSlider("Octave", s.Octave, 1, 8);
 
-            noteChances = E.Foldout(noteChances, "Note Chances");
-            if (noteChances)
-            {
-                if (InstrumentEditor<ENote>.DrawChancesInspector(ref s.NoteWeights))
-                {
-                    EditorUtility.SetDirty(target);
-                }
-            }
-
-            if (GUILayout.Button("Generate New Notes"))
-            {
-                s.UpdateNoteBag();
-            }
-
             E.Space();
             E.Separator();
             E.LabelField("Sound Configuration", EditorStyles.boldLabel);
@@ -55,12 +61,12 @@ namespace SC {
             E.Space();
             E.Separator();
             E.LabelField("Instrument", EditorStyles.boldLabel);
-
-            SynthInstrumentEditor.DrawInspector(ref s.Instrument, ref instruments, ref modulatorsScroll);
+                     
+            SynthInstrumentEditor.DrawInspector(ref s.Instrument, ref instruments, ref modulatorsScroll, mat);
 
             E.PropertyField(serializedObject.FindProperty("Envelope"));
 
-            //EditorUtility.SetDirty(target);
+            EditorUtility.SetDirty(target);
             serializedObject.ApplyModifiedProperties();
 
         }

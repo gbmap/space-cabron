@@ -12,6 +12,8 @@ namespace SC
     {
         public override void OnInspectorGUI()
         {
+            BeatMaker.BPM = E.IntSlider("BPM (Global)", BeatMaker.BPM, 30, 360);
+
             DrawDefaultInspector();
             var bm = target as BeatMaker;
             if (GUILayout.Button("Generate New Beat"))

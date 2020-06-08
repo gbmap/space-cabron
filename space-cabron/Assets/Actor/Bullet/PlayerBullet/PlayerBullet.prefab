@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: DamageFactor
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2865535792633529822, guid: 5a04bc67c344a144eafcfaf0a7097143,
+        type: 3}
+      propertyPath: Speed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4355381125408443413, guid: 5a04bc67c344a144eafcfaf0a7097143,
         type: 3}
       propertyPath: m_LocalPosition.x

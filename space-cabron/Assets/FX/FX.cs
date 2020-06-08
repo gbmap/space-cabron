@@ -1,4 +1,5 @@
-﻿using ObjectPool;
+﻿using Frictionless;
+using ObjectPool;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -14,7 +15,11 @@ public class FX : Singleton<FX>
 
     public FXPrefabs Prefabs;
 
+    CameraShake _shake;
+
     System.Collections.Generic.Dictionary<EExplosionSize, GameObjectPool> _explosionPool;
+
+    MessageRouter _router;
 
     void Awake()
     {
@@ -26,10 +31,27 @@ public class FX : Singleton<FX>
             _explosionPool[sz] = new GameObjectPool(Prefabs.Explosions[i]);
             _explosionPool[sz].InitPool(100);
         }
+
+        _shake = FindObjectOfType<CameraShake>();
+
+    }
+
+    private void OnEnable()
+    {
+        _router = ServiceFactory.Instance.Resolve<MessageRouter>();
+        _router.AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
+        _router.AddHandler<MsgOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
+    }
+
+    private void OnDisable()
+    {
+        _router.RemoveHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
+        _router.RemoveHandler<MsgOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
     }
 
     public void SpawnExplosion(EExplosionSize size, Vector3 pos)
     {
+        _shake.Trauma += size == EExplosionSize.Big ? 0.2f : 0.1f;
         _explosionPool[size].Instantiate(pos, Quaternion.identity);
     }
 
@@ -44,6 +66,7 @@ public class FX : Singleton<FX>
         for (int i = 0; i < n; i++)
         {
             EExplosionSize sz = (EExplosionSize)values.GetValue(i < n * 0.75 ? 1 : 0);
+            _shake.Trauma += sz == EExplosionSize.Big ? 0.2f : 0.1f;
             Vector3 offset = UnityEngine.Random.insideUnitSphere * 0.3f;
             offset.z = 0f;
             _explosionPool[sz].Instantiate(pos + offset, Quaternion.identity);
@@ -51,4 +74,13 @@ public class FX : Singleton<FX>
         }
     }
 
+    private void Callback_OnEnemyHit(MsgOnEnemyHit obj)
+    {
+        SpawnExplosion(EExplosionSize.Medium, obj.bullet.transform.position);
+    }
+
+    private void Callback_OnEnemyDestroyed(MsgOnEnemyDestroyed obj)
+    {
+        SpawnExplosionCluster(4, obj.enemy.transform.position);
+    }
 }

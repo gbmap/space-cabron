@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Utils;
+
 
 [System.Serializable]
 public class EnvelopeASDR
@@ -22,52 +22,77 @@ public class EnvelopeASDR
     [Range(0f, 5f)]
     public double releaseTime = 0.3f;
 
-    bool pressed;
-    float tPress;
-    float tRelease;
+    /*
 
-    public double GetAmplitude(float p)
+    public double GetAmplitude(double p, double tPress, double tRelease, bool pressed, double A = 0.0)
     {
-        double a = 0.0f;
+        double a = A;
         double t = p - tPress;
 
         if (pressed)
         {
             if (t <= attackTime)
             {
-                a = (t / attackTime) * attackAmplitude;
+                //a = ((t / attackTime) * attackAmplitude);
+                a = Synth.dLerp(a, attackAmplitude, (t / attackTime));
             }
-            else if (t > attackTime && t <= attackTime+decayTime)
+            if (t > attackTime)
             {
-                a = ((t - attackTime) / decayTime) * (sustainAmplitude - attackAmplitude) + attackAmplitude;
-            }
-            else if (t > attackTime + decayTime)
-            {
-                a = sustainAmplitude;
+                a = Synth.dLerp(a, sustainAmplitude, (t - attackTime) / decayTime);
+                //a = ((t - attackTime) / decayTime) * (sustainAmplitude - attackAmplitude) + attackAmplitude;
             }
         }
         else
         {
-            a = ((p - tRelease) / releaseTime) * (0.0f - sustainAmplitude) + sustainAmplitude;
+            a = Synth.dLerp(a, 0.0, (p - tRelease) / releaseTime);
+            //a = ((p - tRelease) / releaseTime) * (0.0 - sustainAmplitude) + sustainAmplitude;
         }
 
-        if (a <= 0.0001)
-            a = 0f;
+        return System.Math.Max(0.0, System.Math.Min(1.0, a));
+    }
+
+    */
+    
+    public double GetAmplitude(double t, double tPress, double tRelease, bool pressed, double A = 0.0)
+    {
+        double a = 0.0;
+        double releaseAmplitude = 0.0;
+
+        if (tPress > tRelease)
+        {
+            double lifetime = t - tPress;
+
+            if (lifetime <= attackTime)
+                a = (lifetime / attackTime) * attackAmplitude;
+
+            if (lifetime > attackTime && lifetime <= (attackTime + decayTime))
+                a = ((lifetime - attackTime) / decayTime) * (sustainAmplitude - attackAmplitude) + attackAmplitude;
+
+            if (lifetime > (attackTime + decayTime))
+                a = sustainAmplitude;
+        }
+        else
+        {
+            double lifetime = tRelease - tPress;
+
+            if (lifetime <= attackTime)
+                releaseAmplitude = (lifetime / attackTime) * attackAmplitude;
+
+            if (lifetime > attackTime && lifetime <= (attackTime + decayTime))
+                releaseAmplitude = ((lifetime - attackTime) / decayTime) * (sustainAmplitude - attackAmplitude) + attackAmplitude;
+
+            if (lifetime > (attackTime + decayTime))
+                releaseAmplitude = sustainAmplitude;
+
+            a = ((t - tRelease) / releaseTime) * (0.0 - releaseAmplitude) + releaseAmplitude;
+        }
+
+        if (a <= 0.01)
+            a = 0.0;
 
         return a;
     }
-
-    public void KeyOn()
-    {
-        tPress = Time.time;
-        pressed = true;
-    }
-
-    public void KeyOff()
-    {
-        tRelease = Time.time;
-        pressed = false;
-    }
+    
 }
 
 public enum ENote
@@ -94,11 +119,20 @@ public enum ENoteTime
     OnBar
 }
 
-public class Synth : Instrument<ENote>
+public struct SynthNote
 {
-    public override int NoNote => (int)ENote.None;
+    public double Note;
+    public bool Pressed;
+    public double tPress;
+    public double tRelease;
+    public double Amplitude;
+    public double Duration;
+}
 
+public class Synth : MonoBehaviour
+{
     public AudioSource audioSource;
+    public NoteSequencer NoteSequencer;
 
     public int Octave = 3;
 
@@ -108,65 +142,111 @@ public class Synth : Instrument<ENote>
     int noteIndex;
     
     [Range(0f, 1f)]
-    public float Gain;
+    public double Gain;
 
     public SynthInstrument Instrument;
     public EnvelopeASDR Envelope;
 
     public double Frequency = 440.0;
 
-    float[] prevData;
+    public float[] PrevData
+    {
+        get; private set;
+    }
+
     double increment;
     double phase;
-    double samplingFrequency = 44000.0;
+    public static double sampleRate = 48000.0;
     bool on;
-    float t;
 
     private double a;
 
-    protected override void OnNoteCallback(ENote note)
+    /////////////////////////
+    /// NOTE MANAGEMENT
+    /// 
+    private List<SynthNote> notes = new List<SynthNote>();
+
+    public void PlayKey(ENote note, int octave, double duration=0.01)
     {
-        if (noteTime != ENoteTime.OnBeat) return;
-
-        Envelope.KeyOff();
-        Envelope.KeyOn();
-
-        Frequency = NoteToFrequency(note, Octave);
-        if (!HoldNote) Envelope.KeyOff();
-    }
-
-    private void Update()
-    {
-        t = Time.time;
-        a = (float)Envelope.GetAmplitude(t);
-        audioSource.volume =(float)a;
-    }
-
-    double f;
-    private void OnAudioFilterRead(float[] data, int channels)
-    {
-        double w = Frequency * 2.0 * Mathf.PI;
-        f = w / samplingFrequency;
-
-        for (int i = 0; i < data.Length; i += channels)
+        int i = notes.FindIndex(n => n.Note == NoteToFrequency(note, octave));
+        var synthNote = new SynthNote
         {
-            phase += f;
-            float p = (float)phase;
-            data[i] += Gain * Instrument.Sample(p, (float)Frequency);
+            Note = NoteToFrequency(note, octave),
+            tPress = AudioSettings.dspTime,
+            tRelease = double.MinValue,
+            Pressed = true,
+            Amplitude = 0.0,
+            Duration = duration
+        };
 
-            if (channels == 2)
+        if (i != -1)
+        {
+            notes[i] = synthNote;
+        }
+        else
+        {
+            notes.Add(synthNote);
+        }
+    }
+
+    public int PlayKey(ENote note, int octave, out SynthNote synthNote, double duration=0.01)
+    {
+        int i = notes.FindIndex(n => n.Note == NoteToFrequency(note, octave));
+        synthNote = new SynthNote
+        {
+            Note = NoteToFrequency(note, octave),
+            tPress = AudioSettings.dspTime,
+            tRelease = double.MinValue,
+            Pressed = true,
+            Amplitude = 0.0,
+            Duration = duration
+        };
+
+        if (i != -1)
+        {
+            notes[i] = synthNote;
+            return i;
+        }
+        else
+        {
+            notes.Add(synthNote);
+            return notes.Count - 1;
+        }
+    }
+
+    public SynthNote StopKey(SynthNote sn)
+    {
+        sn.tRelease = AudioSettings.dspTime;
+        sn.Pressed = false;
+        return sn;
+    }
+
+    protected virtual void OnNoteCallback(ENote[] note)
+    {
+        for (int i = 0; i < notes.Count; i++)
+        {
+            SynthNote sn = notes[i];
+            if (AudioSettings.dspTime > sn.tPress + sn.Duration && sn.Pressed)
             {
-                data[i + 1] = data[i];
+                notes[i] = StopKey(sn);
             }
-
         }
 
-        prevData = data;
+        if (note[0] == ENote.None) return;
+
+        SynthNote n;
+        int index = PlayKey(note[0], Octave, out n, 0.01);
+        if (!HoldNote)
+        {
+            //notes[index] = StopKey(n);
+        }
+
+        //Frequency = NoteToFrequency(note[0], Octave); // todo: implementar multiplas notas
     }
 
     public static string[] Notes = { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "None" };
 
-    public float NoteToFrequency(string note)
+    public double NoteToFrequency(string note)
     {
         int octave = (note.Length == 3 ? note[2] : note[1]) - '0';
 
@@ -180,17 +260,74 @@ public class Synth : Instrument<ENote>
             keyNumber = keyNumber + ((octave - 1) * 12) + 1;
         }
 
-        return 440f * Mathf.Pow(2f, ((float)keyNumber - 49f) / 12f);
+        return 440.0 * Mathf.Pow(2f, ((float)keyNumber - 49f) / 12f);
     }
 
-    public float NoteToFrequency(ENote note, int octave)
+    public double NoteToFrequency(ENote note, int octave)
     {
         string n = Notes[(int)note] + octave.ToString();
         return NoteToFrequency(n);
     }
 
-    protected override ENote FromInt(int v)
+    ////////////////////////
+    /// MONO BEHAVIOUR
+    /// 
+    private void OnEnable()
     {
-        return (ENote)v;
+        if (!NoteSequencer) return;
+        NoteSequencer.OnNotePlayed += OnNoteCallback;
+    }
+
+    private void OnDisable()
+    {
+        if (!NoteSequencer) return;
+        NoteSequencer.OnNotePlayed -= OnNoteCallback;
+    }
+
+    private void OnAudioFilterRead(float[] data, int channels)
+    {
+        var time = AudioSettings.dspTime;
+
+        for (int i = 0; i < data.Length; i += channels)
+        {
+            double t = (time + i / sampleRate / channels);
+            double hz = Frequency;
+
+            double amp = 0.0;
+
+            for (int ni = 0; ni < notes.Count; ni++)
+            {
+                SynthNote note = notes[ni];
+                note.Amplitude = Envelope.GetAmplitude(t, note.tPress, note.tRelease, note.Pressed, note.Amplitude);
+                Instrument.Update(note.Amplitude);
+
+                amp += (float)(Instrument.Sample(note.Note, t) * note.Amplitude);
+
+                notes[ni] = note;
+                if (!note.Pressed && AudioSettings.dspTime >= note.tRelease + Envelope.releaseTime)
+                {
+                    notes.RemoveAt(ni--);
+                }
+            }
+
+            data[i] += (float)amp;
+
+            if (channels == 2)
+            {
+                data[i + 1] = data[i];
+            }
+        }
+
+        PrevData = data.ToArray();
+    }
+
+    ///////////////
+    /// UTILITY
+    /// 
+
+    public static double dLerp(double x, double y, double t)
+    {
+        t = System.Math.Max(0.0, System.Math.Min(t, 1.0));
+        return x + ((y - x) * t);
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8162897682721974425}
   - component: {fileID: 1808694483522459046}
   - component: {fileID: 8605179172511680201}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  Value: 6
 --- !u!114 &8605179172511680201
 MonoBehaviour:
   m_ObjectHideFlags: 0

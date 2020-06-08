@@ -19,8 +19,7 @@ public class Player : MonoBehaviour
     EInstrumentAudio[] _shotPattern;
     int _currentBeat;
 
-    public AudioClip ShotSound;
-    public Synth Instrument;
+    public NoteSequencer Instrument;
 
     private void Awake()
     {
@@ -36,30 +35,19 @@ public class Player : MonoBehaviour
     {
         Instrument.OnNote += OnNote;
     }
-
-    private void OnNote(ENote obj)
-    {
-        _pool.Instantiate(transform.position + transform.right * 0.1f, Quaternion.identity);
-        _pool.Instantiate(transform.position - transform.right * 0.1f, Quaternion.identity);
-    }
-
-    private void ShuffleShotPattern()
-    {
-        if (_shotPattern == null)
-        {
-            _shotPattern = new EInstrumentAudio[8];
-        }
-
-        for (int i = 0; i < _shotPattern.Length; i++)
-        {
-            _shotPattern[i] = UnityEngine.Random.Range(0f, 1f) > 0.75f ? EInstrumentAudio.None : EInstrumentAudio.Kick;
-        }
-    }
-
+    
     private void OnDisable()
     {
         Instrument.OnNote -= OnNote;
     }
+
+    private void OnNote(ENote[] note)
+    {
+        if (note[0] == ENote.None) return;
+        _pool.Instantiate(transform.position + transform.right * 0.1f, Quaternion.identity);
+        _pool.Instantiate(transform.position - transform.right * 0.1f, Quaternion.identity);
+    }
+
 
     private void FixedUpdate()
     {

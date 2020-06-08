@@ -1,33 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    ObjectPool.ObjectPoolBehavior _poolBehavior;
-
-    private void Awake()
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        _poolBehavior = GetComponent<ObjectPool.ObjectPoolBehavior>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var health = collision.GetComponent<Health>();
+        var health = collider.GetComponent<Health>();
         if (health)
         {
-            health.TakeDamage();
+            health.TakeDamage(this, collider);
         }
-
-        FX.Instance.SpawnExplosion(FX.EExplosionSize.Medium, transform.position);
-
-        if (_poolBehavior)
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        
+        this.DestroyOrDisable();
     }
 }

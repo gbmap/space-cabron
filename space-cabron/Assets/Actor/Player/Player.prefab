@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 178071742}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +49,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -60,6 +61,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -152,6 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111645d25217231449c15e4d5a3443d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.05
-  Bullet: {fileID: 5031015903918726386, guid: 68f286e28725f1f438f1c00d91d66ee3, type: 3}
-  Turntable: {fileID: 0}
+  Speed: 0.035
+  Bullet: {fileID: 2543485086492442931, guid: 97e6e0714bc62ff4883de3db5e575663, type: 3}
+  Instrument: {fileID: 0}

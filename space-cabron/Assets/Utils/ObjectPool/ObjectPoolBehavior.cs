@@ -19,7 +19,7 @@ public static class MonoBehaviourExtension
 namespace ObjectPool
 {
     public class ObjectPoolBehavior : MonoBehaviour {
-        internal event Action<GameObject> Destroyed;
+        public Action<GameObject> Destroyed;
 
         internal virtual void OnDisable() {
             Destroyed?.Invoke(gameObject);

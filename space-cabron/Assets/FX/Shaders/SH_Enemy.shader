@@ -23,6 +23,7 @@
 
             #include "UnityCG.cginc"
 			#include "noise.cginc"
+			#include "fx_utils.cginc"
 
             struct appdata
             {
@@ -42,22 +43,6 @@
 			float _Damage;
 			float _Spawn;
 
-			float2 spawnfxuv(fixed2 uv)
-			{
-				float s = pow(_Spawn, 0.25);
-				float ofx =	(PerlinNoise2D(30.0*uv+float2(_Time.x*10.0, _Time.x*100.0)))*2.0;
-				ofx += (PerlinNoise2D(3.0*uv + float2(_Time.x*10.0, _Time.x*50.0)))*10.0;
-				float ofy = 0.0;
-				ofy = (PerlinNoise2D(3.0*uv + float2(_Time.x*10.0, _Time.x*50.0))) * 10.0;
-				float2 offset = float2(ofx, ofy );
-				return offset * s * 0.05;
-			}
-
-			fixed3 spawnfx(fixed2 uv) 
-			{
-				return PerlinNoise2D((uv+_Time)*300.0)*10.0;
-			}
-
             v2f vert (appdata v)
             {
                 v2f o;
@@ -68,15 +53,11 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-				i.uv += spawnfxuv(i.uv)*_Spawn;
-                // sample the texture
+				i.uv += spawnfxuv(i.uv, _Spawn)*_Spawn;
                 fixed4 col = tex2D(_MainTex, i.uv);
 				col.rgb += fixed3(1.0, 1.0, 1.0) * _Damage;
-
-
 				col.rgb += spawnfx(i.uv) * _Spawn;
 				col.rgb *= col.a;
-                // apply fog
                 return col;
             }
             ENDCG

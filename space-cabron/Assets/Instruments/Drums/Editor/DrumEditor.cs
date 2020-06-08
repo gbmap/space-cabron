@@ -22,6 +22,12 @@ namespace SC
             E.Separator();
             E.Space();
 
+            E.LabelField("Config");
+            E.PropertyField(serializedObject.FindProperty("MaxNotesPerBeat"));
+
+            E.Separator();
+            E.Space();
+
             if (sampleChances = E.Foldout(sampleChances, "Sample Chances"))
             {
                 if (InstrumentEditor<EInstrumentAudio>.DrawChancesInspector(ref d.NoteWeights))

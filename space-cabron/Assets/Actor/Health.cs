@@ -31,34 +31,39 @@ public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
         _spriteRenderer.material.SetFloat(_damageId, Mathf.Lerp(_damage, 0f, Time.deltaTime*2f));
     }
 
-    public void TakeDamage()
+    public void TakeDamage(Bullet b, Collider2D collider)
     {
         _currentHealth--;
-        
         _spriteRenderer.material.SetFloat(_damageId, 1.0f);
 
         if (_currentHealth == 0)
         {
-            FX.Instance.SpawnExplosionCluster(MaxHealth, transform.position);
+            //FX.Instance.SpawnExplosionCluster(MaxHealth, transform.position);
 
             OnDestroy?.Invoke(this);
 
-            if (_poolBehavior)
+            _messageRouter.RaiseMessage(new MsgOnEnemyDestroyed()
             {
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
-            _messageRouter.RaiseMessage(new IncreaseScoreMessage() { Value = 100 });
-            
+                enemy = this,
+                bullet = b,
+                collider = collider
+            });
         }
+
+        _messageRouter.RaiseMessage(new MsgOnEnemyHit()
+        {
+            enemy = this,
+            bullet = b,
+            collider = collider
+        });
+
+        if (_currentHealth == 0)
+            this.DestroyOrDisable();
     }
 
     void IObjectPoolEventHandler.PoolReset()
     {
+        OnDestroy?.Invoke(this);
         _currentHealth = MaxHealth;
     }
 }

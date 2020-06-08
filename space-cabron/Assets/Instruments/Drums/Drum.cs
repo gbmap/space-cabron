@@ -11,14 +11,23 @@ public class Drum : Instrument<EInstrumentAudio>
 
     public override int NoNote => (int)EInstrumentAudio.None;
 
-    protected override void OnNoteCallback(EInstrumentAudio s)
+    protected override void OnNoteCallback(EInstrumentAudio[] s)
     {
-        if (s == EInstrumentAudio.None) return;
-        Source.PlayOneShot(Instrument.GetAudio(s));
+        foreach (EInstrumentAudio audio in s)
+        {
+            if (audio == EInstrumentAudio.None) continue;
+            Source.PlayOneShot(Instrument.GetAudio(audio));
+        }
+        
     }
 
     protected override EInstrumentAudio FromInt(int v)
     {
         return (EInstrumentAudio)v;
+    }
+
+    protected override int ToInt(EInstrumentAudio v)
+    {
+        return (int)v;
     }
 }

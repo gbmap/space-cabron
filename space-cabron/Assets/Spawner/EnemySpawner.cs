@@ -37,6 +37,8 @@ public class EnemySpawner : MonoBehaviour
     // ============ LANE (controls spawn positions)
     public Lanes Lane;
 
+    MessageRouter _router;
+
     void Start()
     {
         _poolEnemies = new Dictionary<GameObject, ObjectPool.GameObjectPool>();

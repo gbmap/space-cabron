@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace SC
@@ -11,9 +9,12 @@ namespace SC
     {
         public static void DrawInspector(ref SynthInstrument inst, 
                                         ref bool expand, 
-                                        ref Vector2 modulatorsScroll)
+                                        ref Vector2 modulatorsScroll,
+                                        Material mat)
         {
             E.Separator();
+
+            ShitesizerEditor.DrawWave(new Vector2(100f, 100f), inst.Sample, mat);
 
             var s = EditorStyles.foldout;
             s.fontStyle = FontStyle.Bold;
@@ -21,66 +22,101 @@ namespace SC
             if (expand = E.Foldout(expand, "Oscillators", s))
             {
                 EditorGUI.indentLevel++;
+
                 for (int i = 0; i < inst.oscs.Length; i++)
                 {
-                    Oscillator o = inst.oscs[i];
-                    o.Wave = (Oscillator.EWave)E.EnumPopup("Wave", o.Wave);
-                    o.Amplitude = E.Slider("Amplitude", o.Amplitude, 0f, 1f);
-                    o.FrequencyFactor = E.Slider("Frequency Multiplier", o.FrequencyFactor, 0f, 10f);
-
-                    EditorGUI.indentLevel++;
-                    E.LabelField("Modulators");
-
-                    modulatorsScroll = E.BeginScrollView(modulatorsScroll);
-
-                    if (o.Modulators == null) o.Modulators = new LFModulator[0];
-                    
-                    for (int j = 0; j < o.Modulators.Length; j++)
-                    {
-                        if (DrawModulatorInspector(ref o.Modulators[j]))
-                        {
-                            ArrayUtility.RemoveAt(ref o.Modulators, j--);
-                        }
-                    }
-                    if (GUILayout.Button("Add Modulator"))
-                    {
-                        ArrayUtility.Add(ref o.Modulators, new LFModulator());
-                    }
-                    EditorGUI.indentLevel--;
-
-                    E.Space();
-                    E.Separator();
-
-                    if (GUILayout.Button("Remove Oscillator"))
+                    MainOscillator o = inst.oscs[i];
+                    if (DrawMainOscInspector(ref o, mat))
                     {
                         ArrayUtility.RemoveAt(ref inst.oscs, i--);
                     }
-
-                    E.EndScrollView();
-
-                    E.Space();
-                    E.Separator();
-
-
                 }
+                //    if (GUILayout.Button("Remove Oscillator"))
+                //    {
+                //        ArrayUtility.RemoveAt(ref inst.oscs, i--);
+                //    }
+
+                //    E.EndScrollView();
+
+                //    E.Space();
+                //    E.Separator();
+                //}
 
                 if (GUILayout.Button("Add Oscillator"))
                 {
-                    ArrayUtility.Add(ref inst.oscs, new Oscillator());
+                    ArrayUtility.Add(ref inst.oscs, new MainOscillator());
                 }
 
                 EditorGUI.indentLevel--;
             }
         }
 
-        public static bool DrawModulatorInspector(ref LFModulator mod)
+        public static void DrawOscInspector(ref Oscillator osc)
         {
-            
-            mod.Amplitude = E.Slider("Amplitude" ,mod.Amplitude, 0f, 1f);
-            mod.Frequency = E.Slider("Frequency", mod.Frequency, 0f, 20f);
-            bool r = GUILayout.Button("Remove");
-            E.Space();
-            return r;
+            osc.Wave = (Oscillator.EWave)E.EnumPopup("Wave", osc.Wave);
         }
+
+        public static bool DrawMainOscInspector(ref MainOscillator osc, Material mat)
+        {
+            DrawOscInspector(ref osc.Oscillator);
+            E.BeginHorizontal();
+
+            ShitesizerEditor.DrawWave(new Vector2(50f, 50f), osc.Sample, mat);
+
+            E.BeginVertical();
+
+            /*
+            osc.FrequencyFactor = E.Slider("Hz Multiplier",
+                osc.FrequencyFactor,
+                0f, 5f);
+            */
+            if (osc.FrequencyFactor == null) osc.FrequencyFactor = new ControlledFloat(1f);
+            ControlledFloatInspector(ref osc.FrequencyFactor, "Hz Factor", 0f, 5f, 0f, 5f);
+
+            /*
+            osc.Amplitude = E.Slider("Amplitude",
+                osc.Amplitude,
+                0f, 1f);
+            */
+            if (osc.Amplitude == null) osc.Amplitude = new ControlledFloat(1f);
+            ControlledFloatInspector(ref osc.Amplitude, "Amplitude", 0f, 1f, 0f, 1f);
+
+            E.EndVertical();
+
+            bool delete = GUILayout.Button("x", GUILayout.MaxWidth(20f));
+
+            E.EndHorizontal();
+
+            E.Space();
+
+            return delete;
+        }
+
+        public static bool ControlledFloatInspector(ref ControlledFloat f, 
+            string name, 
+            float min, 
+            float max,
+            float driverMin,
+            float driverMax)
+        {
+            if (f.Controlled)
+            {
+                E.MinMaxSlider(name, ref f.ValueRange.x, ref f.ValueRange.y, driverMin, driverMax);
+                f.ValueRange = E.Vector2Field("Values", f.ValueRange);
+            }
+            else
+            {
+                f.Value = E.Slider(name, (float)f.Value, min, max);
+            }
+            f.Controlled = E.Toggle("Drive: ", f.Controlled);
+            if (f.Controlled)
+            {
+                f.Driver = (EControlledFloatDriver)E.EnumPopup("Driver", f.Driver);
+                f.Invert = E.Toggle("Invert", f.Invert);
+            }
+            E.Space();
+            return false;
+        }
+        
     }
 }

@@ -60,6 +60,26 @@ namespace Utils
             return ts;
         }
 
+        public T[] NextNoRepeat(int n, T defaultV)
+        {
+            T[] ts = new T[n];
+            for (int i = 0, j = 0; i < n; i++, j++)
+            {
+                ts[i] = defaultV;
+                if (j > n * 5) throw new Exception("Couldn't generate array of unique values");
+
+                T v = Next();
+                if (ts.Contains(v))
+                {
+                    i--;
+                    continue;
+                }
+
+                ts[i] = v;
+            }
+            return ts;
+        }
+
         #region IList[T] implementation
         public int IndexOf(T item)
         {

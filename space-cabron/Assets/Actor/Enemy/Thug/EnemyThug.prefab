@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Direction: {x: 0, y: -1}
   Rotation: 30
-  Speed: 0.005
+  Speed: 0.0025
   Absolute: 1
 --- !u!1001 &8913475765223859644
 PrefabInstance:
@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 8070258353430109735, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: MaxHealth
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8742632640915627268, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}

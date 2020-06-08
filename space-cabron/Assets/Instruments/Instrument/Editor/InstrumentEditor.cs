@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace SC
                 {
                     list.Add(new NoteChance()
                     {
-                        Note = (int)(object)note,
+                        Note = Convert.ToInt32(note),
                         Weight = 0
                     });
                 }
@@ -29,9 +30,10 @@ namespace SC
 
             foreach (T note in values)
             {
-                NoteChance nc = list[(int)(object)note];
+                NoteChance nc = list[Convert.ToInt32(note)];
 
                 int lastWeight = nc.Weight;
+                nc.Note = Convert.ToInt32(note);
                 nc.Weight = E.IntSlider(note.ToString(), nc.Weight, 0, 10);
                 list[(int)(object)note] = nc;
 
