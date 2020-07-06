@@ -20,7 +20,7 @@ public class NoteSequencerEditor : Editor
 
         if (GUILayout.Button("Generate New Notes"))
         {
-            nc.UpdateNoteBag();
+            nc.UpdateNoteBag(nc.Marcher.NotesInBar);
         }
     }
 }

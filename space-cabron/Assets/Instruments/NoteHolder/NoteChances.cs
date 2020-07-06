@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utils;
+using Z;
 
 [System.Serializable]
 public class NoteChance
@@ -14,7 +15,7 @@ public class NoteChance
 
 public abstract class NoteChances<T> : MonoBehaviour where T : System.Enum
 {
-    public BeatMaker BeatMaker;
+    public ZBaseMarchPlayer Marcher;
     public ENote Root;
 
     [HideInInspector]
@@ -40,44 +41,56 @@ public abstract class NoteChances<T> : MonoBehaviour where T : System.Enum
 
     protected virtual void Start()
     {
-        UpdateNoteBag();
+        UpdateNoteBag(Marcher.NotesInBar);
     }
 
     protected virtual void OnEnable()
     {
-        BeatMaker.OnBeat += OnBeat;
-        BeatMaker.OnNewBeat += OnNewBeat;
+        Marcher.OnBeat += OnBeat;
+        Marcher.OnNewBeat += OnNewBeat;
     }
 
     protected virtual void OnDisable()
     {
-        BeatMaker.OnBeat -= OnBeat;
-        BeatMaker.OnNewBeat -= OnNewBeat;
+        Marcher.OnBeat -= OnBeat;
+        Marcher.OnNewBeat -= OnNewBeat;
     }
     
-    private void OnBeat()
+    private void OnBeat(int b)
     {
-        var notes = Notes[BeatMaker.CurrentBeat];
+        if (Notes.Length == 0) return;
+
+        var notes = Notes[Marcher.CurrentBeat % Notes.Length];
         OnNoteCallback(notes.Select(n => FromInt(n)).ToArray());
     }
 
     private void OnNewBeat(int beatCount)
     {
-        UpdateNoteBag();
+        UpdateNoteBag(beatCount);
     }
 
-    public void UpdateNoteBag(bool updateNotes = true)
+    public void UpdateNoteBag(int beatCount, bool updateNotes = true)
     {
         NoteBag = GenerateNotes();
 
         if (updateNotes)
         {
-            Notes = new int[BeatMaker.Loop.BeatCount][];
+            Notes = new int[beatCount][];
             for (int i = 0; i < Notes.Length; i++)
             {
                 // sub notas, não confundir com uma sequência de notas dentro da bar
                 Notes[i] = NoteBag.NextNoRepeat(UnityEngine.Random.Range(1, MaxNotesPerBeat), -1);
             }
+        }
+    }
+
+    public void GenerateNewNotes()
+    {
+        Notes = new int[Marcher.NotesInBar][];
+        for (int i = 0; i < Notes.Length; i++)
+        {
+            // sub notas, não confundir com uma sequência de notas dentro da bar
+            Notes[i] = NoteBag.NextNoRepeat(UnityEngine.Random.Range(1, MaxNotesPerBeat), -1);
         }
     }
 
@@ -96,7 +109,7 @@ public abstract class NoteChances<T> : MonoBehaviour where T : System.Enum
         var n = NoteWeights.Find(nw => nw.Note == ToInt(note));
         n.Weight++;
 
-        UpdateNoteBag(false);
+        UpdateNoteBag(Marcher.NotesInBar, false);
         Notes[UnityEngine.Random.Range(0, Notes.Length)][0] = n.Note;
     }
 
@@ -135,7 +148,7 @@ public abstract class NoteChances<T> : MonoBehaviour where T : System.Enum
             }
         }
 
-        UpdateNoteBag();
+        UpdateNoteBag(Marcher.NotesInBar);
     }
 
     public void StartWithNotes(ENote[] notes, bool addSilence = true)

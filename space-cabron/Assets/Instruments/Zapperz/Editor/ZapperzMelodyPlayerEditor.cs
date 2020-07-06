@@ -1,16 +1,28 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ZapperzMelodyPlayer))]
-public class ZapperzMelodyPlayerEditor : Editor
+namespace Z
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(ZMelodyPlayerSynth))]
+    public class ZMelodyPlayerEditor : Editor
     {
-        DrawDefaultInspector();
-
-        if (GUILayout.Button("Generate New Melody"))
+        public override void OnInspectorGUI()
         {
-            (target as ZapperzMelodyPlayer).GenerateMelody();
+            DrawDefaultInspector();
+
+            var zmp = target as ZMelodyPlayerSynth;
+
+            if (zmp.Melody.Length != 0)
+            {
+                EditorGUILayout.LabelField(zmp.CurrentNote.ToString());
+            }
+
+            /*
+            if (GUILayout.Button("Generate New Melody"))
+            {
+                (target as ZMelodyPlayer).GenerateMelody();
+            }
+            */
         }
     }
 }

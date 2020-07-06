@@ -7,6 +7,21 @@ public class UpgradeSpawner : MonoBehaviour
 
     MessageRouter _router;
 
+    WeightedRandomBag<EUpgrade> upgradeBag;
+
+    private void Awake()
+    {
+        upgradeBag = new WeightedRandomBag<EUpgrade>();
+        upgradeBag.AddEntry(EUpgrade.BPM, 1f);
+        upgradeBag.AddEntry(EUpgrade.AddMelodyImproviserToPlayer, .15f);
+        upgradeBag.AddEntry(EUpgrade.AddMarchImproviserToPlayer, .1f);
+        upgradeBag.AddEntry(EUpgrade.AddMarchImproviserToEnemy, .05f);
+        upgradeBag.AddEntry(EUpgrade.GenerateEnemyBeat, .025f);
+        upgradeBag.AddEntry(EUpgrade.GenerateEnemyMelody, .025f);
+        upgradeBag.AddEntry(EUpgrade.GeneratePlayerBeat, .05f);
+        upgradeBag.AddEntry(EUpgrade.GeneratePlayerMelody, .05f);
+    }
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -23,30 +38,33 @@ public class UpgradeSpawner : MonoBehaviour
 
     private void OnUpgradeToken(MsgOnUpgradeTaken msg)
     {
-
-        BeatMaker targetMaker = Random.value < 0.25f ?
-            InstrumentsManager.Instance.EnemyBeatMaker :
-            InstrumentsManager.Instance.PlayerBeatMaker;
+        var instruments = InstrumentsManager.Instance;
 
         switch (msg.Type)
         {
             case EUpgrade.BPM:
-                BeatMaker.BPM += (int)msg.Value;
+                Z.ZMarchPlayer.BPM += (int)msg.Value;
                 break;
-            case EUpgrade.BeatsInBar:
-                AddToInt(ref targetMaker.BeatsPerFourBeats, (int)msg.Value, 4, 8);
+            case EUpgrade.GenerateEnemyBeat:
+                //instruments.EnemyBeatMaker?.GenerateNewBeat();
                 break;
-            case EUpgrade.MaxSubBeats:
-                AddToInt(ref targetMaker.MaxSubBeats, (int)msg.Value, 1, 4);
+            case EUpgrade.GenerateEnemyMelody:
+                //instruments.EnemySpawnerDrum?.GenerateNewNotes();
                 break;
-            case EUpgrade.NBeats:
-                AddToInt(ref targetMaker.BeatsInBar, (int)msg.Value, 3, 12);
+            case EUpgrade.GeneratePlayerBeat:
+                //instruments.PlayerBeatMaker?.GenerateNewBeat();
                 break;
-            case EUpgrade.AddNoteToPlayerSynth:
-                //InstrumentsManager.Instance.PlayerSynth.NoteSequencer.AddNote(RandomEnum<ENote>());
+            case EUpgrade.GeneratePlayerMelody:
+                //instruments.PlayerMelodyGenerator?.GenerateMelody();
                 break;
-            case EUpgrade.AddNoteToEnemyDrum:
-                InstrumentsManager.Instance.EnemySpawnerDrum.AddNote(RandomEnum<EInstrumentAudio>());
+            case EUpgrade.AddMarchImproviserToPlayer:
+                instruments.PlayerBeatMaker.Improviser.Add(instruments.GenerateRandomImproviser(instruments.PlayerBeatMaker));
+                break;
+            case EUpgrade.AddMelodyImproviserToPlayer:
+                instruments.PlayerMelodyPlayer.Improviser.Add(instruments.GenerateRandomImproviser(instruments.PlayerMelodyPlayer));
+                break;
+            case EUpgrade.AddMarchImproviserToEnemy:
+                instruments.EnemyBeatMaker.Improviser.Add(instruments.GenerateRandomImproviser(instruments.EnemyBeatMaker));
                 break;
         }
     }
@@ -58,21 +76,17 @@ public class UpgradeSpawner : MonoBehaviour
 
     private void Cb_OnEnemyDestroyed(MsgOnEnemyDestroyed msg)
     {
-        if (Random.value < 0.5f) return;
+        if (Random.value < 0.75f) return;
 
         var instance = Instantiate(Upgrade, msg.enemy.transform.position, Quaternion.identity);
         var up = instance.GetComponent<Upgrade>();
-        up.Type = RandomUpgradeType();
+        up.SetType(RandomUpgradeType());
 
         switch (up.Type)
         {
+            default:
             case EUpgrade.BPM:
                 up.Value = Mathf.RoundToInt((Random.Range(-1.0f, 1.0f)/2f)*10f);
-                break;
-            case EUpgrade.BeatsInBar:
-            case EUpgrade.MaxSubBeats:
-            case EUpgrade.NBeats:
-                up.Value = Random.value < 0.1f ? -1 : 1;
                 break;
         }
 
@@ -81,8 +95,11 @@ public class UpgradeSpawner : MonoBehaviour
 
     EUpgrade RandomUpgradeType()
     {
+        return upgradeBag.GetRandom();
+        /*
         System.Array v = System.Enum.GetValues(typeof(EUpgrade));
         return (EUpgrade)v.GetValue(Random.Range(0, v.Length));
+        */
     }
 
     T RandomEnum<T>()

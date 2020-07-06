@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e215e4f0e33564e97c300573112070, type: 3}
+  m_Name: UpgradeConfiguration
+  m_EditorClassIdentifier: UnityEngine.CoreModule:UnityEngine:ScriptableObject
+  sprites:
+  - {fileID: 21300000, guid: 3570774c1722ff64585969914ee82df3, type: 3}
+  - {fileID: 21300000, guid: ff7e65d3eba44624f8fae91d6d347d48, type: 3}
+  - {fileID: 21300000, guid: 1b0f590408dea0547a8d33614494da98, type: 3}
+  - {fileID: 21300000, guid: 89dec50d39f926c4f84ee95569228517, type: 3}
+  - {fileID: 21300000, guid: 35c32795daaa80a42b76e06de41fc116, type: 3}
+  - {fileID: 21300000, guid: 89a3a9ff27065f842b91ef0d2eafebe7, type: 3}
+  - {fileID: 21300000, guid: 7eae1d9d810960948bb34c8d8db23b4c, type: 3}
+  - {fileID: 21300000, guid: d5950bcb19acae54a9b5a874d8803c99, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}

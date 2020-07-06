@@ -101,6 +101,7 @@ public class Oscillator
 
     public double Sample(double t)
     {
+        t = t % (Mathf.PI*2.0);
         switch (Wave)
         {
             default:
@@ -108,15 +109,14 @@ public class Oscillator
             case EWave.Tri:
                 {
                     double p = System.Math.PI;
-                    return (System.Math.Abs((((t+p*1.5) % (p * 2.0)) - p) / p) - 0.5)*2.0;
+                    return ((t % (2.0*p)) - p)/p;
                 }
             case EWave.Sine: return System.Math.Sin(t);
             case EWave.Square: return System.Math.Sin(t) >= 0.0f ? 1f : -1f;
-            case EWave.Noise: return ((float)rand.Next())/rand.Next();
             case EWave.Saw:
                 {
                     double p = System.Math.PI;
-                    return (( (t+p) % (p*2.0) ) - p) / p;
+                    return (( (t+p) ) - p) / p;
                 }
 
             // (sin(x) - 1.0 * floor(sin(x))) * 2 - 1

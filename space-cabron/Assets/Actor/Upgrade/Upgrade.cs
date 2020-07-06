@@ -6,12 +6,13 @@ public enum EUpgrade
 {
     // beat maker
     BPM,
-    MaxSubBeats,
-    BeatsInBar,
-    NBeats,
-
-    AddNoteToPlayerSynth,
-    AddNoteToEnemyDrum
+    GeneratePlayerMelody,
+    GeneratePlayerBeat,
+    GenerateEnemyMelody,
+    GenerateEnemyBeat,
+    AddMelodyImproviserToPlayer,
+    AddMarchImproviserToPlayer,
+    AddMarchImproviserToEnemy
 }
 
 public class MsgOnUpgradeTaken
@@ -22,20 +23,29 @@ public class MsgOnUpgradeTaken
 
 public class Upgrade : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
 {
-    [HideInInspector]
-    public EUpgrade Type;
+    public UpgradeConfiguration config;
+    public new SpriteRenderer renderer;
 
-    [HideInInspector]
+    public EUpgrade Type;
     public object Value;
 
     MessageRouter _msg;
 
     private void Awake()
     {
-        Type = EUpgrade.BPM;
-        Value = 10;
-
         _msg = ServiceFactory.Instance.Resolve<MessageRouter>();
+    }
+
+    void OnEnable()
+    {
+        renderer.sprite = config.GetSprite(Type);
+    }
+
+    public void SetType(EUpgrade type, object value = null)
+    {
+        Type = type;
+        Value = value;
+        renderer.sprite = config.GetSprite(Type);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

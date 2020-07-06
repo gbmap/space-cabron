@@ -14,7 +14,7 @@ public class InstrumentAudioSample : ScriptableObject
 {
     public AudioClip[] Instruments;
 
-    public AudioClip GetAudio(EInstrumentAudio instrument)
+    public AudioClip GetAudio(ENote instrument)
     {
         return Instruments[(int)instrument];
     }

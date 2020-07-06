@@ -1,48 +1,39 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Shitesizer : MonoBehaviour
 {
-    public float hz = 440;
-    public float gain = 0.1f;
+    public float sampleRate = 48000f; 
 
-    const float samplingFreq = 44000;
+    float step;
+    float t;
 
-    float phase = 0f;
-
-    public float[] Buffer
+    void Awake()
     {
-        get; private set;
+        SetNote(69f);
     }
 
-    float t = 0f;
-    private void Update()
+    public void SetNote(float note)
     {
-        t = Time.time;
+        float freq = 440.0f * Mathf.Pow(2.0f, 1.0f * (note - 69f) / 12.0f);
+        step = freq / sampleRate;
+    }
+
+    public float Run()
+    {
+        t += step;
+        return Mathf.Sin(t);
     }
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
         for (int i = 0; i < data.Length; i+=channels)
         {
-            float w2 = Mathf.PI * 2f / 1f;
-            float w = (hz + Mathf.Sin(phase+t*w2) * 200f ) * Mathf.PI * 2f;
-            float f = w * (1f / samplingFreq);
-            phase += f;
-
-            data[i] += Mathf.Sin(phase) * gain;
+            data[i] += Run() * 2.0f;
 
             if (channels == 2)
             {
                 data[i + 1] = data[i];
             }
-
-            if (phase > Mathf.PI *2f)
-            {
-                phase = 0f;
-            }
         }
-
-        Buffer = data.ToArray();
     }
 }

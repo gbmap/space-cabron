@@ -1,28 +1,30 @@
 ﻿using UnityEngine;
+using Z;
 
 public class SynthLoopNotes : MonoBehaviour
 {
-    public ENote startingNote = ENote.C;
-    public ENote currentNote;
+    public EScale scale;
+    public ENote note;
+
     public int octave = 4;
-
-
-    public NoteSequencer sequencer;
     public Synth synth;
 
+    ZMelody melody;
+
     float lastHit;
+    private int currentNote;
 
     private void Awake()
     {
-        currentNote = startingNote;
+        melody = ZMelodyGenerator.GenerateSkipAndWalkMelody(note, scale, octave, 5);
     }
 
     private void Update()
     {
         if (Time.time > lastHit + 1.0)
         {
-            currentNote = startingNote;
-            octave = 4;
+            //currentNote = 0;
+            //octave = 4;
         }
     }
 
@@ -31,13 +33,10 @@ public class SynthLoopNotes : MonoBehaviour
         if (!synth)
             throw new System.Exception("No Synth configured!");
 
-        var n = ENote.None;
-        while (n == ENote.None)
-        {
-            n = (ENote)sequencer.NoteBag.Next();
-        }
+        var n = melody.notes[currentNote];
         synth.PlayKey(n, octave, 0.01);
 
+        currentNote = (currentNote + 1) % melody.notes.Length;
         lastHit = Time.time;
     }
 }

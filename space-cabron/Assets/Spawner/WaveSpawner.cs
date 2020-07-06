@@ -2,6 +2,7 @@
 using Managers;
 using System.Collections.Generic;
 using UnityEngine;
+using Z;
 
 public enum EWaveType
 {
@@ -51,7 +52,7 @@ public class WaveGenerator
 
 public class WaveSpawner : MonoBehaviour
 {
-    public BeatMaker Beatmaker;
+    public ZBaseMarchPlayer Beatmaker;
     public EnemySpawner spawner;
 
     private WaveGenerator gen;
@@ -91,7 +92,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    private void OnBeat()
+    private void OnBeat(int b)
     {
         var w = CurrentWave;
         if (w == null) return;

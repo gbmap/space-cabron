@@ -9,6 +9,13 @@ public enum EScale
      * 
      */
 
+    
+
+    // PENTATONIC
+    MajorPentatonic,
+    MinorPentatonic,
+    Japanese,
+
     // STANDARD
     Major,
     Minor,
@@ -31,8 +38,12 @@ public enum EScale
     Mystic,
     
     // EIGHT TONE
-    Spanish8
+    Spanish8,
 
+
+
+
+    Custom = 99999
 }
 
 public class Zapperz
@@ -66,6 +77,14 @@ public class Zapperz
         switch (scale)
         {
             default:
+
+            // PENTATONICS
+            case EScale.MajorPentatonic:
+                return new int[] { 2, 2, 3, 2, 3 };
+            case EScale.MinorPentatonic:
+                return new int[] { 3, 2, 2, 3, 2 };
+            case EScale.Japanese:
+                return new int[] { 2, 1, 4, 1, 4 };
 
             // MODES
             case EScale.Minor:
@@ -116,6 +135,8 @@ public class Zapperz
             // 8 TONE
             case EScale.Spanish8:
                 return new int[] { 1, 2, 1, 1, 1, 2, 2, 2 };
+
+            
         }
     }
 

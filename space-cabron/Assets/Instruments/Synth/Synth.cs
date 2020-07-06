@@ -247,6 +247,7 @@ public class Synth : MonoBehaviour
                 Instrument.Update(note.Amplitude);
 
                 amp += (float)(Instrument.Sample(note.Note, t) * note.Amplitude);
+                amp = amp > 1f ? 1f : (amp < -1f ? -1f : amp);
 
                 notes[ni] = note;
                 if (!note.Pressed && AudioSettings.dspTime >= note.tRelease + Envelope.releaseTime)

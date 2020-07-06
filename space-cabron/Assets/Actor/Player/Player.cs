@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using QFSW.QC;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     EInstrumentAudio[] _shotPattern;
     int _currentBeat;
 
-    public NoteSequencer Instrument;
+    public Synth Synth;
 
     private void Awake()
     {
@@ -33,26 +34,29 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Instrument.OnNote += OnNote;
+        // Synth.OnNotePlayed += OnNote;
+
     }
     
     private void OnDisable()
     {
-        Instrument.OnNote -= OnNote;
+        // Synth.OnNotePlayed -= OnNote;
     }
 
-    private void OnNote(ENote[] note)
+    private void OnNote(ENote note)
     {
-        if (note[0] == ENote.None) return;
+        if (note == ENote.None) return;
         _pool.Instantiate(transform.position + transform.right * 0.1f, Quaternion.identity);
         _pool.Instantiate(transform.position - transform.right * 0.1f, Quaternion.identity);
     }
-
 
     private void FixedUpdate()
     {
         Vector2 input = Vector2.right * Input.GetAxis("Horizontal") + Vector2.up * Input.GetAxis("Vertical");
         _animator.SetFloat(_animatorXHash, input.x);
-        _rbody.MovePosition(_rbody.position + input * Speed);
+        if (!QuantumConsole.Instance.IsActive)
+        { 
+            _rbody.MovePosition(_rbody.position + input * Speed);
+        }
     }
 }

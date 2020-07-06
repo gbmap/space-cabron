@@ -27,7 +27,7 @@ namespace SC
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            DrawWave(Vector2.one * 200f, s.Buffer, mat);
+            //DrawWave(Vector2.one * 200f, s.Buffer, mat);
 
             EditorGUILayout.Space();
 
