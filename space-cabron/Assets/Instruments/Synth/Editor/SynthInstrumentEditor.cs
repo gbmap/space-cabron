@@ -58,6 +58,8 @@ namespace SC
 
         public static bool DrawMainOscInspector(ref MainOscillator osc, Material mat)
         {
+            E.LabelField("Oscillator");
+
             DrawOscInspector(ref osc.Oscillator);
             E.BeginHorizontal();
 
@@ -65,19 +67,9 @@ namespace SC
 
             E.BeginVertical();
 
-            /*
-            osc.FrequencyFactor = E.Slider("Hz Multiplier",
-                osc.FrequencyFactor,
-                0f, 5f);
-            */
             if (osc.FrequencyFactor == null) osc.FrequencyFactor = new ControlledFloat(1f);
             ControlledFloatInspector(ref osc.FrequencyFactor, "Hz Factor", 0f, 5f, 0f, 5f);
-
-            /*
-            osc.Amplitude = E.Slider("Amplitude",
-                osc.Amplitude,
-                0f, 1f);
-            */
+            
             if (osc.Amplitude == null) osc.Amplitude = new ControlledFloat(1f);
             ControlledFloatInspector(ref osc.Amplitude, "Amplitude", 0f, 1f, 0f, 1f);
 
@@ -87,9 +79,19 @@ namespace SC
 
             E.EndHorizontal();
 
+            E.LabelField("LFO");
+            DrawModulatorInspector(ref osc.FM);
+
             E.Space();
 
             return delete;
+        }
+
+        public static void DrawModulatorInspector(ref Modulator mod)
+        {
+            DrawOscInspector(ref mod.Oscillator);
+            mod.Amplitude = E.Slider("Amplitude", mod.Amplitude, 0f, 1f);
+            mod.Frequency = E.Slider("Frequency", mod.Frequency, 0f, 100f);
         }
 
         public static bool ControlledFloatInspector(ref ControlledFloat f, 

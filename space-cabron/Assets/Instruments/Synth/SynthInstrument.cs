@@ -41,26 +41,23 @@ public class SynthInstrument
 }
 
 [System.Serializable]
-public class LFModulator
+public class Modulator
 {
-    [Range(0f, 5f)]
-    public float Amplitude = 0.01f;
+    [Range(1f, 100f)]
     public float Frequency = 0.01f;
 
-    public LFModulator()
-    {
+    [Range(0f, 1f)]
+    public float Amplitude = 1f;
 
+    public Oscillator Oscillator;
+    public Oscillator.EWave Wave 
+    {
+        get { return Oscillator.Wave; }
     }
 
-    public LFModulator(float a, float f)
+    public double Modulate(double t)
     {
-        Amplitude = a;
-        Frequency = f;
-    }
-
-    public float Modulate(float hz, float t)
-    {
-        return Amplitude * hz * Mathf.Sin(Frequency * 2f * Mathf.PI * t);
+        return Oscillator.Sample(Frequency * t) * Amplitude;
     }
 }
 
@@ -68,13 +65,19 @@ public class LFModulator
 public class MainOscillator
 {
     public Oscillator Oscillator = new Oscillator();
+    public Modulator FM = new Modulator();
 
     public ControlledFloat FrequencyFactor = new ControlledFloat(1f);
     public ControlledFloat Amplitude = new ControlledFloat(1f);
 
     public double Sample(double hz, double t)
     {
-        return Oscillator.Sample(hz*FrequencyFactor*t*System.Math.PI*2f) * Amplitude;
+        t = t*System.Math.PI*2f;
+
+        if (FM.Wave != Oscillator.EWave.None)
+            t += FM.Modulate(t);
+
+        return Oscillator.Sample(hz*FrequencyFactor*t) * Amplitude;
     }
 }
 
@@ -109,14 +112,14 @@ public class Oscillator
             case EWave.Tri:
                 {
                     double p = System.Math.PI;
-                    return ((t % (2.0*p)) - p)/p;
+                    return System.Math.Abs((( (t+p) % (2.0*p)) - p)/p);
                 }
             case EWave.Sine: return System.Math.Sin(t);
             case EWave.Square: return System.Math.Sin(t) >= 0.0f ? 1f : -1f;
             case EWave.Saw:
                 {
                     double p = System.Math.PI;
-                    return (( (t+p) ) - p) / p;
+                    return (( (t+p) % (2.0*p)) - p)/p;
                 }
 
             // (sin(x) - 1.0 * floor(sin(x))) * 2 - 1

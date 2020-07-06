@@ -246,7 +246,7 @@ public class Synth : MonoBehaviour
                 note.Amplitude = Envelope.GetAmplitude(t, note.tPress, note.tRelease, note.Pressed, note.Amplitude);
                 Instrument.Update(note.Amplitude);
 
-                amp += (float)(Instrument.Sample(note.Note, t) * note.Amplitude);
+                amp += (Instrument.Sample(note.Note, t) * note.Amplitude);
                 amp = amp > 1f ? 1f : (amp < -1f ? -1f : amp);
 
                 notes[ni] = note;
