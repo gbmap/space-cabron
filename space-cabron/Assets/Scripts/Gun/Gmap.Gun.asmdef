@@ -1,0 +1,16 @@
+{
+    "name": "Gmap.Gun",
+    "rootNamespace": "",
+    "references": [
+        "GUID:69ce86ed6c6e5274bba7e693fdd48c23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

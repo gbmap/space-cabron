@@ -68,6 +68,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -77,8 +79,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -99,9 +101,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -456,6 +461,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      enemy_dasher_10: 62427967980006385
+      enemy_dasher_8: -3691589269992802466
+      enemy_dasher_6: -7352628307205753721
+      enemy_dasher_12: -6471985235018858895
+      enemy_dasher_7: -3443856485827435094
+      enemy_dasher_14: 8880519402851842554
+      enemy_dasher_2: 1122238704744509920
+      enemy_dasher_3: 545972331915802989
+      enemy_dasher_11: -6671105091035041430
+      enemy_dasher_13: 2180102081176954152
+      enemy_dasher_9: -1158887930554717223
+      enemy_dasher_5: 2576803040619069978
+      enemy_dasher_0: 5374475386435262449
+      enemy_dasher_1: 891741017592683196
+      enemy_dasher_4: 4720004883714095527
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

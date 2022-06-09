@@ -135,8 +135,6 @@ public class Zapperz
             // 8 TONE
             case EScale.Spanish8:
                 return new int[] { 1, 2, 1, 1, 1, 2, 2, 2 };
-
-            
         }
     }
 
