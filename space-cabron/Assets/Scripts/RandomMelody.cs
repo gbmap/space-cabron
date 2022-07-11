@@ -11,7 +11,7 @@ public class RandomMelody : MonoBehaviour
     public Gmap.CosmicMusicUtensil.ENote Note;
     public AudioHelm.HelmController Controller;
 
-    public BarIntervals Bar;
+    // public BarIntervals Bar;
     private int m_barCursor = 0;
 
     public Melody Melody;
@@ -22,9 +22,11 @@ public class RandomMelody : MonoBehaviour
         if (!Application.isPlaying)
             return; 
 
-        StartCoroutine(Play());
+
+        // StartCoroutine(Play());
     }
 
+    /*
     IEnumerator Play()
     {
         while (enabled)
@@ -38,4 +40,5 @@ public class RandomMelody : MonoBehaviour
         }
 
     }
+    */
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 
 using Gmap.CosmicMusicUtensil;
 
+/*
 [CustomEditor(typeof(BarIntervals))]
 public class BarIntervalsEditor : Editor
 {
@@ -20,3 +21,4 @@ public class BarIntervalsEditor : Editor
             EditorGUILayout.LabelField("Notes don't sum to Time Signature!");
     }
 }
+*/

@@ -60,11 +60,16 @@ namespace Gmap.CosmicMusicUtensil
             // // 8 TONE
             // case EScale.Spanish8:
             //     return new int[] { 1, 2, 1, 1, 1, 2, 2, 2 };
+    
+    public interface IScale
+    {
+        public ENote GetNote(ENote root, int i);
+    }
 
 
 
-    [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Scale")]
-    public class Scale : ScriptableObject
+    [System.Serializable]
+    public class Scale : IScale
     {
         public int[] Intervals;
 
@@ -73,6 +78,17 @@ namespace Gmap.CosmicMusicUtensil
             i = i % Intervals.Length;
             return Note.OffsetNote(root, Intervals[..i].Sum(x=>x));
 
+        }
+    }
+
+    [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Scale")]
+    public class ScriptableScale : ScriptableObject, IScale
+    {
+        public Scale Scale;
+
+        public ENote GetNote(ENote root, int i)
+        {
+            return Scale.GetNote(root, i);
         }
     }
 

@@ -1,0 +1,3 @@
+[submodule "space-cabron/Assets/Scripts/Gmap.Utils"]
+	path = space-cabron/Assets/Scripts/Gmap.Utils
+	url = https://github.com/gbmap/Gmap.Utils.git
