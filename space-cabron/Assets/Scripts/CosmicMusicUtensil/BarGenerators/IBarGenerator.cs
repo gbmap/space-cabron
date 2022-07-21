@@ -92,13 +92,13 @@ namespace Gmap.CosmicMusicUtensil
         public override IBar Generate(BarGeneratorParams p)
         {
             Bar bar = new Bar();
-            float step = 1f/p.MaxNotes;
+            float step = 1f/p.Scale.GetNumberOfNotes();
             for (float t = 0; t < 1f; t += step)
             {
-                float wave = Mathf.Sin(t*2f*Mathf.PI);
-                int octave = Config.BaseOctave + Mathf.RoundToInt(Mathf.Sign(wave));
+                float wave = Mathf.Sin(t*2*Mathf.PI+step*0.5f);
+                int octave = Config.BaseOctave;
                 int nNotes = p.Scale.GetNumberOfNotes();
-                int noteIndex = Mathf.RoundToInt(wave * nNotes);
+                int noteIndex = Mathf.FloorToInt(wave * nNotes);
                 ENote note = p.Scale.GetNote(p.Root, noteIndex);
                 bar.AddNote(new Note(note, 4, octave));
             }
