@@ -37,6 +37,7 @@ namespace Gmap.CosmicMusicUtensil
         public int MaxNoteType = 8;
 
         public IScale Scale;
+        public ENote Root;
         public bool FilterNotes;
     }
 
@@ -66,7 +67,6 @@ namespace Gmap.CosmicMusicUtensil
     {
     }
 
-    // [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Bar Generator/Function")]
     public class FunctionBarGenerator : BaseBarGenerator<FunctionBarGeneratorConfig>
     {
         public FunctionBarGenerator(FunctionBarGeneratorConfig config) 
@@ -76,5 +76,35 @@ namespace Gmap.CosmicMusicUtensil
         {
             throw new System.NotImplementedException();
         }
+    }
+
+    public class WaveBarGeneratorConfig
+    {
+        public int BaseOctave = 3;
+        public float Amplitude = 1;
+    }
+
+    public class WaveBarGenerator : BaseBarGenerator<WaveBarGeneratorConfig>
+    {
+        public WaveBarGenerator(WaveBarGeneratorConfig config) 
+            : base(config) {}
+
+        public override IBar Generate(BarGeneratorParams p)
+        {
+            Bar bar = new Bar();
+            float step = 1f/p.MaxNotes;
+            for (float t = 0; t < 1f; t += step)
+            {
+                float wave = Mathf.Sin(t*2f*Mathf.PI);
+                int octave = Config.BaseOctave + Mathf.RoundToInt(Mathf.Sign(wave));
+                int nNotes = p.Scale.GetNumberOfNotes();
+                int noteIndex = Mathf.RoundToInt(wave * nNotes);
+                ENote note = p.Scale.GetNote(p.Root, noteIndex);
+                bar.AddNote(new Note(note, 4, octave));
+            }
+
+            return bar;
+        }
+
     }
 }

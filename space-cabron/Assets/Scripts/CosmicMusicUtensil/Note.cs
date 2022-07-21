@@ -24,6 +24,21 @@ namespace Gmap.CosmicMusicUtensil
     {
         public ENote Tone;
         public int Interval;
+        public int Octave;
+
+        public Note()
+        {
+            Tone = ENote.None;
+            Interval = 0;
+            Octave = 0;
+        }
+
+        public Note(ENote tone, int interval, int octave)
+        {
+            Tone = tone;
+            Interval = interval;
+            Octave = octave;
+        }
 
         public static ENote OffsetNote(ENote n, int steps)
         {

@@ -64,9 +64,8 @@ namespace Gmap.CosmicMusicUtensil
     public interface IScale
     {
         public ENote GetNote(ENote root, int i);
+        public int GetNumberOfNotes();
     }
-
-
 
     [System.Serializable]
     public class Scale : IScale
@@ -75,21 +74,16 @@ namespace Gmap.CosmicMusicUtensil
 
         public ENote GetNote(ENote root, int i)
         {
-            i = i % Intervals.Length;
+            if (Intervals.Length == 0)
+                return ENote.None;
+
+            i = Bar.MathMod(i,Intervals.Length);
             return Note.OffsetNote(root, Intervals[..i].Sum(x=>x));
-
         }
-    }
 
-    [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Scale")]
-    public class ScriptableScale : ScriptableObject, IScale
-    {
-        public Scale Scale;
-
-        public ENote GetNote(ENote root, int i)
+        public int GetNumberOfNotes()
         {
-            return Scale.GetNote(root, i);
+            return Intervals.Length;
         }
     }
-
 }

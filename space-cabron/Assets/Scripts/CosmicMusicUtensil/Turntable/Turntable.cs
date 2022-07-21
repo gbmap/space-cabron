@@ -13,7 +13,7 @@ namespace Gmap.CosmicMusicUtensil
 
     public interface ITurntable
     {
-        int BPM {get;}
+        int BPM {get; set;}
         IBar Bar {get;}
 
         void Update(System.Action<OnNoteArgs> OnNote);
@@ -21,15 +21,13 @@ namespace Gmap.CosmicMusicUtensil
 
     public class Turntable : ITurntable
     {
-        int ITurntable.BPM => _BPM;
-
         IBar _bar;
         public IBar Bar => _bar;
 
-        public int _BPM;
+        public int BPM { get; set; }
         public float BPS
         {
-            get { return ((float)_BPM)/60f; }
+            get { return ((float)BPM)/60f; }
         }
         
         int   _noteIndex;
@@ -40,7 +38,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public Turntable(int BPM, IBar bar)
         {
-            _BPM = BPM;
+            this.BPM = BPM;
             _bar = bar;
             _noteIndex = 0;
         }

@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ecf80e33d20c66458f205da32e9d740, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ebb0c89a94d781469906c0f95edabe7, type: 3}
   m_Name: Composite4FourFour4444
   m_EditorClassIdentifier: 
   Bars:
   - {fileID: 11400000, guid: 50edb97f4a24f86488cccee37fa1229a, type: 2}
-  - {fileID: 11400000, guid: 50edb97f4a24f86488cccee37fa1229a, type: 2}
-  - {fileID: 11400000, guid: 50edb97f4a24f86488cccee37fa1229a, type: 2}
-  - {fileID: 11400000, guid: 97b93584de06a3047b670583a8537c4a, type: 2}

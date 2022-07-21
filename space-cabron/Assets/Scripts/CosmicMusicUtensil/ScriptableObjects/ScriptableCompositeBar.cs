@@ -8,17 +8,24 @@ namespace Gmap.CosmicMusicUtensil
     public class ScriptableCompositeBar : ScriptableObject, IBar
     {
         public List<ScriptableBar> Bars = new List<ScriptableBar>();
-        public bool IsValid => new CompositeBarProxy(Bars).IsValid;
-        public int Length => new CompositeBarProxy(Bars).Length;
+        
+        public bool IsValid => Proxy.IsValid;
+        public int Length => Proxy.Length;
+
+        private CompositeBarProxy proxy;
+        private CompositeBarProxy Proxy
+        {
+            get { return proxy ?? (proxy = new CompositeBarProxy(Bars)); }
+        }
 
         public Note GetNote(int i)
         {
-            return new CompositeBarProxy(Bars).GetNote(i);
+            return Proxy.GetNote(i);
         }
 
         public float GetTotalTime(int bpm)
         {
-            return new CompositeBarProxy(Bars).GetTotalTime(bpm);
+            return Proxy.GetTotalTime(bpm);
         }
     }
 }

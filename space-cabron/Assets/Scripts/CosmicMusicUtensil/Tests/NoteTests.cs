@@ -9,6 +9,7 @@ public class NoteTests
     [Test]
     public static void TestNoteOffset()
     {
+        Assert.AreEqual(ENote.A, Note.OffsetNote(ENote.A, 0));
         Assert.AreEqual(ENote.Asharp, Note.OffsetNote(ENote.A, 1));
         Assert.AreEqual(ENote.B,      Note.OffsetNote(ENote.A, 2));
         Assert.AreEqual(ENote.C,      Note.OffsetNote(ENote.A, 3));

@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
 {
-    [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Melody")]
+    [System.Serializable]
     public class Melody : Scale
     {
         public ENote GetNote(ENote root, Scale scale, int i)
         {
-            i = i % Intervals.Length;
+            i = Bar.MathMod(i,Intervals.Length);
             int scaleInterval = Intervals[i];
 
             if (scaleInterval == -1)

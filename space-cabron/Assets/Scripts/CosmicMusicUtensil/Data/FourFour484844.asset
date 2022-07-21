@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7043e7ae61cabe74bacc2412860b477f, type: 3}
+  m_Script: {fileID: 11500000, guid: f8c33a7175e2d6a4a9f26b3a1f734135, type: 3}
   m_Name: FourFour484844
   m_EditorClassIdentifier: 
   Bar:
     TimeSignature: {x: 4, y: 4}
     Notes:
-    - Tone: 5
+    - Tone: 0
+      Interval: 4
+    - Tone: 0
       Interval: 8
     - Tone: 0
       Interval: 4
-    - Tone: 5
+    - Tone: 0
       Interval: 8
-    - Tone: 3
+    - Tone: 0
       Interval: 4
-    - Tone: 2
-      Interval: 8
-    - Tone: 5
-      Interval: 8
+    - Tone: 0
+      Interval: 4

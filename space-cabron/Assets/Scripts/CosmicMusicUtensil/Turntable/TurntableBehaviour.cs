@@ -15,7 +15,19 @@ namespace Gmap.CosmicMusicUtensil
 
         void Awake()
         {
-            _turntable = new Turntable(BPM, Bar);
+            var generator = new WaveBarGenerator(new WaveBarGeneratorConfig
+            {
+                BaseOctave = 3,
+                Amplitude = 1
+            });
+            var bar = ScriptableConverter.ToScriptable(generator.Generate(new BarGeneratorParams
+            {
+                MaxNotes = 12,
+                Scale = new Scale {
+                    Intervals = new int[] { 2, 1, 2, 2, 1, 2, 2 }
+                }
+            }));
+            _turntable = new Turntable(BPM, bar);
         }
 
         void Update()
