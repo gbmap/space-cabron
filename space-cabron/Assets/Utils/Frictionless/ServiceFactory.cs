@@ -38,10 +38,10 @@ namespace Frictionless
 
 		public void HandleNewSceneLoaded()
 		{
-			List<IMultiSceneSingleton> multis = new List<IMultiSceneSingleton>();
+			List<Frictionless.IMultiSceneSingleton> multis = new List<Frictionless.IMultiSceneSingleton>();
 			foreach(KeyValuePair<Type,object> pair in singletonInstances)
 			{
-				IMultiSceneSingleton multi = pair.Value as IMultiSceneSingleton;
+                Frictionless.IMultiSceneSingleton multi = pair.Value as Frictionless.IMultiSceneSingleton;
 				if (multi != null)
 					multis.Add (multi);
 			}
@@ -59,7 +59,7 @@ namespace Frictionless
 			List<object> survivors = new List<object>();
 			foreach(KeyValuePair<Type,object> pair in singletonInstances)
 			{
-				if (pair.Value is IMultiSceneSingleton)
+				if (pair.Value is Frictionless.IMultiSceneSingleton)
 				{
 					survivors.Add(pair.Value);
 					survivorRegisteredTypes.Add(pair.Key);
@@ -128,7 +128,7 @@ namespace Frictionless
 						r = Activator.CreateInstance(concreteType);
 					singletonInstances[typeof(T)] = r;
 
-					IMultiSceneSingleton multi = r as IMultiSceneSingleton;
+                    Frictionless.IMultiSceneSingleton multi = r as Frictionless.IMultiSceneSingleton;
 					if (multi != null)
 						multi.HandleNewSceneLoaded();
 				}

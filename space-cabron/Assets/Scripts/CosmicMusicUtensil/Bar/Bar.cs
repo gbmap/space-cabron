@@ -35,6 +35,21 @@ namespace Gmap.CosmicMusicUtensil
         {
             Notes = notes;
         }
+        public Bar(
+            IEnumerable<ENote> notes, 
+            IEnumerable<int> intervals,
+            IEnumerable<int> octaves)
+        {
+            if (notes.Count() != intervals.Count() || notes.Count() != octaves.Count())
+                throw new System.ArgumentException("Notes, intervals and octaves must have the same length");
+
+            for (int i = 0; i < notes.Count(); i++)
+            {
+                Notes.Add(
+                    new Note(notes.ElementAt(i), intervals.ElementAt(i), octaves.ElementAt(i))
+                );
+            }
+        }
 
         public void AddNote(Note n)
         {

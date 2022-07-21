@@ -4,7 +4,7 @@ namespace Gmap.CosmicMusicUtensil
 {
     public interface IIntervalsGenerator
     {
-        int[] Generate(IntervalsGeneratorParams p);
+        int[] Generate();
     }
 
     public class IntervalsGeneratorParams
@@ -20,7 +20,7 @@ namespace Gmap.CosmicMusicUtensil
 
         }
 
-        public int[] Generate(IntervalsGeneratorParams p)
+        public int[] Generate()
         {
             return null;
 

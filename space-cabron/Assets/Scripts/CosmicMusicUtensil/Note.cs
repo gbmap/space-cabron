@@ -1,5 +1,7 @@
 
 
+using System.Collections.Generic;
+
 namespace Gmap.CosmicMusicUtensil
 {
     public enum ENote
@@ -53,6 +55,26 @@ namespace Gmap.CosmicMusicUtensil
         public float GetTime(float bps)
         {
             return (4f/Interval)*bps;
+        }
+
+        private static Dictionary<string, ENote> dictCharToNote = new Dictionary<string, ENote>
+        {
+            { "a", ENote.A },
+            { "a#", ENote.Asharp},
+            { "b", ENote.B },
+            { "c", ENote.C },
+            { "c#", ENote.Csharp },
+            { "d", ENote.D },
+            { "d#", ENote.Dsharp },
+            { "e", ENote.E },
+            { "f", ENote.F },
+            { "f#", ENote.Fsharp },
+            { "g", ENote.G },
+            { "g#", ENote.Gsharp },
+        };
+        
+        public static ENote FromString(string s) {
+            return dictCharToNote[s];
         }
     }
 }

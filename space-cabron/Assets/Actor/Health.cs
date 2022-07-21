@@ -44,6 +44,7 @@ public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
 
             _messageRouter.RaiseMessage(new MsgOnEnemyDestroyed()
             {
+                enemyName = gameObject.name,
                 enemy = this,
                 bullet = b,
                 collider = collider

@@ -10,12 +10,14 @@ namespace Gmap.CosmicMusicUtensil
 
         public ENote GetNote(ENote root, int i)
         {
-            return Melody.GetNote(root, i);
+            return ENote.None;
+            // return Melody.GetNote(root, i);
         }
 
         public int GetNumberOfNotes()
         {
-            return Melody.GetNumberOfNotes();
+            return 1;
+            // return Melody.GetNumberOfNotes();
         }
     }
 

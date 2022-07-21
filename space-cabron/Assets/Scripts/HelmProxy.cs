@@ -11,7 +11,7 @@ namespace Gmap.CosmicMusicUtensil
         public void Play(OnNoteArgs args)
         {
             var note = args.Note;
-            Controller.NoteOn(Note.ToMIDI(note.Tone, 4), 0.5f, 0.1f);
+            Controller.NoteOn(Note.ToMIDI(note.Tone, 4), 0.5f, args.Time);
         }
 
     }
