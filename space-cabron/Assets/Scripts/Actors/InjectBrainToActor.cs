@@ -12,6 +12,7 @@ namespace SpaceCabron
         {
             IBrainHolder[] brains = GetComponentsInChildren<IBrainHolder>();
             System.Array.ForEach(brains, b => b.Brain = Brain);
+            Destroy(this);
         }
     }
 }

@@ -35,6 +35,11 @@ public abstract class ShotPattern : MonoBehaviour
         }
     }
 
+    public void Fire()
+    {
+        StartCoroutine(ShootCoroutine());
+    }
+
     public GameObject Shoot(Vector3 pos, Quaternion rot)
     {
         _lastShot = Time.time;

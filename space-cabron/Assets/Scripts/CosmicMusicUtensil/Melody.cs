@@ -57,13 +57,53 @@ namespace Gmap.CosmicMusicUtensil
             try
             {
                 Notes = melody.Split(';');
-                Tones = Notes.Select(n => Regex.Replace(n.Split('/')[0], "[0-9]", "")).ToArray();
-                Octaves = Notes.Select(n => int.Parse(Regex.Replace(n.Split('/')[0], "[A-z]#?", ""))).ToArray();
-                Intervals = Notes.Select(n => int.Parse(n.Split('/')[1])).ToArray();
+                Tones = Notes.Select(n => MelodyInterpreter.ExtractTone(n)).ToArray();
+                Octaves = Notes.Select(n => MelodyInterpreter.ExtractOctave(n)).ToArray();
+                Intervals = Notes.Select(n => MelodyInterpreter.ExtractInterval(n)).ToArray();
             }
-            catch {}
+            catch (System.Exception ex) {
+                Debug.LogWarning(ex.Message);
+            }
         }
 
+    }
+
+    public class MelodyInterpreter
+    {
+        public static string[] ExtractNotes(string notation)
+        {
+            return notation.Split(";");
+        }
+
+        public static string[] ExtractTones(string[] notes)
+        {
+            return notes.Select(n => ExtractTone(n)).ToArray();
+        }
+
+        public static string[] ExtractTones(string notation)
+        {
+            return ExtractTones(ExtractNotes(notation));
+        }
+
+        public static string ExtractTone(string note)
+        {
+            return Regex.Replace(note.Split('/')[0], "[0-9]", "");
+        }
+
+        public static int ExtractOctave(string note)
+        {
+            return int.Parse(Regex.Replace(note.Split('/')[0], "[A-z]#?", ""));
+        }
+        
+        public static int ExtractInterval(string note)
+        {
+            return int.Parse(note.Split('/')[1]);
+        }
+
+        public static string GenerateNote(string tone, int interval, int octave)
+        {
+            return string.Format("{0}{1}/{2}", tone, octave, interval);
+        }
     }
 }
 

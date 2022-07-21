@@ -20,7 +20,7 @@ namespace SpaceCabron
                     Input.GetAxis("Horizontal"),
                     Input.GetAxis("Vertical")
                 ),
-                Shoot = Input.GetButton("Jump")
+                Shoot = Input.GetButtonDown("Jump")
             };
         }
     }

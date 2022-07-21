@@ -31,6 +31,12 @@
             float4 _MainTex_ST;
 
 			float _Beat;
+			float _LastNoteDuration;
+
+			float beat_curve()
+			{
+				return min(1.0, _Beat - _Time.y);
+			}
 
 			float3 rgb_to_hsv_no_clip(float3 RGB)
 			{

@@ -1,6 +1,5 @@
-
-
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -71,10 +70,15 @@ namespace Gmap.CosmicMusicUtensil
             { "f#", ENote.Fsharp },
             { "g", ENote.G },
             { "g#", ENote.Gsharp },
+            { "-", ENote.None }
         };
         
         public static ENote FromString(string s) {
             return dictCharToNote[s];
+        }
+
+        public static string ToString(ENote n) {
+            return dictCharToNote.FirstOrDefault(x => x.Value == n).Key;
         }
     }
 }

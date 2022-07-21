@@ -1,6 +1,8 @@
 ﻿using Frictionless;
+using Gmap.CosmicMusicUtensil;
 using ObjectPool;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
 {
@@ -15,6 +17,7 @@ public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     ObjectPool.ObjectPoolBehavior _poolBehavior;
 
     public System.Action<Health> OnDestroy;
+    public UnityEvent<OnNoteArgs> OnDamage;
 
     void Awake()
     {

@@ -109,7 +109,7 @@ namespace AudioHelm
             {
                 if (!warnedNoAudioGroup)
                 {
-                    Debug.LogWarning("AudioSource output needs an AudioMixerGroup with a Helm Instance.");
+                    Debug.LogWarning($"AudioSource output needs an AudioMixerGroup with a Helm Instance. {gameObject.name}");
                     warnedNoAudioGroup = true;
                 }
             }

@@ -9,13 +9,15 @@ namespace Gmap.CosmicMusicUtensil
     public class OnNoteArgs
     {
         public Note Note { get; set; }
-        public float Time { get; set; } = 0.1f;
+        public float Duration { get; set; }
+        public float HoldTime { get; set; } = 0.1f;
     }
 
     public interface ITurntable
     {
         int BPM {get; set;}
         void Update(System.Action<OnNoteArgs> OnNote);
+        void SetMelody(Melody m);
     }
 
     public class Turntable : ITurntable
@@ -57,11 +59,17 @@ namespace Gmap.CosmicMusicUtensil
             OnNote?.Invoke(new OnNoteArgs
             {
                 Note = CurrentNote,
-                Time = Mathf.Min(_noteTime*lastNoteDuration, 0.1f)
+                HoldTime = Mathf.Min(_noteTime*lastNoteDuration, 0.1f),
+                Duration = lastNoteDuration
             });
 
             _noteIndex++;
             _lastPlayedNote = Time.time;
+        }
+
+        public void SetMelody(Melody m)
+        {
+            Melody = m;
         }
     }
 }

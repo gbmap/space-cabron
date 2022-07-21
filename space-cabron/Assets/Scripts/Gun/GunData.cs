@@ -8,13 +8,14 @@ namespace Gmap.Gun
         public Vector3 Position;
         public GunData Gun;
         public BulletData Bullet;
+        public bool Special;
     }
 
     public class ShotData
     {
         public float Time;
         public Vector3 Position;
-        public GameObject BulletInstance;
+        public GameObject[] BulletInstances;
     }
     
     /// <summary>
@@ -37,21 +38,47 @@ namespace Gmap.Gun
             if (lastShot != null && !CanFire(lastShot))
                 return lastShot;
 
-            Vector3 shotPosition = GetBulletPosition(lastShot, shotRequest.Position);
-            Quaternion shotRotation = GetBulletRotation(lastShot);
-
-            GameObject instance = Instantiate(
-                shotRequest.Bullet.Prefab, 
-                shotPosition, 
-                shotRotation
-            );
-
-            return new ShotData
+            if (shotRequest.Special)
             {
-                BulletInstance = instance,
-                Position = shotPosition,
-                Time = Time.time,
-            };
+                Vector3 shotPosition = GetBulletPosition(lastShot, shotRequest.Position);
+                Quaternion shotRotation = GetBulletRotation(lastShot);
+                GameObject instance = Instantiate(
+                    shotRequest.Bullet.Prefab, 
+                    shotPosition + Vector3.left * 0.15f, 
+                    shotRotation
+                );
+
+                GameObject instance2 = Instantiate(
+                    shotRequest.Bullet.Prefab, 
+                    shotPosition + Vector3.right * 0.15f, 
+                    shotRotation
+                );
+
+                return new ShotData
+                {
+                    BulletInstances = new GameObject[]{instance, instance2},
+                    Position = shotPosition,
+                    Time = Time.time,
+                };
+            }
+            else
+            {
+                Vector3 shotPosition = GetBulletPosition(lastShot, shotRequest.Position);
+                Quaternion shotRotation = GetBulletRotation(lastShot);
+
+                GameObject instance = Instantiate(
+                    shotRequest.Bullet.Prefab, 
+                    shotPosition, 
+                    shotRotation
+                );
+
+                return new ShotData
+                {
+                    BulletInstances = new GameObject[]{instance},
+                    Position = shotPosition,
+                    Time = Time.time,
+                };
+            }
         }
 
         public Vector3 GetBulletPosition(ShotData lastShot, Vector3 position)

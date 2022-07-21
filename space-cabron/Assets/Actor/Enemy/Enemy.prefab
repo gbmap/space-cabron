@@ -127,6 +127,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 2
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &8742632640915627268
 Animator:
   serializedVersion: 4
@@ -215,6 +230,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - obj: {fileID: 3262573041817289645, guid: 3838bbb4a27945342a0f807363938730, type: 3}
+    chance: 0.1
+  - obj: {fileID: 5732334520821103387, guid: 11b1cad2b9174d849a2bca44ef36caf4, type: 3}
+    chance: 0.1
+  - obj: {fileID: 5732334520821103387, guid: b2334cf7c1028734bb0aee23e3d5faa3, type: 3}
     chance: 0.1
 --- !u!114 &437546467635798816
 MonoBehaviour:
