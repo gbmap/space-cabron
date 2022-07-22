@@ -20,7 +20,7 @@ namespace Gmap.CosmicMusicUtensil
 
         ITurntable _turntable;
 
-        void Awake()
+        void Start()
         {
             _turntable = new Turntable(BPM, Melody, KeepNotePlaying, NoteTime);
         }

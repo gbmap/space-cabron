@@ -204,8 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bd27cbfa076e144b0a392f1e7c2e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  melody:
-    notation: c4/4;c4/4;c4/4;c4/4
+  Melody:
+    notation: c5/4;c5/2;d5/8;d#5/8
   BPM: 60
   Bar: {fileID: 11400000, guid: 3da6b913f94efee498cebfb89e75bae9, type: 2}
   UnityEvent:
@@ -236,6 +236,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   KeepNotePlaying: 0
+  NoteTime: 0.5
 --- !u!1 &8875341672761901925
 GameObject:
   m_ObjectHideFlags: 0

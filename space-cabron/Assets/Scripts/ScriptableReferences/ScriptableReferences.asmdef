@@ -1,3 +1,16 @@
 {
-	"name": "ScriptableReferences"
+    "name": "ScriptableReferences",
+    "rootNamespace": "",
+    "references": [
+        "Gmap.Utils"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

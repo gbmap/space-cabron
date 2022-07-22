@@ -23,6 +23,7 @@ namespace Gmap.CosmicMusicUtensil
     public class Turntable : ITurntable
     {
         public Melody Melody;
+        public bool HoldNote;
 
         public int BPM { get; set; }
         public float BPS
@@ -34,8 +35,6 @@ namespace Gmap.CosmicMusicUtensil
         public Note LastNote { get { return Melody.GetNote(_noteIndex-1); } }
         public Note CurrentNote { get { return Melody.GetNote(_noteIndex); } }
 
-        public bool KeepNotePlaying;
-
         float _lastPlayedNote;
         float _noteTime = 0.1f;
 
@@ -43,15 +42,16 @@ namespace Gmap.CosmicMusicUtensil
         {
             this.BPM = BPM;
             _noteIndex = 0;
-            KeepNotePlaying = keepNotePlaying;
             Melody = m;
+            HoldNote = keepNotePlaying;
             _noteTime = noteTime;
         }
 
         public void Update(System.Action<OnNoteArgs> OnNote)
         {
             float lastNoteDuration = LastNote.GetTime(BPS);
-            bool shouldPlay = (Time.time - _lastPlayedNote) >= lastNoteDuration;
+            // bool shouldPlay = (Time.time - _lastPlayedNote) >= lastNoteDuration;
+            bool shouldPlay = (Time.time % lastNoteDuration) <= Time.deltaTime; /// lastNoteDuration
 
             if (!shouldPlay)
                 return;
@@ -59,7 +59,7 @@ namespace Gmap.CosmicMusicUtensil
             OnNote?.Invoke(new OnNoteArgs
             {
                 Note = CurrentNote,
-                HoldTime = Mathf.Min(_noteTime*lastNoteDuration, 0.1f),
+                HoldTime = Mathf.Lerp(_noteTime, _noteTime*lastNoteDuration, Convert.ToSingle(HoldNote)),
                 Duration = lastNoteDuration
             });
 

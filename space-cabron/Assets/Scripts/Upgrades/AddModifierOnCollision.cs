@@ -1,6 +1,6 @@
 using UnityEngine;
 using Gmap.CosmicMusicUtensil;
-using Utils;
+using Gmap.Utils;
 
 namespace SpaceCabron
 {

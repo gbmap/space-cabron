@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
-using Utils;
+using Gmap.Utils;
 
 public class Beat
 {

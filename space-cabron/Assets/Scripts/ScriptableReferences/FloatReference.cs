@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gmap.ScriptableReferences
@@ -17,8 +15,5 @@ namespace Gmap.ScriptableReferences
     }
 
     [CreateAssetMenu(menuName="Gmap/Scriptable References/Float Reference")]
-    public class FloatReference : ValueReference<float>
-    {
-
-    }
+    public class FloatReference : ValueReference<float>{}
 }
