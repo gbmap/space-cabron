@@ -1,5 +1,5 @@
 {
-    "name": "ScriptableReferences",
+    "name": "Gmap.ScriptableReferences",
     "rootNamespace": "",
     "references": [
         "Gmap.Utils"

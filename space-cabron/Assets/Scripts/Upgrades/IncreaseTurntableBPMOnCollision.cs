@@ -13,7 +13,7 @@ namespace SpaceCabron
         {
             var turntable = other.GetComponentInChildren<TurntableBehaviour>();
             if (turntable != null)
-                turntable.BPM += BPMIncrease;
+                turntable.SetBPM(turntable.BPMReference.Value + BPMIncrease);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.ScriptableReferences;
 using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
@@ -15,7 +16,7 @@ namespace Gmap.CosmicMusicUtensil
 
     public interface ITurntable
     {
-        int BPM {get; set;}
+        int BPM { get; set; }
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
     }
@@ -25,10 +26,12 @@ namespace Gmap.CosmicMusicUtensil
         public Melody Melody;
         public bool HoldNote;
 
-        public int BPM { get; set; }
+        // public int BPM { get; set; }
+        public IntBusReference BPMReference;
+        public int BPM { get => BPMReference.Value; set => BPMReference.Value = value; }
         public float BPS
         {
-            get { return (60f/(float)BPM); }
+            get { return (60f/(float)BPMReference.Value); }
         }
         
         int   _noteIndex;
@@ -38,9 +41,9 @@ namespace Gmap.CosmicMusicUtensil
         float _lastPlayedNote;
         float _noteTime = 0.1f;
 
-        public Turntable(int BPM, Melody m, bool keepNotePlaying, float noteTime)
+        public Turntable(IntBusReference bpmReference, Melody m, bool keepNotePlaying, float noteTime)
         {
-            this.BPM = BPM;
+            BPMReference = bpmReference;
             _noteIndex = 0;
             Melody = m;
             HoldNote = keepNotePlaying;

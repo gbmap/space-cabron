@@ -1,3 +1,17 @@
 {
-	"name": "Gmap.CosmicMusicUtensil"
+    "name": "Gmap.CosmicMusicUtensil",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ca56141c7eebe114db88a6573b09bd3a",
+        "GUID:94d6d3ad6b29e0f4b857a188ff3f001a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

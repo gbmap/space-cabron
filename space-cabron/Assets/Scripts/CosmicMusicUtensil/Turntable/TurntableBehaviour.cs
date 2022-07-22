@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.ScriptableReferences;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Gmap.CosmicMusicUtensil
 {
-    public class TurntableBehaviour : MonoBehaviour
+    public class TurntableBehaviour : MonoBehaviour, ITurntable
     {
         public Melody Melody;
         private string _lastMelody;
 
-        public int BPM = 60;
+        // public int BPM = 60;
+        public IntBusReference BPMReference;
         public ScriptableCompositeBar Bar;
         public UnityEvent<OnNoteArgs> UnityEvent;
 
@@ -19,10 +22,25 @@ namespace Gmap.CosmicMusicUtensil
         public float NoteTime = 0.1f;
 
         ITurntable _turntable;
-
-        void Start()
+        ITurntable Turntable
         {
-            _turntable = new Turntable(BPM, Melody, KeepNotePlaying, NoteTime);
+            get 
+            { 
+                if (_turntable == null)
+                    _turntable = new Turntable(BPMReference, Melody, KeepNotePlaying, NoteTime);
+                return _turntable;
+            }
+        }
+
+        public int BPM 
+        { 
+            get => BPMReference.Value; 
+            set => BPMReference.Value = value; 
+        }
+
+        void Awake()
+        {
+            BPMReference.Update();
         }
 
         void Update()
@@ -30,19 +48,25 @@ namespace Gmap.CosmicMusicUtensil
             if (_lastMelody != Melody.Notation)
                 Melody.Update();
 
-            _turntable.BPM = BPM;
-            _turntable.Update(OnNote);
+            Turntable.Update(OnNote);
         }
 
         public void SetMelody(Melody m)
         {
             Melody = m;
-            _turntable.SetMelody(m);
+            Turntable.SetMelody(m);
         }
 
         void OnNote(OnNoteArgs note)
         {
             UnityEvent.Invoke(note);
         }
+
+        public void SetBPM(int bpm)
+        {
+            BPMReference.Value = bpm;
+        }
+
+        public void Update(Action<OnNoteArgs> OnNote) {}
     }
 }

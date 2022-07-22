@@ -9,11 +9,10 @@ namespace SpaceCabron.Instruments
     public class InjectTurntableMelodyNotationOnAwake : MonoBehaviour 
     {
         public Gmap.ScriptableReferences.StringReferencePool PossibleMelodies;
-        TurntableBehaviour behaviour;
 
         void Awake()
         {
-            behaviour = GetComponent<TurntableBehaviour>();
+            ITurntable behaviour = GetComponent<ITurntable>();
             behaviour.SetMelody(new Melody(PossibleMelodies.GetNext().Value));
             Destroy(this);
         }
