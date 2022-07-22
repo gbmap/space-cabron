@@ -6,6 +6,9 @@ public class CameraShake : MonoBehaviour
 {
     [Range(0f, 1f)]
     public float Trauma;
+    public float TraumaDecreaseSpeed = 2f;
+    public float ShakeAmplitude = 0.5f; 
+
     public float ShakeFactor
     {
         get { return Mathf.Pow(Trauma, 2f); }
@@ -14,7 +17,7 @@ public class CameraShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Trauma = Mathf.Clamp01(Trauma - Time.deltaTime);
+        Trauma = Mathf.Clamp01(Trauma - Time.deltaTime*TraumaDecreaseSpeed);
 
         float t = Time.time * 100f;
 
@@ -29,6 +32,6 @@ public class CameraShake : MonoBehaviour
             0f);
 
         transform.localPosition = offset;
-        transform.localRotation = Quaternion.Euler(0f, 0f, a);
+        transform.localRotation = Quaternion.Euler(0f, 0f, a*ShakeAmplitude);
     }
 }
