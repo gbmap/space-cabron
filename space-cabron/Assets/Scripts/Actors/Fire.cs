@@ -9,6 +9,8 @@ namespace SpaceCabron
 {
     public class Fire : MonoBehaviour, IBrainHolder
     {
+        public Gmap.ScriptableReferences.FloatReference EnergyValue;
+
         public IBrain Brain { get; set; }
         float _lastPress = 0f;
         float _lastNote = 0f;
@@ -16,6 +18,20 @@ namespace SpaceCabron
         bool _canFire = true;
         bool _isSpecial = false;
         float _waitTime = 0.125f;
+
+        float _energy;
+        float Energy
+        {
+            get { return _energy; }
+            set 
+            { 
+                float v = Mathf.Clamp01(value);
+                if (EnergyValue != null)
+                    EnergyValue.Value = v;
+                _energy = v;
+            }
+        }
+        float _energyLoss = 0.1f;
 
         OnNoteArgs _lastNoteArgs;
         TurntableBehaviour turntable;
@@ -37,6 +53,7 @@ namespace SpaceCabron
             bool special = Mathf.Abs(Time.time - _lastPress) < _waitTime;
             if (special)
             {
+                Energy += _energyLoss * 1f/3f;
                 _isSpecial = true;
                 gun.Fire(special);
             }
@@ -49,10 +66,16 @@ namespace SpaceCabron
 
         void Update()
         {
-            if (Brain.GetInputState().Shoot && waitingForPress == null && !_isSpecial)
+            if (Brain.GetInputState().Shoot && waitingForPress == null)
             {
-                StartCoroutine(DisableGun(1f));
+                Energy -= _energyLoss;
+                if (Energy <= 0)
+                {
+                    StartCoroutine(DisableGun(3f));
+                }
             }
+        
+            Energy = Mathf.Clamp01(Energy + Time.deltaTime*0.1f);
         }
 
         Coroutine waitingForPress;
@@ -64,6 +87,7 @@ namespace SpaceCabron
                 timeWaited += Time.deltaTime;
                 if (Brain.GetInputState().Shoot)
                 {
+                    Energy += _energyLoss * 1f/3f;
                     gun.Fire(true);
                     _isSpecial = true;
                     waitingForPress = null;

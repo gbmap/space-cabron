@@ -35,7 +35,9 @@
 
 			float beat_curve()
 			{
-				return min(1.0, _Beat - _Time.y);
+				fixed tt = step(_Time.y - (_Beat + _LastNoteDuration - 0.1), 0.0);
+				fixed t = saturate(_Time.y - _Beat);
+				return 1.0 - t;
 			}
 
 			float3 rgb_to_hsv_no_clip(float3 RGB)
@@ -101,15 +103,16 @@
 				uv.y += _Time.y *0.5;
 				uv = frac(uv * 10);
 
-				float a = step(frac(uv.y*_Beat), 0.5) * step(uv.x*_Beat, 0.5);
+				float a = step(frac(uv.y), 0.5) * step(uv.x, 0.5);
 
-				fixed4 clr = fixed4(sin(a + _Time.y), cos(a + _Time.y * 0.5) * 0.5 + sin(a*0.5*_Beat), 0.3f, 1.0f);
+				fixed4 clr = fixed4(sin(a + _Time.y), cos(a + _Time.y * 0.5) * 0.5 + sin(a*0.5*beat_curve()), 0.3f, 1.0f);
 				//fixed4 clr = fixed4(a, a, a, 1.0);
 
 				fixed3 hsv = rgb_to_hsv_no_clip(clr.rgb);
 				hsv.r = frac(_Time.y + i.uv.y);
 				//hsv.g -= 0.5;
 				clr.rgb = hsv_to_rgb(hsv);
+				clr.rgb += beat_curve()*0.25;
 				return clr;
 			}
 
@@ -117,12 +120,12 @@
 
 				uv.y += _Time.x * 10.0;
 				uv = frac(abs(uv*5.0));
-				float a = frac(_Beat + length((uv*uv)*5.0));
+				float a = frac(beat_curve() + length((uv*uv)*5.0));
 
-				fixed4 clr = fixed4(abs(sin(a)), cos(_Time.y), _Beat, 1.0);
+				fixed4 clr = fixed4(abs(sin(a)), cos(_Time.y), beat_curve(), 1.0);
 
 				fixed3 hsv = rgb_to_hsv_no_clip(clr.rgb);
-				hsv.r = frac(a + _Beat + _Time.y);
+				hsv.r = frac(a + beat_curve() + _Time.y);
 				hsv.g -= 0.5;
 				clr.rgb = hsv_to_rgb(hsv);
 
@@ -133,13 +136,13 @@
 			fixed4 bg03(v2f i, float2 uv) {
 				uv.y += _Time.y*.5;
 				uv = frac(abs(uv*1.0));
-				float a = frac(_Beat + length((uv*uv.x*uv.y)*10.0));
+				float a = frac(beat_curve() + length((uv*uv.x*uv.y)*10.0));
 				a += sin(uv.x*20.0);
 
 
 				fixed4 clr = fixed4(frac(a), cos(_Time.y), 0.0, 1.0);
 				fixed3 hsv = rgb_to_hsv_no_clip(clr.rgb);
-				hsv.r = frac(a+_Beat+_Time.y);
+				hsv.r = frac(a+beat_curve()+_Time.y);
 				hsv.g -= 0.3;
 				clr.rgb = hsv_to_rgb(hsv);
 
@@ -148,13 +151,9 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-
 				fixed2 uv = i.uv;
-				
 				fixed4 clr = bg01(i, uv);
 				clr.rgb *= 0.2;
-				//clr = fixed4(1.0, 0.0, 1.0, 1.0);
 
                 // apply fog
                 return clr;
