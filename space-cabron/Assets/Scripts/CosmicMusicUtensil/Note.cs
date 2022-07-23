@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -80,5 +81,20 @@ namespace Gmap.CosmicMusicUtensil
         public static string ToString(ENote n) {
             return dictCharToNote.FirstOrDefault(x => x.Value == n).Key;
         }
+
+        public string AsString() {
+            return $"{Note.ToString(Tone)}{Octave}/{Interval}";
+        }
+
+        public void Transpose(int interval) {
+            if (interval == 0)
+                return; 
+            else if (interval > 0)
+                Octave += System.Convert.ToInt32(Mathf.Abs(12-(int)Tone)<=interval)*Mathf.Max(1, interval/12);
+            else if (interval < 0)
+                Octave += System.Convert.ToInt32(((int)Tone)+interval<0)*Mathf.Min(-1, interval/12);
+            Tone = OffsetNote(Tone, interval);
+        }
+
     }
 }

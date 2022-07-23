@@ -235,6 +235,8 @@ MonoBehaviour:
     chance: 0.1
   - obj: {fileID: 5732334520821103387, guid: b2334cf7c1028734bb0aee23e3d5faa3, type: 3}
     chance: 0.1
+  - obj: {fileID: 5580465785129014530, guid: cf996382704807741af0ae5f3f5b4874, type: 3}
+    chance: 0.1
 --- !u!114 &437546467635798816
 MonoBehaviour:
   m_ObjectHideFlags: 0

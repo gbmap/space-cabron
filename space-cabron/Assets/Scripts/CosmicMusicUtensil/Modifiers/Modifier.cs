@@ -9,7 +9,8 @@ namespace Gmap.CosmicMusicUtensil
         public enum EType
         {
             BreakNote,
-            ShiftNote
+            ShiftNote,
+            TransposeMelody
         }
         Melody Apply(Melody melody);
         EType Type { get; }
@@ -69,6 +70,11 @@ namespace Gmap.CosmicMusicUtensil
 
         public override MelodyModifier.EType Type => MelodyModifier.EType.BreakNote;
 
+        public BreakNoteModifier(int numberOfNotes)
+        {
+            NumberOfNotes = numberOfNotes;
+        }
+
         public override Melody Apply(Melody melody)
         {
             ChewedNote n = ChewedNote.ParseRandomNote(melody);
@@ -87,22 +93,42 @@ namespace Gmap.CosmicMusicUtensil
 
     public class ShiftNoteModifier : MelodyModifierBase
     {
-        public int Step = 1;
+        public int Steps = 1;
 
         public override MelodyModifier.EType Type => MelodyModifier.EType.ShiftNote;
 
+        public ShiftNoteModifier(int steps)
+        {
+            Steps = steps;
+        }
+
         public override Melody Apply(Melody melody)
         {
-            ChewedNote n = ChewedNote.ParseRandomNote(melody);
-            ENote note = Note.OffsetNote(
-                Note.FromString(n.Tone), 
-                Step
-            );
-            int octaves = Step / 12;
-            n.Octave += octaves;
+            // ChewedNote n = ChewedNote.ParseRandomNote(melody);
+            int index = Random.Range(0, melody.Length);
+            Melody m2 = new Melody(melody);
+            Note n = m2.GetNote(index);
+            n.Transpose(Steps);
+            m2.SetNote(n, index);
+            return m2;
+        }
+    }
 
-            string newTone = Note.ToString(note);
-            return new Melody(n.ReplaceNote(newTone, n.Interval, n.Octave));
+    public class TransposeMelodyModifier : MelodyModifierBase
+    {
+        public override MelodyModifier.EType Type => MelodyModifier.EType.TransposeMelody;
+        public int EveryNthPlay = 0;
+        public int Steps = 1;
+
+        public TransposeMelodyModifier(int everyNthPlay, int steps)
+        {
+            EveryNthPlay = Mathf.Max(1, everyNthPlay);
+            Steps = steps;
+        }
+
+        public override Melody Apply(Melody melody)
+        {
+            return (melody*(EveryNthPlay-1)) + Melody.Transpose(melody, Steps);
         }
     }
 }

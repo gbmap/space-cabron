@@ -17,9 +17,8 @@ namespace SpaceCabron
 
         void Awake()
         {
-            Melody.Update();
+            this.Melody = new Melody(Melody);
             ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
-
         }
 
         void OnDestroy()

@@ -35,16 +35,12 @@ namespace SpaceCabron.Instruments
                         turntable.BPM += IncreaseValue;
                         break;
                     case 1:
-                        var m = new BreakNoteModifier();
-                        if (Random.value > 0.85f)
-                            m.NumberOfNotes = 3;
-                        else
-                            m.NumberOfNotes = 2;
+                        int notes = Random.value > 0.85f ? 3 : 2;
+                        var m = new BreakNoteModifier(notes);
                         turntable.SetMelody(m.Apply(turntable.Melody));
                         break;
                     case 2:
-                        var s = new ShiftNoteModifier();
-                        s.Step = Random.Range(-12, 12);
+                        var s = new ShiftNoteModifier(Random.Range(-12,12));
                         turntable.SetMelody(s.Apply(turntable.Melody));
                     break;
 

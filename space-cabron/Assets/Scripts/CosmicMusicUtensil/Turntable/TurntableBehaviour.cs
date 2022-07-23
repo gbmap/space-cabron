@@ -46,7 +46,7 @@ namespace Gmap.CosmicMusicUtensil
         void Update()
         {
             if (_lastMelody != Melody.Notation)
-                Melody.Update();
+                Melody = new Melody(Melody.Notation);
 
             Turntable.Update(OnNote);
         }
