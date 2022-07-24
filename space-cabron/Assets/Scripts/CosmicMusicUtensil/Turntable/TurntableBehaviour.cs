@@ -27,7 +27,7 @@ namespace Gmap.CosmicMusicUtensil
             get 
             { 
                 if (_turntable == null)
-                    _turntable = new Turntable(BPMReference, Melody, KeepNotePlaying, NoteTime);
+                    _turntable = new Turntable(BPMReference, Melody, KeepNotePlaying, NoteTime, OnNote);
                 return _turntable;
             }
         }

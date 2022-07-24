@@ -52,7 +52,7 @@ namespace Gmap.CosmicMusicUtensil
             return (12 * octave) + (int)n;
         }
 
-        public float GetTime(float bps)
+        public float GetDuration(float bps)
         {
             return (4f/Interval)*bps;
         }
@@ -96,5 +96,39 @@ namespace Gmap.CosmicMusicUtensil
             Tone = OffsetNote(Tone, interval);
         }
 
+        public override bool Equals(object obj)
+        {
+            
+            if ((obj.Equals(null)) || ! this.GetType().Equals(obj.GetType()))
+                return false;
+
+            Note n2 = (Note)obj;
+            return (Tone == n2.Tone) && (Interval == n2.Interval) && (Octave == n2.Octave);
+        }
+
+        public static bool operator==(Note n1, Note n2) {
+            if (System.Object.ReferenceEquals(n1, n2))
+                return true;
+
+            if (((object)n1 == null) || ((object)n2 == null))
+                return false;
+
+            return n1.Equals(n2);
+        }
+
+        public static bool operator!=(Note n1, Note n2) {
+            if (System.Object.ReferenceEquals(n1, n2))
+                return false;
+
+            if (((object)n1 == null) || ((object)n2 == null))
+                return false;
+
+            return !n1.Equals(n2);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

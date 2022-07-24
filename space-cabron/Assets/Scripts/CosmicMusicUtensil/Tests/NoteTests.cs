@@ -7,7 +7,24 @@ using NUnit.Framework;
 public class NoteTests 
 {
     [Test]
-    public static void TestNoteOffset()
+    public static void NoteEqualsWorkForEqualityOperator()
+    {
+        Note n1 = new Note(ENote.A, 4, 4);
+        Note n2 = new Note(ENote.A, 4, 4);
+        Assert.IsTrue(n1 == n2);
+    }
+
+    [Test]
+    public static void NoteEqualsNoteWorksForReference()
+    {
+        Note n1 = new Note(ENote.A, 4, 4);
+        Note n2 = new Note(ENote.A, 4, 4);
+        Assert.IsTrue(n1.Equals(n2));
+    }
+
+
+    [Test]
+    public static void NoteOffset()
     {
         Assert.AreEqual(ENote.A, Note.OffsetNote(ENote.A, 0));
         Assert.AreEqual(ENote.Asharp, Note.OffsetNote(ENote.A, 1));

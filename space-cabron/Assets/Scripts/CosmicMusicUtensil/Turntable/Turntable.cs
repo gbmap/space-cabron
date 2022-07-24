@@ -23,7 +23,6 @@ namespace Gmap.CosmicMusicUtensil
 
     public class Turntable : ITurntable
     {
-        public Melody Melody;
         public bool HoldNote;
 
         // public int BPM { get; set; }
@@ -34,45 +33,86 @@ namespace Gmap.CosmicMusicUtensil
             get { return (60f/(float)BPMReference.Value); }
         }
         
-        int   _noteIndex;
-        public Note LastNote { get { return Melody.GetNote(_noteIndex-1); } }
-        public Note CurrentNote { get { return Melody.GetNote(_noteIndex); } }
+        int   currentNoteIndex;
+        int   currentBarIndex;
+        public Note LastNote { get; private set; } 
+        public Note CurrentNote { get; private set; }
 
         float _lastPlayedNote;
         float _noteTime = 0.1f;
 
-        public Turntable(IntBusReference bpmReference, Melody m, bool keepNotePlaying, float noteTime)
+        Melody Melody;
+        Improviser improviser = new Improviser();
+        Queue<Note> noteQueue = new Queue<Note>(50);
+
+        public System.Action<OnNoteArgs> OnNote;
+
+        public Turntable(IntBusReference bpmReference, Melody m, bool keepNotePlaying, float noteTime,
+            System.Action<OnNoteArgs> onNote = null)
         {
             BPMReference = bpmReference;
-            _noteIndex = 0;
+            currentNoteIndex = 0;
             Melody = m;
             HoldNote = keepNotePlaying;
             _noteTime = noteTime;
+
+            if (onNote != null)
+                OnNote += onNote;
         }
 
         public void Update(System.Action<OnNoteArgs> OnNote)
         {
-            float lastNoteDuration = LastNote.GetTime(BPS);
-            // bool shouldPlay = (Time.time - _lastPlayedNote) >= lastNoteDuration;
-            bool shouldPlay = (Time.time % lastNoteDuration) <= Time.deltaTime; /// lastNoteDuration
+            if (NoNotesToPlay())
+                QueueNextNotes();
+            PlayQueuedNotes();
+        }
 
-            if (!shouldPlay)
+        void QueueNextNotes()
+        {
+            Note[] notesToPlay = improviser.Improvise(Melody, currentBarIndex, Melody.GetNote(currentNoteIndex), currentNoteIndex);
+            System.Array.ForEach(notesToPlay, n => noteQueue.Enqueue(n));
+            AdvanceNoteIndex();
+        }
+
+        void PlayQueuedNotes()
+        {
+            if (NoNotesToPlay() || !LastNoteFinishedPlaying())
                 return;
 
+            PlayNote(noteQueue.Dequeue());
+        }
+
+        private bool LastNoteFinishedPlaying()
+        {
+            return LastNote == null 
+                || Time.time % LastNote.GetDuration(BPS) <= Time.deltaTime;
+        }
+
+        private bool NoNotesToPlay()
+        {
+            return noteQueue.Count == 0;
+        }
+
+        private void PlayNote(Note note)
+        {
+            float duration = note.GetDuration(BPS);
             OnNote?.Invoke(new OnNoteArgs
             {
-                Note = CurrentNote,
-                HoldTime = Mathf.Lerp(_noteTime, _noteTime*lastNoteDuration, Convert.ToSingle(HoldNote)),
-                Duration = lastNoteDuration
+                Note = note,
+                HoldTime = Mathf.Lerp(_noteTime, _noteTime*duration, Convert.ToSingle(HoldNote)),
+                Duration = duration
             });
-
-            _noteIndex++;
-            _lastPlayedNote = Time.time;
+            LastNote = note;
         }
 
         public void SetMelody(Melody m)
         {
             Melody = m;
+        }
+
+        private void AdvanceNoteIndex()
+        {
+            currentNoteIndex = (currentNoteIndex + 1) % Melody.Length;
         }
     }
 }
