@@ -5,47 +5,53 @@ using UnityEngine;
 
 namespace SpaceCabron.Instruments
 {
-    [RequireComponent(typeof(TurntableBehaviour))]
-    public class IncreaseBPMOnScoreModulus : MonoBehaviour
+    public abstract class OnScoreModulusBehaviour : MonoBehaviour
     {
         public int ScoreModulus = 500;
-        public int IncreaseValue = 5;
-        TurntableBehaviour turntable;
+        public bool Geometric = false;
 
-        void Awake()
+        protected ITurntable turntable;
+        int counter = 1;
+
+        protected abstract void HandleEvent();
+
+        protected virtual void Awake()
         {
-            turntable = GetComponent<TurntableBehaviour>();
+            turntable = GetComponent<ITurntable>();
             ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<Scoreboard.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<Scoreboard.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         private void Callback_OnScoreChanged(MsgOnScoreChanged msg)
         {
-            if (msg.Score % ScoreModulus == 0)
-            {
-                int choice = Random.Range(0, 3);
-                switch (choice)
-                {
-                    default:
-                    case 0:
-                        turntable.BPM += IncreaseValue;
-                        break;
-                    case 1:
-                        int notes = Random.value > 0.85f ? 3 : 2;
-                        var m = new BreakNoteModifier(notes);
-                        turntable.SetMelody(m.Apply(turntable.Melody));
-                        break;
-                    case 2:
-                        var s = new ShiftNoteModifier(Random.Range(-12,12));
-                        turntable.SetMelody(s.Apply(turntable.Melody));
-                    break;
+            bool target; 
+            if (Geometric)
+                target = (msg.Score % (ScoreModulus*counter)) == 0;
+            else 
+                target = msg.Score % ScoreModulus == 0;
 
-                }
+            if (target)
+            {
+                HandleEvent();
+                counter++;
             }
+        }
+    }
+
+
+    [RequireComponent(typeof(TurntableBehaviour))]
+    public class IncreaseBPMOnScoreModulus : OnScoreModulusBehaviour
+    {
+        public int IncreaseValue = 5;
+
+        protected override void HandleEvent()
+        {
+            if (turntable != null)
+                turntable.BPM += IncreaseValue;
         }
     }
 }

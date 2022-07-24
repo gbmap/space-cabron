@@ -9,7 +9,7 @@ namespace Gmap.CosmicMusicUtensil
 {
     public class TurntableBehaviour : MonoBehaviour, ITurntable
     {
-        public Melody Melody;
+        public Melody melody;
         private string _lastMelody;
 
         // public int BPM = 60;
@@ -22,21 +22,25 @@ namespace Gmap.CosmicMusicUtensil
         public float NoteTime = 0.1f;
 
         ITurntable _turntable;
-        ITurntable Turntable
+        public ITurntable Turntable
         {
             get 
             { 
                 if (_turntable == null)
-                    _turntable = new Turntable(BPMReference, Melody, KeepNotePlaying, NoteTime, OnNote);
+                    _turntable = new Turntable(BPMReference, melody, KeepNotePlaying, NoteTime, OnNote);
                 return _turntable;
             }
         }
+
+        public Improviser Improviser => Turntable.Improviser;
 
         public int BPM 
         { 
             get => BPMReference.Value; 
             set => BPMReference.Value = value; 
         }
+
+        public Melody Melody => melody;
 
         void Awake()
         {
@@ -45,15 +49,15 @@ namespace Gmap.CosmicMusicUtensil
 
         void Update()
         {
-            if (_lastMelody != Melody.Notation)
-                Melody = new Melody(Melody.Notation);
+            if (_lastMelody != melody.Notation)
+                melody = new Melody(melody.Notation);
 
             Turntable.Update(OnNote);
         }
 
         public void SetMelody(Melody m)
         {
-            Melody = m;
+            melody = m;
             Turntable.SetMelody(m);
         }
 

@@ -4,7 +4,21 @@ using Gmap.Utils;
 
 namespace SpaceCabron
 {
-    public class AddModifierOnCollision : MonoBehaviour
+    public abstract class CollisionHandler<T> : MonoBehaviour where T : MonoBehaviour
+    {
+        public void OnTriggerEnter2D(Collider2D other)
+        {
+            T t = other.GetComponentInChildren<T>();
+            if (t == null)
+                return;
+
+            HandleCollision(t);
+        }
+
+        protected abstract void HandleCollision(T t);
+    }
+
+    public class AddModifierOnCollision : CollisionHandler<TurntableBehaviour>
     {
         public MelodyModifier.EType ModifierType;
 
@@ -22,17 +36,13 @@ namespace SpaceCabron
 
         }
 
-        public void OnTriggerEnter2D(Collider2D other)
+        protected override void HandleCollision(TurntableBehaviour t)
         {
-            TurntableBehaviour t = other.GetComponentInChildren<TurntableBehaviour>();
-            if (t == null)
-                return;
-
             MelodyModifier m = ModifierFromType(ModifierType);
-            t.SetMelody(m.Apply(t.Melody));
+            t.SetMelody(m.Apply(t.melody));
         }
 
-        public MelodyModifier ModifierFromType(MelodyModifier.EType t)
+        private MelodyModifier ModifierFromType(MelodyModifier.EType t)
         {
             switch (t)
             {

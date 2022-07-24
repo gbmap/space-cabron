@@ -8,6 +8,7 @@ namespace Gmap.CosmicMusicUtensil
         bool ShouldSelect(Melody melody, int index);
     }
 
+
     public class EveryNStrategy : SelectionStrategy
     {
         public int N { get; set; }
@@ -19,6 +20,48 @@ namespace Gmap.CosmicMusicUtensil
         public bool ShouldSelect(Melody melody, int index)
         {
             return ((index+1) % N) == 0;
+        }
+
+        public override string ToString()
+        {
+            return "Every " + N;
+        }
+    }
+
+    public class RangeStrategy : SelectionStrategy
+    {
+        public int Min { get; set; }
+        public int Max { get; set; }
+
+        public RangeStrategy(int min, int max)
+        {
+            Min = min;
+            Max = max;
+        }
+
+        public bool ShouldSelect(Melody melody, int index)
+        {
+            return index >= Min && index <= Max;
+        }
+
+        public override string ToString()
+        {
+            return "Range " + Min + "-" + Max;
+        }
+    }
+
+    public class RandomSelectionStrategy : SelectionStrategy
+    {
+        int seed;
+        public RandomSelectionStrategy()
+        {
+            seed = Random.Range(0, 100);
+        }
+
+        public bool ShouldSelect(Melody melody, int index)
+        {
+            var r = new System.Random(seed);
+            return index == r.Next(0, melody.Length);
         }
     }
 
@@ -60,6 +103,11 @@ namespace Gmap.CosmicMusicUtensil
                 default:
                     return false;
             }
+        }
+
+        public override string ToString()
+        {
+            return "Composite " + Operation + "[" + string.Join(", ", Strategies) + "]";
         }
     }
 }

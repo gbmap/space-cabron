@@ -228,15 +228,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23ef242b13259047a9d14f71b0a357b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Probability:
+    GetFrom: {fileID: 11400000, guid: e5729cdd72d5d5743ab9317dc81842c2, type: 2}
+    SendTo: {fileID: 0}
+    _value: 0
   items:
   - obj: {fileID: 3262573041817289645, guid: 3838bbb4a27945342a0f807363938730, type: 3}
-    chance: 0.1
-  - obj: {fileID: 5732334520821103387, guid: 11b1cad2b9174d849a2bca44ef36caf4, type: 3}
-    chance: 0.1
-  - obj: {fileID: 5732334520821103387, guid: b2334cf7c1028734bb0aee23e3d5faa3, type: 3}
-    chance: 0.1
-  - obj: {fileID: 5580465785129014530, guid: cf996382704807741af0ae5f3f5b4874, type: 3}
-    chance: 0.1
+    Weight: 1
+  - obj: {fileID: 3927431444332515879, guid: e7d238c8c1b745245b6ddd681e260469, type: 3}
+    Weight: 1
 --- !u!114 &437546467635798816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,4 +249,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e3333dfb0e22b4fb0a947141fe21c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 100
+  Value: 50

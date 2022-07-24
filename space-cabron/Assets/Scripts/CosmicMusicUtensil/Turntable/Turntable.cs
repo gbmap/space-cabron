@@ -17,6 +17,8 @@ namespace Gmap.CosmicMusicUtensil
     public interface ITurntable
     {
         int BPM { get; set; }
+        public Melody Melody { get; }
+        public Improviser Improviser { get; }
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
     }
@@ -35,26 +37,27 @@ namespace Gmap.CosmicMusicUtensil
         
         int   currentNoteIndex;
         int   currentBarIndex;
-        public Note LastNote { get; private set; } 
-        public Note CurrentNote { get; private set; }
+        private Note LastNote { get; set; } 
 
-        float _lastPlayedNote;
-        float _noteTime = 0.1f;
+        float noteTime = 0.1f;
 
-        Melody Melody;
+        Melody melody;
+        public Melody Melody { get { return melody; } }
+
         Improviser improviser = new Improviser();
-        Queue<Note> noteQueue = new Queue<Note>(50);
-
+        public Improviser Improviser { get { return improviser; } }
         public System.Action<OnNoteArgs> OnNote;
+
+        Queue<Note> noteQueue = new Queue<Note>(50);
 
         public Turntable(IntBusReference bpmReference, Melody m, bool keepNotePlaying, float noteTime,
             System.Action<OnNoteArgs> onNote = null)
         {
             BPMReference = bpmReference;
             currentNoteIndex = 0;
-            Melody = m;
+            melody = m;
             HoldNote = keepNotePlaying;
-            _noteTime = noteTime;
+            this.noteTime = noteTime;
 
             if (onNote != null)
                 OnNote += onNote;
@@ -69,7 +72,7 @@ namespace Gmap.CosmicMusicUtensil
 
         void QueueNextNotes()
         {
-            Note[] notesToPlay = improviser.Improvise(Melody, currentBarIndex, Melody.GetNote(currentNoteIndex), currentNoteIndex);
+            Note[] notesToPlay = improviser.Improvise(melody, currentBarIndex, melody.GetNote(currentNoteIndex), currentNoteIndex);
             System.Array.ForEach(notesToPlay, n => noteQueue.Enqueue(n));
             AdvanceNoteIndex();
         }
@@ -99,7 +102,7 @@ namespace Gmap.CosmicMusicUtensil
             OnNote?.Invoke(new OnNoteArgs
             {
                 Note = note,
-                HoldTime = Mathf.Lerp(_noteTime, _noteTime*duration, Convert.ToSingle(HoldNote)),
+                HoldTime = Mathf.Lerp(noteTime, noteTime*duration, Convert.ToSingle(HoldNote)),
                 Duration = duration
             });
             LastNote = note;
@@ -107,12 +110,15 @@ namespace Gmap.CosmicMusicUtensil
 
         public void SetMelody(Melody m)
         {
-            Melody = m;
+            melody = m;
+
         }
 
         private void AdvanceNoteIndex()
         {
-            currentNoteIndex = (currentNoteIndex + 1) % Melody.Length;
+            currentNoteIndex = (currentNoteIndex + 1) % melody.Length;
+            if (currentNoteIndex == 0)
+                currentBarIndex++;
         }
     }
 }

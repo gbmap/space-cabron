@@ -21,7 +21,6 @@ namespace SpaceCabron
             position.z = 0f;
 
             Instantiate(enemy, position, Quaternion.identity);
-            Debug.Log("Spawn");
         }
     }
 }

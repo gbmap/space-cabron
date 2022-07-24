@@ -1,21 +1,28 @@
-﻿using UnityEngine;
+﻿using Gmap.ScriptableReferences;
+using Gmap.Utils;
+using UnityEngine;
 
 [System.Serializable]
-public struct SpawnOnDestroyItem
+public class SpawnOnDestroyItem
 {
     public GameObject obj;
-    public float chance;
+    public int Weight;
 }
 
 public class SpawnOnDestroy : MonoBehaviour
 {
+    public FloatBusReference Probability;
     public SpawnOnDestroyItem[] items;
+
+    private ShuffleBag<GameObject> bag;
 
     Health health;
 
     void Awake()
     {
         health = GetComponent<Health>();
+        bag = new ShuffleBag<GameObject>();
+        System.Array.ForEach(items, item => bag.Add(item.obj, item.Weight));
     }
 
     private void OnEnable()
@@ -30,13 +37,8 @@ public class SpawnOnDestroy : MonoBehaviour
 
     private void OnDestruction(Health destroyed)
     {
-        foreach (var item in items)
-        {
-            if (Random.Range(0f, 1f) < item.chance)
-            {
-                Instantiate(item.obj, transform.position, Quaternion.identity);
-                return;
-            }
-        }
+        if (Random.value > Probability.Value)
+            return;
+        Instantiate(bag.Next(), transform.position, Quaternion.identity);
     }
 }

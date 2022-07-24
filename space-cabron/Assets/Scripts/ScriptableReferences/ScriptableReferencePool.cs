@@ -6,24 +6,31 @@ using Gmap.Utils;
 namespace Gmap.ScriptableReferences
 {
     [System.Serializable]
-    public class ScriptableReferenceItem<T> 
+    public class ScriptableReferenceItem<T>
     {
-        public ValueReference<T> Value;
+        public T Value;
         public int Weight;
     }
 
     public class ScriptableReferencePool<T> : ScriptableObject
     {
+        public enum ERandomType
+        {
+            Random,
+            ShuffleBag
+        }
+        public ERandomType RandomType = ERandomType.ShuffleBag;
+
         public List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
         
-        ShuffleBag<ValueReference<T>> _shuffleBag;
-        private ShuffleBag<ValueReference<T>> ShuffleBag
+        ShuffleBag<T> _shuffleBag;
+        private ShuffleBag<T> ShuffleBag
         {
             get 
             { 
                 if (_shuffleBag == null)
                 {
-                    _shuffleBag = new ShuffleBag<ValueReference<T>>();
+                    _shuffleBag = new ShuffleBag<T>();
                     foreach (var item in Items)
                         _shuffleBag.Add(item.Value, item.Weight);
                 }
@@ -31,13 +38,12 @@ namespace Gmap.ScriptableReferences
             }
         }
 
-        void Awake()
+        public T GetNext()
         {
-        }
-
-        public ValueReference<T> GetNext()
-        {
-            return ShuffleBag.Next();
+            if (RandomType == ERandomType.Random)
+                return Items[Random.Range(0, Items.Count)].Value;
+            else
+                return ShuffleBag.Next();
         }
     }
 }

@@ -47,6 +47,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6954135794747433862, guid: 231892c16b4d95442a948d8a420ddc2a,
+        type: 3}
+      propertyPath: melody.notation
+      value: c4/2;c4/2
+      objectReference: {fileID: 0}
     - target: {fileID: 8436536320496043500, guid: 231892c16b4d95442a948d8a420ddc2a,
         type: 3}
       propertyPath: m_Name

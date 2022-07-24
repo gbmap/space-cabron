@@ -39,4 +39,7 @@ namespace Gmap.ScriptableReferences
 
     [System.Serializable]
     public class IntBusReference : PropertyReference<int, IntReference> {}
+
+    [System.Serializable]
+    public class FloatBusReference : PropertyReference<float, FloatReference> {}
 }

@@ -12,7 +12,7 @@ namespace Gmap.Utils
         private List<T> data = new List<T>();
         private int cursor = 0;
         private T last;
-
+        
         public T Next()
         {
             if (cursor < 1)

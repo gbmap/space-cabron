@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
 using NUnit.Framework;
-using UnityEngine;
 
 public class ImproviserTests 
 {
@@ -55,5 +53,31 @@ public class ImproviserTests
         Note[] notes = improviser.Improvise(melody, 0, melody.GetNote(0), 0);
         Assert.AreEqual(notes.Length,1);
         Assert.AreEqual(melody.GetNote(0), notes[0]);
+    }
+
+    [TestCase("", 1, 1, ExpectedResult=null)]
+    [TestCase("c4/4", -1, 1, ExpectedResult="c4/4")]
+    [TestCase("c4/4", 1, 2, ExpectedResult="c4/4")]
+    [TestCase("c4/4", 1, 2, ExpectedResult="c4/4")]
+    [TestCase("d4/4;c3/8", 1, 2, ExpectedResult="d4/4;c3/16;c3/16")]
+    [TestCase("f3/4;g3/4;d3/4", 1, 2, ExpectedResult="f3/4;g3/8;g3/8;d3/4")]
+    [TestCase("c4/4;c4/4;c4/4;c4/4", 1, 2, ExpectedResult="c4/4;c4/8;c4/8;c4/4;c4/8;c4/8")]
+    [TestCase("c4/4;c4/4;c4/4;c4/4", 1, 2, ExpectedResult="c4/4;c4/8;c4/8;c4/4;c4/8;c4/8")]
+    [TestCase("c4/4;d4/4;e4/4", 1, 1, ExpectedResult="c4/8;c4/8;d4/8;d4/8;e4/8;e4/8")]
+    [TestCase("c4/16;f#4/16;a#4/16;c4/16;d3/8;e3/8", 2, 3, ExpectedResult="c4/16;f#4/16;a#4/48;a#4/48;a#4/48;c4/16;d3/8;e3/24;e3/24;e3/24")]
+    public string BreakNote(string melody, int timesToDuplicate, int everyNNote)
+    {
+        Melody m = new Melody(melody);
+        improviser.AddImprovisation(new BreakNoteImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), timesToDuplicate));
+
+        List<Note> lnotes = new List<Note>();
+        for (int i = 0; i < m.Length; i++)
+        {
+            Note[] notes = improviser.Improvise(m, 0, m.GetNote(i), i);
+            lnotes.AddRange(notes);
+        }
+
+        Melody m2 = new Melody(lnotes.ToArray());
+        return m2.Notation;
     }
 }
