@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Gmap.CosmicMusicUtensil;
-using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -35,20 +32,44 @@ namespace Gmap.CosmicMusicUtensil
 
     public class DuplicateNoteImprovisation : Improvisation
     {
+        public int TimesToDuplicate { get; private set; }
+
         public DuplicateNoteImprovisation(
             SelectionStrategy noteSelectionStrategy, 
-            SelectionStrategy barSelectionStrategy
-        ) : base(noteSelectionStrategy, barSelectionStrategy) {}
+            SelectionStrategy barSelectionStrategy,
+            int timesToDuplicate=2
+        ) : base(noteSelectionStrategy, barSelectionStrategy) 
+        {
+            TimesToDuplicate = timesToDuplicate;
+        }
 
         protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex)
         {
-            Note[] finalNotes = new Note[notes.Length * 2];
+            List<Note> notesList = new List<Note>(notes.Length * TimesToDuplicate);
+            for (int i = 0; i < TimesToDuplicate; i++)
+                notesList.AddRange(notes);
+            return notesList.ToArray();
+        }
+    }
+
+    public class TransposeNoteImprovisation : Improvisation
+    {
+        public int Steps { get; private set; }
+        public TransposeNoteImprovisation(
+            SelectionStrategy noteSelectionStrategy, 
+            SelectionStrategy barSelectionStrategy,
+            int steps=1
+        ) : base(noteSelectionStrategy, barSelectionStrategy) 
+        {
+            Steps = steps;
+        }
+
+        protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex)
+        {
+            Note[] newNotes = new Note[notes.Length];
             for (int i = 0; i < notes.Length; i++)
-            {
-                finalNotes[i] = notes[i];
-                finalNotes[i+1] = notes[i];
-            }
-            return finalNotes;
+                newNotes[i] = Note.Transpose(notes[i], Steps);
+            return notes;
         }
     }
 }

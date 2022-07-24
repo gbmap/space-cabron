@@ -35,6 +35,13 @@ namespace Gmap.CosmicMusicUtensil
             Octave = 0;
         }
 
+        public Note(Note n)
+        {
+            Tone = n.Tone;
+            Interval = n.Interval;
+            Octave = n.Octave;
+        }
+
         public Note(ENote tone, int interval, int octave)
         {
             Tone = tone;
@@ -73,6 +80,7 @@ namespace Gmap.CosmicMusicUtensil
             { "g#", ENote.Gsharp },
             { "-", ENote.None }
         };
+
         
         public static ENote FromString(string s) {
             return dictCharToNote[s];
@@ -94,6 +102,13 @@ namespace Gmap.CosmicMusicUtensil
             else if (interval < 0)
                 Octave += System.Convert.ToInt32(((int)Tone)+interval<0)*Mathf.Min(-1, interval/12);
             Tone = OffsetNote(Tone, interval);
+        }
+
+        public static Note Transpose(Note n, int interval)
+        {
+            Note n2 = new Note(n);
+            n2.Transpose(interval);
+            return n2;
         }
 
         public override bool Equals(object obj)
