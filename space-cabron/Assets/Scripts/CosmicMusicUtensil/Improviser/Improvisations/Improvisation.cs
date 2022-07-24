@@ -7,15 +7,20 @@ namespace Gmap.CosmicMusicUtensil
 {
     public abstract class Improvisation
     {
-        NoteSelectionStrategy selectionStrategy;
-        public Improvisation(NoteSelectionStrategy selectionStrategy)
-        {
-            this.selectionStrategy = selectionStrategy;
+        SelectionStrategy noteSelectionStrategy;
+        SelectionStrategy barSelectionStrategy;
+        public Improvisation(
+            SelectionStrategy noteSelectionStrategy,
+            SelectionStrategy barSelectionStrategy
+        ) {
+            this.noteSelectionStrategy = noteSelectionStrategy;
+            this.barSelectionStrategy = barSelectionStrategy;
         }
 
         public bool ShouldApply(Melody melody, int barIndex, Note[] note, int noteIndex)
         {
-            return selectionStrategy.ShouldSelectNote(melody, barIndex, noteIndex);
+            return noteSelectionStrategy.ShouldSelect(melody, noteIndex)
+                && barSelectionStrategy.ShouldSelect(melody, barIndex);
         }
 
         protected abstract Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex);
@@ -30,9 +35,10 @@ namespace Gmap.CosmicMusicUtensil
 
     public class DuplicateNoteImprovisation : Improvisation
     {
-        public DuplicateNoteImprovisation(NoteSelectionStrategy strategy)
-            : base(strategy)
-        {}
+        public DuplicateNoteImprovisation(
+            SelectionStrategy noteSelectionStrategy, 
+            SelectionStrategy barSelectionStrategy
+        ) : base(noteSelectionStrategy, barSelectionStrategy) {}
 
         protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex)
         {

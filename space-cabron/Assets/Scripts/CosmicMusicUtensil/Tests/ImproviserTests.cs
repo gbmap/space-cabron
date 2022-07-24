@@ -34,7 +34,9 @@ public class ImproviserTests
     [Test]
     public void AppliesImprovisationToOneNote()
     {
-        improviser.AddImprovisation(new DuplicateNoteImprovisation(new EveryNNoteStrategy(1)));
+        improviser.AddImprovisation(
+            new DuplicateNoteImprovisation(new EveryNStrategy(1), new EveryNStrategy(1))
+        );
         Note[] notes = improviser.Improvise(melody, 0, melody.GetNote(0), 0);
         Assert.IsTrue(notes.Length == 2);
         Assert.AreEqual(melody.GetNote(0), notes[0]);
@@ -44,7 +46,9 @@ public class ImproviserTests
     [Test]
     public void RemovingImprovisationGeneratesPreviousNote()
     {
-        Improvisation improvisation = new DuplicateNoteImprovisation(new EveryNNoteStrategy(1));
+        Improvisation improvisation = new DuplicateNoteImprovisation(
+            new EveryNStrategy(1), new EveryNStrategy(1)
+        );
         improviser.AddImprovisation(improvisation);
         improviser.Improvise(melody, 0, melody.GetNote(0), 0);
         improviser.RemoveImprovisation(improvisation);

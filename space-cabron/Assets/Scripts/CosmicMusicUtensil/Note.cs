@@ -98,8 +98,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public override bool Equals(object obj)
         {
-            
-            if ((obj.Equals(null)) || ! this.GetType().Equals(obj.GetType()))
+            if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
                 return false;
 
             Note n2 = (Note)obj;
