@@ -99,8 +99,8 @@ GameObject:
   - component: {fileID: 6401814173385159522}
   - component: {fileID: 3105165380062635404}
   - component: {fileID: 8162897682721974425}
-  - component: {fileID: 1808694483522459046}
   - component: {fileID: 8605179172511680201}
+  - component: {fileID: 212556697708309813}
   m_Layer: 13
   m_Name: Upgrade
   m_TagString: Untagged
@@ -249,21 +249,6 @@ MonoBehaviour:
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
---- !u!114 &1808694483522459046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5621981252508601616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301c655b53b4e024493b04ee9fc748f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: b5631c13cef5bb94b87b3500a8958ec2, type: 2}
-  renderer: {fileID: 569090007880489849}
-  Type: 0
 --- !u!114 &8605179172511680201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,3 +265,15 @@ MonoBehaviour:
   Rotation: 0
   Speed: 0.03
   Absolute: 0
+--- !u!114 &212556697708309813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5621981252508601616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3541f8d019d1a1c44bcf2c43bc90b5d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
