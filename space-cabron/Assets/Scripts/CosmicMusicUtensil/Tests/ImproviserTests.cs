@@ -14,6 +14,19 @@ public class ImproviserTests
         improviser = new Improviser();
     }
 
+    private Melody ImproviseOnMelody(Improvisation improvisation, Melody m) {
+        improviser.AddImprovisation(improvisation);
+        List<Note> lnotes = new List<Note>();
+        for (int i = 0; i < m.Length; i++)
+        {
+            Note[] notes = improviser.Improvise(m, 0, m.GetNote(i), i);
+            lnotes.AddRange(notes);
+        }
+
+        Melody m2 = new Melody(lnotes.ToArray());
+        return m2;
+    }
+
 
     [Test]
     public static void ThrowsExceptionOnNullImprovisation()
@@ -58,6 +71,23 @@ public class ImproviserTests
     [TestCase("", 1, 1, ExpectedResult=null)]
     [TestCase("c4/4", -1, 1, ExpectedResult="c4/4")]
     [TestCase("c4/4", 1, 2, ExpectedResult="c4/4")]
+    [TestCase("d4/4;c3/8", 1, 2, ExpectedResult="d4/4;c3/8;c3/8")]
+    [TestCase("f3/4;g3/4;d3/4", 1, 2, ExpectedResult="f3/4;g3/4;g3/4;d3/4")]
+    [TestCase("c4/4;c4/4;c4/4;c4/4", 1, 2, ExpectedResult="c4/4;c4/4;c4/4;c4/4;c4/4;c4/4")]
+    [TestCase("c4/4;c4/4;c4/4;c4/4", 1, 2, ExpectedResult="c4/4;c4/4;c4/4;c4/4;c4/4;c4/4")]
+    [TestCase("c4/4;d4/4;e4/4", 1, 1, ExpectedResult="c4/4;c4/4;d4/4;d4/4;e4/4;e4/4")]
+    [TestCase("c4/16;f#4/16;a#4/16;c4/16;d3/8;e3/8", 2, 3, ExpectedResult="c4/16;f#4/16;a#4/16;a#4/16;a#4/16;c4/16;d3/8;e3/8;e3/8;e3/8")]
+    public string DuplicateNote(string melody, int timesToDuplicate, int everyNNote)
+    {
+        Melody m = new Melody(melody);
+        return ImproviseOnMelody(
+            new DuplicateNoteImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), timesToDuplicate),
+            m
+        ).Notation;
+    }
+
+    [TestCase("", 1, 1, ExpectedResult=null)]
+    [TestCase("c4/4", -1, 1, ExpectedResult="c4/4")]
     [TestCase("c4/4", 1, 2, ExpectedResult="c4/4")]
     [TestCase("d4/4;c3/8", 1, 2, ExpectedResult="d4/4;c3/16;c3/16")]
     [TestCase("f3/4;g3/4;d3/4", 1, 2, ExpectedResult="f3/4;g3/8;g3/8;d3/4")]
@@ -68,16 +98,9 @@ public class ImproviserTests
     public string BreakNote(string melody, int timesToDuplicate, int everyNNote)
     {
         Melody m = new Melody(melody);
-        improviser.AddImprovisation(new BreakNoteImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), timesToDuplicate));
-
-        List<Note> lnotes = new List<Note>();
-        for (int i = 0; i < m.Length; i++)
-        {
-            Note[] notes = improviser.Improvise(m, 0, m.GetNote(i), i);
-            lnotes.AddRange(notes);
-        }
-
-        Melody m2 = new Melody(lnotes.ToArray());
-        return m2.Notation;
+        return ImproviseOnMelody(
+            new BreakNoteImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), timesToDuplicate),
+            m
+        ).Notation;
     }
 }

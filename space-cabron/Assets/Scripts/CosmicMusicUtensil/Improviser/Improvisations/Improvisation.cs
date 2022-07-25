@@ -57,13 +57,12 @@ namespace Gmap.CosmicMusicUtensil
             if (TimesToDuplicate == 0)
                 return notes;
 
-
             List<Note> notesList = new List<Note>(notes.Length * (TimesToDuplicate));
             for (int i = 0; i < notes.Length; i++)
             {
                 if (subNoteSelectionStrategy.ShouldSelect(notes.Length, i))
                 {
-                    Note n = new Note(melody.GetNote(i));
+                    Note n = new Note(notes[i]);
                     // n.Interval = n.Interval * TimesToDuplicate;
                     ChangeNote(n, noteIndex);
                     for (int j = 0; j < TimesToDuplicate; j++)
@@ -105,6 +104,21 @@ namespace Gmap.CosmicMusicUtensil
         protected override string Info()
         {
             return $"Break note in {TimesToDuplicate} times";
+        }
+    }
+
+    public class BreakNoteAndTranspose : DuplicateNoteImprovisation
+    {
+        public BreakNoteAndTranspose(
+            SelectionStrategy noteSelectionStrategy, 
+            SelectionStrategy barSelectionStrategy,
+            int timesToDuplicate=2
+        ) : base(noteSelectionStrategy, barSelectionStrategy, timesToDuplicate) {}
+
+        protected override void ChangeNote(Note note, int index)
+        {
+            base.ChangeNote(note, index);
+            note.Tone = (ENote)(note.Tone + UnityEngine.Random.Range(-12,12));
         }
     }
 
