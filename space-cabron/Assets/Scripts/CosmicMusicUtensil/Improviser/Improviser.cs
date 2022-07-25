@@ -16,6 +16,7 @@ namespace Gmap.CosmicMusicUtensil
             return notes;
         }
 
+
         public void AddImprovisation(Improvisation improvisation)
         {
             if (improvisation == null)

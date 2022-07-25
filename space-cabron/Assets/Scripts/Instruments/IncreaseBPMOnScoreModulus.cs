@@ -30,7 +30,7 @@ namespace SpaceCabron.Instruments
         {
             bool target; 
             if (Geometric)
-                target = (msg.Score % (ScoreModulus*counter)) == 0;
+                target = (msg.Score % (ScoreModulus*counter*2)) == 0;
             else 
                 target = msg.Score % ScoreModulus == 0;
 

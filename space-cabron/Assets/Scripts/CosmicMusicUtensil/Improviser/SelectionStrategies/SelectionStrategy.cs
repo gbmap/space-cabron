@@ -60,8 +60,13 @@ namespace Gmap.CosmicMusicUtensil
 
         public bool ShouldSelect(Melody melody, int index)
         {
+            return ShouldSelect(melody.Length, index);
+        }
+
+        public bool ShouldSelect(int length, int index)
+        {
             var r = new System.Random(seed);
-            return index == r.Next(0, melody.Length);
+            return index == r.Next(0, length);
         }
     }
 

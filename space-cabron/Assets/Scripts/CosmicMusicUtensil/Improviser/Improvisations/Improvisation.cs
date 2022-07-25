@@ -40,6 +40,7 @@ namespace Gmap.CosmicMusicUtensil
     public class DuplicateNoteImprovisation : Improvisation
     {
         public int TimesToDuplicate { get; private set; }
+        RandomSelectionStrategy subNoteSelectionStrategy;
 
         public DuplicateNoteImprovisation(
             SelectionStrategy noteSelectionStrategy, 
@@ -48,6 +49,7 @@ namespace Gmap.CosmicMusicUtensil
         ) : base(noteSelectionStrategy, barSelectionStrategy) 
         {
             TimesToDuplicate = System.Math.Max(0, timesToDuplicate+1);
+            subNoteSelectionStrategy = new RandomSelectionStrategy();
         }
 
         protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex)
@@ -55,16 +57,22 @@ namespace Gmap.CosmicMusicUtensil
             if (TimesToDuplicate == 0)
                 return notes;
 
-            Note[] tempNotes = new Note[notes.Length];
-            for (int i = 0; i < notes.Length; i++)
-            {
-                tempNotes[i] = new Note(notes[i]);
-                ChangeNote(tempNotes[i],i);
-            }
 
             List<Note> notesList = new List<Note>(notes.Length * (TimesToDuplicate));
-            for (int i = 0; i < TimesToDuplicate; i++)
-                notesList.AddRange(tempNotes);
+            for (int i = 0; i < notes.Length; i++)
+            {
+                if (subNoteSelectionStrategy.ShouldSelect(notes.Length, i))
+                {
+                    Note n = new Note(melody.GetNote(i));
+                    // n.Interval = n.Interval * TimesToDuplicate;
+                    ChangeNote(n, noteIndex);
+                    for (int j = 0; j < TimesToDuplicate; j++)
+                        notesList.Add(n);
+                }
+                else
+                    notesList.Add(notes[i]);
+            }
+
             
             return notesList.ToArray();
         }

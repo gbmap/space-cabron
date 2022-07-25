@@ -7,11 +7,15 @@ namespace Gmap.CosmicMusicUtensil
     public class HelmProxy : MonoBehaviour
     {
         public AudioHelm.HelmController Controller;
+        public AudioHelm.Sampler Sampler;
 
         public void Play(OnNoteArgs args)
         {
             var note = args.Note;
-            Controller.NoteOn(Note.ToMIDI(note.Tone, 4), 0.5f, args.HoldTime);
+            if (Controller)
+                Controller.NoteOn(Note.ToMIDI(note.Tone, note.Octave), Random.value, args.HoldTime);
+            else if (Sampler)
+                Sampler.NoteOn(Note.ToMIDI(note.Tone, note.Octave), Random.value);
         }
 
     }
