@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1564543275988480972}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 5846109728729050079, guid: 9b1de30e5d9b04945b2549048afa8450, type: 3}
   - {fileID: 2871415668028923354, guid: 70180d1f98079584188a2216a19c4eeb, type: 3}
   - {fileID: 1845278815985660862, guid: 4bad73beb5bbd2f42b06c08eb64605ce, type: 3}
+  EnemyPool: {fileID: 0}
 --- !u!1001 &9198176374421481545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,6 +200,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Instrument
       objectReference: {fileID: 0}
+    - target: {fileID: 7305423148673242158, guid: 570b2b318c3ef4d4290bb35e281dd60c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 570b2b318c3ef4d4290bb35e281dd60c, type: 3}
 --- !u!1 &1928788622389935207 stripped
@@ -220,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreModulus: 500
+  Geometric: 0
   IncreaseValue: 5
 --- !u!4 &4015627037840743876 stripped
 Transform:

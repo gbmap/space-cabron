@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
-using Gmap.ScriptableReferences;
 using UnityEngine;
+using Gmap.Gameplay;
+using Gmap.ScriptableReferences;
+using SpaceCabron.Gameplay;
 
 namespace SpaceCabron
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
         public List<GameObject> Enemies;
         public GameObjectPool EnemyPool;
 
+        private bool shouldSpawn = false;
+
+        public void Configure(LevelConfiguration configuration)
+        {
+            StartCoroutine(WaitAndActivate());
+        }
+
+        private IEnumerator WaitAndActivate()
+        {
+            shouldSpawn = false;
+            yield return new WaitForSeconds(2f);
+            shouldSpawn = true;
+        }
+
         public void SpawnNext()
         {
-            if (Enemies.Count == 0)
+            if (!shouldSpawn || Enemies.Count == 0)
                 return;
 
             int index = Random.Range(0, Enemies.Count);

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 671385365}
   m_Layer: 8
   m_Name: Instrument
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 671385366}
+  Sampler: {fileID: 0}
 --- !u!114 &671385365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,9 +205,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bd27cbfa076e144b0a392f1e7c2e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Melody:
-    notation: c5/4;c5/2;d5/8;d#5/8
-  BPM: 60
+  melody:
+    notation: 
+  BPMReference:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 0
   Bar: {fileID: 11400000, guid: 3da6b913f94efee498cebfb89e75bae9, type: 2}
   UnityEvent:
     m_PersistentCalls:

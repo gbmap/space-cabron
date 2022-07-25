@@ -24,7 +24,7 @@ namespace SpaceCabron.Gameplay
     [System.Serializable]
     public class MelodyConfiguration
     {
-        public int BPM;
+        public int BPM = 30;
         public Melody StartingMelody;
         public StringReferencePool PossibleStartingMelodies;
     }
@@ -39,12 +39,37 @@ namespace SpaceCabron.Gameplay
     public class LevelConfiguration : ScriptableObject
     {
         public GameplayConfiguration Gameplay;
-        public MelodyConfiguration Melody;
+        [SerializeField] private MelodyConfiguration EnemyMelody;
+        [SerializeField] private MelodyConfiguration PlayerMelody;
+        [SerializeField] private MelodyConfiguration DrumMelody;
         public BackgroundConfiguration Background;
+
+        public MelodyConfiguration GetMelodyConfigurationByTag(string tag)
+        {
+            if (tag == "Player")
+                return PlayerMelody;
+            else if (tag == "Enemy")
+            {
+                EnemyMelody.StartingMelody = new Melody(EnemyMelody.PossibleStartingMelodies.GetNext().Value);
+                return EnemyMelody;
+            }
+            else
+            {
+                DrumMelody.StartingMelody = new Melody(DrumMelody.PossibleStartingMelodies.GetNext().Value);
+                return DrumMelody;
+            }
+        }
+
+        public LevelConfiguration Clone()
+        {
+            LevelConfiguration clone = ScriptableObject.CreateInstance<LevelConfiguration>();
+            clone.Background = Background;
+            clone.Gameplay = Gameplay;
+            clone.EnemyMelody = EnemyMelody;
+            clone.DrumMelody = DrumMelody;
+            clone.PlayerMelody = PlayerMelody;
+            return clone;
+        }
     }
 
-    public interface ILevelConfigurable
-    {
-        void Configure(LevelConfiguration configuration);
-    }
 }

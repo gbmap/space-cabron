@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Gmap.Gameplay;
 
 namespace SpaceCabron.Gameplay
 {
@@ -23,8 +24,8 @@ namespace SpaceCabron.Gameplay
             GameObject[] roots = SceneManager.GetActiveScene().GetRootGameObjects();
             for (int i = 0; i < roots.Length; i++)
             {
-                ILevelConfigurable[] lc = roots[i].GetComponentsInChildren<ILevelConfigurable>(true);
-                System.Array.ForEach(lc, (ILevelConfigurable l) => { l.Configure(level); });
+                ILevelConfigurable<LevelConfiguration>[] lc = roots[i].GetComponentsInChildren<ILevelConfigurable<LevelConfiguration>>(true);
+                System.Array.ForEach(lc, (ILevelConfigurable<LevelConfiguration> l) => { l.Configure(level); });
             }
         }
     }

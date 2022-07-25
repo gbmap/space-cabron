@@ -15,11 +15,7 @@ namespace SpaceCabron.Gameplay
         {
             if (LevelConfiguration != null)
             {
-                LevelConfiguration clone = ScriptableObject.CreateInstance<LevelConfiguration>();
-                clone.Background = LevelConfiguration.Background;
-                clone.Gameplay = LevelConfiguration.Gameplay;
-                clone.Melody = LevelConfiguration.Melody;
-                LevelConfiguration = clone;
+                LevelConfiguration = LevelConfiguration.Clone();
             }
             else
                 throw new System.Exception("Level Configuration can't be null.");
@@ -28,9 +24,9 @@ namespace SpaceCabron.Gameplay
 
         public void SelectRandomMelody()
         {
-            StartGame(LevelConfiguration.Melody.PossibleStartingMelodies.GetNext().Value);
+            MelodyConfiguration melodyConfig = LevelConfiguration.GetMelodyConfigurationByTag("Player");
+            StartGame(melodyConfig.PossibleStartingMelodies.GetNext().Value);
         }
-
 
         public void OnCustomMelodyTextBarChanged(string text)
         {
@@ -41,7 +37,7 @@ namespace SpaceCabron.Gameplay
         {
             try
             {
-                Melody m = new Melody(_customMelody);
+                Melody m = new Melody(_customMelody.ToLower());
                 if (m.IsEmpty)
                     throw new System.Exception("Melody is empty.");
                 StartGame(_customMelody);
@@ -54,7 +50,8 @@ namespace SpaceCabron.Gameplay
 
         private void SelectMelody(string notation)
         {
-            LevelConfiguration.Melody.StartingMelody = new Melody(notation);
+            var melodyConfig = LevelConfiguration.GetMelodyConfigurationByTag("Player");
+            melodyConfig.StartingMelody = new Melody(notation);
         }
 
         private void StartGame(string melody)
