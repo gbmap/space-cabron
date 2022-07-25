@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Frictionless;
-using SpaceCabron.Scoreboard.Messages;
+using SpaceCabron.Messages;
 using UnityEngine;
 
 namespace SpaceCabron.Scoreboard.UI

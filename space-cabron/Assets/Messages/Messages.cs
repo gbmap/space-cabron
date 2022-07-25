@@ -3,17 +3,26 @@
 namespace SpaceCabron.Messages {
     public class RandomizeBeat {}
 }
-public class Message { }
 
-public class MsgOnEnemyHit : Message
+public class Message {}
+
+namespace SpaceCabron.Messages 
 {
-    public string enemyName;
-    public Bullet bullet;
-    public Collider2D collider;
-    public Health enemy;
+    public class MsgOnScoreChanged
+    {
+        public int Score;
+        public MsgOnScoreChanged(int score)
+        {
+            Score = score;
+        }
+    }
+
+    public class MsgIncreaseScore
+    {
+        public int Value;
+        public MsgIncreaseScore(int value)
+        {
+            Value = value;
+        }
+    }
 }
-
-public class MsgOnEnemyDestroyed : MsgOnEnemyHit
-{ }
-
-

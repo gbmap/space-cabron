@@ -1,5 +1,6 @@
 ﻿using Gmap.ScriptableReferences;
 using Gmap.Utils;
+using SpaceCabron.Gameplay;
 using UnityEngine;
 
 [System.Serializable]
@@ -35,7 +36,7 @@ public class SpawnOnDestroy : MonoBehaviour
         health.OnDestroy -= OnDestruction;
     }
 
-    private void OnDestruction(Health destroyed)
+    private void OnDestruction(MessageOnEnemyDestroyed msg)
     {
         if (Random.value > Probability.Value)
             return;

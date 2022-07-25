@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Useful;
+using SpaceCabron.Gameplay;
 
 public class FX : Singleton<FX>
 {
@@ -40,13 +41,13 @@ public class FX : Singleton<FX>
     {
         _router = ServiceFactory.Instance.Resolve<MessageRouter>();
         _router.AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
-        _router.AddHandler<MsgOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
+        _router.AddHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
     }
 
     private void OnDisable()
     {
         _router.RemoveHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
-        _router.RemoveHandler<MsgOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
+        _router.RemoveHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
     }
 
     public void SpawnExplosion(EExplosionSize size, Vector3 pos)
@@ -79,7 +80,7 @@ public class FX : Singleton<FX>
         SpawnExplosion(EExplosionSize.Medium, obj.bullet.transform.position);
     }
 
-    private void Callback_OnEnemyDestroyed(MsgOnEnemyDestroyed obj)
+    private void Callback_OnEnemyDestroyed(MessageOnEnemyDestroyed obj)
     {
         SpawnExplosionCluster(4, obj.enemy.transform.position);
     }

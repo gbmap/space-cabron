@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Frictionless",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "SpaceCabron.Messages"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

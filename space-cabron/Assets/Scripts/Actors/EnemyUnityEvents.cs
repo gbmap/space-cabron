@@ -4,7 +4,7 @@ using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SpaceCabron
+namespace SpaceCabron.Gameplay
 {
     public class EnemyUnityEvents : MonoBehaviour
     {

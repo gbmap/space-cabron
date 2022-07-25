@@ -1,6 +1,5 @@
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
-using SpaceCabron.Scoreboard.Messages;
 using UnityEngine;
 
 namespace SpaceCabron.Instruments
@@ -18,15 +17,15 @@ namespace SpaceCabron.Instruments
         protected virtual void Awake()
         {
             turntable = GetComponent<ITurntable>();
-            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<Scoreboard.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         protected virtual void OnDestroy()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<Scoreboard.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
-        private void Callback_OnScoreChanged(MsgOnScoreChanged msg)
+        private void Callback_OnScoreChanged(Messages.MsgOnScoreChanged msg)
         {
             bool target; 
             if (Geometric)
