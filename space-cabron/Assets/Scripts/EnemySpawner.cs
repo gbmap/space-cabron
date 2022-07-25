@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.ScriptableReferences;
 using UnityEngine;
 
 namespace SpaceCabron
@@ -7,6 +8,7 @@ namespace SpaceCabron
     public class EnemySpawner : MonoBehaviour
     {
         public List<GameObject> Enemies;
+        public GameObjectPool EnemyPool;
 
         public void SpawnNext()
         {
@@ -14,7 +16,8 @@ namespace SpaceCabron
                 return;
 
             int index = Random.Range(0, Enemies.Count);
-            var enemy = Enemies[index];
+            // var enemy = Enemies[index];
+            var enemy = EnemyPool.GetNext();
 
             var position = new Vector3(Random.Range(0.15f, 0.85f), 0.9f, 0f);
             position = Camera.main.ViewportToWorldPoint(position);

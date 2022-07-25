@@ -48,12 +48,12 @@ namespace SpaceCabron
             {
                 case MelodyModifier.EType.BreakNote:
                 {
-                    var modifier = new BreakNoteModifier(BreakNoteShuffleBag.Next());
+                    var modifier = new BreakMelodyNoteModifier(BreakNoteShuffleBag.Next());
                     return modifier;
                 }
                 case MelodyModifier.EType.ShiftNote:
                 {
-                    var modifier = new ShiftNoteModifier(Random.Range(-12,12));
+                    var modifier = new ShiftNoteMelodyModifier(Random.Range(-12,12));
                     return modifier;
                 }
                 case MelodyModifier.EType.TransposeMelody:

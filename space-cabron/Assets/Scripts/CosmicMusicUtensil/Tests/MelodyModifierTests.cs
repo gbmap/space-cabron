@@ -9,7 +9,7 @@ public class MelodyModifierTests
     [Test]
     public static void Test_BreakNoteModifier()
     {
-        BreakNoteModifier breakNote = new BreakNoteModifier(2);
+        BreakMelodyNoteModifier breakNote = new BreakMelodyNoteModifier(2);
         
         Melody m = new Melody("c4/8");
         Melody m2 = breakNote.Apply(m);
@@ -22,7 +22,7 @@ public class MelodyModifierTests
     [Test]
     public static void Test_ShiftNoteModifier()
     {
-        ShiftNoteModifier shiftNote = new ShiftNoteModifier(1);
+        ShiftNoteMelodyModifier shiftNote = new ShiftNoteMelodyModifier(1);
         Melody m = new Melody("c4/8");
         Melody m2 = shiftNote.Apply(m);
         Assert.AreEqual("c#4/8", m2.Notation);

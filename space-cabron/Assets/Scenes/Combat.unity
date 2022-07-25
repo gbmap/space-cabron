@@ -1098,7 +1098,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
@@ -3446,6 +3446,12 @@ PrefabInstance:
       propertyPath: Geometric
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8532393573949153247, guid: 8fc96b863f2caab45b82b39ca22aaf65,
+        type: 3}
+      propertyPath: EnemyPool
+      value: 
+      objectReference: {fileID: 11400000, guid: fde488160fe36674db9407d7afbd0185,
+        type: 2}
     - target: {fileID: 8532393574664662555, guid: 8fc96b863f2caab45b82b39ca22aaf65,
         type: 3}
       propertyPath: m_RootOrder

@@ -35,7 +35,7 @@ namespace Gmap.CosmicMusicUtensil
             Octave = 0;
         }
 
-        public Note(Note n)
+        private Note(Note n)
         {
             Tone = n.Tone;
             Interval = n.Interval;
@@ -47,6 +47,11 @@ namespace Gmap.CosmicMusicUtensil
             Tone = tone;
             Interval = interval;
             Octave = octave;
+        }
+
+        public Note Copy()
+        {
+            return new Note(this);
         }
 
         public static ENote OffsetNote(ENote n, int steps)

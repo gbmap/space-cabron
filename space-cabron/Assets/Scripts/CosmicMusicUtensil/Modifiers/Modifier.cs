@@ -16,6 +16,11 @@ namespace Gmap.CosmicMusicUtensil
         EType Type { get; }
     }
 
+    /*
+        Melody modifiers modify melodies permanently, changing their notation.
+        This is different from Improvisations which are applied temporarily to a
+        note.
+    */
     public abstract class MelodyModifierBase : MelodyModifier
     {
         public abstract MelodyModifier.EType Type { get; }
@@ -64,13 +69,16 @@ namespace Gmap.CosmicMusicUtensil
         public abstract Melody Apply(Melody melody);
     }
 
-    public class BreakNoteModifier : MelodyModifierBase
+    /*
+        Breaks a note in melody, permanently.
+    */
+    public class BreakMelodyNoteModifier : MelodyModifierBase
     {
         public int NumberOfNotes = 2;
 
         public override MelodyModifier.EType Type => MelodyModifier.EType.BreakNote;
 
-        public BreakNoteModifier(int numberOfNotes)
+        public BreakMelodyNoteModifier(int numberOfNotes)
         {
             NumberOfNotes = numberOfNotes;
         }
@@ -91,13 +99,13 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
-    public class ShiftNoteModifier : MelodyModifierBase
+    public class ShiftNoteMelodyModifier : MelodyModifierBase
     {
         public int Steps = 1;
 
         public override MelodyModifier.EType Type => MelodyModifier.EType.ShiftNote;
 
-        public ShiftNoteModifier(int steps)
+        public ShiftNoteMelodyModifier(int steps)
         {
             Steps = steps;
         }

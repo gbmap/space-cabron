@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -41,15 +42,21 @@ namespace Gmap.CosmicMusicUtensil
     {
         public int TimesToDuplicate { get; private set; }
         RandomSelectionStrategy subNoteSelectionStrategy;
+        NoteModifier modifierForDuplicates;
 
         public DuplicateNoteImprovisation(
             SelectionStrategy noteSelectionStrategy, 
             SelectionStrategy barSelectionStrategy,
-            int timesToDuplicate=1
+            int timesToDuplicate=1,
+            NoteModifier modifierForDuplicates=null
         ) : base(noteSelectionStrategy, barSelectionStrategy) 
         {
             TimesToDuplicate = System.Math.Max(0, timesToDuplicate+1);
             subNoteSelectionStrategy = new RandomSelectionStrategy();
+
+            if (modifierForDuplicates == null)
+                modifierForDuplicates = new NullNoteModifier();
+            this.modifierForDuplicates = modifierForDuplicates;
         }
 
         protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex)
@@ -62,11 +69,8 @@ namespace Gmap.CosmicMusicUtensil
             {
                 if (subNoteSelectionStrategy.ShouldSelect(notes.Length, i))
                 {
-                    Note n = new Note(notes[i]);
-                    // n.Interval = n.Interval * TimesToDuplicate;
-                    ChangeNote(n, noteIndex);
-                    for (int j = 0; j < TimesToDuplicate; j++)
-                        notesList.Add(n);
+                    Note n = notes[i].Copy();
+                    notesList.AddRange(Enumerable.Repeat(ApplyModifierToNote(n), TimesToDuplicate));
                 }
                 else
                     notesList.Add(notes[i]);
@@ -81,9 +85,9 @@ namespace Gmap.CosmicMusicUtensil
             return $"Duplicate {TimesToDuplicate}";
         }
 
-        protected virtual void ChangeNote(Note note, int index)
+        protected Note ApplyModifierToNote(Note note)
         {
-            // do nothing
+            return modifierForDuplicates.Modify(note);
         }
     }
 
@@ -94,31 +98,11 @@ namespace Gmap.CosmicMusicUtensil
             SelectionStrategy noteSelectionStrategy, 
             SelectionStrategy barSelectionStrategy,
             int timesToDuplicate=2
-        ) : base(noteSelectionStrategy, barSelectionStrategy, timesToDuplicate) {}
-
-        protected override void ChangeNote(Note note, int index)
-        {
-            note.Interval *= TimesToDuplicate;
-        }
+        ) : base(noteSelectionStrategy, barSelectionStrategy, timesToDuplicate, new BreakNoteModifier(timesToDuplicate)) {}
 
         protected override string Info()
         {
             return $"Break note in {TimesToDuplicate} times";
-        }
-    }
-
-    public class BreakNoteAndTranspose : DuplicateNoteImprovisation
-    {
-        public BreakNoteAndTranspose(
-            SelectionStrategy noteSelectionStrategy, 
-            SelectionStrategy barSelectionStrategy,
-            int timesToDuplicate=2
-        ) : base(noteSelectionStrategy, barSelectionStrategy, timesToDuplicate) {}
-
-        protected override void ChangeNote(Note note, int index)
-        {
-            base.ChangeNote(note, index);
-            note.Tone = (ENote)(note.Tone + UnityEngine.Random.Range(-12,12));
         }
     }
 
