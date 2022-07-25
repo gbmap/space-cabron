@@ -16,7 +16,6 @@ namespace SpaceCabron
                 return;
 
             int index = Random.Range(0, Enemies.Count);
-            // var enemy = Enemies[index];
             var enemy = EnemyPool.GetNext();
 
             var position = new Vector3(Random.Range(0.15f, 0.85f), 0.9f, 0f);

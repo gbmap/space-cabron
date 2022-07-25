@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
+using Gmap.ScriptableReferences;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay
@@ -12,17 +11,35 @@ namespace SpaceCabron.Gameplay
         Hard
     }
 
+    [System.Serializable]
+    public class GameplayConfiguration
+    {
+        public EDifficulty Difficulty;
+        public int ScoreThreshold = 5000;
+        public int StartingBPM = 30;
+        public GameObjectPool EnemyPool;
+        public GameObjectPool BossPool;
+    }
+
+    [System.Serializable]
+    public class MelodyConfiguration
+    {
+        public int BPM;
+        public Melody StartingMelody;
+        public StringReferencePool PossibleStartingMelodies;
+    }
+
+    [System.Serializable]
     public class BackgroundConfiguration
     {
         public Material Material;
     }
 
-    public class LevelConfiguration
+    [CreateAssetMenu(menuName="Space Cabrón/Gameplay/Level Configuration")]
+    public class LevelConfiguration : ScriptableObject
     {
-        public EDifficulty Difficulty;
-
-        public int BPM;
-        public Melody Melody;
+        public GameplayConfiguration Gameplay;
+        public MelodyConfiguration Melody;
         public BackgroundConfiguration Background;
     }
 
