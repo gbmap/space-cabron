@@ -36,8 +36,11 @@ namespace SpaceCabron
             if (obj.Score <= scoreThreshold)
                 return;
 
+            if (!shouldSpawn)
+                return;
+
             DestroyAllEnemies();
-            shouldSpawn = false;
+            SetShouldSpawn(false);
             GameObject boss = SpawnBossIfAny();
             if (boss == null)
                 FireWinMessage();
@@ -68,7 +71,7 @@ namespace SpaceCabron
         {
             GameObject.FindGameObjectsWithTag("Enemy").ToList().ForEach(e => {
                 Health h = e.GetComponent<Health>();
-                while (h.CurrentHealth > 0)
+                while (h != null && h.CurrentHealth > 0)
                     h.TakeDamage(null, null);
             }); 
         }

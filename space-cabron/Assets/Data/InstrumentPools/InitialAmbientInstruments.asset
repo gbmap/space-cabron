@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65dab3579f03eb448d90ec497724482, type: 3}
+  m_Name: InitialAmbientInstruments
+  m_EditorClassIdentifier: 
+  RandomType: 1
+  Items:
+  - Value: {fileID: 4900000, guid: 5de1566bef8c4dd45981164be8bb98f7, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: b109823962aa18c4cad20dc903f0b5cb, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 0f7c69cecc57d1547bc35d4c9066dac7, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: a509788fc8a78af40bca9353b7be7a06, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 09ceb002d94b1f0408b42b139173ec63, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 38a176ee291fc3a4c827a179529ab482, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 0b312253260b5f64da3b0d991a9fa7ca, type: 3}
+    Weight: 1

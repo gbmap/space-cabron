@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
+using SpaceCabron.Instruments;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay
 {
     [RequireComponent(typeof(TurntableBehaviour))]
-    public class InjectTurntableImprovisersOnAwake : MonoBehaviour
+    public class InjectTurntableImprovisersOnAwake : Injectable
     {
         public ScriptableImprovisation[] Improvisations;
         void Awake()

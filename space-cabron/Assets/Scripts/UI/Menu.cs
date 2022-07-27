@@ -24,7 +24,7 @@ namespace SpaceCabron.Gameplay
 
         public void SelectRandomMelody()
         {
-            MelodyConfiguration melodyConfig = LevelConfiguration.GetMelodyConfigurationByTag("Player");
+            InstrumentConfiguration melodyConfig = LevelConfiguration.GetMelodyConfigurationByTag("Player");
             StartGame(melodyConfig.PossibleStartingMelodies.GetNext().Value);
         }
 

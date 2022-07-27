@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - IncreaseBPM
+  - Metronome
+  - Ambient
+  - Spawner
+  - Hit
   layers:
   - Default
   - TransparentFX

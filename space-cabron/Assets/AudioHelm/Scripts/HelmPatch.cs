@@ -13,7 +13,12 @@ namespace AudioHelm
         public void LoadPatchData(string filePath)
         {
             string patchText = File.ReadAllText(filePath);
-            patchData = JsonUtility.FromJson<HelmPatchFormat>(patchText);
+            LoadPatchDataFromText(patchText);
+        }
+
+        public void LoadPatchDataFromText(string text)
+        {
+            patchData = JsonUtility.FromJson<HelmPatchFormat>(text);
         }
     }
 }

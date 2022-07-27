@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65dab3579f03eb448d90ec497724482, type: 3}
+  m_Name: InitialHitInstruments
+  m_EditorClassIdentifier: 
+  RandomType: 1
+  Items:
+  - Value: {fileID: 4900000, guid: c9787e2ea9c950a4fac38216b864b11f, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 5e69fe2eec4a6b842aa131210b2ff5f5, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 25d730e5b4a25d1499b3445330f8ee89, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 987dd853063a4e749b0adea76ddf03ee, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 09ad455fd59372540ab7058577b46ff2, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 8effd0cef42d29647b6e91d4b2f91f19, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: af4c159b3ee63564f8e1a9c0d8de351c, type: 3}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 0b312253260b5f64da3b0d991a9fa7ca, type: 3}
+    Weight: 1

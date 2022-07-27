@@ -96,12 +96,17 @@ PrefabInstance:
     - target: {fileID: 7305423148673242158, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
       propertyPath: m_Name
-      value: EnemyHitInstrument
+      value: EnemyHitInstrument Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7305423148673242158, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305423148673242158, guid: 570b2b318c3ef4d4290bb35e281dd60c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hit
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c, type: 3}

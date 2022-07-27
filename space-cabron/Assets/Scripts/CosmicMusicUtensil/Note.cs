@@ -26,7 +26,13 @@ namespace Gmap.CosmicMusicUtensil
     {
         public ENote Tone;
         public int Interval;
-        public int Octave;
+
+        private int _octave;
+        public int Octave
+        {
+            get { return _octave; }
+            set { _octave = 2 + Bar.MathMod(value, 6); }
+        }
 
         public Note()
         {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
 using UnityEngine;
@@ -22,11 +23,12 @@ namespace SpaceCabron.Gameplay
     }
 
     [System.Serializable]
-    public class MelodyConfiguration
+    public class InstrumentConfiguration
     {
         public int BPM = 30;
         public Melody StartingMelody;
         public StringReferencePool PossibleStartingMelodies;
+        public TextAssetPool PossibleStartingInstruments;
     }
 
     [System.Serializable]
@@ -39,25 +41,48 @@ namespace SpaceCabron.Gameplay
     public class LevelConfiguration : ScriptableObject
     {
         public GameplayConfiguration Gameplay;
-        [SerializeField] private MelodyConfiguration EnemyMelody;
-        [SerializeField] private MelodyConfiguration PlayerMelody;
-        [SerializeField] private MelodyConfiguration DrumMelody;
+        [SerializeField] private InstrumentConfiguration EnemyMelody;
+        [SerializeField] private InstrumentConfiguration PlayerMelody;
+        [SerializeField] private InstrumentConfiguration DrumMelody;
+        [SerializeField] private InstrumentConfiguration AmbientMelody;
+        [SerializeField] private InstrumentConfiguration HitConfiguration;
         public BackgroundConfiguration Background;
 
-        public MelodyConfiguration GetMelodyConfigurationByTag(string tag)
+        private Dictionary<string, InstrumentConfiguration> dictTagToInstrument;
+        private Dictionary<string, InstrumentConfiguration> DictTagToInstrument {
+            get {
+                if (dictTagToInstrument == null)
+                {
+                    dictTagToInstrument = new Dictionary<string, InstrumentConfiguration>();
+                    dictTagToInstrument.Add("Enemy", EnemyMelody);
+                    dictTagToInstrument.Add("Player", PlayerMelody);
+                    dictTagToInstrument.Add("Metronome", DrumMelody);
+                    dictTagToInstrument.Add("Ambient", AmbientMelody);
+                    dictTagToInstrument.Add("Hit", HitConfiguration);
+                }
+                return dictTagToInstrument;
+            }
+        }
+
+        public InstrumentConfiguration GetMelodyConfigurationByTag(string tag)
         {
-            if (tag == "Player")
-                return PlayerMelody;
-            else if (tag == "Enemy")
+            InstrumentConfiguration melodyConfig;
+            if (!DictTagToInstrument.TryGetValue(tag, out melodyConfig))
             {
-                EnemyMelody.StartingMelody = new Melody(EnemyMelody.PossibleStartingMelodies.GetNext().Value);
-                return EnemyMelody;
+                Debug.LogWarning($"Couldn't find instrument config for {tag}.");
+                Debug.Break();
+                return null;
             }
+            return SetupInstrumentForTag(DictTagToInstrument[tag], tag == "Player");
+        }
+
+        private InstrumentConfiguration SetupInstrumentForTag(InstrumentConfiguration cfg, bool random=true)
+        {
+            if (random && cfg.PossibleStartingMelodies != null)
+                cfg.StartingMelody = new Melody(cfg.PossibleStartingMelodies.GetNext().Value);
             else
-            {
-                DrumMelody.StartingMelody = new Melody(DrumMelody.PossibleStartingMelodies.GetNext().Value);
-                return DrumMelody;
-            }
+                cfg.StartingMelody = new Melody(cfg.StartingMelody.Notation);
+            return cfg;
         }
 
         public LevelConfiguration Clone()
@@ -68,6 +93,8 @@ namespace SpaceCabron.Gameplay
             clone.EnemyMelody = EnemyMelody;
             clone.DrumMelody = DrumMelody;
             clone.PlayerMelody = PlayerMelody;
+            clone.AmbientMelody = AmbientMelody;
+            clone.HitConfiguration = HitConfiguration;
             return clone;
         }
     }

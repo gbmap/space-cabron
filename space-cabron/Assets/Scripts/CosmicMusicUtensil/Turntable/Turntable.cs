@@ -118,7 +118,6 @@ namespace Gmap.CosmicMusicUtensil
         public void SetMelody(Melody m)
         {
             melody = m;
-
         }
 
         private void AdvanceNoteIndex()

@@ -145,6 +145,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Instrument
       objectReference: {fileID: 0}
+    - target: {fileID: 7305423148673242158, guid: 570b2b318c3ef4d4290bb35e281dd60c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ambient
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 570b2b318c3ef4d4290bb35e281dd60c, type: 3}
 --- !u!4 &1480872946059996461 stripped
@@ -172,4 +177,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreModulus: 500
+  Geometric: 0
   IncreaseValue: 5

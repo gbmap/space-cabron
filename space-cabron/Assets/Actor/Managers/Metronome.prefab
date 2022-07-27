@@ -126,6 +126,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Instrument
       objectReference: {fileID: 0}
+    - target: {fileID: 7305423148673242158, guid: 570b2b318c3ef4d4290bb35e281dd60c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Metronome
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 570b2b318c3ef4d4290bb35e281dd60c, type: 3}
 --- !u!4 &4397969801930158465 stripped

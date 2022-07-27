@@ -9,14 +9,23 @@ namespace SpaceCabron.Gameplay
     {
         public void Configure(LevelConfiguration configuration)
         {
-            var injectMelody = GetComponent<InjectTurntableMelodyNotationOnAwake>();
-            if (injectMelody)
-                DestroyImmediate(injectMelody);
+            var injectables = GetComponentsInChildren<Injectable>();
+            System.Array.ForEach(injectables, i => DestroyImmediate(i));
 
+            InstrumentConfiguration instrumentConfig = configuration.GetMelodyConfigurationByTag(gameObject.tag);
             ITurntable turntable = GetComponent<ITurntable>();
-            MelodyConfiguration melodyConfig = configuration.GetMelodyConfigurationByTag(gameObject.tag);
-            turntable.BPM = melodyConfig.BPM;
-            turntable.SetMelody(melodyConfig.StartingMelody);
+            if (turntable != null)
+            {
+                turntable.BPM = instrumentConfig.BPM;
+                turntable.SetMelody(instrumentConfig.StartingMelody);
+            }
+
+            if (instrumentConfig.PossibleStartingInstruments != null)
+            {
+                // Shouldn't know about HelmProxy.
+                HelmProxy helmProxy = GetComponent<HelmProxy>();
+                helmProxy.LoadPatch(instrumentConfig.PossibleStartingInstruments.GetNext());
+            }
         }
     }
 }

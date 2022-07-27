@@ -52,7 +52,10 @@ namespace Gmap.CosmicMusicUtensil
         void Update()
         {
             if (_lastMelody != melody.Notation)
+            {
                 melody = new Melody(melody.Notation);
+                _lastMelody = melody.Notation;
+            }
 
             Turntable.Update(OnNote);
         }

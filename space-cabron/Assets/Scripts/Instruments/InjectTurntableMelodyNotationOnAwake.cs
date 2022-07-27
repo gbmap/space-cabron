@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SpaceCabron.Instruments
 {
     [RequireComponent(typeof(TurntableBehaviour))]
-    public class InjectTurntableMelodyNotationOnAwake : MonoBehaviour 
+    public class InjectTurntableMelodyNotationOnAwake : Injectable
     {
         public Gmap.ScriptableReferences.StringReferencePool PossibleMelodies;
         public ENote Root;

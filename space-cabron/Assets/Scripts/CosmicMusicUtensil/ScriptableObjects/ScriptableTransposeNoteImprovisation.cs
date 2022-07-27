@@ -8,9 +8,11 @@ namespace Gmap.CosmicMusicUtensil
     public class ScriptableTransposeNoteImprovisation : ScriptableImprovisation
     {
         public int Steps = 1;
+        public bool RandomizeSign = false;
         public override Improvisation Get()
         {
-            return new TransposeNoteImprovisation(NoteSelection.Get(), BarSelection.Get(), Steps);
+            int sign = RandomizeSign ? 1 - (System.Convert.ToInt32(Random.value > 0.5f)*2) : 1;
+            return new TransposeNoteImprovisation(NoteSelection.Get(), BarSelection.Get(), Steps*sign);
         }
     }
 }

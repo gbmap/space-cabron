@@ -24,9 +24,12 @@ namespace Gmap.ScriptableReferences
             {
                 if (SendTo)
                     SendTo.Value = value;
+                OnValueChanged?.Invoke(value);
                 _value = value;
             }
         }
+
+        public System.Action<ValueType> OnValueChanged;
 
         public void Update()
         {
@@ -42,4 +45,7 @@ namespace Gmap.ScriptableReferences
 
     [System.Serializable]
     public class FloatBusReference : PropertyReference<float, FloatReference> {}
+
+    [System.Serializable]
+    public class StringBusReference : PropertyReference<string, StringReference> {}
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   BarSelection: {fileID: 11400000, guid: b686cbb3422d9a2479f45c9559ba43cf, type: 2}
   NoteSelection: {fileID: 11400000, guid: 8fef05c1c5011e64cbfbc6d724662598, type: 2}
   Steps: 2
+  RandomizeSign: 1
