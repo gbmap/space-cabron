@@ -41,6 +41,8 @@ namespace Gmap.CosmicMusicUtensil
         }
 
         public Melody Melody => melody;
+        public int NoteIndex => Turntable.NoteIndex;
+        public int BarIndex => Turntable.BarIndex;
 
         void Awake()
         {

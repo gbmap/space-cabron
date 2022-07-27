@@ -8,6 +8,14 @@ namespace Gmap.CosmicMusicUtensil
         bool ShouldSelect(Melody melody, int index);
     }
 
+    public class SelectAllStrategy : SelectionStrategy
+    {
+        public bool ShouldSelect(Melody melody, int index)
+        {
+            return true;
+        }
+    }
+
 
     public class EveryNStrategy : SelectionStrategy
     {

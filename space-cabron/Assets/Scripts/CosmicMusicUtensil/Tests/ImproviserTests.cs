@@ -103,4 +103,18 @@ public class ImproviserTests
             m
         ).Notation;
     }
+
+    [TestCase("", 1, 1, ExpectedResult=null)]
+    [TestCase("c4/4", 1, 1, ExpectedResult="c#4/4")]
+    [TestCase("c4/4;c4/4", 1, 1, ExpectedResult="c#4/4;c#4/4")]
+    [TestCase("c4/4;c4/4", 1, 2, ExpectedResult="c4/4;c#4/4")]
+    [TestCase("c4/4;c4/4;c4/4", 2, 3, ExpectedResult="c4/4;c4/4;d4/4")]
+    public string TransposeNote(string melody, int steps, int everyNNote)
+    {
+        Melody m = new Melody(melody);
+        return ImproviseOnMelody(
+            new TransposeNoteImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), steps),
+            m
+        ).Notation;
+    }
 }

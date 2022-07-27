@@ -55,7 +55,7 @@ namespace SpaceCabron
             {
                 Energy += _energyLoss * 1f/3f;
                 _isSpecial = true;
-                gun.Fire(special);
+                FireGun(n, special);
             }
             else 
             {
@@ -88,7 +88,7 @@ namespace SpaceCabron
                 if (Brain.GetInputState().Shoot)
                 {
                     Energy += _energyLoss * 1f/3f;
-                    gun.Fire(true);
+                    FireGun(_lastNoteArgs, true);
                     _isSpecial = true;
                     waitingForPress = null;
                     yield break;
@@ -96,7 +96,7 @@ namespace SpaceCabron
                 yield return null;
             }
             _isSpecial = false;
-            gun.Fire(false);
+            FireGun(_lastNoteArgs, false);
             waitingForPress = null;
         }
 
@@ -105,6 +105,15 @@ namespace SpaceCabron
             _canFire = false;
             yield return new WaitForSeconds(time);
             _canFire = true;
+        }
+
+        private void FireGun(OnNoteArgs args, bool special)
+        {
+            gun.Fire(new FireRequest
+            {
+                BulletScale = Mathf.Max(0.01f, args.Duration*5f),
+                Special = special
+            });
         }
     }
 }

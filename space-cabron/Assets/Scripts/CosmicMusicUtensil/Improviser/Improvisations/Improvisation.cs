@@ -93,7 +93,6 @@ namespace Gmap.CosmicMusicUtensil
 
     public class BreakNoteImprovisation : DuplicateNoteImprovisation
     {
-
         public BreakNoteImprovisation(
             SelectionStrategy noteSelectionStrategy, 
             SelectionStrategy barSelectionStrategy,
@@ -123,7 +122,7 @@ namespace Gmap.CosmicMusicUtensil
             Note[] newNotes = new Note[notes.Length];
             for (int i = 0; i < notes.Length; i++)
                 newNotes[i] = Note.Transpose(notes[i], Steps);
-            return notes;
+            return newNotes;
         }
 
         protected override string Info()

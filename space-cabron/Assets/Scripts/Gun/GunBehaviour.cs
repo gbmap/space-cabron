@@ -8,6 +8,12 @@ namespace Gmap.Gun
         public GameObject Prefab;
     }
 
+    public class FireRequest
+    {
+        public float BulletScale;
+        public bool Special;
+    }
+
     public class GunBehaviour : MonoBehaviour
     {
         public BulletData Bullet;
@@ -15,21 +21,17 @@ namespace Gmap.Gun
 
         private ShotData m_lastShot;
 
-        public void Fire()
-        {
-            Fire(false);
-        }
-
-        public void Fire(bool special)
+        public void Fire(FireRequest request)
         {
             ShotRequest shotRequest = new ShotRequest
             {
                 Position = transform.position,
                 Gun = GunData,
                 Bullet = this.Bullet,
-                Special = special
+                Special = request.Special,
+                BulletScale = request.BulletScale
+                
             };
-
             m_lastShot = GunData.Fire(m_lastShot, shotRequest);
         }
     }

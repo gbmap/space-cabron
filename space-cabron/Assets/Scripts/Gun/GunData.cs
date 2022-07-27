@@ -9,6 +9,7 @@ namespace Gmap.Gun
         public GunData Gun;
         public BulletData Bullet;
         public bool Special;
+        public float BulletScale;
     }
 
     public class ShotData
@@ -33,7 +34,7 @@ namespace Gmap.Gun
 
         }
 
-        public ShotData Fire(ShotData lastShot, ShotRequest shotRequest)
+        public virtual ShotData Fire(ShotData lastShot, ShotRequest shotRequest)
         {
             if (lastShot != null && !CanFire(lastShot))
                 return lastShot;
@@ -53,6 +54,9 @@ namespace Gmap.Gun
                     shotPosition + Vector3.right * 0.15f, 
                     shotRotation
                 );
+
+                instance.transform.localScale *= shotRequest.BulletScale;
+                instance2.transform.localScale *= shotRequest.BulletScale;
 
                 return new ShotData
                 {

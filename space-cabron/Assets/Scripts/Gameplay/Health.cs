@@ -19,7 +19,9 @@ namespace SpaceCabron.Gameplay
     public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     {
         public int MaxHealth;
+
         int _currentHealth;
+        public int CurrentHealth => _currentHealth;
         
         /* VISUALS */
         SpriteRenderer _spriteRenderer;

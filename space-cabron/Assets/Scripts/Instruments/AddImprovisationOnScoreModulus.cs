@@ -11,7 +11,7 @@ namespace SpaceCabron.Instruments
 
         protected override void HandleEvent()
         {
-            if (turntable == null)
+            if (turntable == null || improvisationPool == null)
                 return;
 
             turntable.Improviser.AddImprovisation(

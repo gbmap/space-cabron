@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Background01"
+﻿Shader "Unlit/Background02"
 {
     Properties
     {
@@ -37,7 +37,7 @@
             fixed4 frag (v2f i) : SV_Target
             {
 				fixed2 uv = i.uv;
-				fixed4 clr = bg01(i, uv);
+				fixed4 clr = bg02(i, uv);
 				clr.rgb *= 0.2;
 
                 // apply fog

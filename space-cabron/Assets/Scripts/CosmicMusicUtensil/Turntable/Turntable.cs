@@ -17,6 +17,8 @@ namespace Gmap.CosmicMusicUtensil
     public interface ITurntable
     {
         int BPM { get; set; }
+        public int NoteIndex { get; }
+        public int BarIndex { get; }
         public Melody Melody { get; }
         public Improviser Improviser { get; }
         void Update(System.Action<OnNoteArgs> OnNote);
@@ -34,9 +36,12 @@ namespace Gmap.CosmicMusicUtensil
         {
             get { return (60f/(float)BPMReference.Value); }
         }
-        
-        int   currentNoteIndex;
-        int   currentBarIndex;
+
+        int currentNoteIndex;
+        public int NoteIndex => currentNoteIndex;
+
+        int currentBarIndex;
+        public int BarIndex => currentBarIndex;
         private Note LastNote { get; set; } 
 
         float noteTime = 0.1f;
@@ -46,6 +51,8 @@ namespace Gmap.CosmicMusicUtensil
 
         Improviser improviser = new Improviser();
         public Improviser Improviser { get { return improviser; } }
+
+
         public System.Action<OnNoteArgs> OnNote;
 
         Queue<Note> noteQueue = new Queue<Note>(50);

@@ -4,6 +4,9 @@ using UnityEngine;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Gameplay;
+using Frictionless;
+using SpaceCabron.Messages;
+using System.Linq;
 
 namespace SpaceCabron
 {
@@ -11,19 +14,88 @@ namespace SpaceCabron
     {
         public List<GameObject> Enemies;
         public GameObjectPool EnemyPool;
+        public GameObjectPool BossPool;
 
-        private bool shouldSpawn = false;
+        public bool shouldSpawn = false;
+        private int scoreThreshold = int.MaxValue;
+
+        void OnEnable()
+        {
+            MessageRouter router = ServiceFactory.Instance.Resolve<MessageRouter>();
+            router.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+        }
+
+        void OnDisable()
+        {
+            MessageRouter router = ServiceFactory.Instance.Resolve<MessageRouter>();
+            router.RemoveHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+        }
+
+        private void Callback_OnScoreChanged(MsgOnScoreChanged obj)
+        {
+            if (obj.Score <= scoreThreshold)
+                return;
+
+            DestroyAllEnemies();
+            shouldSpawn = false;
+            GameObject boss = SpawnBossIfAny();
+            if (boss == null)
+                FireWinMessage();
+            else
+                StartCoroutine(PlayBossIntroAnimation(boss));
+
+        }
+
+        private GameObject SpawnBossIfAny()
+        {
+            if (BossPool == null || BossPool.Length == 0)
+                return null;
+            
+            return Instantiate(BossPool.GetNext(), Vector3.zero, Quaternion.identity);
+        }
+
+        private IEnumerator PlayBossIntroAnimation(GameObject boss)
+        {
+            yield break;
+        }
+
+        private void FireWinMessage()
+        {
+            ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(new MsgLevelWon());
+        }
+
+        private void DestroyAllEnemies()
+        {
+            GameObject.FindGameObjectsWithTag("Enemy").ToList().ForEach(e => {
+                Health h = e.GetComponent<Health>();
+                while (h.CurrentHealth > 0)
+                    h.TakeDamage(null, null);
+            }); 
+        }
+
+        private void SetShouldSpawn(bool v)
+        {
+            shouldSpawn = v;
+        }
+
+        private bool GetShouldSpawn()
+        {
+            return shouldSpawn;
+        }
 
         public void Configure(LevelConfiguration configuration)
         {
+            scoreThreshold = configuration.Gameplay.ScoreThreshold;
+            EnemyPool = configuration.Gameplay.EnemyPool;
+            BossPool = configuration.Gameplay.BossPool;
             StartCoroutine(WaitAndActivate());
         }
 
         private IEnumerator WaitAndActivate()
         {
-            shouldSpawn = false;
+            SetShouldSpawn(false);
             yield return new WaitForSeconds(2f);
-            shouldSpawn = true;
+            SetShouldSpawn(true);
         }
 
         public void SpawnNext()

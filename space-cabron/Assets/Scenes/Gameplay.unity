@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.13171607, g: 0.13059673, b: 0.13148338, a: 1}
+  m_IndirectSpecularColor: {r: 0.12792614, g: 0.12943524, b: 0.12928721, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -160,6 +160,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 51.1}
   m_SizeDelta: {x: 154.6, y: 2.9}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &339790611 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1372248899140507213, guid: 8fc96b863f2caab45b82b39ca22aaf65,
+    type: 3}
+  m_PrefabInstance: {fileID: 8532393575039313927}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &339790619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339790611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa931519b576e2e41a182173c4cb24b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PossibleMelodies: {fileID: 11400000, guid: 1c51a6e9170f8014b99f4459159c3ac3, type: 2}
+  Root: 0
+  RandomizeRoot: 1
+  Scale: {fileID: 11400000, guid: 0502e3831a9214546900aad0a0735998, type: 2}
 --- !u!1 &416051615 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1372248897489780347, guid: 8fc96b863f2caab45b82b39ca22aaf65,
@@ -344,6 +366,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &655430732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655430709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e35e9b7da34b94c9b9cd8a12473c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Improvisations:
+  - {fileID: 11400000, guid: 0a8503022c92cea4ba07a4cac4a547a9, type: 2}
 --- !u!850595691 &873678982
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1107,6 +1143,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 1494614933}
+    - target: {fileID: 7205673655262537193, guid: 8fc96b863f2caab45b82b39ca22aaf65,
+        type: 3}
+      propertyPath: BPMReference._value
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7205673656442949087, guid: 8fc96b863f2caab45b82b39ca22aaf65,
         type: 3}
       propertyPath: Melody.notation
@@ -1128,6 +1169,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fde488160fe36674db9407d7afbd0185,
         type: 2}
+    - target: {fileID: 8532393573949153247, guid: 8fc96b863f2caab45b82b39ca22aaf65,
+        type: 3}
+      propertyPath: shouldSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8532393574516784266, guid: 8fc96b863f2caab45b82b39ca22aaf65,
+        type: 3}
+      propertyPath: IncreaseValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8532393574664662555, guid: 8fc96b863f2caab45b82b39ca22aaf65,
         type: 3}
       propertyPath: m_RootOrder

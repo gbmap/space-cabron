@@ -11,31 +11,13 @@ namespace SpaceCabron
         protected override void HandleCollision(TurntableBehaviour t)
         {
             var imp = GetRandomImprovisation(t.Turntable);
-            Debug.Log(imp.ToString());
+            UnityEngine.Debug.Log(imp.ToString());
             t.Improviser.AddImprovisation(imp);
         }
 
         private Improvisation GetRandomImprovisation(ITurntable turntable)
         {
             return ImprovisationPool.GetNext().Get();
-            // SelectionStrategy noteSelection = GetRandomSelectionStrategy(turntable);
-            // SelectionStrategy barSelection = GetRandomBarSelectionStrategy(turntable);
-
-            // int improvisation = UnityEngine.Random.Range(0, 2);
-            // switch (improvisation)
-            // {
-            //     case 0:
-            //         return new BreakNoteImprovisation(
-            //             noteSelection, 
-            //             barSelection, 
-            //             UnityEngine.Random.Range(2, 3)
-            //         );
-            //     default:
-            //     case 1:
-            //         return new TransposeNoteImprovisation(
-            //             noteSelection, barSelection, UnityEngine.Random.Range(-12, 12)
-            //         );
-            // }
         }
 
         private SelectionStrategy GetRandomSelectionStrategy(ITurntable turntable)

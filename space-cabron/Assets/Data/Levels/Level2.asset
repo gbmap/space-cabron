@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
-  m_Name: Level1
+  m_Name: Level2
   m_EditorClassIdentifier: 
   Gameplay:
     Difficulty: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   PlayerMelody:
     BPM: 30
     StartingMelody:
-      notation: c4/4;c4/4;c4/4;c4/4
+      notation: c4/8;c4/2;c4/8;c4/4
     PossibleStartingMelodies: {fileID: 11400000, guid: 1c51a6e9170f8014b99f4459159c3ac3,
       type: 2}
   DrumMelody:
@@ -37,4 +37,4 @@ MonoBehaviour:
     PossibleStartingMelodies: {fileID: 11400000, guid: 7f5d96c9017d84143b9e9a2c2874cfd4,
       type: 2}
   Background:
-    Material: {fileID: 2100000, guid: ccb59cabb04a17347a8bdc6b8c22d44a, type: 2}
+    Material: {fileID: 2100000, guid: 1e9df52ee049fb6488b1446d33ca525c, type: 2}

@@ -21,7 +21,8 @@ namespace Gmap.ScriptableReferences
         }
         public ERandomType RandomType = ERandomType.ShuffleBag;
 
-        public List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
+        private List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
+        public int Length => Items.Count;
         
         ShuffleBag<T> _shuffleBag;
         private ShuffleBag<T> ShuffleBag

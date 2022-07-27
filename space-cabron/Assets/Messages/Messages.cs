@@ -25,4 +25,6 @@ namespace SpaceCabron.Messages
             Value = value;
         }
     }
+
+    public class MsgLevelWon {}
 }

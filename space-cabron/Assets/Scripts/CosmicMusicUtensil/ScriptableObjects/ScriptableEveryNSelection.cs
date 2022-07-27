@@ -30,5 +30,4 @@ namespace Gmap.CosmicMusicUtensil
             return new RangeStrategy(MinMax.x, MinMax.y);
         }
     }
-
 }

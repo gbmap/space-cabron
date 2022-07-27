@@ -37,10 +37,18 @@ public class NoteSelectionStrategyTests
     [TestCase(0, 1)]
     [Test]
     public void RandomEveryN(
-        [Random(0, 32, 10)] int everyNBar, 
+        [Random(0, 32, 10)] int everyN, 
         [Random(0, 100, 30)] int index
     ) {
-        SelectionStrategy strategy = new EveryNStrategy(everyNBar);
-        Assert.AreEqual(strategy.ShouldSelect(null, index), (index+1) % Mathf.Max(1, everyNBar) == 0);
+        SelectionStrategy strategy = new EveryNStrategy(everyN);
+        Assert.AreEqual(strategy.ShouldSelect(null, index), (index+1) % Mathf.Max(1, everyN) == 0);
+    }
+
+    [Test]
+    public void SelectAll(
+        [Random(100)] int index
+    ) {
+        SelectionStrategy strategy = new SelectAllStrategy();
+        Assert.IsTrue(strategy.ShouldSelect(null, index));
     }
 }
