@@ -16,9 +16,8 @@ namespace Gmap.ScriptableReferences
             get
             {
                 if (GetFrom)
-                    return GetFrom.Value;
-                else
-                    return _value; 
+                    _value = GetFrom.Value;
+                return _value;
             }
             set 
             {

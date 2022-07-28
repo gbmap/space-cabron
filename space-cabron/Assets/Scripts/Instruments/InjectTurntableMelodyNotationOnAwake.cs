@@ -13,7 +13,7 @@ namespace SpaceCabron.Instruments
         public bool RandomizeRoot;
         public ScriptableScale Scale;
 
-        void Awake()
+        void Start()
         {
             if (RandomizeRoot)
                 Root = (ENote)Random.Range(0, 12);

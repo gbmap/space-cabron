@@ -27,6 +27,11 @@ namespace SpaceCabron
 
         void OnDisable()
         {
+            UnsubscribeFromScoreChanged();
+        }
+
+        private void UnsubscribeFromScoreChanged()
+        {
             MessageRouter router = ServiceFactory.Instance.Resolve<MessageRouter>();
             router.RemoveHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
@@ -39,8 +44,9 @@ namespace SpaceCabron
             if (!shouldSpawn)
                 return;
 
-            DestroyAllEnemies();
+            UnsubscribeFromScoreChanged();
             SetShouldSpawn(false);
+            DestroyAllEnemies();
             GameObject boss = SpawnBossIfAny();
             if (boss == null)
                 FireWinMessage();

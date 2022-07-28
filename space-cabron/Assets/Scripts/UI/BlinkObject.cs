@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlinkObject : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+namespace SpaceCabron.UI
+{
+    public class BlinkObject : MonoBehaviour
     {
-        
+        public GameObject TargetObject;
+        public bool Loop;
+        public float TimeVisible = 1f;
+        public float Time = 3f;
+        public bool EndInactive = false;
+        public bool PlayOnAwake = false;
+
+        public void Play()
+        {
+            StartCoroutine(BlinkCoroutine());
+        }
+
+        private IEnumerator BlinkCoroutine()
+        {
+            yield break;
+        }
     }
 }
