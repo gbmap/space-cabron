@@ -20,7 +20,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public void LoadPatch(TextAsset patch)
         {
-            Debug.Log($"Loading patch: {patch.name} in {transform.parent}/{gameObject.name}");
+            UnityEngine.Debug.Log($"Loading patch: {patch.name} in {transform.parent}/{gameObject.name}");
             StartCoroutine(LoadPatchCoroutine(patch));
         }
 

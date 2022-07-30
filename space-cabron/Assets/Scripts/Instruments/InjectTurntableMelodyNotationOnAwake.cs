@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 
-namespace SpaceCabron.Instruments
+namespace Gmap.Instruments
 {
     [RequireComponent(typeof(TurntableBehaviour))]
     public class InjectTurntableMelodyNotationOnAwake : Injectable

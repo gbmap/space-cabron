@@ -4,7 +4,7 @@ using System.Linq;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 
-namespace SpaceCabron.Debug
+namespace Gmap.Debug
 {
     [RequireComponent(typeof(TurntableBehaviour))]
     public class DebugTurntableInfo : MonoBehaviour

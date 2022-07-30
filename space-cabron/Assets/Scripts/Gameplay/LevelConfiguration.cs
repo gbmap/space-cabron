@@ -3,7 +3,7 @@ using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
-namespace SpaceCabron.Gameplay
+namespace Gmap.Gameplay
 {
     public enum EDifficulty
     {

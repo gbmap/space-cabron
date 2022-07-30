@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 
-namespace SpaceCabron
+namespace Gmap
 {
     public class UpdateBackgroundShaderGlobalVariables : MonoBehaviour
     {

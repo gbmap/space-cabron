@@ -1,9 +1,9 @@
 using UnityEngine;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
-using SpaceCabron.Instruments;
+using Gmap.Instruments;
 
-namespace SpaceCabron.Gameplay
+namespace Gmap.Gameplay
 {
     public class ConfigureTurntableWithLevelConfiguration : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {

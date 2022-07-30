@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace SpaceCabron.Messages {
+namespace Gmap.Messages {
     public class RandomizeBeat {}
 }
 
 public class Message {}
 
-namespace SpaceCabron.Messages 
+namespace Gmap.Messages 
 {
     public class MsgOnScoreChanged
     {

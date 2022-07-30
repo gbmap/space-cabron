@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace SpaceCabron.UI
+namespace Gmap.UI
 {
     public class BlinkObject : MonoBehaviour
     {

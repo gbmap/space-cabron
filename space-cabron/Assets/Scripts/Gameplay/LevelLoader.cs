@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Gmap.Gameplay;
 
-namespace SpaceCabron.Gameplay
+namespace Gmap.Gameplay
 {
     public class LevelLoader
     {

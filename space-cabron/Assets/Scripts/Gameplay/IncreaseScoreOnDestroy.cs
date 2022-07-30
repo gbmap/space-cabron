@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Frictionless;
 using UnityEngine;
 
-namespace SpaceCabron.Gameplay
+namespace Gmap.Gameplay
 {
     public class IncreaseScoreOnDestroy : MonoBehaviour
     {
@@ -20,7 +20,7 @@ namespace SpaceCabron.Gameplay
         private void Callback_OnDestroy(MessageOnEnemyDestroyed obj)
         {
             ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(
-                new SpaceCabron.Messages.MsgIncreaseScore(Value)
+                new Gmap.Messages.MsgIncreaseScore(Value)
             );
         }
     }

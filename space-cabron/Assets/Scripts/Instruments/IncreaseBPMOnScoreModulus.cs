@@ -2,7 +2,7 @@ using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 
-namespace SpaceCabron.Instruments
+namespace Gmap.Instruments
 {
     public abstract class OnScoreModulusBehaviour : MonoBehaviour
     {

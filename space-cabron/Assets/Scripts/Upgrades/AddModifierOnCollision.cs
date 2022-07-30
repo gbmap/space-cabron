@@ -2,7 +2,7 @@ using UnityEngine;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Utils;
 
-namespace SpaceCabron
+namespace Gmap
 {
     public abstract class CollisionHandler<T> : MonoBehaviour where T : MonoBehaviour
     {

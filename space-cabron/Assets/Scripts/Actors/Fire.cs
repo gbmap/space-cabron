@@ -2,16 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
+using Gmap.Gameplay;
 using Gmap.Gun;
+using SpaceCabron.Gameplay;
 using UnityEngine;
 
-namespace SpaceCabron
+namespace Gmap
 {
-    public class Fire : MonoBehaviour, IBrainHolder
+    public class Fire : MonoBehaviour, IBrainHolder<InputState>
     {
         public Gmap.ScriptableReferences.FloatReference EnergyValue;
 
-        public IBrain Brain { get; set; }
+        public IBrain<InputState> Brain { get; set; }
         float _lastPress = 0f;
         float _lastNote = 0f;
         bool _shouldFire;

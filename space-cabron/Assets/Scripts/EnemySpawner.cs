@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
-using SpaceCabron.Gameplay;
+using Gmap.Gameplay;
 using Frictionless;
-using SpaceCabron.Messages;
+using Gmap.Messages;
 using System.Linq;
 
-namespace SpaceCabron
+namespace Gmap
 {
     public class EnemySpawner : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
@@ -60,7 +60,7 @@ namespace SpaceCabron
             if (BossPool == null || BossPool.Length == 0)
                 return null;
             
-            return Instantiate(BossPool.GetNext(), Vector3.zero, Quaternion.identity);
+            return SpawnNext(BossPool, 0.5f);
         }
 
         private IEnumerator PlayBossIntroAnimation(GameObject boss)
@@ -112,16 +112,12 @@ namespace SpaceCabron
             if (!shouldSpawn || Enemies.Count == 0)
                 return;
 
-            Instantiate(
-                EnemyPool.GetNext(), 
-                GetRandomEnemyPosition(), 
-                Quaternion.identity
-            );
+            SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));
         }
 
-        public void SpawnNext(GameObjectPool pool, float t)
+        public GameObject SpawnNext(GameObjectPool pool, float t)
         {
-            Instantiate(
+            return Instantiate(
                 pool.GetNext(),
                 GetEnemyPosition(t),
                 Quaternion.identity

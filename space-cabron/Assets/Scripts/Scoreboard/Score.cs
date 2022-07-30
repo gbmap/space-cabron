@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Frictionless;
 using UnityEngine;
 
-namespace SpaceCabron.Scoreboard
+namespace Gmap.Scoreboard
 {
     public class Score : MonoBehaviour
     {

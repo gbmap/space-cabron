@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
-namespace SpaceCabron.Instruments
+namespace Gmap.Instruments
 {
     public abstract class Injectable : MonoBehaviour {}
 

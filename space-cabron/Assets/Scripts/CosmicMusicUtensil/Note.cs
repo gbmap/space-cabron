@@ -31,7 +31,7 @@ namespace Gmap.CosmicMusicUtensil
         public int Octave
         {
             get { return _octave; }
-            set { _octave = 2 + Bar.MathMod(value, 6); }
+            set { _octave = value; }
         }
 
         public Note()

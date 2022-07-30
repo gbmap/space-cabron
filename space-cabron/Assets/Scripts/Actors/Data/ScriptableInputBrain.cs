@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.Gameplay;
+using SpaceCabron.Gameplay;
 using UnityEngine;
 
-namespace SpaceCabron
+namespace SpaceCabron.Gameplay
 {
-    public abstract class ScriptableBrain : ScriptableObject, IBrain
-    {
-        public abstract InputState GetInputState();
-    }
-
-    [CreateAssetMenu(menuName="Space Cabrón/Brain/Input")]
-    public class ScriptableInputBrain : ScriptableBrain
+    [CreateAssetMenu(menuName="Gmap/Brain/Input")]
+    public class ScriptableInputBrain : ScriptableBrain<InputState>
     {
         public override InputState GetInputState()
         {
@@ -20,7 +17,8 @@ namespace SpaceCabron
                     Input.GetAxis("Horizontal"),
                     Input.GetAxis("Vertical")
                 ),
-                Shoot = Input.GetButtonDown("Jump")
+                Shoot = Input.GetButtonDown("Jump"),
+                Pause = Input.GetKeyDown(KeyCode.Escape)
             };
         }
     }

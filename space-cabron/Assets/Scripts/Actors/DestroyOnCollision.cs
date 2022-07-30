@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceCabron
+namespace Gmap
 {
     public class DestroyOnCollision : MonoBehaviour
     {

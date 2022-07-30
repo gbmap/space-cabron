@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SpaceCabron.Gameplay
+namespace Gmap.Gameplay
 {
     public class Bullet : MonoBehaviour
     {

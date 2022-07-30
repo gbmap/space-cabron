@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
-using SpaceCabron.Instruments;
+using Gmap.Instruments;
 using UnityEngine;
 
-namespace SpaceCabron.Gameplay
+namespace Gmap.Gameplay
 {
     [RequireComponent(typeof(TurntableBehaviour))]
     public class InjectTurntableImprovisersOnAwake : Injectable

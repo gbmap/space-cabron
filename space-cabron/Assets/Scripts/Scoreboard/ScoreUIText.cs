@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Frictionless;
-using SpaceCabron.Messages;
+using Gmap.Messages;
 using UnityEngine;
 
-namespace SpaceCabron.Scoreboard.UI
+namespace Gmap.Scoreboard.UI
 {
     [RequireComponent(typeof(TMPro.TextMeshProUGUI))]
     public class ScoreUIText : MonoBehaviour

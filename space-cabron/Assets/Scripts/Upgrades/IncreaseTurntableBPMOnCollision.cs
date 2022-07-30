@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gmap.CosmicMusicUtensil;
 
-namespace SpaceCabron
+namespace Gmap
 {
     public class IncreaseTurntableBPMOnCollision : MonoBehaviour
     {

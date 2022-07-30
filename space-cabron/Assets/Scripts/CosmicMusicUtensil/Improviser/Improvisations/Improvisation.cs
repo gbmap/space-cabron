@@ -70,7 +70,9 @@ namespace Gmap.CosmicMusicUtensil
                 if (subNoteSelectionStrategy.ShouldSelect(notes.Length, i))
                 {
                     Note n = notes[i].Copy();
-                    notesList.AddRange(Enumerable.Repeat(ApplyModifierToNote(n), TimesToDuplicate));
+                    notesList.AddRange(
+                        Enumerable.Repeat(ApplyModifierToNote(n), TimesToDuplicate)
+                    );
                 }
                 else
                     notesList.Add(notes[i]);

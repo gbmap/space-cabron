@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace SpaceCabron.Gameplay
+namespace Gmap.Gameplay
 {
     public class MsgOnEnemyHit 
     {
@@ -19,6 +19,7 @@ namespace SpaceCabron.Gameplay
     public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     {
         public int MaxHealth;
+        public bool CanTakeDamage = true;
 
         int _currentHealth;
         public int CurrentHealth => _currentHealth;
@@ -50,6 +51,9 @@ namespace SpaceCabron.Gameplay
 
         public void TakeDamage(Bullet b, Collider2D collider)
         {
+            if (!CanTakeDamage)
+                return;
+                
             _currentHealth--;
             _spriteRenderer.material.SetFloat(_damageId, 1.0f);
 

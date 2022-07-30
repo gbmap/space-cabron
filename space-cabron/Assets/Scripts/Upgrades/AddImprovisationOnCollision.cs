@@ -2,7 +2,7 @@ using System.Linq;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 
-namespace SpaceCabron
+namespace Gmap
 {
     public class AddImprovisationOnCollision : CollisionHandler<TurntableBehaviour>
     {

@@ -1,29 +1,21 @@
+using Gmap.Gameplay;
 using UnityEngine;
 
-namespace SpaceCabron
+namespace SpaceCabron.Gameplay
 {
-    // Also known as skull.
-    public interface IBrainHolder {
-        public IBrain Brain {get; set;}
-    }
-
-    public interface IBrain
-    {
-        public InputState GetInputState();
-    }
-
     public class InputState
     {
         public Vector2 Movement { get; set; }
         public bool Shoot { get; set; }
+        public bool Pause { get; set; }
     }
 
-    public class Movement : MonoBehaviour, IBrainHolder
+    public class Movement : MonoBehaviour, IBrainHolder<InputState>
     {
-        private IBrain Brain;
+        private IBrain<InputState> Brain;
         public float Speed = 1f;
 
-        IBrain IBrainHolder.Brain { 
+        IBrain<InputState> IBrainHolder<InputState>.Brain { 
             get => Brain; 
             set => Brain = value; 
         }

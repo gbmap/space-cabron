@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace SpaceCabron
+namespace Gmap
 {
     public class SinFollowMovement : MonoBehaviour
     {
