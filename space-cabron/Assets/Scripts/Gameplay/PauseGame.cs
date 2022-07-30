@@ -31,7 +31,6 @@ namespace SpaceCabron.Gameplay
 
         void Callback_PauseGameCallback(MsgPauseGame msg)
         {
-            Debug.Log($"Paused game: {msg.Value}.");
             Time.timeScale = msg.Value ? 0f : 1f;
             GameState state = msg.Value ? PauseState : GameplayState;
             state.ChangeTo();
