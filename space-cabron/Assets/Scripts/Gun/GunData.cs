@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Gmap.Gun
 {    
-
     public class ShotRequest
     {
         public Vector3 Position;

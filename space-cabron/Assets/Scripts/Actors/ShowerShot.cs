@@ -12,7 +12,9 @@ public class ShowerShot : ShotPattern
     {
         for (int i = 0; i < Bullets; i++)
         {
-            Shoot(transform.position, Quaternion.Euler(0f, 0f, 180f+ (Mathf.PerlinNoise(0f, Time.time*10f)-0.5f)*AngleRange) );
+            float a = Vector3.SignedAngle(Vector3.up, transform.up, Vector3.forward);
+            float r = (Mathf.PerlinNoise(0f, Time.time*10f)-0.5f)*AngleRange;
+            Shoot(transform.position, Quaternion.Euler(0f, 0f, a+r));
             yield return new WaitForSeconds(CooldownPerBullet);
         }
     }

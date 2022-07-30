@@ -38,7 +38,7 @@ namespace SpaceCabron
 
         private void Callback_OnScoreChanged(MsgOnScoreChanged obj)
         {
-            if (obj.Score <= scoreThreshold)
+            if (obj.Score < scoreThreshold)
                 return;
 
             if (!shouldSpawn)
@@ -112,14 +112,33 @@ namespace SpaceCabron
             if (!shouldSpawn || Enemies.Count == 0)
                 return;
 
-            int index = Random.Range(0, Enemies.Count);
-            var enemy = EnemyPool.GetNext();
+            Instantiate(
+                EnemyPool.GetNext(), 
+                GetRandomEnemyPosition(), 
+                Quaternion.identity
+            );
+        }
 
-            var position = new Vector3(Random.Range(0.15f, 0.85f), 0.9f, 0f);
-            position = Camera.main.ViewportToWorldPoint(position);
-            position.z = 0f;
+        public void SpawnNext(GameObjectPool pool, float t)
+        {
+            Instantiate(
+                pool.GetNext(),
+                GetEnemyPosition(t),
+                Quaternion.identity
+            );
+        }
+        
+        private Vector3 GetRandomEnemyPosition()
+        {
+            return GetEnemyPosition(Random.Range(0.15f, 0.85f));
+        }
 
-            Instantiate(enemy, position, Quaternion.identity);
+        private Vector3 GetEnemyPosition(float t)
+        {
+            Vector3 p = new Vector3(Mathf.Clamp01(t), 0.9f, 0f);
+            Vector3 pos = Camera.main.ViewportToWorldPoint(p);
+            pos.z = 0f;
+            return pos;
         }
     }
 }
