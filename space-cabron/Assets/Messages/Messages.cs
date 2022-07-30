@@ -1,13 +1,6 @@
-﻿using UnityEngine;
-
-namespace Gmap.Messages {
-    public class RandomizeBeat {}
-}
-
-public class Message {}
-
-namespace Gmap.Messages 
+﻿namespace SpaceCabron.Messages
 {
+    public class RandomizeBeat {}
     public class MsgOnScoreChanged
     {
         public int Score;
@@ -27,4 +20,13 @@ namespace Gmap.Messages
     }
 
     public class MsgLevelWon {}
+    public class MsgPauseGame 
+    {
+        public bool Value;
+        public MsgPauseGame(bool v)
+        {
+            Value = v;
+        }
+
+    }
 }
