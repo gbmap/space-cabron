@@ -17,7 +17,7 @@ MonoBehaviour:
     ScoreThreshold: 5000
     StartingBPM: 30
     EnemyPool: {fileID: 11400000, guid: fde488160fe36674db9407d7afbd0185, type: 2}
-    BossPool: {fileID: 11400000, guid: fde488160fe36674db9407d7afbd0185, type: 2}
+    BossPool: {fileID: 0}
   EnemyMelody:
     BPM: 30
     StartingMelody:
@@ -58,3 +58,4 @@ MonoBehaviour:
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: ccb59cabb04a17347a8bdc6b8c22d44a, type: 2}
+  NextLevel: {fileID: 0}

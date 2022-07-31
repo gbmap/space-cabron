@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gameplay:
     Difficulty: 0
-    ScoreThreshold: 50
+    ScoreThreshold: 2500
     StartingBPM: 30
-    EnemyPool: {fileID: 11400000, guid: fde488160fe36674db9407d7afbd0185, type: 2}
+    EnemyPool: {fileID: 11400000, guid: 2ab06b9974ec9704988c679512c05af5, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
     BPM: 30
