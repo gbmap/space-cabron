@@ -19,7 +19,7 @@ namespace Gmap.Gameplay
 
         private void Callback_OnDestroy(MessageOnEnemyDestroyed obj)
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(
+            MessageRouter.RaiseMessage(
                 new SpaceCabron.Messages.MsgIncreaseScore(Value)
             );
         }

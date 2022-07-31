@@ -13,7 +13,7 @@ public class PauseGameHandler : MonoBehaviour
 
     void OnEnable()
     {
-        ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<SpaceCabron.Messages.MsgPauseGame>(Callback_PauseGameCallback);
+        MessageRouter.AddHandler<SpaceCabron.Messages.MsgPauseGame>(Callback_PauseGameCallback);
     }
 
     private void Callback_PauseGameCallback(MsgPauseGame msg)
@@ -24,6 +24,6 @@ public class PauseGameHandler : MonoBehaviour
 
     void OnDisable()
     {
-        ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<SpaceCabron.Messages.MsgPauseGame>(Callback_PauseGameCallback);
+        MessageRouter.RemoveHandler<SpaceCabron.Messages.MsgPauseGame>(Callback_PauseGameCallback);
     }
 }

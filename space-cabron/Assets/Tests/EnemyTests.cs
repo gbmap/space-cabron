@@ -18,5 +18,6 @@ public class EnemyTests
         var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
         var instance = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
         yield return new WaitForSeconds(1f);
+        GameObject.DestroyImmediate(instance);
     }
 }

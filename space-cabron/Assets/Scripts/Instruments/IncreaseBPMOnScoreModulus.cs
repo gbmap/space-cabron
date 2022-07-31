@@ -18,12 +18,12 @@ namespace Gmap.Instruments
         protected virtual void Awake()
         {
             turntable = GetComponent<ITurntable>();
-            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<SpaceCabron.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.AddHandler<SpaceCabron.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         protected virtual void OnDestroy()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<SpaceCabron.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.RemoveHandler<SpaceCabron.Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         private void Callback_OnScoreChanged(SpaceCabron.Messages.MsgOnScoreChanged msg)

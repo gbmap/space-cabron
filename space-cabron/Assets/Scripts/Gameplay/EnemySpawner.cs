@@ -11,17 +11,15 @@ namespace Gmap
 {
     public class EnemySpawner : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
-        public List<GameObject> Enemies;
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
 
         public bool shouldSpawn = false;
-        private int scoreThreshold = int.MaxValue;
+        public int ScoreThreshold = int.MaxValue;
 
         void OnEnable()
         {
-            MessageRouter router = ServiceFactory.Instance.Resolve<MessageRouter>();
-            router.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         void OnDisable()
@@ -31,13 +29,12 @@ namespace Gmap
 
         private void UnsubscribeFromScoreChanged()
         {
-            MessageRouter router = ServiceFactory.Instance.Resolve<MessageRouter>();
-            router.RemoveHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.RemoveHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         private void Callback_OnScoreChanged(MsgOnScoreChanged obj)
         {
-            if (obj.Score < scoreThreshold)
+            if (obj.Score < ScoreThreshold)
                 return;
 
             if (!shouldSpawn)
@@ -69,7 +66,7 @@ namespace Gmap
 
         private void FireWinMessage()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(new MsgLevelWon());
+            MessageRouter.RaiseMessage(new MsgLevelWon());
         }
 
         private void DestroyAllEnemies()
@@ -93,7 +90,7 @@ namespace Gmap
 
         public void Configure(LevelConfiguration configuration)
         {
-            scoreThreshold = configuration.Gameplay.ScoreThreshold;
+            ScoreThreshold = configuration.Gameplay.ScoreThreshold;
             EnemyPool = configuration.Gameplay.EnemyPool;
             BossPool = configuration.Gameplay.BossPool;
             StartCoroutine(WaitAndActivate());
@@ -108,7 +105,7 @@ namespace Gmap
 
         public void SpawnNext()
         {
-            if (!shouldSpawn || Enemies.Count == 0)
+            if (!shouldSpawn || EnemyPool.Length == 0)
                 return;
 
             SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));

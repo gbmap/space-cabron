@@ -18,7 +18,11 @@ namespace Gmap.Gameplay
     {
         public static IBrain<InputStateType> Get(GameObject target)
         {
-            return target.GetComponent<IBrainHolder<InputStateType>>().Brain;
+            IBrainHolder<InputStateType> brainHolder 
+                = target.GetComponentInChildren<IBrainHolder<InputStateType>>();
+            if (brainHolder != null)
+                return brainHolder.Brain;
+            return null;
         }
     }
 }

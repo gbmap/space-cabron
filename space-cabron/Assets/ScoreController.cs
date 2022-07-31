@@ -19,12 +19,12 @@ public class ScoreController : MonoBehaviour
 
     private void OnEnable()
     {
-        ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<IncreaseScoreMessage>(OnIncreaseScore);
+        MessageRouter.AddHandler<IncreaseScoreMessage>(OnIncreaseScore);
     }
 
     private void OnDisable()
     {
-        ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<IncreaseScoreMessage>(OnIncreaseScore);
+        MessageRouter.RemoveHandler<IncreaseScoreMessage>(OnIncreaseScore);
     }
 
     private void OnIncreaseScore(IncreaseScoreMessage msg)

@@ -10,23 +10,14 @@ namespace SpaceCabron.Gameplay
         public GameState PauseState;
         public GameState GameplayState;
 
-        MessageRouter router;
-        MessageRouter Router
-        {
-            get
-            {
-                return router ?? (router = ServiceFactory.Instance.Resolve<MessageRouter>());
-            }
-        }
-
         void OnEnable()
         {
-            Router.AddHandler<MsgPauseGame>(Callback_PauseGameCallback);
+            MessageRouter.AddHandler<MsgPauseGame>(Callback_PauseGameCallback);
         }
 
         void OnDisable()
         {
-            Router.RemoveHandler<MsgPauseGame>(Callback_PauseGameCallback);
+            MessageRouter.RemoveHandler<MsgPauseGame>(Callback_PauseGameCallback);
         }
 
         void Callback_PauseGameCallback(MsgPauseGame msg)

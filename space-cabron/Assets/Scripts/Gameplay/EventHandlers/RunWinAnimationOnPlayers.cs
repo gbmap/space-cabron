@@ -5,21 +5,23 @@ using Frictionless;
 using SpaceCabron.Messages;
 using UnityEngine;
 using System.Threading;
+using Gmap.Gameplay;
 
 namespace SpaceCabron.Gameplay
 {
-    public class RunWinAnimationOnPlayers : MonoBehaviour
+    public class RunWinAnimationOnPlayers : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
         int winAnimationCount = 0;
+        LevelConfiguration levelConfiguration;
 
         void OnEnable()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<SpaceCabron.Messages.MsgLevelWon>(Callback_LevelWon);
+            MessageRouter.AddHandler<SpaceCabron.Messages.MsgLevelWon>(Callback_LevelWon);
         }
 
         void OnDisable()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<SpaceCabron.Messages.MsgLevelWon>(Callback_LevelWon);
+            MessageRouter.RemoveHandler<SpaceCabron.Messages.MsgLevelWon>(Callback_LevelWon);
         }
 
         private void Callback_LevelWon(MsgLevelWon msg)
@@ -39,8 +41,18 @@ namespace SpaceCabron.Gameplay
         private IEnumerator WaitVictoryAnimationEnded()
         {
             float timeStart = Time.time;
-            while (winAnimationCount > 0)
+            while (winAnimationCount > 0 && Time.time - timeStart < 5f)
                 yield return new WaitForSecondsRealtime(0.1f);
+
+            if (levelConfiguration != null && levelConfiguration.NextLevel != null)
+                LevelLoader.Load(levelConfiguration.NextLevel);
+            else
+                throw new System.Exception("No next level.");
+        }
+
+        public void Configure(LevelConfiguration configuration)
+        {
+            levelConfiguration = configuration;
         }
     }
 }

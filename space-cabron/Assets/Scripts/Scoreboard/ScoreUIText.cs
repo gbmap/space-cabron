@@ -17,12 +17,12 @@ namespace SpaceCabron.Scoreboard.UI
 
         void OnEnable()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.AddHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         void OnDisable()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.RemoveHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         private void Callback_OnScoreChanged(Messages.MsgOnScoreChanged msg)

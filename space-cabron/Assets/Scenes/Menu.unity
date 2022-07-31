@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5d37f0132fbfd418446e7ca2dfd044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelConfiguration: {fileID: 11400000, guid: 90b2a62b5c1c7974cb911a59410d457a, type: 2}
+  LevelConfiguration: {fileID: 11400000, guid: 301f723e76ae6ce46a764c1b709f5593, type: 2}
 --- !u!114 &208686888
 MonoBehaviour:
   m_ObjectHideFlags: 0

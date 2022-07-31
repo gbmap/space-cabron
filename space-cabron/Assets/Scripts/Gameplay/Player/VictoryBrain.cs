@@ -22,7 +22,11 @@ namespace SpaceCabron.Gameplay
 
         IEnumerator VictoryInputCoroutine()
         {
-            IBrain<InputState> brain = Brain<InputState>.Get(gameObject);
+            Health h = gameObject.GetComponent<Health>();
+            if (h != null)
+                h.CanTakeDamage = false;
+
+            lastBrain = Brain<InputState>.Get(gameObject);
             input = new InputState
             {
                 Movement = new Vector2(0f, 0f),
@@ -30,7 +34,7 @@ namespace SpaceCabron.Gameplay
             };
             yield return null;
 
-            Vector3 targetPos = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.75f, 0f));
+            Vector3 targetPos = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.25f, 0f));
             targetPos.z = 0f;
             while (Vector2.Distance(transform.position, targetPos) > 0.1f) {
                 input.Movement = Vector2.ClampMagnitude(targetPos - transform.position, 1f);
@@ -40,9 +44,13 @@ namespace SpaceCabron.Gameplay
 
             yield return new WaitForSeconds(3f);
             input.Movement = Vector2.up;
-            yield return new WaitForSeconds(5f);
+            while (Camera.main.WorldToViewportPoint(transform.position).y < 1.5f) {
+                yield return null;
+            }
 
             InjectBrainToActor<InputState>.Inject(gameObject, lastBrain);
+            DestroyImmediate(this);
+            OnAnimationEnded?.Invoke();
         }
 
         public static void Play(GameObject target, System.Action OnEnd=null)

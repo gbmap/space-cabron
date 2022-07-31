@@ -48,6 +48,8 @@ namespace Gmap.Gameplay
         [SerializeField] private InstrumentConfiguration HitConfiguration;
         public BackgroundConfiguration Background;
 
+        public LevelConfiguration NextLevel;
+
         private Dictionary<string, InstrumentConfiguration> dictTagToInstrument;
         private Dictionary<string, InstrumentConfiguration> DictTagToInstrument {
             get {
@@ -95,6 +97,7 @@ namespace Gmap.Gameplay
             clone.PlayerMelody = PlayerMelody;
             clone.AmbientMelody = AmbientMelody;
             clone.HitConfiguration = HitConfiguration;
+            clone.NextLevel = NextLevel;
             return clone;
         }
     }

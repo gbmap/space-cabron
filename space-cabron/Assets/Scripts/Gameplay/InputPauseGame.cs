@@ -21,7 +21,7 @@ namespace SpaceCabron
             InputState input = Brain.GetInputState();
             if (input.Pause)
             {
-                ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(
+                MessageRouter.RaiseMessage(
                     new MsgPauseGame(Mathf.Approximately(Time.timeScale, 1f))
                 );
             }

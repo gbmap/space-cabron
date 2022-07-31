@@ -3,7 +3,11 @@
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "SpaceCabron.Gameplay",
+        "Frictionless",
+        "SpaceCabron.Messages",
+        "Gmap.ScriptableReferences"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

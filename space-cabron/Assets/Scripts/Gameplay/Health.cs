@@ -28,7 +28,6 @@ namespace Gmap.Gameplay
         SpriteRenderer _spriteRenderer;
         int _damageId = Shader.PropertyToID("_Damage");
 
-        MessageRouter _messageRouter;
         ObjectPool.ObjectPoolBehavior _poolBehavior;
 
         public System.Action<MessageOnEnemyDestroyed> OnDestroy;
@@ -40,7 +39,6 @@ namespace Gmap.Gameplay
             _currentHealth = MaxHealth;
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _messageRouter = ServiceFactory.Instance.Resolve<MessageRouter>();
         }
 
         void Update()
@@ -68,7 +66,7 @@ namespace Gmap.Gameplay
                 });
             }
 
-            _messageRouter.RaiseMessage(new MsgOnEnemyHit()
+            MessageRouter.RaiseMessage(new MsgOnEnemyHit()
             {
                 enemy = this,
                 bullet = b,
@@ -87,7 +85,7 @@ namespace Gmap.Gameplay
         void FireDestroyEvent(MessageOnEnemyDestroyed msg, bool global=true)
         {
             OnDestroy?.Invoke(msg);
-            _messageRouter.RaiseMessage(msg);
+            MessageRouter.RaiseMessage(msg);
         }
     }
 }
