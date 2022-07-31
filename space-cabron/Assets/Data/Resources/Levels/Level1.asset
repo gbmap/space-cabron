@@ -15,47 +15,33 @@ MonoBehaviour:
   Gameplay:
     Difficulty: 0
     ScoreThreshold: 5000
-    StartingBPM: 30
     EnemyPool: {fileID: 11400000, guid: fde488160fe36674db9407d7afbd0185, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
-    BPM: 30
-    StartingMelody:
-      notation: c2/2;c2/2
-    PossibleStartingMelodies: {fileID: 11400000, guid: fdbc2f4d00a46bc469434b66d8bc903a,
-      type: 2}
+    BPM: 40
+    MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: 170f0e9dd275bd545b599395341bcbe3,
       type: 2}
   PlayerMelody:
     BPM: 50
-    StartingMelody:
-      notation: c4/8;c4/4;c4/8;c4/4;c4/4
-    PossibleStartingMelodies: {fileID: 11400000, guid: 1c51a6e9170f8014b99f4459159c3ac3,
-      type: 2}
+    MelodyFactory: {fileID: 11400000, guid: 0adc150719aea204a8d0ec26df771380, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}
   DrumMelody:
     BPM: 30
-    StartingMelody:
-      notation: c2/2;c2/2
-    PossibleStartingMelodies: {fileID: 11400000, guid: 7f5d96c9017d84143b9e9a2c2874cfd4,
-      type: 2}
+    MelodyFactory: {fileID: 11400000, guid: abba543eab3654240a3aa913f3c47828, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: c2edac38a5b243e4fa9a63df2c2bec7a,
       type: 2}
   AmbientMelody:
     BPM: 30
-    StartingMelody:
-      notation: c2/2;c2/2
-    PossibleStartingMelodies: {fileID: 0}
+    MelodyFactory: {fileID: 11400000, guid: 0adc150719aea204a8d0ec26df771380, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: 556fd94c16eea654ca50d120c4e25970,
       type: 2}
   HitConfiguration:
     BPM: 30
-    StartingMelody:
-      notation: 
-    PossibleStartingMelodies: {fileID: 0}
+    MelodyFactory: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: ac96a814f41e6b84287c0effd3d665da,
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: ccb59cabb04a17347a8bdc6b8c22d44a, type: 2}
-  NextLevel: {fileID: 0}
+  NextLevel: {fileID: 11400000, guid: 85a614ba6dbcbb042847c0e90a7530cb, type: 2}

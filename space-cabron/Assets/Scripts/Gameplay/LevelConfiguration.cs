@@ -17,7 +17,6 @@ namespace Gmap.Gameplay
     {
         public EDifficulty Difficulty;
         public int ScoreThreshold = 5000;
-        public int StartingBPM = 30;
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
     }
@@ -26,8 +25,7 @@ namespace Gmap.Gameplay
     public class InstrumentConfiguration
     {
         public int BPM = 30;
-        public Melody StartingMelody;
-        public StringReferencePool PossibleStartingMelodies;
+        public ScriptableMelodyFactory MelodyFactory;
         public TextAssetPool PossibleStartingInstruments;
     }
 
@@ -66,25 +64,16 @@ namespace Gmap.Gameplay
             }
         }
 
-        public InstrumentConfiguration GetMelodyConfigurationByTag(string tag)
+        public InstrumentConfiguration GetInstrumentConfigurationByTag(string tag)
         {
-            InstrumentConfiguration melodyConfig;
-            if (!DictTagToInstrument.TryGetValue(tag, out melodyConfig))
+            InstrumentConfiguration instrumentConfig;
+            if (!DictTagToInstrument.TryGetValue(tag, out instrumentConfig))
             {
                 Debug.LogWarning($"Couldn't find instrument config for {tag}.");
                 Debug.Break();
                 return null;
             }
-            return SetupInstrumentForTag(DictTagToInstrument[tag], tag == "Player");
-        }
-
-        private InstrumentConfiguration SetupInstrumentForTag(InstrumentConfiguration cfg, bool random=true)
-        {
-            if (random && cfg.PossibleStartingMelodies != null)
-                cfg.StartingMelody = new Melody(cfg.PossibleStartingMelodies.GetNext().Value);
-            else
-                cfg.StartingMelody = new Melody(cfg.StartingMelody.Notation);
-            return cfg;
+            return instrumentConfig;
         }
 
         public LevelConfiguration Clone()

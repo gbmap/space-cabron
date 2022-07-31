@@ -40,8 +40,7 @@ namespace SpaceCabron.Gameplay
 
         private IEnumerator WaitVictoryAnimationEnded()
         {
-            float timeStart = Time.time;
-            while (winAnimationCount > 0 && Time.time - timeStart < 5f)
+            while (winAnimationCount > 0)
                 yield return new WaitForSecondsRealtime(0.1f);
 
             if (levelConfiguration != null && levelConfiguration.NextLevel != null)

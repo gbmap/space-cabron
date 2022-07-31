@@ -24,8 +24,7 @@ namespace Gmap.Gameplay
 
         public void SelectRandomMelody()
         {
-            InstrumentConfiguration melodyConfig = LevelConfiguration.GetMelodyConfigurationByTag("Player");
-            StartGame(melodyConfig.PossibleStartingMelodies.GetNext().Value);
+            StartGame();
         }
 
         public void OnCustomMelodyTextBarChanged(string text)
@@ -40,24 +39,15 @@ namespace Gmap.Gameplay
                 Melody m = new Melody(_customMelody.ToLower());
                 if (m.IsEmpty)
                     throw new System.Exception("Melody is empty.");
-                StartGame(_customMelody);
+
+                ScriptableFixedMelodyFactory f = ScriptableObject.CreateInstance<ScriptableFixedMelodyFactory>();
+                LevelConfiguration.GetInstrumentConfigurationByTag("Player").MelodyFactory = f;
+                StartGame();
             }
             catch
             {
                 // ... 
             }
-        }
-
-        private void SelectMelody(string notation)
-        {
-            var melodyConfig = LevelConfiguration.GetMelodyConfigurationByTag("Player");
-            melodyConfig.StartingMelody = new Melody(notation);
-        }
-
-        private void StartGame(string melody)
-        {
-            SelectMelody(melody);
-            StartGame();
         }
 
         private void StartGame()
