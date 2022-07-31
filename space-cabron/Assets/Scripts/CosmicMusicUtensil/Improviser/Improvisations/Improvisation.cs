@@ -123,7 +123,7 @@ namespace Gmap.CosmicMusicUtensil
         {
             Note[] newNotes = new Note[notes.Length];
             for (int i = 0; i < notes.Length; i++)
-                newNotes[i] = Note.Transpose(notes[i], Steps);
+                newNotes[i] = Note.TransposeWrapped(notes[i], Steps);
             return newNotes;
         }
 

@@ -122,6 +122,13 @@ namespace Gmap.CosmicMusicUtensil
             return n2;
         }
 
+        public static Note TransposeWrapped(Note n, int interval)
+        {
+            Note n2 = Transpose(n, interval);
+            n2.Octave = 1 + Bar.MathMod(n2.Octave, 8);
+            return n2;
+        }
+
         public override bool Equals(object obj)
         {
             if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
