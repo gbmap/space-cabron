@@ -6,6 +6,8 @@ namespace SpaceCabron.Gameplay
 {
     public class VictoryBrain : MonoBehaviour, IBrain<InputState>
     {
+        public System.Action OnAnimationEnded;
+
         InputState input;
         IBrain<InputState> lastBrain;
         public InputState GetInputState()
@@ -43,9 +45,11 @@ namespace SpaceCabron.Gameplay
             InjectBrainToActor<InputState>.Inject(gameObject, lastBrain);
         }
 
-        public static void Play(GameObject target)
+        public static void Play(GameObject target, System.Action OnEnd=null)
         {
             VictoryBrain b = target.AddComponent<VictoryBrain>();
+            if (OnEnd != null)
+                b.OnAnimationEnded += OnEnd;
             InjectBrainToActor<InputState>.Inject(target, b);
         }
     }

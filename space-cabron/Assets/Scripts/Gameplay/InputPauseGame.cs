@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Frictionless;
 using Gmap.Gameplay;
 using SpaceCabron.Gameplay;
