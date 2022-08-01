@@ -4,7 +4,8 @@
     "references": [
         "Frictionless",
         "Unity.TextMeshPro",
-        "SpaceCabron.Messages"
+        "SpaceCabron.Messages",
+        "Gmap.ScriptableReferences"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

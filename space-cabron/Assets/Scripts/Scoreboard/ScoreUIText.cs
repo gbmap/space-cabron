@@ -27,7 +27,7 @@ namespace SpaceCabron.Scoreboard.UI
 
         private void Callback_OnScoreChanged(Messages.MsgOnScoreChanged msg)
         {
-            text.text = msg.Score.ToString("000000000");
+            text.text = msg.TotalScore.ToString("000000000");
         }
     }
 }

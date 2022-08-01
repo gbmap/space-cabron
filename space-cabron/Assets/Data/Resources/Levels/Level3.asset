@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
-  m_Name: Level2
+  m_Name: Level3
   m_EditorClassIdentifier: 
   Gameplay:
-    Difficulty: 0
-    ScoreThreshold: 7500
+    Difficulty: 1
+    ScoreThreshold: 10000
     EnemyPool: {fileID: 11400000, guid: f50136eeea61f3f4eb4a95f237579703, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
@@ -44,4 +44,4 @@ MonoBehaviour:
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}
-  NextLevel: {fileID: 11400000, guid: 8fffd2f7157fec446bfecb5570fb9908, type: 2}
+  NextLevel: {fileID: 0}

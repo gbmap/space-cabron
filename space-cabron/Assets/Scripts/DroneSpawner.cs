@@ -27,6 +27,7 @@ namespace SpaceCabron.Gameplay
             FollowAtAnOffset offset = instance.GetComponent<FollowAtAnOffset>();
             offset.Offset = UnityEngine.Random.insideUnitSphere;
             offset.Offset.z = 0f;
+            offset.Offset.Normalize();
             offset.Target = msg.Player.transform;
 
             RepeatNoteWithStep step = instance.GetComponent<RepeatNoteWithStep>();

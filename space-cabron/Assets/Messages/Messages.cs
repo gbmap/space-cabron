@@ -5,10 +5,12 @@ namespace SpaceCabron.Messages
     public class RandomizeBeat {}
     public class MsgOnScoreChanged
     {
+        public int TotalScore;
         public int Score;
-        public MsgOnScoreChanged(int score)
+        public MsgOnScoreChanged(int score, int totalScore)
         {
             Score = score;
+            TotalScore = totalScore;
         }
     }
 

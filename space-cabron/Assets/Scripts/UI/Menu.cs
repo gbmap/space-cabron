@@ -8,6 +8,7 @@ namespace Gmap.Gameplay
     public class Menu : MonoBehaviour
     {
         public LevelConfiguration LevelConfiguration;
+        public IntReference Score;
 
         string _customMelody;
 
@@ -52,6 +53,7 @@ namespace Gmap.Gameplay
 
         private void StartGame()
         {
+            Score.Value = 0;
             LevelLoader.Load(LevelConfiguration);
         }
     }
