@@ -41,7 +41,7 @@ namespace Gmap.CosmicMusicUtensil
             Octave = 0;
         }
 
-        private Note(Note n)
+        public Note(Note n)
         {
             Tone = n.Tone;
             Interval = n.Interval;

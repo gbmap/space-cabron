@@ -1,4 +1,6 @@
-﻿namespace SpaceCabron.Messages
+﻿using UnityEngine;
+
+namespace SpaceCabron.Messages
 {
     public class RandomizeBeat {}
     public class MsgOnScoreChanged
@@ -27,6 +29,10 @@
         {
             Value = v;
         }
+    }
 
+    public class MsgSpawnDrone 
+    {
+        public GameObject Player;
     }
 }

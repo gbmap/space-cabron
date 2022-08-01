@@ -21,7 +21,7 @@ public class SpawnOnDestroy : MonoBehaviour
 
     void Awake()
     {
-        health = GetComponent<Health>();
+        health = GetComponentInChildren<Health>();
         bag = new ShuffleBag<GameObject>();
         System.Array.ForEach(items, item => bag.Add(item.obj, item.Weight));
     }
