@@ -6,6 +6,7 @@ using SpaceCabron.Messages;
 using UnityEngine;
 using System.Threading;
 using Gmap.Gameplay;
+using UnityEngine.SceneManagement;
 
 namespace SpaceCabron.Gameplay
 {
@@ -39,7 +40,7 @@ namespace SpaceCabron.Gameplay
                 if (levelConfiguration != null && levelConfiguration.NextLevel != null)
                     LevelLoader.Load(levelConfiguration.NextLevel);
                 else
-                    throw new System.Exception("No next level.");
+                    SceneManager.LoadScene("Gameplay");
             });
         }
 

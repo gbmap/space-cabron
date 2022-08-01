@@ -68,7 +68,7 @@ namespace Gmap
 
         void Update()
         {
-            if (Brain.GetInputState().Shoot && waitingForPress == null)
+            if (Brain.GetInputState(new InputStateArgs{Object=gameObject}).Shoot && waitingForPress == null)
             {
                 Energy -= _energyLoss;
                 if (Energy <= 0)
@@ -87,7 +87,7 @@ namespace Gmap
             while (timeWaited < _waitTime)
             {
                 timeWaited += Time.deltaTime;
-                if (Brain.GetInputState().Shoot)
+                if (Brain.GetInputState(new InputStateArgs{Object=gameObject}).Shoot)
                 {
                     Energy += _energyLoss * 1f/3f;
                     FireGun(_lastNoteArgs, true);

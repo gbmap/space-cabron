@@ -9,9 +9,14 @@ namespace Gmap.Gameplay
         public IBrain<InputStateType> Brain {get; set;}
     }
 
+    public class InputStateArgs
+    {
+        public GameObject Object;
+    }
+
     public interface IBrain<InputStateType>
     {
-        public InputStateType GetInputState();
+        public InputStateType GetInputState(InputStateArgs args);
     }
 
     public static class Brain<InputStateType>
