@@ -19,9 +19,9 @@ namespace Gmap.Gun
         public BulletData Bullet;
         public GunData GunData;
 
-        private ShotData m_lastShot;
+        private ShotData lastShot;
 
-        public void Fire(FireRequest request)
+        public ShotData Fire(FireRequest request)
         {
             ShotRequest shotRequest = new ShotRequest
             {
@@ -32,7 +32,8 @@ namespace Gmap.Gun
                 BulletScale = request.BulletScale
                 
             };
-            m_lastShot = GunData.Fire(m_lastShot, shotRequest);
+            lastShot = GunData.Fire(lastShot, shotRequest);
+            return lastShot;
         }
     }
 }

@@ -111,11 +111,18 @@ namespace Gmap
 
         private void FireGun(OnNoteArgs args, bool special)
         {
-            gun.Fire(new FireRequest
+            ShotData lastData = gun.Fire(new FireRequest
             {
                 BulletScale = Mathf.Max(0.01f, args.Duration*5f),
                 Special = special
             });
+
+            foreach (var instance in lastData.BulletInstances)
+            {
+                Bullet bullet = instance.GetComponent<Bullet>();
+                if (bullet != null)
+                    bullet.IsSpecial = special;
+            }
         }
     }
 }
