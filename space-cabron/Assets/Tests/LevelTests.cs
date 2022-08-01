@@ -50,7 +50,7 @@ public class LevelTests
             MessageRouter.RaiseMessage(new MsgLevelWon());
 
             // Wait win animations.
-            yield return new WaitForSecondsRealtime(10f);
+            yield return new WaitForSecondsRealtime(15f);
             Debug.Log("Asserting level 1 is loaded.");
             Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
         }

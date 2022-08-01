@@ -1,4 +1,6 @@
 using Frictionless;
+using SpaceCabron.Gameplay;
+using SpaceCabron.Messages;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,19 +20,37 @@ namespace Gmap.Gameplay
 
         private static void Callback_OnGameplaySceneLoaded(AsyncOperation op, LevelConfiguration level)
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount-1));
+            UnloadOtherScenes();
+            MessageRouter.RaiseMessage(new MsgLevelStartedLoading());
+
+            Debug.Log($"Configuring level {level.name}.");
+            RenderSettings.skybox = level.Background.Material;
+
+            ConfigureLevelConfigurablesWithLevelConfiguration(level);
+            PlayBeginLevelAnimationOnPlayers(() => MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{}));
+            CurrentLevelConfiguration = level;
+        }
+
+        private static void UnloadOtherScenes()
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
             // SceneManager.sceneCount-1 because we don't want to unload the last 
             // loaded scene.
-            for (int i = 0; i < SceneManager.sceneCount-1; i++)
+            for (int i = 0; i < SceneManager.sceneCount - 1; i++)
             {
                 var scene = SceneManager.GetSceneAt(i);
                 if (ShouldUnloadScene(scene))
                     SceneManager.UnloadSceneAsync(scene);
             }
+        }
 
-            Debug.Log($"Configuring level {level.name}.");
-            RenderSettings.skybox = level.Background.Material;
+        private static bool ShouldUnloadScene(Scene s)
+        {
+            return !s.name.ToLower().Contains("test");
+        }
 
+        private static void ConfigureLevelConfigurablesWithLevelConfiguration(LevelConfiguration level)
+        {
             Scene gameplayScene = SceneManager.GetActiveScene();
             GameObject[] roots = gameplayScene.GetRootGameObjects();
             for (int i = 0; i < roots.Length; i++)
@@ -38,13 +58,13 @@ namespace Gmap.Gameplay
                 ILevelConfigurable<LevelConfiguration>[] lc = roots[i].GetComponentsInChildren<ILevelConfigurable<LevelConfiguration>>(true);
                 System.Array.ForEach(lc, (ILevelConfigurable<LevelConfiguration> l) => { l.Configure(level); });
             }
-
-            CurrentLevelConfiguration = level;
         }
 
-        private static bool ShouldUnloadScene(Scene s)
+        private static void PlayBeginLevelAnimationOnPlayers(System.Action OnEnded)
         {
-            return !s.name.ToLower().Contains("test");
+            GameObject.FindObjectOfType<RunAnimationOnPlayers>()
+                      .PlayAnimation<BeginLevelBrain>(OnEnded);
         }
+
     }
 }

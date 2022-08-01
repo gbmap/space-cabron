@@ -12,7 +12,7 @@ namespace Gmap.Gameplay
             var injectables = GetComponentsInChildren<Injectable>();
             System.Array.ForEach(injectables, i => DestroyImmediate(i));
 
-            InstrumentConfiguration instrumentConfig = configuration.GetInstrumentConfigurationByTag(gameObject.tag);
+            InstrumentConfiguration instrumentConfig = configuration.GetInstrumentConfigurationByTag(GetTag());
             ITurntable turntable = GetComponent<ITurntable>();
             if (turntable != null) {
                 turntable.BPM = instrumentConfig.BPM;
@@ -25,5 +25,13 @@ namespace Gmap.Gameplay
                 helmProxy.LoadPatch(instrumentConfig.PossibleStartingInstruments.GetNext());
             }
         }
+
+        private string GetTag()
+        {
+            if (transform.parent == null || transform.parent.tag == "Untagged")
+                return gameObject.tag;
+            return transform.parent.tag;
+        }
     }
+
 }

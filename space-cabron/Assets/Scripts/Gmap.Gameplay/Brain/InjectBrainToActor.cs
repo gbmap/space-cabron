@@ -11,7 +11,7 @@ namespace Gmap.Gameplay
         void Awake()
         {
             InjectBrainToActor<InputStateType>.Inject(gameObject, Brain);
-            Destroy(this);
+            DestroyImmediate(this);
         }
 
         public static void Inject(GameObject target, IBrain<InputStateType> brain)

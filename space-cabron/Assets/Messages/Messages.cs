@@ -2,7 +2,6 @@
 
 namespace SpaceCabron.Messages
 {
-    public class RandomizeBeat {}
     public class MsgOnScoreChanged
     {
         public int TotalScore;
@@ -32,6 +31,9 @@ namespace SpaceCabron.Messages
             Value = v;
         }
     }
+
+    public class MsgLevelStartedLoading {}
+    public class MsgLevelFinishedLoading {}
 
     public class MsgSpawnDrone 
     {

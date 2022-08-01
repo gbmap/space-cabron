@@ -20,6 +20,8 @@ namespace Gmap
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
+            MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { shouldSpawn = true; });
         }
 
         void OnDisable()
@@ -72,7 +74,7 @@ namespace Gmap
         private void DestroyAllEnemies()
         {
             GameObject.FindGameObjectsWithTag("Enemy").ToList().ForEach(e => {
-                Health h = e.GetComponent<Health>();
+                Health h = e.GetComponentInChildren<Health>();
                 while (h != null && h.CurrentHealth > 0)
                     h.TakeDamage(null, null);
             }); 

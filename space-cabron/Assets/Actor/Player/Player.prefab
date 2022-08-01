@@ -14,9 +14,15 @@ GameObject:
   - component: {fileID: 671385366}
   - component: {fileID: 671385369}
   - component: {fileID: 671385365}
+  - component: {fileID: 655430716}
+  - component: {fileID: 655430717}
+  - component: {fileID: 655430724}
+  - component: {fileID: 655430725}
+  - component: {fileID: 655430732}
+  - component: {fileID: 655430734}
   m_Layer: 8
   m_Name: Instrument
-  m_TagString: Player
+  m_TagString: Instrument
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,16 +215,16 @@ MonoBehaviour:
     notation: 
   BPMReference:
     GetFrom: {fileID: 0}
-    SendTo: {fileID: 0}
-    _value: 0
+    SendTo: {fileID: 11400000, guid: 9ae749a27ae89f94d97079cb2b8e5e6e, type: 2}
+    _value: 60
   Bar: {fileID: 11400000, guid: 3da6b913f94efee498cebfb89e75bae9, type: 2}
   UnityEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 926212296}
-        m_TargetAssemblyTypeName: Gmap.Gun.GunBehaviour, Gmap.Gun
-        m_MethodName: Fire
-        m_Mode: 1
+      - m_Target: {fileID: 601285683}
+        m_TargetAssemblyTypeName: SpaceCabron.Fire, Assembly-CSharp
+        m_MethodName: Callback_OnNote
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -239,8 +245,102 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 655430716}
+        m_TargetAssemblyTypeName: SpaceCabron.UpdateBackgroundShaderGlobalVariables,
+          Assembly-CSharp
+        m_MethodName: OnNote
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   KeepNotePlaying: 0
-  NoteTime: 0.5
+  NoteTime: 0.1
+--- !u!114 &655430716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ccc5c6491c8360489c0efd2ab65c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &655430717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa931519b576e2e41a182173c4cb24b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PossibleMelodies: {fileID: 11400000, guid: 1c51a6e9170f8014b99f4459159c3ac3, type: 2}
+  Root: 7
+  RandomizeRoot: 0
+  Scale: {fileID: 11400000, guid: e93cc4e1a91db7a44a7abff69fc8b9a9, type: 2}
+--- !u!114 &655430724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a2b72cffae8d64a9065c0dfe8a9571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreModulus: 500
+  Geometric: 0
+  improvisationPool: {fileID: 11400000, guid: 1aa182550a51342499ad634e028bcb2f, type: 2}
+--- !u!114 &655430725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &655430732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e35e9b7da34b94c9b9cd8a12473c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Improvisations:
+  - {fileID: 11400000, guid: 0a8503022c92cea4ba07a4cac4a547a9, type: 2}
+--- !u!114 &655430734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad7aef76f0866c458cb326fd564d137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8875341672761901925
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +358,8 @@ GameObject:
   - component: {fileID: 926212290}
   - component: {fileID: 926212296}
   - component: {fileID: 296070959924067386}
+  - component: {fileID: 601285683}
+  - component: {fileID: 601285684}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -446,3 +548,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TotalScore: {fileID: 11400000, guid: aa824d1a8fcc8554cb98a9f945ae3c4e, type: 2}
+--- !u!114 &601285683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875341672761901925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a92ac20a67d727448e7e69ac1b18764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnergyValue: {fileID: 11400000, guid: c2cafcdf10acbf24289db2fd74b72bf4, type: 2}
+--- !u!114 &601285684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875341672761901925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80db62183fb5c20448554e49155a2e55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

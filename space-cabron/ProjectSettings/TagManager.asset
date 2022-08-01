@@ -10,6 +10,7 @@ TagManager:
   - Ambient
   - Spawner
   - Hit
+  - Instrument
   layers:
   - Default
   - TransparentFX
