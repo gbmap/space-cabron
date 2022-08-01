@@ -8,12 +8,7 @@ namespace Gmap.Gameplay
     {
         public void ChangeTo()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(new MsgRequestChangeState
-            {
-                State = this
-            });
-
-            ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(new MsgOnStateChanged
+            MessageRouter.RaiseMessage(new MsgOnStateChanged
             {
                 NewState = this
             });

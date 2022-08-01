@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Frictionless;
-using Gmap.Messages;
 using UnityEngine;
 
-namespace Gmap.Scoreboard.UI
+namespace SpaceCabron.Scoreboard.UI
 {
     [RequireComponent(typeof(TMPro.TextMeshProUGUI))]
     public class ScoreUIText : MonoBehaviour
@@ -18,17 +17,17 @@ namespace Gmap.Scoreboard.UI
 
         void OnEnable()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.AddHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         void OnDisable()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.RemoveHandler<Messages.MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
-        private void Callback_OnScoreChanged(MsgOnScoreChanged msg)
+        private void Callback_OnScoreChanged(Messages.MsgOnScoreChanged msg)
         {
-            text.text = msg.Score.ToString("000000000");
+            text.text = msg.TotalScore.ToString("000000000");
         }
     }
 }

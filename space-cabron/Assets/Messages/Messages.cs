@@ -1,19 +1,15 @@
 ﻿using UnityEngine;
 
-namespace Gmap.Messages {
-    public class RandomizeBeat {}
-}
-
-public class Message {}
-
-namespace Gmap.Messages 
+namespace SpaceCabron.Messages
 {
     public class MsgOnScoreChanged
     {
+        public int TotalScore;
         public int Score;
-        public MsgOnScoreChanged(int score)
+        public MsgOnScoreChanged(int score, int totalScore)
         {
             Score = score;
+            TotalScore = totalScore;
         }
     }
 
@@ -27,4 +23,20 @@ namespace Gmap.Messages
     }
 
     public class MsgLevelWon {}
+    public class MsgPauseGame 
+    {
+        public bool Value;
+        public MsgPauseGame(bool v)
+        {
+            Value = v;
+        }
+    }
+
+    public class MsgLevelStartedLoading {}
+    public class MsgLevelFinishedLoading {}
+
+    public class MsgSpawnDrone 
+    {
+        public GameObject Player;
+    }
 }

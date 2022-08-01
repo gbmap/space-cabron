@@ -29,13 +29,6 @@ public class Upgrade : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     public EUpgrade Type;
     public object Value;
 
-    MessageRouter _msg;
-
-    private void Awake()
-    {
-        _msg = ServiceFactory.Instance.Resolve<MessageRouter>();
-    }
-
     void OnEnable()
     {
         renderer.sprite = config.GetSprite(Type);
@@ -50,7 +43,7 @@ public class Upgrade : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _msg.RaiseMessage(new MsgOnUpgradeTaken
+        MessageRouter.RaiseMessage(new MsgOnUpgradeTaken
         {
             Type = Type,
             Value = Value

@@ -41,7 +41,7 @@ namespace Gmap.CosmicMusicUtensil
             Octave = 0;
         }
 
-        private Note(Note n)
+        public Note(Note n)
         {
             Tone = n.Tone;
             Interval = n.Interval;
@@ -119,6 +119,13 @@ namespace Gmap.CosmicMusicUtensil
         {
             Note n2 = new Note(n);
             n2.Transpose(interval);
+            return n2;
+        }
+
+        public static Note TransposeWrapped(Note n, int interval)
+        {
+            Note n2 = Transpose(n, interval);
+            n2.Octave = 1 + Bar.MathMod(n2.Octave, 8);
             return n2;
         }
 

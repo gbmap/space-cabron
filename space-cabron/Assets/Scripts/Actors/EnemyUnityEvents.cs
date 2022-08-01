@@ -18,12 +18,12 @@ namespace Gmap.Gameplay
         void Awake()
         {
             this.Melody = new Melody(Melody);
-            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
+            MessageRouter.AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
         }
 
         void OnDestroy()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
+            MessageRouter.RemoveHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
         }
 
         private void Callback_OnEnemyHit(MsgOnEnemyHit obj)

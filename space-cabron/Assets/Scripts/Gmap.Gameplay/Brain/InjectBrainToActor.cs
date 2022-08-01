@@ -10,9 +10,14 @@ namespace Gmap.Gameplay
 
         void Awake()
         {
-            IBrainHolder<InputStateType>[] brains = GetComponentsInChildren<IBrainHolder<InputStateType>>();
-            System.Array.ForEach(brains, b => b.Brain = Brain);
-            Destroy(this);
+            InjectBrainToActor<InputStateType>.Inject(gameObject, Brain);
+            DestroyImmediate(this);
+        }
+
+        public static void Inject(GameObject target, IBrain<InputStateType> brain)
+        {
+            IBrainHolder<InputStateType>[] brains = target.GetComponentsInChildren<IBrainHolder<InputStateType>>();
+            System.Array.ForEach(brains, b => b.Brain = brain);
         }
     }
 }

@@ -107,25 +107,38 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
-    public class TransposeNoteImprovisation : Improvisation
+    public class ApplyModifierImprovisation : Improvisation
     {
-        public int Steps { get; private set; }
-        public TransposeNoteImprovisation(
-            SelectionStrategy noteSelectionStrategy, 
-            SelectionStrategy barSelectionStrategy,
-            int steps=1
-        ) : base(noteSelectionStrategy, barSelectionStrategy) 
-        {
-            Steps = steps;
+        protected NoteModifier modifier; 
+
+        public ApplyModifierImprovisation(
+            SelectionStrategy noteSelection,
+            SelectionStrategy barSelection,
+            NoteModifier modifier
+        ) : base(noteSelection, barSelection) {
+            this.modifier = modifier;
         }
 
         protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex)
         {
-            Note[] newNotes = new Note[notes.Length];
-            for (int i = 0; i < notes.Length; i++)
-                newNotes[i] = Note.Transpose(notes[i], Steps);
-            return newNotes;
+            return notes.Select(n=> modifier.Modify(n)).ToArray();
         }
+
+        protected override string Info()
+        {
+            return $"Apply modifier {modifier.ToString()}";
+        }
+    }
+
+    public class TransposeNoteImprovisation : ApplyModifierImprovisation
+    {
+        public int Steps => (modifier as TransposeNoteModifier).Steps;
+        public TransposeNoteImprovisation(
+            SelectionStrategy noteSelectionStrategy, 
+            SelectionStrategy barSelectionStrategy,
+            int steps=1
+        ) : base(noteSelectionStrategy, barSelectionStrategy, new TransposeNoteModifier(steps)) 
+        {}
 
         protected override string Info()
         {

@@ -5,19 +5,19 @@ using UnityEngine;
 
 namespace Gmap.Gameplay
 {
-    public class EnableOnStateChange : MonoBehaviour, IGameStateListener
+    public class EnableOnStateChange : MonoBehaviour
     {
         public GameState State;
         public GameObject TargetObject;
 
-        void OnEnable()
+        void Awake()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().AddHandler<MsgOnStateChanged>(OnStateChanged);
+            MessageRouter.AddHandler<MsgOnStateChanged>(OnStateChanged);
         }
 
-        void OnDisable()
+        void OnDestroy()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RemoveHandler<MsgOnStateChanged>(OnStateChanged);
+            MessageRouter.RemoveHandler<MsgOnStateChanged>(OnStateChanged);
         }
 
         public void OnStateChanged(MsgOnStateChanged msg)

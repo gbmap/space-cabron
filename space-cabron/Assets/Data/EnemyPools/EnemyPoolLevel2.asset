@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fc7ad5d935a1c4409f2b3f85cf20301, type: 3}
-  m_Name: EnemyPoolOne
+  m_Name: EnemyPoolLevel2
   m_EditorClassIdentifier: 
   RandomType: 1
   Items:

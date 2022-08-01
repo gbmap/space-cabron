@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Gmap.CosmicMusicUtensil
 {
     public interface NoteModifier
@@ -23,6 +19,20 @@ namespace Gmap.CosmicMusicUtensil
         {
             note.Tone = ENote.None;
             return note;
+        }
+    }
+
+    public class TransposeNoteModifier : NoteModifier
+    {
+        public int Steps;
+        public TransposeNoteModifier(int steps)
+        {
+            Steps = steps;
+        }
+
+        public Note Modify(Note note)
+        {
+            return Note.Transpose(note, Steps);
         }
     }
 

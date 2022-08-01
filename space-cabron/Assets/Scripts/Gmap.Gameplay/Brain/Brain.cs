@@ -13,4 +13,16 @@ namespace Gmap.Gameplay
     {
         public InputStateType GetInputState();
     }
+
+    public static class Brain<InputStateType>
+    {
+        public static IBrain<InputStateType> Get(GameObject target)
+        {
+            IBrainHolder<InputStateType> brainHolder 
+                = target.GetComponentInChildren<IBrainHolder<InputStateType>>();
+            if (brainHolder != null)
+                return brainHolder.Brain;
+            return null;
+        }
+    }
 }

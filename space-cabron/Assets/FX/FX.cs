@@ -20,8 +20,6 @@ public class FX : Singleton<FX>
 
     System.Collections.Generic.Dictionary<EExplosionSize, GameObjectPool> _explosionPool;
 
-    MessageRouter _router;
-
     void Awake()
     {
         var values = Enum.GetValues(typeof(EExplosionSize));
@@ -39,16 +37,16 @@ public class FX : Singleton<FX>
 
     private void OnEnable()
     {
-        _router = ServiceFactory.Instance.Resolve<MessageRouter>();
-        _router.AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
-        _router.AddHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
+        MessageRouter.AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
+        MessageRouter.AddHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
     }
 
     private void OnDisable()
     {
-        _router.RemoveHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
-        _router.RemoveHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
+        MessageRouter.RemoveHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
+        MessageRouter.RemoveHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
     }
+
 
     public void SpawnExplosion(EExplosionSize size, Vector3 pos)
     {

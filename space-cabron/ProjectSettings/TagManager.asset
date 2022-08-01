@@ -10,6 +10,7 @@ TagManager:
   - Ambient
   - Spawner
   - Hit
+  - Instrument
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Drone
   - Player
   - Enemy
   - PlayerBullet

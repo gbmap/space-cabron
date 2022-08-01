@@ -12,14 +12,12 @@ namespace Gmap.Gameplay
             var injectables = GetComponentsInChildren<Injectable>();
             System.Array.ForEach(injectables, i => DestroyImmediate(i));
 
-            InstrumentConfiguration instrumentConfig = configuration.GetMelodyConfigurationByTag(gameObject.tag);
+            InstrumentConfiguration instrumentConfig = configuration.GetInstrumentConfigurationByTag(GetTag());
             ITurntable turntable = GetComponent<ITurntable>();
-            if (turntable != null)
-            {
+            if (turntable != null) {
                 turntable.BPM = instrumentConfig.BPM;
-                turntable.SetMelody(instrumentConfig.StartingMelody);
+                turntable.SetMelody(instrumentConfig.MelodyFactory.Generate());
             }
-
             if (instrumentConfig.PossibleStartingInstruments != null)
             {
                 // Shouldn't know about HelmProxy.
@@ -27,5 +25,13 @@ namespace Gmap.Gameplay
                 helmProxy.LoadPatch(instrumentConfig.PossibleStartingInstruments.GetNext());
             }
         }
+
+        private string GetTag()
+        {
+            if (transform.parent == null || transform.parent.tag == "Untagged")
+                return gameObject.tag;
+            return transform.parent.tag;
+        }
     }
+
 }

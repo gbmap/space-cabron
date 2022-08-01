@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
-using Gmap.Gameplay;
 using Frictionless;
-using Gmap.Messages;
 using System.Linq;
+using SpaceCabron.Messages;
 
 namespace Gmap
 {
     public class EnemySpawner : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
-        public List<GameObject> Enemies;
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
 
         public bool shouldSpawn = false;
-        private int scoreThreshold = int.MaxValue;
+        public int ScoreThreshold = int.MaxValue;
 
         void OnEnable()
         {
-            MessageRouter router = ServiceFactory.Instance.Resolve<MessageRouter>();
-            router.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
+            MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { shouldSpawn = true; });
         }
 
         void OnDisable()
@@ -32,13 +31,12 @@ namespace Gmap
 
         private void UnsubscribeFromScoreChanged()
         {
-            MessageRouter router = ServiceFactory.Instance.Resolve<MessageRouter>();
-            router.RemoveHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.RemoveHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
         }
 
         private void Callback_OnScoreChanged(MsgOnScoreChanged obj)
         {
-            if (obj.Score < scoreThreshold)
+            if (obj.Score < ScoreThreshold)
                 return;
 
             if (!shouldSpawn)
@@ -70,13 +68,13 @@ namespace Gmap
 
         private void FireWinMessage()
         {
-            ServiceFactory.Instance.Resolve<MessageRouter>().RaiseMessage(new MsgLevelWon());
+            MessageRouter.RaiseMessage(new MsgLevelWon());
         }
 
         private void DestroyAllEnemies()
         {
             GameObject.FindGameObjectsWithTag("Enemy").ToList().ForEach(e => {
-                Health h = e.GetComponent<Health>();
+                Health h = e.GetComponentInChildren<Health>();
                 while (h != null && h.CurrentHealth > 0)
                     h.TakeDamage(null, null);
             }); 
@@ -94,7 +92,7 @@ namespace Gmap
 
         public void Configure(LevelConfiguration configuration)
         {
-            scoreThreshold = configuration.Gameplay.ScoreThreshold;
+            ScoreThreshold = configuration.Gameplay.ScoreThreshold;
             EnemyPool = configuration.Gameplay.EnemyPool;
             BossPool = configuration.Gameplay.BossPool;
             StartCoroutine(WaitAndActivate());
@@ -109,7 +107,7 @@ namespace Gmap
 
         public void SpawnNext()
         {
-            if (!shouldSpawn || Enemies.Count == 0)
+            if (!shouldSpawn || EnemyPool.Length == 0)
                 return;
 
             SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));

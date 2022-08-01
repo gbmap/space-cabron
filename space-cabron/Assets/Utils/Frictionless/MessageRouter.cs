@@ -4,57 +4,50 @@ using System.Collections;
 
 namespace Frictionless
 {
-	public class MessageRouter
+	public static class MessageRouter
 	{
-		private Dictionary<Type,List<MessageHandler>> handlers = new Dictionary<Type, List<MessageHandler>>();
-		private List<Delegate> pendingRemovals = new List<Delegate>();
-		private bool isRaisingMessage;
+		private static readonly Dictionary<Type,List<MessageHandler>> Handlers = new Dictionary<Type, List<MessageHandler>>();
+		private static readonly List<Delegate> PendingRemovals = new List<Delegate>();
+		private static bool _isRaisingMessage;
 
-		public MessageRouter()
+		public static void AddHandler<T>(Action<T> handler)
 		{
-		}
-
-		public void AddHandler<T>(Action<T> handler)
-		{
-			List<MessageHandler> delegates = null;
-			if (!handlers.TryGetValue(typeof(T), out delegates))
+			if (!Handlers.TryGetValue(typeof(T), out var delegates))
 			{
 				delegates = new List<MessageHandler>();
-				handlers[typeof(T)] = delegates;
+				Handlers[typeof(T)] = delegates;
 			}
-			if (delegates.Find(x => x.Delegate == handler) == null)
+			if (delegates.Find(x => x.Delegate == (Delegate) handler) == null)
 				delegates.Add(new MessageHandler() { Target = handler.Target, Delegate = handler });
 		}
 
-		public void RemoveHandler<T>(Action<T> handler)
+		public static void RemoveHandler<T>(Action<T> handler)
 		{
-			List<MessageHandler> delegates = null;
-			if (handlers.TryGetValue(typeof(T), out delegates))
+			if (Handlers.TryGetValue(typeof(T), out var delegates))
 			{
-				MessageHandler existingHandler = delegates.Find(x => x.Delegate == handler);
+				MessageHandler existingHandler = delegates.Find(x => x.Delegate == (Delegate) handler);
 				if (existingHandler != null)
 				{
-					if (isRaisingMessage)
-						pendingRemovals.Add(handler);
+					if (_isRaisingMessage)
+						PendingRemovals.Add(handler);
 					else
 						delegates.Remove(existingHandler);
 				}
 			}
 		}
 
-		public void Reset()
+		public static void Reset()
 		{
-			handlers.Clear();
+			Handlers.Clear();
 		}
 
-		public void RaiseMessage(object msg)
+		public static void RaiseMessage(object msg)
 		{
 			try
 			{
-				List<MessageHandler> delegates = null;
-				if (handlers.TryGetValue(msg.GetType(), out delegates))
+				if (Handlers.TryGetValue(msg.GetType(), out var delegates))
 				{
-					isRaisingMessage = true;
+					_isRaisingMessage = true;
 					try
 					{
 						foreach (MessageHandler h in delegates)
@@ -68,15 +61,15 @@ namespace Frictionless
 					}
 					finally
 					{
-						isRaisingMessage = false;
+						_isRaisingMessage = false;
 					}
-					foreach (Delegate d in pendingRemovals)
+					foreach (Delegate d in PendingRemovals)
 					{
 						MessageHandler existingHandler = delegates.Find(x => x.Delegate == d);
 						if (existingHandler != null)
 							delegates.Remove(existingHandler);
 					}
-					pendingRemovals.Clear();
+					PendingRemovals.Clear();
 				}
 			}
 			catch(Exception ex)
