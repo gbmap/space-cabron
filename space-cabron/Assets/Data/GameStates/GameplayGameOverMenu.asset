@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb66e4023c49d7241b2e60f9c122a9fb, type: 3}
-  m_Name: RandomNumberOfNotes
+  m_Script: {fileID: 11500000, guid: 60cf720a33eca2e45b597f7923516429, type: 3}
+  m_Name: GameplayGameOverMenu
   m_EditorClassIdentifier: 
-  value: 4
-  Min: 4
-  Max: 7

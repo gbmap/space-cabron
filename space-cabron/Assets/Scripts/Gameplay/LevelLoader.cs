@@ -23,8 +23,11 @@ namespace Gmap.Gameplay
             UnloadOtherScenes();
             MessageRouter.RaiseMessage(new MsgLevelStartedLoading());
 
-            Debug.Log($"Configuring level {level.name}.");
-            RenderSettings.skybox = level.Background.Material;
+            if (level != null)
+            {
+                Debug.Log($"Configuring level {level.name}.");
+                RenderSettings.skybox = level.Background.Material;
+            }
 
             ConfigureLevelConfigurablesWithLevelConfiguration(level);
             PlayBeginLevelAnimationOnPlayers(() => MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{}));

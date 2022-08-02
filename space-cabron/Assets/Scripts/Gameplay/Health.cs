@@ -7,14 +7,14 @@ using UnityEngine.Events;
 
 namespace Gmap.Gameplay
 {
-    public class MsgOnEnemyHit 
+    public class MsgOnObjectHit 
     {
-        public string enemyName;
+        public string name;
         public Bullet bullet;
         public Collider2D collider;
-        public Health enemy;
+        public Health health;
     }
-    public class MessageOnEnemyDestroyed : MsgOnEnemyHit { }
+    public class MsgOnObjectDestroyed : MsgOnObjectHit { }
 
     public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     {
@@ -27,7 +27,7 @@ namespace Gmap.Gameplay
         
         ObjectPool.ObjectPoolBehavior _poolBehavior;
 
-        public System.Action<MessageOnEnemyDestroyed> OnDestroy;
+        public System.Action<MsgOnObjectDestroyed> OnDestroy;
         public UnityEvent<OnNoteArgs> OnDamage;
         public System.Action OnTakenDamage;
         public System.Action<bool> OnSetResistant;
@@ -62,19 +62,19 @@ namespace Gmap.Gameplay
 
                 if (_currentHealth == 0)
                 {
-                    FireDestroyEvent(new MessageOnEnemyDestroyed
+                    FireDestroyEvent(new MsgOnObjectDestroyed
                     {
-                        enemyName = gameObject.name,
-                        enemy = this,
+                        name = gameObject.name,
+                        health = this,
                         bullet = b,
                         collider = collider
                     });
                 }
             }
 
-                MessageRouter.RaiseMessage(new MsgOnEnemyHit()
+                MessageRouter.RaiseMessage(new MsgOnObjectHit()
                 {
-                    enemy = this,
+                    health = this,
                     bullet = b,
                     collider = collider
                 });
@@ -88,7 +88,7 @@ namespace Gmap.Gameplay
             _currentHealth = MaxHealth;
         }
 
-        void FireDestroyEvent(MessageOnEnemyDestroyed msg, bool global=true)
+        void FireDestroyEvent(MsgOnObjectDestroyed msg, bool global=true)
         {
             OnDestroy?.Invoke(msg);
             MessageRouter.RaiseMessage(msg);

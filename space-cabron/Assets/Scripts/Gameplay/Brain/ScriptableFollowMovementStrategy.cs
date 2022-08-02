@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
@@ -17,6 +15,9 @@ namespace SpaceCabron.Gameplay
                 if (player == null)
                 {
                     GameObject[] players = GameObject.FindGameObjectsWithTag(Tag);
+                    if (players.Length == 0)
+                        return null;
+
                     player = players[Random.Range(0, players.Length)];
                 }
                 return player;
@@ -24,6 +25,9 @@ namespace SpaceCabron.Gameplay
         }
         public override Vector2 GetDirection(MovementStrategyArgs args)
         {
+            if (Player == null)
+                return Vector2.down;
+
             Vector2 delta = Player.transform.position - args.Object.transform.position;
             return delta.normalized;
         }

@@ -36,7 +36,7 @@ public class SpawnOnDestroy : MonoBehaviour
         health.OnDestroy -= OnDestruction;
     }
 
-    private void OnDestruction(MessageOnEnemyDestroyed msg)
+    private void OnDestruction(MsgOnObjectDestroyed msg)
     {
         if (Random.value > Probability.Value)
             return;
