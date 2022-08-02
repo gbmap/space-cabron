@@ -8,29 +8,12 @@ namespace Gmap.Instruments
     [RequireComponent(typeof(TurntableBehaviour))]
     public class InjectTurntableMelodyNotationOnAwake : Injectable
     {
-        public Gmap.ScriptableReferences.StringReferencePool PossibleMelodies;
-        public ENote Root;
-        public bool RandomizeRoot;
-        public ScriptableScale Scale;
+        public ScriptableMelodyFactory MelodyFactory;
 
         void Start()
         {
-            if (RandomizeRoot)
-                Root = (ENote)Random.Range(0, 12);
-
             ITurntable behaviour = GetComponent<ITurntable>();
-            Melody m = new Melody(PossibleMelodies.GetNext().Value);
-            if (Scale)
-            {
-                Note n = m.GetNote(0);
-                n.Tone = Root;
-                for (int i = 1; i < m.Length; i++)
-                {
-                    n = m.GetNote(i);
-                    n.Tone = Scale.GetNote(Root, Random.Range(0, 100));
-                }
-            }
-
+            Melody m = MelodyFactory.Generate();
             behaviour.SetMelody(m);
             Destroy(this);
         }

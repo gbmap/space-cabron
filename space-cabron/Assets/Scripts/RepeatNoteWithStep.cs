@@ -29,7 +29,7 @@ namespace Gmap.CosmicMusicUtensil
                 {
                     Duration = args.Duration,
                     HoldTime = args.HoldTime,
-                    Note = Note.Transpose(args.Note, Steps)
+                    Note = Note.TransposeWrapped(args.Note, Steps)
                 };
 
                 Proxy.Play(args2);

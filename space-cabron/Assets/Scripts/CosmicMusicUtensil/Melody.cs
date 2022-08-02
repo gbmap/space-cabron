@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -36,6 +37,14 @@ namespace Gmap.CosmicMusicUtensil
         public Melody(Note[] notes)
         {
             Update(notes);
+        }
+
+        public Melody ApplyImprovisation(Improvisation improvisation)
+        {
+            List<Note> notes = new List<Note>();
+            for (int i = 0; i < NotesArray.Length; i++)
+                notes.AddRange(improvisation.Apply(this, 0, new Note[] {GetNote(i)}, i));
+            return new Melody(notes.ToArray());
         }
 
         private void Update(string melody)

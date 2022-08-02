@@ -32,7 +32,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public Note Modify(Note note)
         {
-            return Note.Transpose(note, Steps);
+            return Note.TransposeWrapped(note, Steps);
         }
     }
 

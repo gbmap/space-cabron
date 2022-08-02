@@ -18,7 +18,7 @@ namespace Gmap.CosmicMusicUtensil
         protected abstract Note[] ApplyImprovisation(Melody melody, int barIndex, Note[] notes, int noteIndex);
         protected abstract string Info();
 
-        public bool ShouldApply(Melody melody, int barIndex, Note[] note, int noteIndex)
+        private bool ShouldApply(Melody melody, int barIndex, Note[] note, int noteIndex)
         {
             return noteSelectionStrategy.ShouldSelect(melody, noteIndex)
                 && barSelectionStrategy.ShouldSelect(melody, barIndex);
