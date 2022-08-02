@@ -56,8 +56,7 @@ namespace Gmap
             if (special)
             {
                 Energy += _energyLoss * 1f/3f;
-                _isSpecial = true;
-                FireGun(n, special);
+                FireGun(n, true);
             }
             else 
             {
@@ -91,15 +90,11 @@ namespace Gmap
                 {
                     Energy += _energyLoss * 1f/3f;
                     FireGun(_lastNoteArgs, true);
-                    _isSpecial = true;
-                    waitingForPress = null;
                     yield break;
                 }
                 yield return null;
             }
-            _isSpecial = false;
             FireGun(_lastNoteArgs, false);
-            waitingForPress = null;
         }
 
         IEnumerator DisableGun(float time)
@@ -111,6 +106,7 @@ namespace Gmap
 
         private void FireGun(OnNoteArgs args, bool special)
         {
+            _isSpecial = special;
             ShotData lastData = gun.Fire(new FireRequest
             {
                 BulletScale = Mathf.Max(0.01f, args.Duration*5f),
@@ -123,6 +119,8 @@ namespace Gmap
                 if (bullet != null)
                     bullet.IsSpecial = special;
             }
+
+            waitingForPress = null;
         }
     }
 }
