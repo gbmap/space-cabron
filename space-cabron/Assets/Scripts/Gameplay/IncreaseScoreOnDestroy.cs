@@ -17,7 +17,7 @@ namespace Gmap.Gameplay
             health.OnDestroy += Callback_OnDestroy;
         }
 
-        private void Callback_OnDestroy(MessageOnEnemyDestroyed obj)
+        private void Callback_OnDestroy(MsgOnObjectDestroyed obj)
         {
             MessageRouter.RaiseMessage(
                 new SpaceCabron.Messages.MsgIncreaseScore(Value)

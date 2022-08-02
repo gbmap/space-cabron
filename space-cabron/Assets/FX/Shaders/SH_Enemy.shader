@@ -5,6 +5,8 @@
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
 		[PerRendererData] _Damage ("Damage Float", Range(0.0, 1.0)) = 0.0
 		[PerRendererData] _Spawn ("Spawn Float", Range(0.0, 1.0)) = 0.0
+        [PerRendererData] _IsResistant ("Is Resistant", Range(0.0, 1.0)) = 0.0
+        _ResistantHueOffset ("Resistant Hue Offset", Float) = 0.0
     }
     SubShader
     {
@@ -42,6 +44,8 @@
 
 			float _Damage;
 			float _Spawn;
+            float _IsResistant;
+            float _ResistantHueOffset;
 
             v2f vert (appdata v)
             {
@@ -51,13 +55,24 @@
                 return o;
             }
 
+            float damage_factor()
+            {
+                return _Damage;
+                // return saturate(_Time.x - _Damage);
+            }
+
             fixed4 frag (v2f i) : SV_Target
             {
 				i.uv += spawnfxuv(i.uv, _Spawn)*_Spawn;
                 fixed4 col = tex2D(_MainTex, i.uv);
-				col.rgb += fixed3(1.0, 1.0, 1.0) * _Damage;
+				col.rgb += fixed3(1.0, 1.0, 1.0) * damage_factor();
 				col.rgb += spawnfx(i.uv) * _Spawn;
 				col.rgb *= col.a;
+
+                float3 hsv = rgb_to_hsv_no_clip(col.rgb);
+                hsv.r += _IsResistant*3.14159268*_ResistantHueOffset;
+                col.rgb = hsv_to_rgb(hsv);
+
                 return col;
             }
             ENDCG

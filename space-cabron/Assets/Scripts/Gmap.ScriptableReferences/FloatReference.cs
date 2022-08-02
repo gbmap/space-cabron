@@ -7,7 +7,7 @@ namespace Gmap.ScriptableReferences
         [SerializeField]
         T value;
 
-        public T Value
+        public virtual T Value
         {
             get { return value; }
             set { this.value = value;}

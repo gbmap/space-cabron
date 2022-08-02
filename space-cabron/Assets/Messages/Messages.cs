@@ -39,4 +39,6 @@ namespace SpaceCabron.Messages
     {
         public GameObject Player;
     }
+
+    public class MsgGameOver {}
 }

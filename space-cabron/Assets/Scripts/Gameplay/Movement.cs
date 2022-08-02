@@ -22,7 +22,10 @@ namespace SpaceCabron.Gameplay
 
         void Update()
         {
-            InputState state = Brain.GetInputState();
+            InputState state = Brain.GetInputState(new InputStateArgs
+            {
+                Object = gameObject
+            });
             transform.position += new Vector3(
                 state.Movement.x, state.Movement.y, 0f
             )*Time.deltaTime*Speed;

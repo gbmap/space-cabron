@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db8dd06c6e7e6d41875d09c15ef3ec0, type: 3}
+  m_Name: AllScalesPool
+  m_EditorClassIdentifier: 
+  RandomType: 1
+  Items:
+  - Value: {fileID: 11400000, guid: 0502e3831a9214546900aad0a0735998, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 9e7f5963054f642418eed8be7f70ec7b, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: e93cc4e1a91db7a44a7abff69fc8b9a9, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: e0b0a5f13e0df584bbd016725fd95ceb, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 00daca66898e2bc499d523091b610b4a, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: fe47e9df7d17c0e42b800fc317a562dd, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 48dd1bf022e1cdc4aa69acd66982fb9b, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: b800f5359fb6b2c4485debd64e97d8de, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 07b40d432b133484a94789feea040557, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 0f4bc9d6c1409e547bee4981d81ea068, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: a3dc4c9f7b392624794147c619a08323, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 77493893c97a4294cb8938d3c47a0ed5, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: fe2ad6eeefa258b43801dd19e534534a, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 8069c1640262a3c49beb324a493e4136, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: b848a57962ada2f45a44ac9260541e8e, type: 2}
+    Weight: 1

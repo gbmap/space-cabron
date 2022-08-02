@@ -37,14 +37,14 @@ public class FX : Singleton<FX>
 
     private void OnEnable()
     {
-        MessageRouter.AddHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
-        MessageRouter.AddHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
+        MessageRouter.AddHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
+        MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
     }
 
     private void OnDisable()
     {
-        MessageRouter.RemoveHandler<MsgOnEnemyHit>(Callback_OnEnemyHit);
-        MessageRouter.RemoveHandler<MessageOnEnemyDestroyed>(Callback_OnEnemyDestroyed);
+        MessageRouter.RemoveHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
+        MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
     }
 
 
@@ -73,13 +73,13 @@ public class FX : Singleton<FX>
         }
     }
 
-    private void Callback_OnEnemyHit(MsgOnEnemyHit obj)
+    private void Callback_OnEnemyHit(MsgOnObjectHit obj)
     {
         SpawnExplosion(EExplosionSize.Medium, obj.bullet.transform.position);
     }
 
-    private void Callback_OnEnemyDestroyed(MessageOnEnemyDestroyed obj)
+    private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
     {
-        SpawnExplosionCluster(4, obj.enemy.transform.position);
+        SpawnExplosionCluster(4, obj.health.transform.position);
     }
 }

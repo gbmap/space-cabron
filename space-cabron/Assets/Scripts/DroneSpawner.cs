@@ -18,7 +18,7 @@ namespace SpaceCabron.Gameplay
 
         void OnDisable()
         {
-            MessageRouter.AddHandler<MsgSpawnDrone>(SpawnDrone);
+            MessageRouter.RemoveHandler<MsgSpawnDrone>(SpawnDrone);
         }
 
         private void SpawnDrone(MsgSpawnDrone msg)

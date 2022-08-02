@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7263032273387874466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6618076858268308302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95cb36cf7f236c24e86665d9ec032b7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Direction: {x: 0, y: -1}
-  Rotation: 0
-  Speed: 0.0075
-  Absolute: 0
 --- !u!1001 &7758742167164538810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40,6 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -51,16 +45,6 @@ PrefabInstance:
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
@@ -106,3 +90,29 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7758742167164538810}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &950238287709247969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6618076858268308302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
+--- !u!114 &8671508022358121702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6618076858268308302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0.3

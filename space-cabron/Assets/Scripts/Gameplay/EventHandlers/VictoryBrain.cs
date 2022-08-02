@@ -10,7 +10,7 @@ namespace SpaceCabron.Gameplay
 
         protected InputState input = new InputState();
         protected IBrain<InputState> initialBrain;
-        public InputState GetInputState()
+        public InputState GetInputState(InputStateArgs args)
         {
             return input;
         }

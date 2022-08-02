@@ -1,3 +1,4 @@
+using Gmap.ScriptableReferences;
 using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
@@ -14,13 +15,13 @@ namespace Gmap.CosmicMusicUtensil
     [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Melody Factory/Random")]
     public class ScriptableRandomMelodyFactory : ScriptableMelodyFactory
     {
-        public ENote Root;
-        public ScriptableScale Scale;
-        public int NumberOfNotes = 4;
+        public ScriptableNotePool Root;
+        public ScriptableScalePool Scale;
+        public RandomIntReference NumberOfNotes;
 
         public override Melody Generate()
         {
-            return new RandomMelodyFactory(Root, Scale, NumberOfNotes).Generate();
+            return new RandomMelodyFactory(Root.GetNext(), Scale.GetNext(), NumberOfNotes.Value).Generate();
         }
     }
 }

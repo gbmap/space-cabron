@@ -9,7 +9,7 @@ namespace SpaceCabron.Gameplay
     [CreateAssetMenu(menuName="Gmap/Brain/Input")]
     public class ScriptableInputBrain : ScriptableBrain<InputState>
     {
-        public override InputState GetInputState()
+        public override InputState GetInputState(InputStateArgs args)
         {
             return new InputState
             {

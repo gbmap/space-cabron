@@ -5,7 +5,7 @@ public class FollowMovement : MonoBehaviour
 {
     public float Speed;
 
-    Rigidbody2D rigidbody;
+    new Rigidbody2D rigidbody;
     GameObject player;
 
     // Start is called before the first frame update

@@ -42,13 +42,13 @@ namespace Gmap.Gun
             {
                 Vector3 shotPosition = GetBulletPosition(lastShot, shotRequest.Position);
                 Quaternion shotRotation = GetBulletRotation(lastShot);
-                GameObject instance = Instantiate(
+                GameObject instance = InstantiateBullet(
                     shotRequest.Bullet.Prefab, 
                     shotPosition + Vector3.left * 0.15f, 
                     shotRotation
                 );
 
-                GameObject instance2 = Instantiate(
+                GameObject instance2 = InstantiateBullet(
                     shotRequest.Bullet.Prefab, 
                     shotPosition + Vector3.right * 0.15f, 
                     shotRotation
@@ -69,7 +69,7 @@ namespace Gmap.Gun
                 Vector3 shotPosition = GetBulletPosition(lastShot, shotRequest.Position);
                 Quaternion shotRotation = GetBulletRotation(lastShot);
 
-                GameObject instance = Instantiate(
+                GameObject instance = InstantiateBullet(
                     shotRequest.Bullet.Prefab, 
                     shotPosition, 
                     shotRotation
@@ -82,6 +82,15 @@ namespace Gmap.Gun
                     Time = Time.time,
                 };
             }
+        }
+
+        private GameObject InstantiateBullet(
+            GameObject bullet, 
+            Vector3 position, 
+            Quaternion rotation
+        ) {
+            GameObject instance = Instantiate(bullet, position, rotation);
+            return instance;
         }
 
         public Vector3 GetBulletPosition(ShotData lastShot, Vector3 position)

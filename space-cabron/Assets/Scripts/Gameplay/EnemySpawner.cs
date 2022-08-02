@@ -92,9 +92,12 @@ namespace Gmap
 
         public void Configure(LevelConfiguration configuration)
         {
-            ScoreThreshold = configuration.Gameplay.ScoreThreshold;
-            EnemyPool = configuration.Gameplay.EnemyPool;
-            BossPool = configuration.Gameplay.BossPool;
+            if (configuration != null)
+            {
+                ScoreThreshold = configuration.Gameplay.ScoreThreshold;
+                EnemyPool = configuration.Gameplay.EnemyPool;
+                BossPool = configuration.Gameplay.BossPool;
+            }
             StartCoroutine(WaitAndActivate());
         }
 

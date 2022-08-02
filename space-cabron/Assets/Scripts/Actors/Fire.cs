@@ -56,8 +56,7 @@ namespace Gmap
             if (special)
             {
                 Energy += _energyLoss * 1f/3f;
-                _isSpecial = true;
-                FireGun(n, special);
+                FireGun(n, true);
             }
             else 
             {
@@ -68,7 +67,7 @@ namespace Gmap
 
         void Update()
         {
-            if (Brain.GetInputState().Shoot && waitingForPress == null)
+            if (Brain.GetInputState(new InputStateArgs{Object=gameObject}).Shoot && waitingForPress == null)
             {
                 Energy -= _energyLoss;
                 if (Energy <= 0)
@@ -87,19 +86,15 @@ namespace Gmap
             while (timeWaited < _waitTime)
             {
                 timeWaited += Time.deltaTime;
-                if (Brain.GetInputState().Shoot)
+                if (Brain.GetInputState(new InputStateArgs{Object=gameObject}).Shoot)
                 {
                     Energy += _energyLoss * 1f/3f;
                     FireGun(_lastNoteArgs, true);
-                    _isSpecial = true;
-                    waitingForPress = null;
                     yield break;
                 }
                 yield return null;
             }
-            _isSpecial = false;
             FireGun(_lastNoteArgs, false);
-            waitingForPress = null;
         }
 
         IEnumerator DisableGun(float time)
@@ -111,11 +106,21 @@ namespace Gmap
 
         private void FireGun(OnNoteArgs args, bool special)
         {
-            gun.Fire(new FireRequest
+            _isSpecial = special;
+            ShotData lastData = gun.Fire(new FireRequest
             {
                 BulletScale = Mathf.Max(0.01f, args.Duration*5f),
                 Special = special
             });
+
+            foreach (var instance in lastData.BulletInstances)
+            {
+                Bullet bullet = instance.GetComponent<Bullet>();
+                if (bullet != null)
+                    bullet.IsSpecial = special;
+            }
+
+            waitingForPress = null;
         }
     }
 }

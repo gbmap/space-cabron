@@ -7,74 +7,80 @@ using UnityEngine.Events;
 
 namespace Gmap.Gameplay
 {
-    public class MsgOnEnemyHit 
+    public class MsgOnObjectHit 
     {
-        public string enemyName;
+        public string name;
         public Bullet bullet;
         public Collider2D collider;
-        public Health enemy;
+        public Health health;
     }
-    public class MessageOnEnemyDestroyed : MsgOnEnemyHit { }
+    public class MsgOnObjectDestroyed : MsgOnObjectHit { }
 
     public class Health : MonoBehaviour, ObjectPool.IObjectPoolEventHandler
     {
         public int MaxHealth;
         public bool CanTakeDamage = true;
+        public bool IsResistant;
 
         int _currentHealth;
         public int CurrentHealth => _currentHealth;
         
-        /* VISUALS */
-        SpriteRenderer _spriteRenderer;
-        int _damageId = Shader.PropertyToID("_Damage");
-
         ObjectPool.ObjectPoolBehavior _poolBehavior;
 
-        public System.Action<MessageOnEnemyDestroyed> OnDestroy;
+        public System.Action<MsgOnObjectDestroyed> OnDestroy;
         public UnityEvent<OnNoteArgs> OnDamage;
+        public System.Action OnTakenDamage;
+        public System.Action<bool> OnSetResistant;
 
         void Awake()
         {
             _poolBehavior = GetComponent<ObjectPool.ObjectPoolBehavior>();
             _currentHealth = MaxHealth;
-
-            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        void Update()
+        void Start()
         {
-            float _damage = _spriteRenderer.material.GetFloat(_damageId);
-            _spriteRenderer.material.SetFloat(_damageId, Mathf.Lerp(_damage, 0f, Time.deltaTime*2f));
+            SetIsResistant(IsResistant);
+        }
+
+
+        public void SetIsResistant(bool v)
+        {
+            IsResistant = v;
+            OnSetResistant?.Invoke(v);
         }
 
         public void TakeDamage(Bullet b, Collider2D collider)
         {
             if (!CanTakeDamage)
                 return;
-                
-            _currentHealth--;
-            _spriteRenderer.material.SetFloat(_damageId, 1.0f);
 
-            if (_currentHealth == 0)
+            if (b.IsSpecial || !IsResistant)
             {
-                FireDestroyEvent(new MessageOnEnemyDestroyed
+                _currentHealth--;
+                OnTakenDamage?.Invoke();
+
+                if (_currentHealth == 0)
                 {
-                    enemyName = gameObject.name,
-                    enemy = this,
+                    FireDestroyEvent(new MsgOnObjectDestroyed
+                    {
+                        name = gameObject.name,
+                        health = this,
+                        bullet = b,
+                        collider = collider
+                    });
+                }
+            }
+
+                MessageRouter.RaiseMessage(new MsgOnObjectHit()
+                {
+                    health = this,
                     bullet = b,
                     collider = collider
                 });
-            }
 
-            MessageRouter.RaiseMessage(new MsgOnEnemyHit()
-            {
-                enemy = this,
-                bullet = b,
-                collider = collider
-            });
-
-            if (_currentHealth == 0)
-                this.DestroyOrDisable();
+                if (_currentHealth == 0)
+                    this.DestroyOrDisable();
         }
 
         void IObjectPoolEventHandler.PoolReset()
@@ -82,7 +88,7 @@ namespace Gmap.Gameplay
             _currentHealth = MaxHealth;
         }
 
-        void FireDestroyEvent(MessageOnEnemyDestroyed msg, bool global=true)
+        void FireDestroyEvent(MsgOnObjectDestroyed msg, bool global=true)
         {
             OnDestroy?.Invoke(msg);
             MessageRouter.RaiseMessage(msg);

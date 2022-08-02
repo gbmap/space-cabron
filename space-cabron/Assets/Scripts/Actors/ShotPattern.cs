@@ -1,8 +1,10 @@
-﻿using Managers;
+﻿using Gmap.Gameplay;
+using Managers;
+using SpaceCabron.Gameplay;
 using System.Collections;
 using UnityEngine;
 
-public abstract class ShotPattern : MonoBehaviour
+public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
 {
     public GameObject Bullet;
     public float Cooldown = 2f;
@@ -12,6 +14,18 @@ public abstract class ShotPattern : MonoBehaviour
 
     Animator _anim;
     int _animShotId;
+
+    public bool CanFire
+    {
+        get { return Time.time > _lastShot + Cooldown; }
+    }
+
+    private IBrain<InputState> Brain;
+    IBrain<InputState> IBrainHolder<InputState>.Brain 
+    { 
+        get => Brain; 
+        set => Brain = value; 
+    }
 
     public abstract IEnumerator ShootCoroutine();
 
@@ -29,10 +43,8 @@ public abstract class ShotPattern : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time > _lastShot + Cooldown)
-        {
+        if (CanFire && Brain.GetInputState(new InputStateArgs {Object=gameObject}).Shoot)
             StartCoroutine(ShootCoroutine());
-        }
     }
 
     public void Fire()

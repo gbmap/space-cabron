@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Gmap.Gameplay
 {
+
     public abstract class ScriptableBrain<InputStateType> : ScriptableObject, IBrain<InputStateType>
     {
-        public abstract InputStateType GetInputState();
+        public abstract InputStateType GetInputState(InputStateArgs args);
     }
 }
