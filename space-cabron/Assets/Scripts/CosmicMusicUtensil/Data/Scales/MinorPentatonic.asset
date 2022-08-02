@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MinorPentatonic
   m_EditorClassIdentifier: 
   Scale:
-    Intervals: 030000000100000002000000
+    Intervals: 0300000002000000020000000300000002000000

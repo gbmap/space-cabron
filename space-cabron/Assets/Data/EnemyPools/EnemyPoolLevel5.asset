@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fc7ad5d935a1c4409f2b3f85cf20301, type: 3}
-  m_Name: EnemyPoolLevel3
+  m_Name: EnemyPoolLevel5
   m_EditorClassIdentifier: 
   RandomType: 1
   Items:
@@ -26,3 +26,11 @@ MonoBehaviour:
     Weight: 2
   - Value: {fileID: 3920777516458841108, guid: 08ba2457e9012d54eba91d053daec8fb, type: 3}
     Weight: 2
+  - Value: {fileID: 1843118057403350418, guid: 9f59456d496d1c649a863074a81c202d, type: 3}
+    Weight: 2
+  - Value: {fileID: 5173000521679708941, guid: afbad62021d76bf4d95abda8f009f29d, type: 3}
+    Weight: 1
+  - Value: {fileID: 5173000521679708941, guid: afbad62021d76bf4d95abda8f009f29d, type: 3}
+    Weight: 1
+  - Value: {fileID: 4563109886909448828, guid: 45d13501ad1159c40a4ad067f5dce530, type: 3}
+    Weight: 1

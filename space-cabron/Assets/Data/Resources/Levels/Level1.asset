@@ -23,7 +23,7 @@ MonoBehaviour:
     PossibleStartingInstruments: {fileID: 11400000, guid: 170f0e9dd275bd545b599395341bcbe3,
       type: 2}
   PlayerMelody:
-    BPM: 50
+    BPM: 55
     MelodyFactory: {fileID: 11400000, guid: 0adc150719aea204a8d0ec26df771380, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}

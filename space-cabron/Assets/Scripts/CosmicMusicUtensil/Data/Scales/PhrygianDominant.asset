@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62ddce87ad3e9c446b475b287ad723d4, type: 3}
-  m_Name: Mixolydian
+  m_Name: PhrygianDominant
   m_EditorClassIdentifier: 
   Scale:
-    Intervals: 02000000020000000100000002000000020000000100000002000000
+    Intervals: 01000000030000000100000002000000010000000200000002000000

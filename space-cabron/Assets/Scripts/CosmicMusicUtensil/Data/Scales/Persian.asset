@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355f82bbc08aecc469654f8e827f1a5e, type: 3}
-  m_Name: RandomMelodyFactory
+  m_Script: {fileID: 11500000, guid: 62ddce87ad3e9c446b475b287ad723d4, type: 3}
+  m_Name: Persian
   m_EditorClassIdentifier: 
-  Root: 0
-  Scale: {fileID: 11400000, guid: 0502e3831a9214546900aad0a0735998, type: 2}
-  NumberOfNotes: 4
+  Scale:
+    Intervals: 01000000030000000100000001000000020000000300000001000000

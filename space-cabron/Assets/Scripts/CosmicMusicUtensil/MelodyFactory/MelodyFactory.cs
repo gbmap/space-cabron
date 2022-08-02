@@ -57,7 +57,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public Melody Generate()
         {
-            int[] intervals = new int[] { 2, 4, 8, 16 };
+            int[] intervals = new int[] { 3, 4, 8, 16 };
             Note[] noteArray = new Note[numberOfNotes];
             for (int i = 0; i< noteArray.Length; i++)
             {
