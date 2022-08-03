@@ -18,10 +18,19 @@ namespace Gmap.CosmicMusicUtensil
         public ScriptableNotePool Root;
         public ScriptableScalePool Scale;
         public RandomIntReference NumberOfNotes;
+        public RandomIntReference Octave;
+        public bool ConstantOctave;
 
         public override Melody Generate()
         {
-            return new RandomMelodyFactory(Root.GetNext(), Scale.GetNext(), NumberOfNotes.Value).Generate();
+            IntReference octaveRef = Octave;
+            if (ConstantOctave)
+            {
+                octaveRef = new IntReference();
+                octaveRef.Value = Octave.Value;
+            }
+
+            return new RandomMelodyFactory(Root.GetNext(), Scale.GetNext(), NumberOfNotes.Value, octaveRef).Generate();
         }
     }
 }

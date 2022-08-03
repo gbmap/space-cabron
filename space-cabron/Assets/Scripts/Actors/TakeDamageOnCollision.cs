@@ -16,6 +16,7 @@ namespace SpaceCabron.Gameplay
 
         void OnTriggerEnter2D(Collider2D other)
         {
+            health.TakeDamage(null, other);
 
         }
 

@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 6593371384106345696}
+  Sampler: {fileID: 0}
 --- !u!114 &1555594259488647050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +204,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bd27cbfa076e144b0a392f1e7c2e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPM: 20
+  melody:
+    notation: 
+  BPMReference:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 0
   Bar: {fileID: 11400000, guid: f8d786a67e4bcce43aadad60132cebc1, type: 2}
   UnityEvent:
     m_PersistentCalls:
@@ -220,3 +226,5 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  KeepNotePlaying: 0
+  NoteTime: 0.1

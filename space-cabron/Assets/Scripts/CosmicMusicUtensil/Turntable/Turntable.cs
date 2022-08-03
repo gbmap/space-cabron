@@ -109,7 +109,7 @@ namespace Gmap.CosmicMusicUtensil
             OnNote?.Invoke(new OnNoteArgs
             {
                 Note = note,
-                HoldTime = Mathf.Lerp(noteTime, noteTime*duration, Convert.ToSingle(HoldNote)),
+                HoldTime = Mathf.Max(0.1f, Mathf.Lerp(noteTime, noteTime*duration, HoldNote?1f:0f)),
                 Duration = duration
             });
             LastNote = note;
