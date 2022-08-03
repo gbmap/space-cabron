@@ -5,17 +5,16 @@ namespace Gmap.CosmicMusicUtensil
 {
     public interface SelectionStrategy
     {
-        bool ShouldSelect(Melody melody, int index);
+        bool ShouldSelect(Note[] notes, int index);
     }
 
     public class SelectAllStrategy : SelectionStrategy
     {
-        public bool ShouldSelect(Melody melody, int index)
+        public bool ShouldSelect(Note[] notes, int index)
         {
             return true;
         }
     }
-
 
     public class EveryNStrategy : SelectionStrategy
     {
@@ -25,7 +24,7 @@ namespace Gmap.CosmicMusicUtensil
             N = Mathf.Max(1, n);
         }
 
-        public bool ShouldSelect(Melody melody, int index)
+        public bool ShouldSelect(Note[] notes, int index)
         {
             return ((index+1) % N) == 0;
         }
@@ -47,7 +46,7 @@ namespace Gmap.CosmicMusicUtensil
             Max = max;
         }
 
-        public bool ShouldSelect(Melody melody, int index)
+        public bool ShouldSelect(Note[] notes, int index)
         {
             return index >= Min && index <= Max;
         }
@@ -66,9 +65,9 @@ namespace Gmap.CosmicMusicUtensil
             seed = Random.Range(0, 100);
         }
 
-        public bool ShouldSelect(Melody melody, int index)
+        public bool ShouldSelect(Note[] notes, int index)
         {
-            return ShouldSelect(melody.Length, index);
+            return ShouldSelect(notes.Length, index);
         }
 
         public bool ShouldSelect(int length, int index)
@@ -102,17 +101,17 @@ namespace Gmap.CosmicMusicUtensil
             Operation = operation;
         }
 
-        public bool ShouldSelect(Melody melody, int index)
+        public bool ShouldSelect(Note[] notes, int index)
         {
             switch (Operation)
             {
                 case EOperation.AND:
-                    return Strategies.TrueForAll(s => s.ShouldSelect(melody, index));
+                    return Strategies.TrueForAll(s => s.ShouldSelect(notes, index));
                 case EOperation.OR:
-                    return Strategies.Exists(s => s.ShouldSelect(melody, index));
+                    return Strategies.Exists(s => s.ShouldSelect(notes, index));
                 case EOperation.XOR:
-                    return Strategies.Exists(s => s.ShouldSelect(melody, index)) &&
-                        !Strategies.TrueForAll(s => s.ShouldSelect(melody, index));
+                    return Strategies.Exists(s => s.ShouldSelect(notes, index)) &&
+                        !Strategies.TrueForAll(s => s.ShouldSelect(notes, index));
                 default:
                     return false;
             }

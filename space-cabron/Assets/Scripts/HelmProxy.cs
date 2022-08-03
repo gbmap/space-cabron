@@ -13,7 +13,7 @@ namespace Gmap.CosmicMusicUtensil
         {
             var note = args.Note;
             if (Controller)
-                Controller.NoteOn(Note.ToMIDI(note.Tone, note.Octave), Random.value, args.HoldTime);
+                Controller.NoteOn(Note.ToMIDI(note.Tone, note.Octave), Random.Range(0.5f, 1f), args.HoldTime);
             else if (Sampler)
                 Sampler.NoteOn(Note.ToMIDI(note.Tone, note.Octave), Random.value);
         }

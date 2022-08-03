@@ -47,12 +47,14 @@ namespace Gmap.CosmicMusicUtensil
         ENote root;
         IScale scale;
         int numberOfNotes;
+        IntReference Octave;
 
-        public RandomMelodyFactory(ENote note, IScale scale, int numberOfNotes)
+        public RandomMelodyFactory(ENote note, IScale scale, int numberOfNotes, IntReference octave)
         {
             this.root = note;
             this.scale = scale;
             this.numberOfNotes = numberOfNotes;
+            this.Octave = octave;
         }
 
         public Melody Generate()
@@ -64,7 +66,7 @@ namespace Gmap.CosmicMusicUtensil
                 noteArray[i] = new Note(
                     scale.GetNote(root, Random.Range(0, scale.GetNumberOfNotes())), 
                     intervals[Random.Range(0, intervals.Length)], 
-                    Random.Range(2, 8)
+                    Octave.Value
                 );
             }
             return new Melody(noteArray);

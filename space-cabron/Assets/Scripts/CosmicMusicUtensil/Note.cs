@@ -115,6 +115,12 @@ namespace Gmap.CosmicMusicUtensil
             Tone = OffsetNote(Tone, interval);
         }
 
+        public void TransposeWrapped(int interval)
+        {
+            Transpose(interval);
+            Octave = Mathf.Max(2, Bar.MathMod(Octave, 8));
+        }
+
         public static Note Transpose(Note n, int interval)
         {
             Note n2 = new Note(n);
@@ -124,8 +130,8 @@ namespace Gmap.CosmicMusicUtensil
 
         public static Note TransposeWrapped(Note n, int interval)
         {
-            Note n2 = Transpose(n, interval);
-            n2.Octave = 1 + Bar.MathMod(n2.Octave, 8);
+            Note n2 = new Note(n);
+            n2.TransposeWrapped(interval);
             return n2;
         }
 

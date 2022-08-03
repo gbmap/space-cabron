@@ -20,6 +20,7 @@ namespace Gmap.CosmicMusicUtensil
         int [] Intervals;
         Note[] NotesArray;
 
+        public Note[] NoteArray { get { return NotesArray; } }
         public string Notation { get { return notation; } }
         public int Length { get { return Notes.Length; } }
         public bool IsEmpty { get { return Notes.Length == 0; } }
@@ -97,7 +98,7 @@ namespace Gmap.CosmicMusicUtensil
         public void Transpose(int interval)
         {
             for (int i = 0; i < Notes.Length; i++)
-                NotesArray[i].Transpose(interval);
+                NotesArray[i].TransposeWrapped(interval);
             Update(NotesArray);
         }
 

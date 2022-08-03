@@ -36,10 +36,10 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
-    public class BreakNoteModifier : NoteModifier
+    public class IncreaseIntervalNoteModifier : NoteModifier
     {
         public int TimesToBreak {get; private set; }
-        public BreakNoteModifier(int timesToBreak)
+        public IncreaseIntervalNoteModifier(int timesToBreak)
         {
             TimesToBreak = timesToBreak;
         }

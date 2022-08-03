@@ -116,7 +116,7 @@ namespace Gmap.CosmicMusicUtensil
             int index = Random.Range(0, melody.Length);
             Melody m2 = new Melody(melody);
             Note n = m2.GetNote(index);
-            n.Transpose(Steps);
+            n.TransposeWrapped(Steps);
             m2.SetNote(n, index);
             return m2;
         }

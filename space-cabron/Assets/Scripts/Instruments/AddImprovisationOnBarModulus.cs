@@ -30,6 +30,7 @@ namespace Gmap.Instruments
             if (turntable.BarIndex % BarModulus == 0)
             {
                 var improvisation = improvisationPool.GetNext().Get();
+                UnityEngine.Debug.Log("Adding\n" + improvisation.ToString());
                 turntable.SetMelody(
                     turntable.Melody.ApplyImprovisation(improvisation)
                 );

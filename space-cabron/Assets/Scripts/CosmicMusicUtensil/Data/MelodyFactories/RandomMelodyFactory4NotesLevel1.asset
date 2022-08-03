@@ -15,3 +15,5 @@ MonoBehaviour:
   Root: {fileID: 11400000, guid: f4689ed470f56e847ab94b729e3d0a32, type: 2}
   Scale: {fileID: 11400000, guid: c0d842fbb337f8c429dd0a42d9039fdf, type: 2}
   NumberOfNotes: {fileID: 11400000, guid: 0dac71eba151f1d4898b6655d035c738, type: 2}
+  Octave: {fileID: 11400000, guid: 2196f2cb2133e9145aa9aa9072f16a22, type: 2}
+  ConstantOctave: 1

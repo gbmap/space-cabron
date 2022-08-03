@@ -99,7 +99,7 @@ public class ImproviserTests
     {
         Melody m = new Melody(melody);
         return ImproviseOnMelody(
-            new BreakNoteImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), timesToDuplicate),
+            new BreakNoteImprovisation(new EveryNStrategy(everyNNote), new SelectAllStrategy(), timesToDuplicate),
             m
         ).Notation;
     }
