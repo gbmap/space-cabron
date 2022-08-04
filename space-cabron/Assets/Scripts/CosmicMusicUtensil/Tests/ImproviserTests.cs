@@ -117,4 +117,30 @@ public class ImproviserTests
             m
         ).Notation;
     }
+
+    [TestCase("", 1, 1, ExpectedResult=null)]
+    [TestCase("c4/4", 1, 1, ExpectedResult="c4/16;c#4/16;c4/8")]
+    [TestCase("c4/4", 1, 2, ExpectedResult="c4/16;d4/16;c4/8")]
+    [TestCase("c4/4", 1, -1, ExpectedResult="c4/16;b3/16;c4/8")]
+    [TestCase("c4/4", 1, -2, ExpectedResult="c4/16;a#3/16;c4/8")]
+    [TestCase("c4/4", 1, 5, ExpectedResult="c4/16;f4/16;c4/8")]
+    public string UpperMordent(string melody, int everyNNote, int steps)
+    {
+        return ImproviseOnMelody(
+            new MordentImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), steps),
+            new Melody(melody)
+        ).Notation;
+    }
+
+    [TestCase("c4/4", 1, 1, 1, ExpectedResult="c#4/8;c4/8")]
+    [TestCase("c4/4", 1, 1, 2, ExpectedResult="c#4/16;c4/16;c#4/16;c4/16")]
+    [TestCase("c4/4", 1, 1, 3, ExpectedResult="c#4/32;c4/32;c#4/32;c4/32;c#4/32;c4/32;c#4/32;c4/32")]
+    public string Tremolo(string melody, int everyNNote, int steps, int beams)
+    {
+        return ImproviseOnMelody(
+            new TremoloImprovisation(new EveryNStrategy(everyNNote), new EveryNStrategy(1), beams, steps),
+            new Melody(melody)
+        ).Notation;
+    }
+
 }

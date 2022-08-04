@@ -36,6 +36,22 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
+    public class CompositeNoteModifier : NoteModifier
+    {
+        NoteModifier[] Modifiers;
+        public CompositeNoteModifier(params NoteModifier[] modifiers)
+        {
+            Modifiers = modifiers;
+        }
+
+        public Note Modify(Note note)
+        {
+            foreach (NoteModifier m in Modifiers)
+                note = m.Modify(note);
+            return note;
+        }
+    }
+
     public class IncreaseIntervalNoteModifier : NoteModifier
     {
         public int TimesToBreak {get; private set; }

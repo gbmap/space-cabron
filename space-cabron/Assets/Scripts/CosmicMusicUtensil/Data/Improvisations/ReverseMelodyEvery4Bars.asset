@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ReverseMelodyEvery4Bars
   m_EditorClassIdentifier: 
   BarSelection: {fileID: 11400000, guid: 89f3c0d859d04554eb07a11a074cbf2e, type: 2}
-  NoteSelection: {fileID: 0}
+  NoteSelection: {fileID: 11400000, guid: 8fef05c1c5011e64cbfbc6d724662598, type: 2}

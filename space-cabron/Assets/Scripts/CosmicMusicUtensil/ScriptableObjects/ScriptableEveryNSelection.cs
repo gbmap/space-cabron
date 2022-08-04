@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.ScriptableReferences;
 using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
@@ -12,22 +13,11 @@ namespace Gmap.CosmicMusicUtensil
     [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Selection Strategies/Every N Selection")]
     public class ScriptableEveryNSelection : ScriptableSelectionStrategy
     {
-        public int N;
+        public IntReference N;
 
         public override SelectionStrategy Get()
         {
-            return new EveryNStrategy(N);
-        }
-    }
-
-    [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Selection Strategies/Range Selection")]
-    public class ScriptableRangeSelection : ScriptableSelectionStrategy
-    {
-        public Vector2Int MinMax;
-
-        public override SelectionStrategy Get()
-        {
-            return new RangeStrategy(MinMax.x, MinMax.y);
+            return new EveryNStrategy(N.Value);
         }
     }
 }

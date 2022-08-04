@@ -10,7 +10,8 @@ namespace Gmap.Instruments
     [RequireComponent(typeof(AudioHelm.HelmController))]
     public class InjectPatchOnAwake : Injectable
     {
-        public TextAsset Patch;
+        public TextAssetPool PatchPool;
+        public TextAsset SpecificPatch;
         AudioHelm.HelmController controller;
 
         IEnumerator Start()
@@ -19,7 +20,11 @@ namespace Gmap.Instruments
             var helmPatch = gameObject.GetComponent<AudioHelm.HelmPatch>();
             if (!helmPatch)
                 helmPatch = gameObject.AddComponent<AudioHelm.HelmPatch>();
-            helmPatch.LoadPatchDataFromText(Patch.text);
+
+            if (PatchPool)
+                SpecificPatch = PatchPool.GetNext();
+            
+            helmPatch.LoadPatchDataFromText(SpecificPatch.text);
 
             controller = GetComponent<AudioHelm.HelmController>();
             controller.LoadPatch(helmPatch);

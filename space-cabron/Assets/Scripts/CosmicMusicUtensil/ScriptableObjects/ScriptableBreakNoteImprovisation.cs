@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.ScriptableReferences;
 using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
@@ -7,10 +8,14 @@ namespace Gmap.CosmicMusicUtensil
     [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Improvisations/Break Note")]
     public class ScriptableBreakNoteImprovisation : ScriptableImprovisation
     {
-        public int TimesToDuplicate = 1;
+        public IntReference TimesToDuplicate;
         public override Improvisation Get()
         {
-            return new BreakNoteImprovisation(NoteSelection.Get(), BarSelection.Get(), TimesToDuplicate);
+            return new BreakNoteImprovisation(
+                NoteSelection.Get(), 
+                BarSelection.Get(), 
+                TimesToDuplicate.Value
+            );
         }
     }
 

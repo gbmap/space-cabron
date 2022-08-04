@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d035593b6df21549af041fc969291e1, type: 3}
+  m_Name: Mordent1NoteInBar
+  m_EditorClassIdentifier: 
+  BarSelection: {fileID: 11400000, guid: b5799f072e86869468c1e2960ce1a87c, type: 2}
+  NoteSelection: {fileID: 11400000, guid: 3372a7f9d71fd744d878e0878adccfc1, type: 2}
+  Steps: {fileID: 11400000, guid: b927426238efa524c845fa86e49c4149, type: 2}

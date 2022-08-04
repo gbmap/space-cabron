@@ -11,6 +11,14 @@ namespace Gmap
 {
     public class Fire : MonoBehaviour, IBrainHolder<InputState>
     {
+        private class TurntableResolver
+        {
+            public virtual TurntableBehaviour Get(GameObject go)
+            {
+                return go.GetComponentInChildren<TurntableBehaviour>();
+            }
+        }
+
         public Gmap.ScriptableReferences.FloatReference EnergyValue;
 
         public IBrain<InputState> Brain { get; set; }
@@ -42,8 +50,14 @@ namespace Gmap
         void Awake()
         {
             gun = GetComponentInChildren<GunBehaviour>();
-            turntable = GetComponentInChildren<TurntableBehaviour>();
+
+            turntable = GetTurntable(false, "");
             turntable.UnityEvent.AddListener(Callback_OnNote);
+        }
+
+        protected TurntableBehaviour GetTurntable(bool resolveWithTag, string tag)
+        {
+            return new TurntableResolver().Get(gameObject);
         }
 
         public void Callback_OnNote(OnNoteArgs n)
@@ -67,6 +81,9 @@ namespace Gmap
 
         void Update()
         {
+            if (Brain == null)
+                return;
+
             if (Brain.GetInputState(new InputStateArgs{Object=gameObject}).Shoot && waitingForPress == null)
             {
                 Energy -= _energyLoss;
@@ -82,6 +99,9 @@ namespace Gmap
         Coroutine waitingForPress;
         IEnumerator WaitForPress()
         {
+            if (Brain == null)
+                yield break;
+
             float timeWaited = 0f;
             while (timeWaited < _waitTime)
             {
