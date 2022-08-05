@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DisableOnOutOfScreen : MonoBehaviour
 {
+    public System.Action OnOutOfScreen;
+
     void Update()
     {
         /*Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -14,6 +16,7 @@ public class DisableOnOutOfScreen : MonoBehaviour
 
         if (transform.position.sqrMagnitude > 25f)
         {
+            OnOutOfScreen?.Invoke();
             this.DestroyOrDisable();
         }
     }
