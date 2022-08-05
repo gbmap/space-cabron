@@ -15,6 +15,8 @@ namespace SpaceCabron.Gameplay
         private IBrain<InputState> Brain;
         public float Speed = 1f;
 
+        public Vector3 LastPosition { get; private set; }
+
         IBrain<InputState> IBrainHolder<InputState>.Brain { 
             get => Brain; 
             set => Brain = value; 
@@ -24,8 +26,11 @@ namespace SpaceCabron.Gameplay
         {
             InputState state = Brain.GetInputState(new InputStateArgs
             {
-                Object = gameObject
+                Object = gameObject,
+                Caller = this
             });
+
+            LastPosition = transform.position;
             transform.position += new Vector3(
                 state.Movement.x, state.Movement.y, 0f
             )*Time.deltaTime*Speed;

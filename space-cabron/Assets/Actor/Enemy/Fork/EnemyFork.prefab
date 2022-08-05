@@ -117,6 +117,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3413538494467605002}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &11722141426089123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246139660384476926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5611dd9930b2d14f849e5a98c417db7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
+  Cooldown: 1
+  _angle: 180
 --- !u!114 &1395737277439808561
 MonoBehaviour:
   m_ObjectHideFlags: 0

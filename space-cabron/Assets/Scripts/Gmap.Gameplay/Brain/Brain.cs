@@ -12,6 +12,7 @@ namespace Gmap.Gameplay
     public class InputStateArgs
     {
         public GameObject Object;
+        public MonoBehaviour Caller;
     }
 
     public interface IBrain<InputStateType>

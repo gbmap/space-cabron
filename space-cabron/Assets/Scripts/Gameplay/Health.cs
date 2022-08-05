@@ -40,6 +40,8 @@ namespace Gmap.Gameplay
             DisableOnOutOfScreen d = GetComponent<DisableOnOutOfScreen>();
             if (d != null)
                 d.OnOutOfScreen += Callback_OnOutOfScreen;
+
+            SetIsResistant(IsResistant);
         }
 
         void Callback_OnOutOfScreen()

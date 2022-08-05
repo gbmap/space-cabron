@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e071104f12d0448b06630875ab24fa, type: 3}
   m_Name: LoopSidewaysMovementStrategy
   m_EditorClassIdentifier: 
+  SteerSpeed: 1

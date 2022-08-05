@@ -28,7 +28,7 @@ public class EnemyMaterialController : MonoBehaviour
 
     Health health;
 
-    private float _lastIsResistent = 0f;
+    private float _lastIsResistent = -999f;
     public bool IsResistant = false;
 
     int _damageId = Shader.PropertyToID("_Damage");
