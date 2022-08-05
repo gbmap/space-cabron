@@ -37,6 +37,13 @@ namespace SpaceCabron.Messages
 
     public class MsgSpawnDrone 
     {
+        public enum EDroneType
+        {
+            Random,
+            Melody,
+            EveryN
+        }
+        public EDroneType DroneType;
         public GameObject Player;
     }
 

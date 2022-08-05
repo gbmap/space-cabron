@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 2
   CanTakeDamage: 1
+  IsResistant: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls:
@@ -205,6 +206,7 @@ MonoBehaviour:
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  IsResistant: 0
 --- !u!114 &4202326656841634815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +241,10 @@ MonoBehaviour:
   - obj: {fileID: 3927431444332515879, guid: e7d238c8c1b745245b6ddd681e260469, type: 3}
     Weight: 1
   - obj: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
+    Weight: 1
+  - obj: {fileID: 5710985424178225992, guid: 0ed021b659f2cfc4a8636be283272c63, type: 3}
+    Weight: 1
+  - obj: {fileID: 5616107406842346364, guid: 563a412d49414804b95316c24559d80b, type: 3}
     Weight: 1
 --- !u!114 &437546467635798816
 MonoBehaviour:

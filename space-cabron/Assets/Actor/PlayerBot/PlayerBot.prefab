@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 10
   CanTakeDamage: 1
+  IsResistant: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -210,5 +211,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Steps: 3
   Probability: 0.1
+  SelectionStrategy: {fileID: 11400000, guid: 3372a7f9d71fd744d878e0878adccfc1, type: 2}
   Turntable: {fileID: 0}
   Proxy: {fileID: 0}

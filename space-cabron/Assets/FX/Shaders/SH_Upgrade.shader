@@ -3,6 +3,7 @@
     Properties
     {
 		[PerRendererData] _MainTex("Texture", 2D) = "white" {}
+        // [PerRendererData] _Color("Color", Color) = (1.0, 0.0, 0.0, 0.0)
 		[PerRendererData] _Spawn("Spawn Float", Range(0.0, 1.0)) = 0.0
 		[PerRendererData] _Upgrade("Upgrade Float", Float) = 0.0
 
@@ -32,12 +33,14 @@
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float4 color : COLOR;
             };
 
             struct v2f
             {
-                float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
+                float4 vertex_color : TEXCOORD1;
             };
 
             sampler2D _MainTex;
@@ -49,11 +52,14 @@
 			float4 _NegativeColor;
 			float4 _PositiveColor;
 
+            float4 _Color;
+
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.vertex_color = v.color;
                 return o;
             }
 
@@ -73,6 +79,7 @@
 
 				col.rgb += spawnfx(i.uv) * _Spawn;
 				col.rgb *= col.a;
+                col.rgb *= i.vertex_color.rgb;
 				//col.rgb = fixed3(_Upgrade, _Upgrade, _Upgrade);
                 return col;
             }

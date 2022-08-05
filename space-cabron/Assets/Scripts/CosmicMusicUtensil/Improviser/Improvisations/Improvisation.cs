@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -181,21 +182,76 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
-    public class UpperMordentImprovisation : DuplicateNoteImprovisation
+    public class MordentImprovisation : Improvisation
     {
-        public UpperMordentImprovisation(
+        int Steps;
+        public MordentImprovisation(
             SelectionStrategy noteSelectionStrategy, 
-            SelectionStrategy barSelectionStrategy
+            SelectionStrategy barSelectionStrategy,
+            int steps=1
         ) : base(
             noteSelectionStrategy, 
-            barSelectionStrategy, 
-            2, 
-            new TransposeNoteModifier(1),
-            new EveryNStrategy(2)) {}
+            barSelectionStrategy
+        ) {
+            Steps = steps;
+        }
+
+        protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note note, int noteIndex)
+        {
+            Note n1 = new Note(note);
+            n1.Interval *= 4;
+
+            Note n2 = new Note(n1);
+            n2.TransposeWrapped(Steps);
+
+            Note n3 = new Note(note);
+            n3.Interval *= 2;
+
+            return new Note[] { n1, n2, n3 };
+        }
 
         protected override string Info()
         {
-            return "Upper mordent.";
+            return $"Upper mordent {Steps} steps.";
+        }
+    }
+
+    public class TremoloImprovisation : Improvisation
+    {
+        int Steps; 
+        int Beams;
+
+        public TremoloImprovisation(
+            SelectionStrategy noteSelectionStrategy, 
+            SelectionStrategy barSelectionStrategy,
+            int beams,
+            int steps=1
+
+        ) : base(noteSelectionStrategy, barSelectionStrategy) {
+            Steps = steps;
+            Beams = beams;
+        }
+
+        protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note note, int noteIndex)
+        {
+            int numberOfNotes = (int)Mathf.Pow(2, Beams);
+            int newInterval = note.Interval * numberOfNotes;
+            Note n = new Note(note);
+            n.Interval = newInterval;
+            Note[] notes = new Note[numberOfNotes];
+            for (int i = 0; i < numberOfNotes; i++)
+            {
+                notes[i] = new Note(n);
+                if (i % 2 != 0)
+                    continue;
+                notes[i].TransposeWrapped(Steps);
+            }
+            return notes;
+        }
+
+        protected override string Info()
+        {
+            return "Tremolo.";
         }
     }
 }

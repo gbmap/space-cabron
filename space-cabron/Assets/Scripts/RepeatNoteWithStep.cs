@@ -6,6 +6,7 @@ namespace Gmap.CosmicMusicUtensil
     {
         public int Steps = 3;
         public float Probability = 0.1f;
+        public ScriptableSelectionStrategy SelectionStrategy;
         public TurntableBehaviour Turntable;
         public HelmProxy Proxy;
 
@@ -23,7 +24,7 @@ namespace Gmap.CosmicMusicUtensil
 
         void OnNote(OnNoteArgs args)
         {
-            if (Random.value < Probability)
+            if (this.SelectionStrategy.Get().ShouldSelect(Turntable.Melody.NoteArray, Turntable.NoteIndex))
             {
                 OnNoteArgs args2 = new OnNoteArgs
                 {
