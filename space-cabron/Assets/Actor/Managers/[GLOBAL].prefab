@@ -243,6 +243,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8532393574664662555}
     m_Modifications:
+    - target: {fileID: 1564543275343521283, guid: 0206c6dc7c6160049bf5715a61af632d,
+        type: 3}
+      propertyPath: ScoreModulus
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1564543275343521283, guid: 0206c6dc7c6160049bf5715a61af632d,
+        type: 3}
+      propertyPath: IncreaseValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1564543275988480962, guid: 0206c6dc7c6160049bf5715a61af632d,
         type: 3}
       propertyPath: m_Name

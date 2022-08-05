@@ -12,11 +12,18 @@ namespace SpaceCabron.Gameplay
     {
         public override InputState GetInputState(InputStateArgs args)
         {
+            Vector3 lastPosition = Vector3.zero;
+            if (args.Caller is Movement)
+            {
+                lastPosition = ((Movement)args.Caller).LastPosition;
+            }
+
             return new InputState
             {
                 Movement = MovementStrategy.GetDirection(new MovementStrategyArgs
                 {
-                    Object = args.Object
+                    Object = args.Object,
+                    LastPosition = lastPosition
                 }),
                 Shoot = FiringStrategy.GetFire()
             };

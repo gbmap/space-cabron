@@ -36,6 +36,23 @@ namespace Gmap.Gameplay
         {
             _poolBehavior = GetComponent<ObjectPool.ObjectPoolBehavior>();
             _currentHealth = MaxHealth;
+
+            DisableOnOutOfScreen d = GetComponent<DisableOnOutOfScreen>();
+            if (d != null)
+                d.OnOutOfScreen += Callback_OnOutOfScreen;
+
+            SetIsResistant(IsResistant);
+        }
+
+        void Callback_OnOutOfScreen()
+        {
+            FireDestroyEvent(new MsgOnObjectDestroyed
+            {
+                bullet = null,
+                collider = null,
+                health = this,
+                name = gameObject.name
+            });
         }
 
         void Start()

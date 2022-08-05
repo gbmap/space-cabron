@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa3d6cd2158a36f47856768094786eb0, type: 3}
-  m_Name: InputFiringProtocol
+  m_Script: {fileID: 11500000, guid: 123355013c25e2d4b86da9235aa50e03, type: 3}
+  m_Name: LoopSidewaysAndFireStrategy
   m_EditorClassIdentifier: 
+  MovementStrategy: {fileID: 11400000, guid: 7da7a3bee4ed9554897b7bfda94cfb2c, type: 2}
+  FiringStrategy: {fileID: 11400000, guid: f543202886d9d3545a007759650881c2, type: 2}

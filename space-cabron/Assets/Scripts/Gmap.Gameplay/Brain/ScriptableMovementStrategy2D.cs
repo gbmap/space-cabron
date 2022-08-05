@@ -7,6 +7,7 @@ namespace Gmap.ScriptableReferences
     public class MovementStrategyArgs
     {
         public GameObject Object;
+        public Vector3 LastPosition;
     }
 
     public abstract class ScriptableMovementStrategy<T> : ScriptableObject
