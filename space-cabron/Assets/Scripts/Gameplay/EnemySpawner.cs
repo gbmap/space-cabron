@@ -17,6 +17,7 @@ namespace Gmap
         public int ScoreThreshold = int.MaxValue;
 
         private bool waitingToSpawnBoss = false;
+        private bool hasFiredWinMessage = false;
         private int spawnedEnemyCount = 0;
 
         void OnEnable()
@@ -48,6 +49,8 @@ namespace Gmap
             UnsubscribeFromScoreChanged();
             SetShouldSpawn(false);
             waitingToSpawnBoss = true;
+
+            CheckIfShouldSpawnBoss();
             // DestroyAllEnemies();
             // GameObject boss = SpawnBossIfAny();
             // if (boss == null)
@@ -55,6 +58,26 @@ namespace Gmap
             // else
             //     StartCoroutine(PlayBossIntroAnimation(boss));
 
+        }
+
+        private void CheckIfShouldSpawnBoss()
+        {
+            if (shouldSpawn)
+                return;
+
+            // fuck this shit
+            // > 1 because enemy hasn't actually been destroyed yet
+            if (spawnedEnemyCount > 0)
+                return;
+
+            if (hasFiredWinMessage)
+                return;
+
+            GameObject boss = SpawnBossIfAny();
+            if (boss == null)
+                FireWinMessage();
+            else
+                StartCoroutine(PlayBossIntroAnimation(boss));
         }
 
         private GameObject SpawnBossIfAny()
@@ -72,7 +95,10 @@ namespace Gmap
 
         private void FireWinMessage()
         {
+      
+
             MessageRouter.RaiseMessage(new MsgLevelWon());
+            hasFiredWinMessage = true;
         }
 
         private void DestroyAllEnemies()
@@ -128,14 +154,9 @@ namespace Gmap
 
             spawnedEnemyCount--;
 
-            if (spawnedEnemyCount > 0 || !waitingToSpawnBoss)
-                return;        
-
-            GameObject boss = SpawnBossIfAny();
-            if (boss == null)
-                FireWinMessage();
-            else
-                StartCoroutine(PlayBossIntroAnimation(boss));
+            // if (spawnedEnemyCount > 0 || !waitingToSpawnBoss)
+            //     return;        
+            CheckIfShouldSpawnBoss();
         }
 
         public GameObject SpawnNext(GameObjectPool pool, float t)

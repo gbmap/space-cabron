@@ -1,0 +1,441 @@
+fileFormatVersion: 2
+guid: fb7a3076a2d9cad49b0dd88f5673de56
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 122, z: 190, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9279eaac0831d7b4b9e8a25911dd633b
+      internalID: -731085933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 234c1916e73b81f478262579ef88b000
+      internalID: 1059735289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 683b8ef3c01ca5f4b89a481d6fa53396
+      internalID: 1960569195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e231fe97810aa843937b426b2828789
+      internalID: 1529958819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b4c2faad05763f47bfdca0c9cb50e83
+      internalID: 2127685224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a87bf25f241db748b955f9fd7c4f7fd
+      internalID: -1278566451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05c154de5e2d9dc43987c489473c2c3a
+      internalID: 2145643406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8328c72057dde84e8ae02e71ff18392
+      internalID: 1484510292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8530017535946284f82cfdbd4aa72fb6
+      internalID: 340017412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69dde8f1061af4945b1df49b2026a962
+      internalID: 1217829557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_fork-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4b4e00f45820cc478951c1d520fee59
+      internalID: -297204519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -76, y: -53}
+      - {x: -79, y: -54}
+      - {x: -96, y: -53}
+      - {x: -117, y: -53}
+      - {x: -122, y: -57}
+      - {x: -122, y: -87}
+      - {x: -107, y: -96}
+      - {x: -84, y: -96}
+      - {x: -70, y: -90}
+      - {x: -70, y: -60}
+      - {x: -71, y: -53}
+    - - {x: -58, y: -53}
+      - {x: -58, y: -91}
+      - {x: -43, y: -96}
+      - {x: -13, y: -96}
+      - {x: -6, y: -92}
+      - {x: -6, y: -59}
+      - {x: -9, y: -53}
+    - - {x: 6, y: -53}
+      - {x: 6, y: -87}
+      - {x: 21, y: -96}
+      - {x: 45, y: -96}
+      - {x: 58, y: -88}
+      - {x: 58, y: -53}
+    - - {x: -122, y: 11}
+      - {x: -122, y: -29}
+      - {x: -114, y: -32}
+      - {x: -75, y: -32}
+      - {x: -70, y: -28}
+      - {x: -70, y: 11}
+    - - {x: -58, y: 11}
+      - {x: -58, y: -29}
+      - {x: -55, y: -32}
+      - {x: -6, y: -32}
+      - {x: -6, y: 5}
+      - {x: -9, y: 11}
+    - - {x: 6, y: 11}
+      - {x: 6, y: -30}
+      - {x: 10, y: -32}
+      - {x: 56, y: -32}
+      - {x: 58, y: -28}
+      - {x: 58, y: 11}
+    - - {x: 69, y: 11}
+      - {x: 69, y: -29}
+      - {x: 85, y: -32}
+      - {x: 114, y: -32}
+      - {x: 122, y: -26}
+      - {x: 122, y: 11}
+    - - {x: -121, y: 75}
+      - {x: -122, y: 70}
+      - {x: -122, y: 35}
+      - {x: -107, y: 32}
+      - {x: -77, y: 32}
+      - {x: -70, y: 39}
+      - {x: -70, y: 69}
+      - {x: -74, y: 75}
+    - - {x: -49, y: 75}
+      - {x: -54, y: 67}
+      - {x: -54, y: 40}
+      - {x: -45, y: 32}
+      - {x: -16, y: 32}
+      - {x: -2, y: 38}
+      - {x: -2, y: 71}
+      - {x: -3, y: 75}
+    - - {x: 2, y: 75}
+      - {x: 2, y: 34}
+      - {x: 10, y: 32}
+      - {x: 50, y: 32}
+      - {x: 54, y: 38}
+      - {x: 54, y: 75}
+    - - {x: 70, y: 75}
+      - {x: 70, y: 33}
+      - {x: 74, y: 32}
+      - {x: 121, y: 32}
+      - {x: 122, y: 33}
+      - {x: 122, y: 70}
+      - {x: 121, y: 75}
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      enemy_fork-Sheet_6: 2145643406
+      enemy_fork-Sheet_0: -731085933
+      enemy_fork-Sheet_3: 1529958819
+      enemy_fork-Sheet_2: 1960569195
+      enemy_fork-Sheet_9: 1217829557
+      enemy_fork-Sheet_5: -1278566451
+      enemy_fork-Sheet_7: 1484510292
+      enemy_fork-Sheet_8: 340017412
+      enemy_fork-Sheet_4: 2127685224
+      enemy_fork-Sheet_10: -297204519
+      enemy_fork-Sheet_1: 1059735289
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

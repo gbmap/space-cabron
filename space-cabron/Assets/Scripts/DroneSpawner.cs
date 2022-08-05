@@ -63,21 +63,24 @@ namespace SpaceCabron.Gameplay
             offset.Target = msg.Player.transform;
 
             RepeatNoteWithStep step = instance.GetComponent<RepeatNoteWithStep>();
-            step.Turntable = msg.Player.GetComponentInChildren<TurntableBehaviour>();
-            step.Proxy = msg.Player.GetComponentInChildren<HelmProxy>();
-
-            int steps = new int[] { 3, 5, 7, 15, 17, 19 }[UnityEngine.Random.Range(0, 6)];
-            step.Steps = steps;
-
-            GunBehaviour gun = instance.GetComponent<GunBehaviour>();
-            step.OnNoteRepeated += (args) =>
+            if (step != null)
             {
-                gun.Fire(new FireRequest
+                step.Turntable = msg.Player.GetComponentInChildren<TurntableBehaviour>();
+                step.Proxy = msg.Player.GetComponentInChildren<HelmProxy>();
+
+                int steps = new int[] { 3, 5, 7, 15, 17, 19 }[UnityEngine.Random.Range(0, 6)];
+                step.Steps = steps;
+
+                GunBehaviour gun = instance.GetComponent<GunBehaviour>();
+                step.OnNoteRepeated += (args) =>
                 {
-                    BulletScale = 1f,
-                    Special = false
-                });
-            };
+                    gun.Fire(new FireRequest
+                    {
+                        BulletScale = 1f,
+                        Special = false
+                    });
+                };
+            }
         }
 
     }

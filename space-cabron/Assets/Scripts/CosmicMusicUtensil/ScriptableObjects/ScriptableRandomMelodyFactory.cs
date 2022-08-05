@@ -26,7 +26,7 @@ namespace Gmap.CosmicMusicUtensil
             IntReference octaveRef = Octave;
             if (ConstantOctave)
             {
-                octaveRef = new IntReference();
+                octaveRef = ScriptableObject.CreateInstance<IntReference>();
                 octaveRef.Value = Octave.Value;
             }
 
