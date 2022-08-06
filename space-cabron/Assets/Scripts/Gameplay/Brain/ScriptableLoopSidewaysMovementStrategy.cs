@@ -29,6 +29,9 @@ namespace SpaceCabron.Gameplay
 
         private Vector2 GetDesiredPosition(Vector2 pos, Vector2 vel)
         {
+            if (Camera.main == null)
+                return Vector2.zero; 
+
             Vector2 a = Camera.main.ViewportToWorldPoint(new Vector3(0.15f, 0.85f, 0));
             Vector2 b = Camera.main.ViewportToWorldPoint(new Vector3(0.85f, 0.85f, 0));
             if (vel.x < 0f)

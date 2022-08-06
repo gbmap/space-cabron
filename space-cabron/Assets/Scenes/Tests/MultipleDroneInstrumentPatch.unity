@@ -123,6 +123,103 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!83 &136522011
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
+--- !u!1001 &189111327
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5710985424178225992, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnDroneMelody (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ed021b659f2cfc4a8636be283272c63, type: 3}
 --- !u!1 &219821949
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,26 +282,7 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!1 &339790611 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1372248899140507213, guid: 8fc96b863f2caab45b82b39ca22aaf65,
-    type: 3}
-  m_PrefabInstance: {fileID: 8532393575039313927}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &339790612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339790611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa931519b576e2e41a182173c4cb24b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MelodyFactory: {fileID: 11400000, guid: 18fc533f27c74924f936f6ae7375bff1, type: 2}
---- !u!83 &363988821
+--- !u!83 &255458735
 AudioClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,6 +310,25 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
+--- !u!1 &339790611 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1372248899140507213, guid: 8fc96b863f2caab45b82b39ca22aaf65,
+    type: 3}
+  m_PrefabInstance: {fileID: 8532393575039313927}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &339790612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339790611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa931519b576e2e41a182173c4cb24b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MelodyFactory: {fileID: 11400000, guid: 18fc533f27c74924f936f6ae7375bff1, type: 2}
 --- !u!1 &416051615 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1372248897489780347, guid: 8fc96b863f2caab45b82b39ca22aaf65,
@@ -266,34 +363,6 @@ MonoBehaviour:
   ScoreModulus: 50
   Geometric: 0
   improvisationPool: {fileID: 11400000, guid: 31919b3c1c27d3e4f90fc01036372dae, type: 2}
---- !u!83 &459984308
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &507586435
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,34 +611,6 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!83 &1235362869
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &1313230799
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,6 +670,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoseState: {fileID: 11400000, guid: 1f88192befb9ca3409dddcef837985be, type: 2}
   GameOverMenuState: {fileID: 11400000, guid: dddb0a584a107114c8eea68fbac83e07, type: 2}
+--- !u!1001 &1335431323
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5710985424178225992, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnDroneMelody
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ed021b659f2cfc4a8636be283272c63, type: 3}
 --- !u!83 &1480285011
 AudioClip:
   m_ObjectHideFlags: 0
@@ -657,7 +767,7 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!83 &1492680506
+--- !u!83 &1494324860
 AudioClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -713,6 +823,103 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
+--- !u!83 &1565850645
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
+--- !u!1001 &1630674221
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5710985424178225992, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnDroneMelody (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189231908618789969, guid: 0ed021b659f2cfc4a8636be283272c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ed021b659f2cfc4a8636be283272c63, type: 3}
 --- !u!1 &1787347805
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +974,7 @@ MonoBehaviour:
   - {fileID: 7087365600115692058, guid: bf98b516a6d07684bb68843957984ecb, type: 2}
   - {fileID: -2401537243658022274, guid: bf98b516a6d07684bb68843957984ecb, type: 2}
   - {fileID: -9102619877961622824, guid: bf98b516a6d07684bb68843957984ecb, type: 2}
---- !u!83 &1862683241
+--- !u!83 &2097904785
 AudioClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -795,7 +1002,7 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!83 &2097904785
+--- !u!83 &2123586597
 AudioClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

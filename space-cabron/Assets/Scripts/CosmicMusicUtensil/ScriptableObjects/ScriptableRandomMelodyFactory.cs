@@ -6,9 +6,9 @@ namespace Gmap.CosmicMusicUtensil
     public class ScriptableFixedMelodyFactory : ScriptableMelodyFactory
     {
         public string Notation;
-        public override Melody Generate()
+        public override Melody GenerateMelody()
         {
-            return new FixedMelodyFactory(Notation).Generate();
+            return new FixedMelodyFactory(Notation).GenerateMelody();
         }
     }
 
@@ -21,7 +21,7 @@ namespace Gmap.CosmicMusicUtensil
         public RandomIntReference Octave;
         public bool ConstantOctave;
 
-        public override Melody Generate()
+        public override Melody GenerateMelody()
         {
             IntReference octaveRef = Octave;
             if (ConstantOctave)
@@ -30,7 +30,7 @@ namespace Gmap.CosmicMusicUtensil
                 octaveRef.Value = Octave.Value;
             }
 
-            return new RandomMelodyFactory(Root.GetNext(), Scale.GetNext(), NumberOfNotes.Value, octaveRef).Generate();
+            return new RandomMelodyFactory(Root.GetNext(), Scale.GetNext(), NumberOfNotes.Value, octaveRef).GenerateMelody();
         }
     }
 }

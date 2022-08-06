@@ -6,6 +6,6 @@ namespace Gmap.CosmicMusicUtensil
 {
     public abstract class ScriptableMelodyFactory : ScriptableObject, MelodyFactory
     {
-        public abstract Melody Generate();
+        public abstract Melody GenerateMelody();
     }
 }

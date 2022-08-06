@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace SpaceCabron.Gameplay
 {
-    public class DroneSpawner : MonoBehaviour
+    public class DroneSpawner : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
         public GameObject DronePrefab;
         public GameObject DroneMelodyPrefab;
@@ -17,6 +17,7 @@ namespace SpaceCabron.Gameplay
 
         public UnityEngine.Audio.AudioMixerGroup[] Groups;
 
+        private InstrumentConfiguration DroneInstrument;
         private bool hasInjectedPatch = false;
         private bool[] hasInjectedPatchArray = new bool[MIXER_GROUP_DRONE_COUNT];
         private const int MIXER_GROUP_DRONE_INDEX = 5;
@@ -91,7 +92,7 @@ namespace SpaceCabron.Gameplay
                 HelmController controller = turntable.GetComponent<HelmController>();
                 controller.channel = MIXER_GROUP_DRONE_INDEX + droneAudioMixerIndex;
 
-                AudioSource audioSource = turntable.GetComponent<AudioSource>();
+                AudioSource audioSource = turntable.GetComponentInChildren<AudioSource>();
                 audioSource.outputAudioMixerGroup = Groups[droneAudioMixerIndex];
 
                 if (hasInjectedPatchArray[droneAudioMixerIndex])
@@ -104,8 +105,20 @@ namespace SpaceCabron.Gameplay
                     // Patch is injected through the InjectPatchOnAwake component.
                     hasInjectedPatchArray[droneAudioMixerIndex] = true;
                 }
-            }
 
+                if (DroneInstrument != null)
+                {
+                    turntable.SetMelody(DroneInstrument.MelodyFactory.GenerateMelody());
+                    var tt = turntable.GetComponent<InjectTurntableMelodyNotationOnAwake>();
+                    if (tt != null)
+                        Destroy(tt);
+                }
+            }
+        }
+
+        public void Configure(LevelConfiguration configuration)
+        {
+            DroneInstrument = configuration.GetInstrumentConfigurationByTag("Player");
         }
     }
 }

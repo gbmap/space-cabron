@@ -17,7 +17,8 @@ namespace Gmap.ScriptableReferences
         public enum ERandomType
         {
             Random,
-            ShuffleBag
+            ShuffleBag,
+            ApplicationConstant
         }
         public ERandomType RandomType = ERandomType.ShuffleBag;
 
@@ -44,6 +45,11 @@ namespace Gmap.ScriptableReferences
         {
             if (RandomType == ERandomType.Random)
                 return Items[Random.Range(0, Items.Count)].Value;
+            else if (RandomType == ERandomType.ApplicationConstant)
+            {
+                System.Random r = new System.Random(System.DateTime.Today.Hour);
+                return Items[r.Next(0, Items.Count)].Value;
+            }
             else
                 return ShuffleBag.Next();
         }

@@ -13,7 +13,7 @@ namespace Gmap.Instruments
         void Start()
         {
             ITurntable behaviour = GetComponent<ITurntable>();
-            Melody m = MelodyFactory.Generate();
+            Melody m = MelodyFactory.GenerateMelody();
             behaviour.SetMelody(m);
             Destroy(this);
         }

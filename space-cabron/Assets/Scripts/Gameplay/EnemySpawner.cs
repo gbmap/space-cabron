@@ -50,13 +50,13 @@ namespace Gmap
             SetShouldSpawn(false);
             waitingToSpawnBoss = true;
 
-            CheckIfShouldSpawnBoss();
-            // DestroyAllEnemies();
-            // GameObject boss = SpawnBossIfAny();
-            // if (boss == null)
-            //     FireWinMessage();
-            // else
-            //     StartCoroutine(PlayBossIntroAnimation(boss));
+            // CheckIfShouldSpawnBoss();
+            DestroyAllEnemies();
+            GameObject boss = SpawnBossIfAny();
+            if (boss == null)
+                FireWinMessage();
+            else
+                StartCoroutine(PlayBossIntroAnimation(boss));
 
         }
 
@@ -67,7 +67,7 @@ namespace Gmap
 
             // fuck this shit
             // > 1 because enemy hasn't actually been destroyed yet
-            if (spawnedEnemyCount > 0)
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length > 1)
                 return;
 
             if (hasFiredWinMessage)
@@ -95,8 +95,6 @@ namespace Gmap
 
         private void FireWinMessage()
         {
-      
-
             MessageRouter.RaiseMessage(new MsgLevelWon());
             hasFiredWinMessage = true;
         }
