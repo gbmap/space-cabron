@@ -7,7 +7,10 @@
         "SpaceCabron.Gameplay",
         "Frictionless",
         "SpaceCabron.Messages",
-        "Gmap.ScriptableReferences"
+        "Gmap.ScriptableReferences",
+        "Gmap.Gameplay",
+        "SpaceCabron.UI",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

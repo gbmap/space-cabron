@@ -42,6 +42,7 @@ namespace Gmap.Gameplay
                     throw new System.Exception("Melody is empty.");
 
                 ScriptableFixedMelodyFactory f = ScriptableObject.CreateInstance<ScriptableFixedMelodyFactory>();
+                f.Notation = _customMelody.ToLower();
                 LevelConfiguration.GetInstrumentConfigurationByTag("Player").MelodyFactory = f;
                 StartGame();
             }
