@@ -16,7 +16,7 @@ namespace Gmap.Instruments
 
         IEnumerator Start()
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
             var helmPatch = gameObject.GetComponent<AudioHelm.HelmPatch>();
             if (!helmPatch)
                 helmPatch = gameObject.AddComponent<AudioHelm.HelmPatch>();

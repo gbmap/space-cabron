@@ -1,5 +1,7 @@
+using AudioHelm;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
+using Gmap.Gameplay;
 using Gmap.Gun;
 using Gmap.Instruments;
 using SpaceCabron.Messages;
@@ -13,7 +15,13 @@ namespace SpaceCabron.Gameplay
         public GameObject DroneMelodyPrefab;
         public GameObject DroneEveryNPrefab;
 
+        public UnityEngine.Audio.AudioMixerGroup[] Groups;
+
         private bool hasInjectedPatch = false;
+        private bool[] hasInjectedPatchArray = new bool[MIXER_GROUP_DRONE_COUNT];
+        private const int MIXER_GROUP_DRONE_INDEX = 5;
+        private const int MIXER_GROUP_DRONE_COUNT = 3;
+        private int numberOfMelodyDronesSpawned = 0;
 
         void OnEnable()
         {
@@ -48,14 +56,6 @@ namespace SpaceCabron.Gameplay
                 Quaternion.identity
             );
 
-            if (hasInjectedPatch)
-            {
-                InjectPatchOnAwake patch = instance.GetComponentInChildren<InjectPatchOnAwake>();
-                Destroy(patch);
-            }
-            else
-                hasInjectedPatch = true;
-
             FollowAtAnOffset offset = instance.GetComponent<FollowAtAnOffset>();
             offset.Offset = UnityEngine.Random.insideUnitSphere;
             offset.Offset.z = 0f;
@@ -81,7 +81,31 @@ namespace SpaceCabron.Gameplay
                     });
                 };
             }
-        }
 
+            // Means this is a melody drone.
+            TurntableBehaviour turntable = instance.GetComponentInChildren<TurntableBehaviour>();
+            if (turntable != null)
+            {
+                int droneAudioMixerIndex = numberOfMelodyDronesSpawned++ % MIXER_GROUP_DRONE_COUNT; 
+
+                HelmController controller = turntable.GetComponent<HelmController>();
+                controller.channel = MIXER_GROUP_DRONE_INDEX + droneAudioMixerIndex;
+
+                AudioSource audioSource = turntable.GetComponent<AudioSource>();
+                audioSource.outputAudioMixerGroup = Groups[droneAudioMixerIndex];
+
+                if (hasInjectedPatchArray[droneAudioMixerIndex])
+                {
+                    InjectPatchOnAwake patch = instance.GetComponentInChildren<InjectPatchOnAwake>();
+                    Destroy(patch);
+                }
+                else
+                {
+                    // Patch is injected through the InjectPatchOnAwake component.
+                    hasInjectedPatchArray[droneAudioMixerIndex] = true;
+                }
+            }
+
+        }
     }
 }

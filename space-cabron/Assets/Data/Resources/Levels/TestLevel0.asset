@@ -39,7 +39,7 @@ MonoBehaviour:
       type: 2}
   HitConfiguration:
     BPM: 30
-    MelodyFactory: {fileID: 0}
+    MelodyFactory: {fileID: 11400000, guid: 0adc150719aea204a8d0ec26df771380, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: ac96a814f41e6b84287c0effd3d665da,
       type: 2}
   Background:
