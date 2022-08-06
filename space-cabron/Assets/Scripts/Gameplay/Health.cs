@@ -72,7 +72,9 @@ namespace Gmap.Gameplay
             if (!CanTakeDamage)
                 return;
 
-            if (b.IsSpecial || !IsResistant)
+
+            // Bullet null means god doesn't like this creature.
+            if (b == null || b.IsSpecial || !IsResistant)
             {
                 _currentHealth--;
                 OnTakenDamage?.Invoke();
@@ -87,17 +89,17 @@ namespace Gmap.Gameplay
                         collider = collider
                     });
                 }
+
+            MessageRouter.RaiseMessage(new MsgOnObjectHit()
+            {
+                health = this,
+                bullet = b,
+                collider = collider
+            });
+
+            if (_currentHealth == 0)
+                this.DestroyOrDisable();
             }
-
-                MessageRouter.RaiseMessage(new MsgOnObjectHit()
-                {
-                    health = this,
-                    bullet = b,
-                    collider = collider
-                });
-
-                if (_currentHealth == 0)
-                    this.DestroyOrDisable();
         }
 
         void IObjectPoolEventHandler.PoolReset()
