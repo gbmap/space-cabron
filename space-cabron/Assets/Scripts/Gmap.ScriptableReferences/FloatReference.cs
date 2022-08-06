@@ -12,6 +12,13 @@ namespace Gmap.ScriptableReferences
             get { return value; }
             set { this.value = value;}
         }
+
+        public static ValueReference<T> Create(T value)
+        {
+            var instance = ScriptableObject.CreateInstance<ValueReference<T>>();
+            instance.Value = value;
+            return instance;
+        }
     }
 
     [CreateAssetMenu(menuName="Gmap/Scriptable References/Float Reference")]

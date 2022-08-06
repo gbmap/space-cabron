@@ -18,12 +18,11 @@ namespace Gmap
 
         private bool waitingToSpawnBoss = false;
         private bool hasFiredWinMessage = false;
-        private int spawnedEnemyCount = 0;
 
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
-            MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
+            // MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
             MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
             MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { shouldSpawn = true; });
         }
@@ -43,30 +42,29 @@ namespace Gmap
             if (obj.Score < ScoreThreshold)
                 return;
 
-            if (!shouldSpawn)
-                return;
+            if (shouldSpawn)
+            {
+                SetShouldSpawn(false);
+                waitingToSpawnBoss = true;
+            }
 
-            UnsubscribeFromScoreChanged();
-            SetShouldSpawn(false);
-            waitingToSpawnBoss = true;
-
-            // CheckIfShouldSpawnBoss();
-            DestroyAllEnemies();
-            GameObject boss = SpawnBossIfAny();
-            if (boss == null)
-                FireWinMessage();
-            else
-                StartCoroutine(PlayBossIntroAnimation(boss));
-
+            CheckIfShouldSpawnBoss();
+            // DestroyAllEnemies();
+            // GameObject boss = SpawnBossIfAny();
+            // if (boss == null)
+            //     FireWinMessage();
+            // else
+            //     StartCoroutine(PlayBossIntroAnimation(boss));
         }
 
         private void CheckIfShouldSpawnBoss()
         {
+            if (!waitingToSpawnBoss)
+                return;
+
             if (shouldSpawn)
                 return;
 
-            // fuck this shit
-            // > 1 because enemy hasn't actually been destroyed yet
             if (GameObject.FindGameObjectsWithTag("Enemy").Length > 1)
                 return;
 
@@ -142,20 +140,18 @@ namespace Gmap
                 return;
 
             GameObject instance = SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));
-            spawnedEnemyCount++;
         }
 
-        private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
-        {
-            if (obj.health.CompareTag("Player"))
-                return;
+        // private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
+        // {
+        //     if (obj.health.CompareTag("Player"))
+        //         return;
 
-            spawnedEnemyCount--;
+        //     if (shouldSpawn || !waitingToSpawnBoss)
+        //         return;
 
-            // if (spawnedEnemyCount > 0 || !waitingToSpawnBoss)
-            //     return;        
-            CheckIfShouldSpawnBoss();
-        }
+        //     CheckIfShouldSpawnBoss();
+        // }
 
         public GameObject SpawnNext(GameObjectPool pool, float t)
         {

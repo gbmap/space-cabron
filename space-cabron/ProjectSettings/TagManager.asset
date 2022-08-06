@@ -12,6 +12,7 @@ TagManager:
   - Hit
   - Instrument
   - Drone1Instrument
+  - EnemySpawner
   layers:
   - Default
   - TransparentFX

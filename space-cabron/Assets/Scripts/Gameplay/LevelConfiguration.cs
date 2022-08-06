@@ -54,7 +54,7 @@ namespace Gmap.Gameplay
                 if (dictTagToInstrument == null)
                 {
                     dictTagToInstrument = new Dictionary<string, InstrumentConfiguration>();
-                    dictTagToInstrument.Add("Enemy", EnemyMelody);
+                    dictTagToInstrument.Add("EnemySpawner", EnemyMelody);
                     dictTagToInstrument.Add("Player", PlayerMelody);
                     dictTagToInstrument.Add("Metronome", DrumMelody);
                     dictTagToInstrument.Add("Ambient", AmbientMelody);

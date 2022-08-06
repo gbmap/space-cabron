@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
-  m_Name: TestLevel0
+  m_Name: TestLevel2
   m_EditorClassIdentifier: 
   Gameplay:
     Difficulty: 1
@@ -44,4 +44,4 @@ MonoBehaviour:
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}
-  NextLevel: {fileID: 11400000, guid: 432c8c002f02e7a4ca319fb542d79c09, type: 2}
+  NextLevel: {fileID: 11400000, guid: 7482f1029f6f9db478f59c7cadabc830, type: 2}
