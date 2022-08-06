@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gameplay:
     Difficulty: 1
-    ScoreThreshold: 50
-    EnemyPool: {fileID: 11400000, guid: 7e59be1c7e5a75342ab4d01b534484f8, type: 2}
+    ScoreThreshold: 5000
+    EnemyPool: {fileID: 11400000, guid: 79d139b667f80544588e318074a3c1af, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
     BPM: 50
@@ -44,4 +44,4 @@ MonoBehaviour:
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}
-  NextLevel: {fileID: 11400000, guid: 387c2fabd4cbacd4a8719248f930e7be, type: 2}
+  NextLevel: {fileID: 11400000}

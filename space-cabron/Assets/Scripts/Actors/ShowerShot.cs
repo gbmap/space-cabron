@@ -13,10 +13,15 @@ public class ShowerShot : ShotPattern
     {
         for (int i = 0; i < Bullets; i++)
         {
-            float a = AngleOffset + Vector3.SignedAngle(Vector3.up, transform.up, Vector3.forward);
+            float a = GetAngle();
             float r = (Mathf.PerlinNoise(0f, Time.time*10f)-0.5f)*AngleRange;
             Shoot(transform.position, Quaternion.Euler(0f, 0f, a+r));
             yield return new WaitForSeconds(CooldownPerBullet);
         }
+    }
+
+    protected virtual float GetAngle()
+    {
+        return AngleOffset + Vector3.SignedAngle(Vector3.up, transform.up, Vector3.forward);
     }
 }
