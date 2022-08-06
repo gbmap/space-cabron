@@ -12,7 +12,12 @@ namespace Gmap.ScriptableReferences
         public int Weight;
     }
 
-    public class ScriptableReferencePool<T> : ScriptableObject
+    public interface ICloneable<T>
+    {
+        T Clone();
+    }
+
+    public class ScriptableReferencePool<T> : ScriptableObject, ICloneable<ScriptableReferencePool<T>>
     {
         public enum ERandomType
         {
@@ -23,8 +28,14 @@ namespace Gmap.ScriptableReferences
         public ERandomType RandomType = ERandomType.ShuffleBag;
 
         [SerializeField]
-        private List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
+        protected List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
         public int Length => Items.Count;
+
+        public void SetItems(IEnumerable<ScriptableReferenceItem<T>> items)
+        {
+            Items.Clear();
+            Items.AddRange(items);
+        }
         
         ShuffleBag<T> _shuffleBag;
         private ShuffleBag<T> ShuffleBag
@@ -52,6 +63,14 @@ namespace Gmap.ScriptableReferences
             }
             else
                 return ShuffleBag.Next();
+        }
+
+        public virtual ScriptableReferencePool<T> Clone()
+        {
+            // Don't use generics here. Unity shits the bed and returns null when using it.
+            var instance = ScriptableObject.CreateInstance(GetType()) as ScriptableReferencePool<T>;
+            instance.Items = Items;
+            return instance;
         }
     }
 }

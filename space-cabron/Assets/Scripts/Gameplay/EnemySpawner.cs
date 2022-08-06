@@ -5,6 +5,7 @@ using Gmap.ScriptableReferences;
 using Frictionless;
 using System.Linq;
 using SpaceCabron.Messages;
+using SpaceCabron.Gameplay;
 
 namespace Gmap
 {

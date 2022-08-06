@@ -1,16 +1,10 @@
 {
-    "name": "PlaymodeTests",
+    "name": "SpaceCabron.Gameplay.Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "SpaceCabron.Gameplay",
-        "Frictionless",
-        "SpaceCabron.Messages",
-        "Gmap.ScriptableReferences",
-        "Gmap.Gameplay",
-        "SpaceCabron.UI",
-        "Unity.TextMeshPro",
         "Gmap.CosmicMusicUtensil"
     ],
     "includePlatforms": [],

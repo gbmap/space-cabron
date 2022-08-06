@@ -9,6 +9,7 @@ using Frictionless;
 using Gmap;
 using Gmap.Gameplay;
 using SpaceCabron.Messages;
+using SpaceCabron.Gameplay;
 
 public class LevelTests
 {
@@ -47,10 +48,11 @@ public class LevelTests
             yield return new WaitForSecondsRealtime(1f);
 
             Debug.Log("Firing win message.");
+            // MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
             MessageRouter.RaiseMessage(new MsgLevelWon());
 
             // Wait win animations.
-            yield return new WaitForSecondsRealtime(15f);
+            yield return new WaitForSecondsRealtime(5f);
             Debug.Log("Asserting level 1 is loaded.");
             Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
         }

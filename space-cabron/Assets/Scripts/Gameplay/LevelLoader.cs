@@ -13,6 +13,7 @@ namespace Gmap.Gameplay
         private static bool KeepOldScene;
         public static void Load(LevelConfiguration level)
         {
+            // level = level.Clone();
             MessageRouter.Reset();
             AsyncOperation aOp = SceneManager.LoadSceneAsync("Gameplay", LoadSceneMode.Additive);
             aOp.completed += (AsyncOperation op) => { Callback_OnGameplaySceneLoaded(op, level); };

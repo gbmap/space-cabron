@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Gmap.Gameplay;
+using Gmap.CosmicMusicUtensil;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Frictionless;
@@ -13,7 +14,7 @@ public class GameflowTests
     private IEnumerator LoadMenu(System.Action<Menu> OnMenuLoaded)
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
-        Scene menuScene = SceneManager.GetSceneAt(1);
+        Scene menuScene = SceneManager.GetSceneAt(SceneManager.sceneCount-1);
         while (!menuScene.isLoaded)
             yield return new WaitForSecondsRealtime(0.1f);
         var rootObjects  = menuScene.GetRootGameObjects();
@@ -120,5 +121,9 @@ public class GameflowTests
         Get<UnityEngine.UI.Button>(menu, "ok").onClick.Invoke();
         yield return new WaitForSeconds(3f);
         Assert.AreEqual(GameState.Current, Resources.Load<GameState>("GameStates/GameplayPlay"));
+
+        var playerInstrument = LevelLoader.CurrentLevelConfiguration.GetInstrumentConfigurationByTag("Player");
+        Melody m = playerInstrument.MelodyFactory.GenerateMelody();
+        Assert.AreEqual(m.Notation, "c4/4;c4/4;c4/4;c4/4");
     }
 }

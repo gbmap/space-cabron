@@ -47,7 +47,7 @@ public class PlayerAnimationTests
         var player = GameObject.FindGameObjectWithTag("Player");
         Assert.AreEqual(1, player.GetComponentsInChildren<VictoryBrain>().Length);
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
 
         Vector3 lastPos = Vector3.zero;
         for (int i = 0; i < 10; i++)

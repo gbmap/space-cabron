@@ -9,9 +9,18 @@ namespace Gmap.CosmicMusicUtensil
     public class ScriptableStringPoolMelodyFactory : ScriptableMelodyFactory
     {
         public StringReferencePool PossibleMelodies;
+
         public override Melody GenerateMelody()
         {
             return new StringPoolMelodyFactory(PossibleMelodies).GenerateMelody();
         }
+
+        public override ScriptableMelodyFactory Clone()
+        {
+            var instance = ScriptableObject.CreateInstance<ScriptableStringPoolMelodyFactory>();
+            instance.PossibleMelodies = PossibleMelodies.Clone() as StringReferencePool;
+            return instance;
+        }
+
     }
 }

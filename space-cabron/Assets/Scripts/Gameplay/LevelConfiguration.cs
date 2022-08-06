@@ -3,7 +3,7 @@ using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
-namespace Gmap.Gameplay
+namespace SpaceCabron.Gameplay
 {
     public enum EDifficulty
     {
@@ -13,26 +13,55 @@ namespace Gmap.Gameplay
     }
 
     [System.Serializable]
-    public class GameplayConfiguration
+    public class GameplayConfiguration : ICloneable<GameplayConfiguration>
     {
         public EDifficulty Difficulty;
         public int ScoreThreshold = 5000;
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
+
+        public GameplayConfiguration Clone()
+        {
+            return new GameplayConfiguration
+            {
+                Difficulty = Difficulty,
+                ScoreThreshold = ScoreThreshold,
+                EnemyPool = EnemyPool != null ? EnemyPool.Clone() as GameObjectPool : null,
+                BossPool = BossPool != null ? BossPool.Clone() as GameObjectPool : null
+            };
+        }
     }
 
     [System.Serializable]
-    public class InstrumentConfiguration
+    public class InstrumentConfiguration : ICloneable<InstrumentConfiguration>
     {
         public int BPM = 30;
         public ScriptableMelodyFactory MelodyFactory;
         public TextAssetPool PossibleStartingInstruments;
+
+        public InstrumentConfiguration Clone()
+        {
+            return new InstrumentConfiguration
+            {
+                BPM = BPM,
+                MelodyFactory = MelodyFactory.Clone(),
+                PossibleStartingInstruments = PossibleStartingInstruments.Clone() as TextAssetPool
+            };
+        }
     }
 
     [System.Serializable]
-    public class BackgroundConfiguration
+    public class BackgroundConfiguration : ICloneable<BackgroundConfiguration>
     {
         public Material Material;
+
+        public BackgroundConfiguration Clone()
+        {
+            return new BackgroundConfiguration
+            {
+                Material = new Material(Material)
+            };
+        }
     }
 
     [CreateAssetMenu(menuName="Space Cabrón/Gameplay/Level Configuration")]
@@ -79,13 +108,13 @@ namespace Gmap.Gameplay
         public LevelConfiguration Clone()
         {
             LevelConfiguration clone = ScriptableObject.CreateInstance<LevelConfiguration>();
-            clone.Background = Background;
-            clone.Gameplay = Gameplay;
-            clone.EnemyMelody = EnemyMelody;
-            clone.DrumMelody = DrumMelody;
-            clone.PlayerMelody = PlayerMelody;
-            clone.AmbientMelody = AmbientMelody;
-            clone.HitConfiguration = HitConfiguration;
+            clone.Background = Background.Clone();
+            clone.Gameplay = Gameplay.Clone();
+            clone.EnemyMelody = EnemyMelody.Clone();
+            clone.DrumMelody = DrumMelody.Clone();
+            clone.PlayerMelody = PlayerMelody.Clone();
+            clone.AmbientMelody = AmbientMelody.Clone();
+            clone.HitConfiguration = HitConfiguration.Clone();
             clone.NextLevel = NextLevel;
             return clone;
         }
