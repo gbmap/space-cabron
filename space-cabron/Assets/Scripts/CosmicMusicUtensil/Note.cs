@@ -72,7 +72,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public float GetDuration(float bps)
         {
-            return (4f/Interval)*bps;
+            return (4f/Interval)/bps;
         }
 
         private static Dictionary<string, ENote> dictCharToNote = new Dictionary<string, ENote>

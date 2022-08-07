@@ -34,7 +34,7 @@ namespace Gmap.CosmicMusicUtensil
         public int BPM { get => BPMReference.Value; set => BPMReference.Value = value; }
         public float BPS
         {
-            get { return (60f/(float)BPMReference.Value); }
+            get { return BPMToBPS(BPM); }
         }
 
         int currentNoteIndex;
@@ -109,7 +109,7 @@ namespace Gmap.CosmicMusicUtensil
             OnNote?.Invoke(new OnNoteArgs
             {
                 Note = note,
-                HoldTime = Mathf.Max(0.1f, Mathf.Lerp(noteTime, noteTime*duration, HoldNote?1f:0f)),
+                HoldTime = Mathf.Max(0.2f, Mathf.Lerp(noteTime, noteTime*duration, HoldNote?1f:0f)),
                 Duration = duration
             });
             LastNote = note;
@@ -125,6 +125,11 @@ namespace Gmap.CosmicMusicUtensil
             currentNoteIndex = (currentNoteIndex + 1) % melody.Length;
             if (currentNoteIndex == 0)
                 currentBarIndex++;
+        }
+
+        public static float BPMToBPS(int bpm)
+        {
+            return (float)bpm/60f;
         }
     }
 }
