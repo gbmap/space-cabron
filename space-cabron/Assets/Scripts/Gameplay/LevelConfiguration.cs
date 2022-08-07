@@ -44,8 +44,8 @@ namespace SpaceCabron.Gameplay
             return new InstrumentConfiguration
             {
                 BPM = BPM,
-                MelodyFactory = MelodyFactory.Clone(),
-                PossibleStartingInstruments = PossibleStartingInstruments.Clone() as TextAssetPool
+                MelodyFactory = MelodyFactory != null ? MelodyFactory.Clone() : null,
+                PossibleStartingInstruments = PossibleStartingInstruments != null ? PossibleStartingInstruments.Clone() as TextAssetPool : null
             };
         }
     }

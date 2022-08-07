@@ -119,4 +119,94 @@ fixed4 bg03(v2f i, float2 uv) {
 }
 
 
+#define PI_TWO			1.570796326794897
+#define PI				3.141592653589793
+#define TWO_PI			6.283185307179586
+#define E               2.7182818284
+
+float2 complex_exp(float2 z)
+{
+    // e^x * cos(y) + i*e^x*sin(y)
+    float ex = pow(E, z.x);
+    return float2(
+        ex * cos(z.y),
+        ex * sin(z.y)
+    );
+}
+
+float2 tile(float2 uv, float t) {
+    return frac(uv * t);
+}
+
+float2 remap_to0(float2 uv) {
+    return uv*2.-1.;
+}
+
+float2 complex_map(float2 uv, float factor, float2 c)
+{
+    return complex_exp(remap_to0(uv)*factor) + complex_exp(c);
+}
+
+float2 to_polar(float2 uv) {
+    return float2(
+        length(uv),
+        atan2(uv.y, uv.x)
+    );
+}
+
+float grid(float2 uv, float t) {
+    float2 ss = step(0.05, frac(uv*t));
+    return 1.-(ss.x*ss.y);
+}
+
+float3 pattern_knots(float2 uv, float2 c, float f) {
+    float2 p = complex_map(uv, f, c);
+    float t = pow(abs(p.x), abs(p.y));
+
+    float gridt = grid(p, f);
+    float3 gridc = float3(gridt, gridt, gridt);
+    return float3(p, t);
+}
+
+float3 pattern_lights(float2 uv, float2 c, float zoom) {
+    float2 p = tile(uv, zoom);
+    p = abs(remap_to0(p));
+    p = complex_exp(p) + complex_exp(c);
+
+    float gridt = grid(p, zoom);
+    return float3(p, pow(abs(p.x), abs(p.y)));
+}
+
+
+
+fixed4 bg04(v2f i, float2 uv) {
+   // float t = mod(u_time,10.0);
+    float t = sin(frac(_Time.y/100.0))*100.0;
+    uv.y += t*.5;
+	uv = frac(uv);
+    // uv.y = frac(uv.y);
+    // uv.x *= max(u_resolution.x, u_resolution.y) / u_resolution.y;
+
+    // uv = to_polar(to_polar(to_polar(uv)));
+
+    float f = 1.0;
+    float3 c = pattern_lights(uv, float2(cos(t), sin(t)), f);
+
+    float3 clr = lerp(
+        float3(sin(t*c.z), 0.6667, 0.302),
+        float3(0.6078, cos(t*c.y), 0.3333),
+        c.x*c.y
+    );
+
+    float3 cr = clr;
+	float3 hsv = rgb_to_hsv_no_clip(cr);
+	hsv.r = frac(hsv.r + _Time.y);
+	hsv.g = 0.65;
+	hsv.b = .15*beat_curve();
+	// hsv.g -= 0.3;
+	cr.rgb = hsv_to_rgb(hsv);
+    return fixed4(cr, 1.0);
+}
+
+
 #endif

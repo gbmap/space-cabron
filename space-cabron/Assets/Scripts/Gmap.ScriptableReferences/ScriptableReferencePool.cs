@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gmap.Utils;
+using System.Linq;
 
 namespace Gmap.ScriptableReferences
 {
@@ -58,7 +59,7 @@ namespace Gmap.ScriptableReferences
                 return Items[Random.Range(0, Items.Count)].Value;
             else if (RandomType == ERandomType.ApplicationConstant)
             {
-                System.Random r = new System.Random(System.DateTime.Today.Hour);
+                System.Random r = new System.Random(GetHashCode());
                 return Items[r.Next(0, Items.Count)].Value;
             }
             else
