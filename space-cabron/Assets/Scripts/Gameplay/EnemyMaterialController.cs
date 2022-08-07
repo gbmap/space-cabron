@@ -2,11 +2,10 @@
 using SpaceCabron.Gameplay;
 using UnityEngine;
 
-[ExecuteAlways]
-[ExecuteInEditMode]
+[RequireComponent(typeof(Renderer))]
 public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
 {
-    public new SpriteRenderer renderer;
+    new Renderer renderer;
     private Material _mat
     {
         get
@@ -52,6 +51,7 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
 
     void Awake()
     {
+        renderer = GetComponent<Renderer>();
         health = GetComponentInChildren<Health>();
         if (health)
         {

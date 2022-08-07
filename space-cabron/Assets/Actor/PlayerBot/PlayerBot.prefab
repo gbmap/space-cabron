@@ -4842,6 +4842,7 @@ GameObject:
   - component: {fileID: 6917149034433052121}
   - component: {fileID: 3545090140313851220}
   - component: {fileID: 3897595233867613395}
+  - component: {fileID: -8427337011671310491}
   m_Layer: 7
   m_Name: PlayerBot
   m_TagString: Untagged
@@ -4885,7 +4886,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 966e90a2f10d9c24c90e244108accea9, type: 2}
+  - {fileID: 2100000, guid: cf7c4361c9dd209439609b83956ad7dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5040,3 +5041,20 @@ MonoBehaviour:
   SelectionStrategy: {fileID: 11400000, guid: 3372a7f9d71fd744d878e0878adccfc1, type: 2}
   Turntable: {fileID: 0}
   Proxy: {fileID: 0}
+--- !u!114 &-8427337011671310491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875341672761901925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eebc234d855a5b44b112985b0230285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageFactor: 0
+  SpawnFactor: 0
+  UpgradeValue: 0
+  Direction: {x: 0, y: 0}
+  IsResistant: 0
