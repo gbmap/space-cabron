@@ -47,13 +47,10 @@ public class LevelTests
             LevelLoader.Load(level);
             yield return new WaitForSecondsRealtime(1f);
 
-            Debug.Log("Firing win message.");
-            // MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
             MessageRouter.RaiseMessage(new MsgLevelWon());
 
             // Wait win animations.
             yield return new WaitForSecondsRealtime(5f);
-            Debug.Log("Asserting level 1 is loaded.");
             Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
         }
     }

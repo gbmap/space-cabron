@@ -60,10 +60,4 @@ public class TurntableConsole
             throw new System.IndexOutOfRangeException($"No turntable at index {index}");
         return turntable[index];
     }
-
-    // public static Melody CreateMelody()
-    // {
-
-    // }
-
 }

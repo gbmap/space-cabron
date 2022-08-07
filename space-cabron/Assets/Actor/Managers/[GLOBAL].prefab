@@ -314,18 +314,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 251567892243672665}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7979726186410792928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372248897489780347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &416051622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +342,20 @@ MonoBehaviour:
   ScoreModulus: 50
   Geometric: 0
   improvisationPool: {fileID: 11400000, guid: 31919b3c1c27d3e4f90fc01036372dae, type: 2}
+  improvisationCounter:
+    MaxCount: 10
+--- !u!114 &7979726186410792928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372248897489780347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8532393574900886452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8436536320496043501, guid: 231892c16b4d95442a948d8a420ddc2a,
@@ -450,18 +452,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3096255018160544451}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5461153771223605336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372248899140507213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &339790612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +465,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MelodyFactory: {fileID: 11400000, guid: 18fc533f27c74924f936f6ae7375bff1, type: 2}
+--- !u!114 &5461153771223605336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372248899140507213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8532393574554085065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6670179829887138826, guid: ecd04033fad88b74f9cfbec922be4551,

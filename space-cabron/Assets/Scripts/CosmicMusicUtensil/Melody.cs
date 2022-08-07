@@ -45,7 +45,8 @@ namespace Gmap.CosmicMusicUtensil
             List<Note> notes = new List<Note>();
             for (int i = 0; i < NotesArray.Length; i++)
                 notes.AddRange(improvisation.Apply(this, 0, new Note[] {GetNote(i)}, i));
-            return new Melody(notes.ToArray());
+            Update(notes.ToArray());
+            return this;
         }
 
         private void Update(string melody)

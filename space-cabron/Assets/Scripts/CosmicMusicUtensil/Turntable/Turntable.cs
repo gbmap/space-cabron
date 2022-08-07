@@ -23,6 +23,7 @@ namespace Gmap.CosmicMusicUtensil
         public Improviser Improviser { get; }
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
+        void ApplyImprovisation(Improvisation improvisation, bool permanent);
     }
 
     public class Turntable : ITurntable
@@ -130,6 +131,14 @@ namespace Gmap.CosmicMusicUtensil
         public static float BPMToBPS(int bpm)
         {
             return (float)bpm/60f;
+        }
+
+        public void ApplyImprovisation(Improvisation improvisation, bool permanent)
+        {
+            if (permanent)
+                Melody.ApplyImprovisation(improvisation);
+            else
+                Improviser.AddImprovisation(improvisation);
         }
     }
 }

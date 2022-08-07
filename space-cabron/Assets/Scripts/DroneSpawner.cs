@@ -18,7 +18,6 @@ namespace SpaceCabron.Gameplay
         public UnityEngine.Audio.AudioMixerGroup[] Groups;
 
         private InstrumentConfiguration DroneInstrument;
-        private bool hasInjectedPatch = false;
         private bool[] hasInjectedPatchArray = new bool[MIXER_GROUP_DRONE_COUNT];
         private const int MIXER_GROUP_DRONE_INDEX = 5;
         private const int MIXER_GROUP_DRONE_COUNT = 3;

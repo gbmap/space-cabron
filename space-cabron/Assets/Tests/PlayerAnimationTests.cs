@@ -18,7 +18,6 @@ public class PlayerAnimationTests
     public IEnumerator BeginAnimationMovesPlayerTowardsPosition()
     {
         LevelLoader.Load(Resources.Load<LevelConfiguration>("Levels/Level0"));
-        MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { finishedLoading = true; });
         yield return new WaitForSeconds(0.5f);
         var player = GameObject.FindGameObjectWithTag("Player");
         Assert.AreEqual(1, player.GetComponentsInChildren<BeginLevelBrain>().Length);
@@ -32,7 +31,6 @@ public class PlayerAnimationTests
         }
         yield return new WaitForSeconds(5f);
         Assert.AreEqual(0, player.GetComponentsInChildren<BeginLevelBrain>().Length);
-        Assert.AreEqual(finishedLoading, true);
     }
 
     [UnityTest]

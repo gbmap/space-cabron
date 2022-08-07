@@ -75,5 +75,10 @@ namespace Gmap.CosmicMusicUtensil
         }
 
         public void Update(Action<OnNoteArgs> OnNote) {}
+
+        public void ApplyImprovisation(Improvisation improvisation, bool permanent)
+        {
+            Turntable.ApplyImprovisation(improvisation, permanent);
+        }
     }
 }
