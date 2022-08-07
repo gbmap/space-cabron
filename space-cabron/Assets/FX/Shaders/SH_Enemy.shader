@@ -6,6 +6,8 @@
 		[PerRendererData] _Damage ("Damage Float", Range(0.0, 1.0)) = 0.0
 		[PerRendererData] _Spawn ("Spawn Float", Range(0.0, 1.0)) = 0.0
         [PerRendererData] _IsResistant ("Is Resistant", Range(0.0, 1.0)) = 0.0
+        [PerRendererData] _Direction ("Direction", Vector) = (0.0, 0.0, 0.0)
+        _DirectionScale ("Direction Scale", Float) = 0.35
         _ResistantHueOffset ("Resistant Hue Offset", Float) = 0.0
     }
     SubShader
@@ -48,10 +50,42 @@
 			float _Spawn;
             float _IsResistant;
             float _ResistantHueOffset;
+            fixed2 _Direction;
+            float _DirectionScale;
 
             v2f vert (appdata v)
             {
                 v2f o;
+
+                float z = v.vertex.z;
+
+                // float m = min(0.5, length(_Direction));
+                // _Direction = normalize(_Direction)*m;
+
+                float xscale = 1 + dot(v.vertex.xy, float2(0., _Direction.y))*-_DirectionScale;
+                float yscale = 1 + dot(v.vertex.xy, float2(_Direction.x, 0.))*-_DirectionScale;
+                v.vertex.xy *= xscale*yscale;
+
+
+                // float angleX = -_Direction.x;
+                // float4x4 directionRotY = float4x4(
+                //     cos(angleX), 0., sin(angleX), 0.,
+                //     0., 1., 0., 0.,
+                //     -sin(angleX), 0., cos(angleX), 0.,
+                //     0., 0., 0., 1.
+                // );
+
+                // float angleY = -_Direction.y;
+                // float4x4 directionRotX = float4x4(
+                //     1.0, 0., 0., 0.,
+                //     0., cos(angleY), -sin(angleY), 0.,
+                //     0., sin(angleY), cos(angleY), 0.,
+                //     0., 0., 0., 1.
+                // );
+
+                // v.vertex = mul(mul(directionRotY, directionRotX), v.vertex);
+                // v.vertex.z = z;
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.color = v.color;
