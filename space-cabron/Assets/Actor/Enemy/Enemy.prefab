@@ -202,10 +202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eebc234d855a5b44b112985b0230285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 6279716415127280445}
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  Direction: {x: 0, y: 0}
   IsResistant: 0
 --- !u!114 &4202326656841634815
 MonoBehaviour:
@@ -245,6 +245,8 @@ MonoBehaviour:
   - obj: {fileID: 5710985424178225992, guid: 0ed021b659f2cfc4a8636be283272c63, type: 3}
     Weight: 1
   - obj: {fileID: 5616107406842346364, guid: 563a412d49414804b95316c24559d80b, type: 3}
+    Weight: 1
+  - obj: {fileID: 1104723741837955719, guid: 4bec959aadb1d0a41938f2656de262b4, type: 3}
     Weight: 1
 --- !u!114 &437546467635798816
 MonoBehaviour:
