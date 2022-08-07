@@ -13,7 +13,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public override Improvisation Get()
         {
-            return new TremoloImprovisation(NoteSelection.Get(), BarSelection.Get(), Steps.Value, Beams.Value);
+            return new TremoloImprovisation(NoteSelection.Get(), BarSelection.Get(), Beams.Value, Steps.Value);
         }
     }
 }
