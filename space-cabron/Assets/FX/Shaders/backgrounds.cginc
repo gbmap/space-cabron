@@ -60,12 +60,20 @@ float3 hsv_to_rgb(float3 HSV)
 	return (RGB);
 }
 
-
 float beat_curve()
 {
 	fixed tt = step(_Time.y - (_Beat + _LastNoteDuration - 0.1), 0.0);
 	fixed t = saturate(_Time.y - _Beat);
 	return 1.0 - t;
+}
+
+fixed4 post_process_bg(fixed4 clr)
+{
+	fixed3 hsv = rgb_to_hsv_no_clip(clr);
+	hsv.g = 0.65;
+	hsv.b = .15*beat_curve();
+	clr.rgb = hsv_to_rgb(hsv);
+	return clr;
 }
 
 fixed4 bg01(v2f i, float2 uv) {
@@ -184,10 +192,6 @@ fixed4 bg04(v2f i, float2 uv) {
     float t = sin(frac(_Time.y/100.0))*100.0;
     uv.y += t*.5;
 	uv = frac(uv);
-    // uv.y = frac(uv.y);
-    // uv.x *= max(u_resolution.x, u_resolution.y) / u_resolution.y;
-
-    // uv = to_polar(to_polar(to_polar(uv)));
 
     float f = 1.0;
     float3 c = pattern_lights(uv, float2(cos(t), sin(t)), f);
@@ -201,8 +205,8 @@ fixed4 bg04(v2f i, float2 uv) {
     float3 cr = clr;
 	float3 hsv = rgb_to_hsv_no_clip(cr);
 	hsv.r = frac(hsv.r + _Time.y);
-	hsv.g = 0.65;
-	hsv.b = .15*beat_curve();
+	// hsv.g = 0.65;
+	// hsv.b = .15*beat_curve();
 	// hsv.g -= 0.3;
 	cr.rgb = hsv_to_rgb(hsv);
     return fixed4(cr, 1.0);
