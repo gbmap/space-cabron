@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 8162897682721974425}
   - component: {fileID: 8605179172511680201}
   - component: {fileID: 212556697708309813}
+  - component: {fileID: 2990581894005920791}
   m_Layer: 13
   m_Name: Upgrade
   m_TagString: Untagged
@@ -245,10 +246,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eebc234d855a5b44b112985b0230285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 569090007880489849}
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  Direction: {x: 0, y: 0}
+  IsResistant: 0
 --- !u!114 &8605179172511680201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,3 +279,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3541f8d019d1a1c44bcf2c43bc90b5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2990581894005920791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5621981252508601616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372c32f97b7cfc24794cb48f2c3c726c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Layer:
+    serializedVersion: 2
+    m_Bits: 256
+  Distance: 5
+  Acceleration: 1
