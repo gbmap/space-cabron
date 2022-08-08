@@ -130,11 +130,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
-  Cooldown: 2
-  Bullets: 10
+  Cooldown: 3
+  Bullets: 7
   CooldownPerBullet: 0.05
-  AngleRange: 20
+  AngleRange: 30
   AngleOffset: 180
+  RandomizeAngleOffset: 0
 --- !u!114 &5936113686687271461
 MonoBehaviour:
   m_ObjectHideFlags: 0

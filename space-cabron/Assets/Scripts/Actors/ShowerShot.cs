@@ -8,6 +8,7 @@ public class ShowerShot : ShotPattern
     public float CooldownPerBullet = 0.05f;
     public float AngleRange = 20f;
     public float AngleOffset = 0f;
+    public bool RandomizeAngleOffset;
 
     public override IEnumerator ShootCoroutine()
     {
@@ -22,6 +23,9 @@ public class ShowerShot : ShotPattern
 
     protected virtual float GetAngle()
     {
-        return AngleOffset + Vector3.SignedAngle(Vector3.up, transform.up, Vector3.forward);
+        float a = AngleOffset + Vector3.SignedAngle(Vector3.up, transform.up, Vector3.forward);
+        if (RandomizeAngleOffset)
+            a += (float)(new System.Random((int)Time.time).NextDouble()-0.5f)*AngleRange;
+        return a;
     }
 }
