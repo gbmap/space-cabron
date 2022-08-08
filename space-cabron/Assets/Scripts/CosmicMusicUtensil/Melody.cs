@@ -25,6 +25,9 @@ namespace Gmap.CosmicMusicUtensil
         public int Length { get { return Notes.Length; } }
         public bool IsEmpty { get { return Notes.Length == 0; } }
 
+        public ENote Root { get; set; }
+        public IScale Scale { get; set; }
+
         public Melody(Melody m)
         {
             Update(m.notation);

@@ -32,6 +32,13 @@ namespace Gmap.ScriptableReferences
         protected List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
         public int Length => Items.Count;
 
+        private int currentSeed;
+
+        public void ResetSeed()
+        {
+            currentSeed = Random.Range(0, int.MaxValue);
+        }
+
         public void SetItems(IEnumerable<ScriptableReferenceItem<T>> items)
         {
             Items.Clear();
@@ -59,7 +66,7 @@ namespace Gmap.ScriptableReferences
                 return Items[Random.Range(0, Items.Count)].Value;
             else if (RandomType == ERandomType.ApplicationConstant)
             {
-                System.Random r = new System.Random(GetHashCode());
+                System.Random r = new System.Random();
                 return Items[r.Next(0, Items.Count)].Value;
             }
             else

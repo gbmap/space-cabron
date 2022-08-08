@@ -50,9 +50,18 @@ namespace SpaceCabron.Gameplay
 
         private void SpawnDrone(MsgSpawnDrone msg)
         {
+            if (msg.Player == null)
+            {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                if (players.Length == 0)
+                    return;
+                
+                msg.Player = players[Random.Range(0, players.Length)];
+            }
+
             var instance = Instantiate(
-                DroneTypeToPrefab(msg.DroneType), 
-                msg.Player.transform.position, 
+                DroneTypeToPrefab(msg.DroneType),
+                msg.Player.transform.position,
                 Quaternion.identity
             );
 
@@ -85,33 +94,50 @@ namespace SpaceCabron.Gameplay
             // Means this is a melody drone.
             TurntableBehaviour turntable = instance.GetComponentInChildren<TurntableBehaviour>();
             if (turntable != null)
+                ConfigureMelodyDrone(instance, turntable);
+          
+            msg.OnSpawned?.Invoke(instance);
+        }
+
+        private void ConfigureMelodyDrone(GameObject instance, TurntableBehaviour turntable)
+        {
+            int droneAudioMixerIndex = numberOfMelodyDronesSpawned++ % MIXER_GROUP_DRONE_COUNT;
+
+            HelmController controller = turntable.GetComponent<HelmController>();
+            controller.channel = MIXER_GROUP_DRONE_INDEX + droneAudioMixerIndex;
+
+            AudioSource audioSource = turntable.GetComponentInChildren<AudioSource>();
+            audioSource.outputAudioMixerGroup = Groups[droneAudioMixerIndex];
+
+            InjectPatch(instance, droneAudioMixerIndex);
+
+            if (DroneInstrument == null)
+                return;
+
+            Melody melody = null;
+            var lastUsedFactory = DroneInstrument.MelodyFactory.LastUsedFactory;
+            if (lastUsedFactory != null)
+                melody = lastUsedFactory.GenerateMelody();
+            else
+                melody = DroneInstrument.MelodyFactory.GenerateMelody();
+
+            turntable.SetMelody(melody);
+            var tt = turntable.GetComponent<InjectTurntableMelodyNotationOnAwake>();
+            if (tt != null)
+                Destroy(tt);
+        }
+
+        private void InjectPatch(GameObject instance, int droneAudioMixerIndex)
+        {
+            if (hasInjectedPatchArray[droneAudioMixerIndex])
             {
-                int droneAudioMixerIndex = numberOfMelodyDronesSpawned++ % MIXER_GROUP_DRONE_COUNT; 
-
-                HelmController controller = turntable.GetComponent<HelmController>();
-                controller.channel = MIXER_GROUP_DRONE_INDEX + droneAudioMixerIndex;
-
-                AudioSource audioSource = turntable.GetComponentInChildren<AudioSource>();
-                audioSource.outputAudioMixerGroup = Groups[droneAudioMixerIndex];
-
-                if (hasInjectedPatchArray[droneAudioMixerIndex])
-                {
-                    InjectPatchOnAwake patch = instance.GetComponentInChildren<InjectPatchOnAwake>();
-                    Destroy(patch);
-                }
-                else
-                {
-                    // Patch is injected through the InjectPatchOnAwake component.
-                    hasInjectedPatchArray[droneAudioMixerIndex] = true;
-                }
-
-                if (DroneInstrument != null)
-                {
-                    turntable.SetMelody(DroneInstrument.MelodyFactory.GenerateMelody());
-                    var tt = turntable.GetComponent<InjectTurntableMelodyNotationOnAwake>();
-                    if (tt != null)
-                        Destroy(tt);
-                }
+                InjectPatchOnAwake patch = instance.GetComponentInChildren<InjectPatchOnAwake>();
+                Destroy(patch);
+            }
+            else
+            {
+                // Patch is injected through the InjectPatchOnAwake component.
+                hasInjectedPatchArray[droneAudioMixerIndex] = true;
             }
         }
 

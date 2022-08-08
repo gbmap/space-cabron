@@ -45,6 +45,8 @@ namespace SpaceCabron.Messages
         }
         public EDroneType DroneType;
         public GameObject Player;
+
+        public System.Action<GameObject> OnSpawned;
     }
 
     public class MsgGameOver {}

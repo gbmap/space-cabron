@@ -10,9 +10,12 @@ namespace Gmap.Gameplay
     {
         static Scene activeScene;
         public static LevelConfiguration CurrentLevelConfiguration { get; private set; }
+        public static int RandomSeed { get; private set; }
         private static bool KeepOldScene;
         public static void Load(LevelConfiguration level)
         {
+            RandomSeed = Random.Range(0, int.MaxValue);
+
             // level = level.Clone();
             MessageRouter.Reset();
             AsyncOperation aOp = SceneManager.LoadSceneAsync("Gameplay", LoadSceneMode.Additive);

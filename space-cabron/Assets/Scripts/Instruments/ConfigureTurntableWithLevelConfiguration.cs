@@ -11,16 +11,17 @@ namespace SpaceCabron.Gameplay
         public void Configure(LevelConfiguration configuration)
         {
             var injectables = GetComponentsInChildren<Injectable>();
-            System.Array.ForEach(injectables, i => DestroyImmediate(i));
+            System.Array.ForEach(injectables, i => Destroy(i));
 
             InstrumentConfiguration instrumentConfig = configuration.GetInstrumentConfigurationByTag(GetTag());
             LoadInstrument(instrumentConfig);
             SetupBPMAndMelody(instrumentConfig);
+            Destroy(this);
         }
 
         private void SetupBPMAndMelody(InstrumentConfiguration instrumentConfig)
         {
-            ITurntable turntable = GetComponent<ITurntable>();
+            ITurntable turntable = GetComponentInChildren<ITurntable>();
             if (turntable == null)
                 return;
 

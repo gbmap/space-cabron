@@ -23,9 +23,20 @@ namespace Gmap
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
-            // MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
+            MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
             MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
             MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { shouldSpawn = true; });
+        }
+
+        private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
+        {
+            if (shouldSpawn)
+                return;
+            
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
+                return;
+            
+            CheckIfShouldSpawnBoss();
         }
 
         void OnDisable()
@@ -142,17 +153,6 @@ namespace Gmap
 
             GameObject instance = SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));
         }
-
-        // private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
-        // {
-        //     if (obj.health.CompareTag("Player"))
-        //         return;
-
-        //     if (shouldSpawn || !waitingToSpawnBoss)
-        //         return;
-
-        //     CheckIfShouldSpawnBoss();
-        // }
 
         public GameObject SpawnNext(GameObjectPool pool, float t)
         {

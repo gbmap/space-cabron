@@ -82,7 +82,10 @@ namespace Gmap.CosmicMusicUtensil
                     Octave.Value
                 );
             }
-            return new Melody(noteArray);
+            Melody melody = new Melody(noteArray); 
+            melody.Root = root;
+            melody.Scale = scale;
+            return melody;
         }
     }
     

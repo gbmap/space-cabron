@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -14,11 +17,20 @@ namespace Gmap.CosmicMusicUtensil
 
         void Start()
         {
+            if (Turntable == null)
+            {
+                Destroy(this);
+                return;
+            }
+
             Turntable.UnityEvent.AddListener(OnNote);
         }
 
         void OnDestroy()
         {
+            if (Turntable == null)
+                return;
+
             Turntable.UnityEvent.RemoveListener(OnNote);
         }
 

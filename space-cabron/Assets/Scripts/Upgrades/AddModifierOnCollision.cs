@@ -39,7 +39,7 @@ namespace Gmap
         protected override void HandleCollision(TurntableBehaviour t)
         {
             MelodyModifier m = ModifierFromType(ModifierType);
-            t.SetMelody(m.Apply(t.melody));
+            t.SetMelody(m.Apply(t.Melody));
         }
 
         private MelodyModifier ModifierFromType(MelodyModifier.EType t)

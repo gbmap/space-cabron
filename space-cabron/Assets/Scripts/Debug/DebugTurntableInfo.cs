@@ -16,11 +16,12 @@ namespace Gmap.Debug
             turntableBehaviour = GetComponent<ITurntable>();
         }
 
-
         void OnGUI()
         {
             GUILayout.Label($"Note Index: {turntableBehaviour.NoteIndex}");
             GUILayout.Label($"Bar Index: {turntableBehaviour.BarIndex}");
+            GUILayout.Label($"Melody Root: {turntableBehaviour.Melody.Root}");
+            GUILayout.Label($"Scale: {turntableBehaviour.Melody.Scale}");
 
             var melody = turntableBehaviour.Melody;
             var improviser = turntableBehaviour.Improviser;

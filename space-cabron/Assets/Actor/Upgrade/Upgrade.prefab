@@ -294,5 +294,5 @@ MonoBehaviour:
   Layer:
     serializedVersion: 2
     m_Bits: 256
-  Distance: 5
-  Acceleration: 1
+  Distance: 0.75
+  Acceleration: 0.05
