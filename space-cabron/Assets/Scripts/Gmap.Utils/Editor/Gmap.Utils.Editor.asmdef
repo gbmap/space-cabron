@@ -1,0 +1,18 @@
+{
+    "name": "Gmap.Utils.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ca56141c7eebe114db88a6573b09bd3a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
