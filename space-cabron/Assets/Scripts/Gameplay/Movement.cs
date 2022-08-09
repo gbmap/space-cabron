@@ -17,9 +17,17 @@ namespace SpaceCabron.Gameplay
 
         public Vector3 LastPosition { get; private set; }
 
+        private Animator animator;
+        private int horizontalHash = Animator.StringToHash("X");
+
         IBrain<InputState> IBrainHolder<InputState>.Brain { 
             get => Brain; 
             set => Brain = value; 
+        }
+
+        void Awake()
+        {
+            animator = GetComponent<Animator>();
         }
 
         void Update()
@@ -34,6 +42,9 @@ namespace SpaceCabron.Gameplay
             transform.position += new Vector3(
                 state.Movement.x, state.Movement.y, 0f
             )*Time.deltaTime*Speed;
+
+            if (animator)
+                animator.SetFloat(horizontalHash, state.Movement.x);
         }
     }
 }

@@ -10,15 +10,23 @@ namespace Gmap.Gameplay
     {
         static Scene activeScene;
         public static LevelConfiguration CurrentLevelConfiguration { get; private set; }
+        public static int RandomSeed { get; private set; }
         private static bool KeepOldScene;
-        public static void Load(LevelConfiguration level)
+        // private static System.Action OnFinishedLoading = null;
+        public static void Load(LevelConfiguration level, System.Action OnFinishedLoading = null)
         {
+            RandomSeed = Random.Range(0, int.MaxValue);
+
+            // level = level.Clone();
             MessageRouter.Reset();
             AsyncOperation aOp = SceneManager.LoadSceneAsync("Gameplay", LoadSceneMode.Additive);
-            aOp.completed += (AsyncOperation op) => { Callback_OnGameplaySceneLoaded(op, level); };
+            aOp.completed += (AsyncOperation op) => { Callback_OnGameplaySceneLoaded(op, level, OnFinishedLoading); };
         }
 
-        private static void Callback_OnGameplaySceneLoaded(AsyncOperation op, LevelConfiguration level)
+        private static void Callback_OnGameplaySceneLoaded(
+            AsyncOperation op, 
+            LevelConfiguration level,
+            System.Action OnFinishedLoading = null)
         {
             UnloadOtherScenes();
             MessageRouter.RaiseMessage(new MsgLevelStartedLoading());
@@ -29,9 +37,12 @@ namespace Gmap.Gameplay
                 RenderSettings.skybox = level.Background.Material;
             }
 
-            ConfigureLevelConfigurablesWithLevelConfiguration(level);
-            PlayBeginLevelAnimationOnPlayers(() => MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{}));
             CurrentLevelConfiguration = level;
+            ConfigureLevelConfigurablesWithLevelConfiguration(level);
+            PlayBeginLevelAnimationOnPlayers(() => {
+                MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{});
+                OnFinishedLoading?.Invoke();
+            });
         }
 
         private static void UnloadOtherScenes()
@@ -65,8 +76,11 @@ namespace Gmap.Gameplay
 
         private static void PlayBeginLevelAnimationOnPlayers(System.Action OnEnded)
         {
-            GameObject.FindObjectOfType<RunAnimationOnPlayers>()
-                      .PlayAnimation<BeginLevelBrain>(OnEnded);
+            var anim = GameObject.FindObjectOfType<RunAnimationOnPlayers>();
+            if (anim != null)
+                anim.PlayAnimation<BeginLevelBrain>(OnEnded);
+            else
+                OnEnded();
         }
 
     }

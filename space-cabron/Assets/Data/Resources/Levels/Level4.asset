@@ -24,7 +24,7 @@ MonoBehaviour:
       type: 2}
   PlayerMelody:
     BPM: 55
-    MelodyFactory: {fileID: 11400000, guid: 0adc150719aea204a8d0ec26df771380, type: 2}
+    MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}
   DrumMelody:

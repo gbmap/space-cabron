@@ -63,6 +63,7 @@ namespace SpaceCabron.Gameplay
 
         public void CancelAnimation()
         {
+            Debug.Log($"[AnimationBrain] Cancelling animation {GetType().Name}");
             StopAllCoroutines();
             FinishAnimationAndDestroy();
         }
@@ -90,7 +91,7 @@ namespace SpaceCabron.Gameplay
             yield return new WaitForSeconds(3f);
 
             Vector3 outsideOfScreenTop = Camera.main.ViewportToWorldPoint(
-                new Vector3(0.5f, 1.5f, 0f)
+                new Vector3(0.5f, 1.2f, 0f)
             );
             yield return MoveTowardsPosition(outsideOfScreenTop);
         }

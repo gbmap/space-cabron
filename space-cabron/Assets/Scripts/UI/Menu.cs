@@ -1,6 +1,7 @@
 using System;
 using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
+using SpaceCabron.Gameplay;
 using UnityEngine;
 
 namespace Gmap.Gameplay
@@ -42,6 +43,7 @@ namespace Gmap.Gameplay
                     throw new System.Exception("Melody is empty.");
 
                 ScriptableFixedMelodyFactory f = ScriptableObject.CreateInstance<ScriptableFixedMelodyFactory>();
+                f.Notation = _customMelody.ToLower();
                 LevelConfiguration.GetInstrumentConfigurationByTag("Player").MelodyFactory = f;
                 StartGame();
             }

@@ -43,17 +43,18 @@ namespace ObjectPool {
                     InstantiateAndAddToPool();
             }
 
-            GameObject obj = m_unused.Pop();
+            GameObject obj = null;
+            do 
+            {
+                obj = m_unused.Pop();
+            } while (obj == null && m_unused.Count > 0);
 
-            // Object has been destroyed, recurse
-            if (obj == null)
+            if (m_unused.Count == 0)
                 return Instantiate(pPos, pRot);
 
             obj.SetActive(true);
             obj.transform.position = pPos;
             obj.transform.rotation = pRot;
-            //obj.SendMessage<IObjectPoolEventHandler>(o => o.Reset());
-            // obj.SendMessage<IObjectPoolEventHandler>(o => o.PoolReset());
             return obj;
         }
 

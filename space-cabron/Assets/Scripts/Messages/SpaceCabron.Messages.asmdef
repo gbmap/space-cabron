@@ -1,0 +1,16 @@
+{
+    "name": "SpaceCabron.Messages",
+    "rootNamespace": "",
+    "references": [
+        "GUID:98671b1d76d21834a8a0f77fb5b3b9d4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -22,6 +22,8 @@ namespace Gmap.Gameplay
         public bool CanTakeDamage = true;
         public bool IsResistant;
 
+        public bool IsBeingDestroyed { get; private set; }
+
         int _currentHealth;
         public int CurrentHealth => _currentHealth;
         
@@ -72,22 +74,23 @@ namespace Gmap.Gameplay
             if (!CanTakeDamage)
                 return;
 
-            if (b.IsSpecial || !IsResistant)
+            // Bullet null means god doesn't like this creature.
+            if (b == null || b.IsSpecial || !IsResistant)
             {
                 _currentHealth--;
                 OnTakenDamage?.Invoke();
 
                 if (_currentHealth == 0)
                 {
-                    FireDestroyEvent(new MsgOnObjectDestroyed
+                    var msg = new MsgOnObjectDestroyed
                     {
                         name = gameObject.name,
                         health = this,
                         bullet = b,
                         collider = collider
-                    });
+                    };
+                    FireDestroyEvent(msg);
                 }
-            }
 
                 MessageRouter.RaiseMessage(new MsgOnObjectHit()
                 {
@@ -95,10 +98,16 @@ namespace Gmap.Gameplay
                     bullet = b,
                     collider = collider
                 });
-
-                if (_currentHealth == 0)
-                    this.DestroyOrDisable();
+            }
         }
+
+        public void Destroy()
+        {
+            CanTakeDamage = true;
+            _currentHealth = 1;
+            TakeDamage(null, null);
+        }
+
 
         void IObjectPoolEventHandler.PoolReset()
         {
@@ -107,8 +116,10 @@ namespace Gmap.Gameplay
 
         void FireDestroyEvent(MsgOnObjectDestroyed msg, bool global=true)
         {
+            IsBeingDestroyed = true;
             OnDestroy?.Invoke(msg);
             MessageRouter.RaiseMessage(msg);
+            this.DestroyOrDisable();
         }
     }
 }

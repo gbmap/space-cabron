@@ -7,9 +7,6 @@ namespace Gmap.CosmicMusicUtensil
 {
     public class TurntableBehaviour : MonoBehaviour, ITurntable
     {
-        public Melody melody;
-        private string _lastMelody;
-
         // public int BPM = 60;
         public IntBusReference BPMReference;
         public ScriptableCompositeBar Bar;
@@ -25,7 +22,7 @@ namespace Gmap.CosmicMusicUtensil
             get 
             { 
                 if (_turntable == null)
-                    _turntable = new Turntable(BPMReference, melody, KeepNotePlaying, NoteTime, OnNote);
+                    _turntable = new Turntable(BPMReference, new Melody(""), KeepNotePlaying, NoteTime, OnNote);
                 return _turntable;
             }
         }
@@ -34,11 +31,11 @@ namespace Gmap.CosmicMusicUtensil
 
         public int BPM 
         { 
-            get => BPMReference.Value; 
-            set => BPMReference.Value = value; 
+            get => Turntable.BPM; 
+            set => Turntable.BPM = value; 
         }
 
-        public Melody Melody => melody;
+        public Melody Melody => Turntable.Melody;
         public int NoteIndex => Turntable.NoteIndex;
         public int BarIndex => Turntable.BarIndex;
 
@@ -49,18 +46,11 @@ namespace Gmap.CosmicMusicUtensil
 
         void Update()
         {
-            if (_lastMelody != melody.Notation)
-            {
-                melody = new Melody(melody.Notation);
-                _lastMelody = melody.Notation;
-            }
-
             Turntable.Update(OnNote);
         }
 
         public void SetMelody(Melody m)
         {
-            melody = m;
             Turntable.SetMelody(m);
         }
 
@@ -75,5 +65,10 @@ namespace Gmap.CosmicMusicUtensil
         }
 
         public void Update(Action<OnNoteArgs> OnNote) {}
+
+        public void ApplyImprovisation(Improvisation improvisation, bool permanent)
+        {
+            Turntable.ApplyImprovisation(improvisation, permanent);
+        }
     }
 }

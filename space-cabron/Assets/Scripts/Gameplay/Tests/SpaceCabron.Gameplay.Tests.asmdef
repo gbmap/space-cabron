@@ -1,0 +1,27 @@
+{
+    "name": "SpaceCabron.Gameplay.Tests",
+    "rootNamespace": "",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "SpaceCabron.Gameplay",
+        "Gmap.CosmicMusicUtensil",
+        "SpaceCabron.Messages",
+        "Frictionless",
+        "Gmap.ScriptableReferences",
+        "Gmap.Gameplay"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

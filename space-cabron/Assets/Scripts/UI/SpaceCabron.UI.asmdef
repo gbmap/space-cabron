@@ -1,0 +1,19 @@
+{
+    "name": "SpaceCabron.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e37c82ff00beb1148a0eb99884d07e1c",
+        "GUID:0c07aa109aba5b840aef90368aa14233",
+        "GUID:94d6d3ad6b29e0f4b857a188ff3f001a",
+        "GUID:ac7d7974f85db534b932f6d4af9fc4f5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -23,6 +23,7 @@ namespace Gmap.CosmicMusicUtensil
         public Improviser Improviser { get; }
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
+        void ApplyImprovisation(Improvisation improvisation, bool permanent);
     }
 
     public class Turntable : ITurntable
@@ -34,7 +35,7 @@ namespace Gmap.CosmicMusicUtensil
         public int BPM { get => BPMReference.Value; set => BPMReference.Value = value; }
         public float BPS
         {
-            get { return (60f/(float)BPMReference.Value); }
+            get { return BPMToBPS(BPM); }
         }
 
         int currentNoteIndex;
@@ -72,6 +73,9 @@ namespace Gmap.CosmicMusicUtensil
 
         public void Update(System.Action<OnNoteArgs> OnNote)
         {
+            if (Melody.IsEmpty)
+                return;
+
             if (NoNotesToPlay())
                 QueueNextNotes();
             PlayQueuedNotes();
@@ -125,6 +129,19 @@ namespace Gmap.CosmicMusicUtensil
             currentNoteIndex = (currentNoteIndex + 1) % melody.Length;
             if (currentNoteIndex == 0)
                 currentBarIndex++;
+        }
+
+        public static float BPMToBPS(int bpm)
+        {
+            return (float)bpm/60f;
+        }
+
+        public void ApplyImprovisation(Improvisation improvisation, bool permanent)
+        {
+            if (permanent)
+                Melody.ApplyImprovisation(improvisation);
+            else
+                Improviser.AddImprovisation(improvisation);
         }
     }
 }

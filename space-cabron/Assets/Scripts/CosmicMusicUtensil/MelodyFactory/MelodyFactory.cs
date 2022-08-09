@@ -1,11 +1,23 @@
+using System.Linq;
 using Gmap.ScriptableReferences;
+using Gmap.Utils;
 using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
 {
     public interface MelodyFactory
     {
-        Melody Generate();
+        Melody GenerateMelody();
+    }
+
+    public interface INoteArrayFactory
+    {
+        Note[] GenerateNotes(int[] intervals);
+    }
+
+    public interface IIntervalsFactory
+    {
+        int[] GenerateIntervals(int n);
     }
 
     public class FixedMelodyFactory : MelodyFactory
@@ -21,7 +33,7 @@ namespace Gmap.CosmicMusicUtensil
             this.melody = m;
         }
 
-        public Melody Generate()
+        public Melody GenerateMelody()
         {
             return this.melody;
         }
@@ -36,7 +48,7 @@ namespace Gmap.CosmicMusicUtensil
             possibleMelodies = pool;
         }
 
-        public Melody Generate()
+        public Melody GenerateMelody()
         {
             return new Melody(possibleMelodies.GetNext().Value);
         }
@@ -57,8 +69,9 @@ namespace Gmap.CosmicMusicUtensil
             this.Octave = octave;
         }
 
-        public Melody Generate()
+        public Melody GenerateMelody()
         {
+            Debug.Log($"Generating melody with config:\n\tRoot: {root}\n\tScale: {scale}\n\tNumber of notes: {numberOfNotes}\n\tOctave {Octave}");
             int[] intervals = new int[] { 2, 4, 8, 16 };
             Note[] noteArray = new Note[numberOfNotes];
             for (int i = 0; i< noteArray.Length; i++)
@@ -69,7 +82,81 @@ namespace Gmap.CosmicMusicUtensil
                     Octave.Value
                 );
             }
-            return new Melody(noteArray);
+            Melody melody = new Melody(noteArray); 
+            melody.Root = root;
+            melody.Scale = scale;
+            return melody;
         }
     }
+    
+    public abstract class MelodyFactoryBase : MelodyFactory, INoteArrayFactory, IIntervalsFactory
+    {
+        protected int numberOfNotes;
+        protected int[] intervals;
+        protected Note[] notes;
+        protected IntReference octave;
+
+        protected ENote root;
+        protected Scale scale;
+
+        public MelodyFactoryBase(ENote root, Scale scale, int numberOfNotes, IntReference octave)
+        {
+            this.root = root;
+            this.scale = scale;
+            this.numberOfNotes = numberOfNotes;
+            this.octave = octave;
+        }
+
+        public Melody GenerateMelody()
+        {
+            intervals = GenerateIntervals(numberOfNotes);
+            notes = GenerateNotes(intervals);
+            return new Melody(notes);
+        }
+
+        public abstract Note[] GenerateNotes(int[] intervals);
+        public abstract int[] GenerateIntervals(int n);
+    }
+
+    public class ShuffleBagMelodyFactory : MelodyFactoryBase
+    {
+        ShuffleBag<ENote> noteBag;
+        public ShuffleBagMelodyFactory(ENote root, Scale scale, int numberOfNotes, IntReference octave) 
+            : base(root, scale, numberOfNotes, octave)
+        {
+            noteBag = new ShuffleBag<ENote>();
+
+            noteBag.Add(scale.GetNote(root, 0), 10);
+            if (scale.GetNumberOfNotes() >= 4)
+                noteBag.Add(scale.GetNote(root, 3), 9);
+            if (scale.GetNumberOfNotes() >= 5)
+                noteBag.Add(scale.GetNote(root, 4), 8);
+
+            int[] ignoreIndexes = new int[] { 0, 3, 4 };
+            for (int i = 0; i < scale.GetNumberOfNotes(); i++)
+            {
+                if (ignoreIndexes.Contains(i))
+                    continue;
+
+                noteBag.Add(scale.GetNote(root, i), 3);
+            }
+        }
+
+        public override Note[] GenerateNotes(int[] intervals)
+        {
+            Note[] notes = new Note[intervals.Length];
+            intervals.Select(i => new Note
+            {
+                Interval = i,
+                Octave = octave.Value,
+                Tone = noteBag.Next()
+            });
+            return notes;
+        }
+        public override int[] GenerateIntervals(int n)
+        {
+            return Enumerable.Range(0, n).Select(i=>2<<Random.Range(0,3)).ToArray();
+        }
+    }
+
 }

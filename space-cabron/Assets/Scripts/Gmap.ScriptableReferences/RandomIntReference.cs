@@ -12,8 +12,16 @@ namespace Gmap.ScriptableReferences
 
         public override int Value 
         { 
-            get => Random.Range(Min, Max); 
+            get => Random.Range(Min, Max+1); 
             set => base.Value = value; 
+        }
+
+        public override ValueReference<int> Clone()
+        {
+            var instance = ScriptableObject.CreateInstance<RandomIntReference>();
+            instance.Min = this.Min;
+            instance.Max = this.Max;
+            return instance;
         }
     }
 }

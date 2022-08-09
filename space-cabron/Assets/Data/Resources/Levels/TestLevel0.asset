@@ -15,7 +15,7 @@ MonoBehaviour:
   Gameplay:
     Difficulty: 1
     ScoreThreshold: 50
-    EnemyPool: {fileID: 11400000, guid: 7e59be1c7e5a75342ab4d01b534484f8, type: 2}
+    EnemyPool: {fileID: 11400000, guid: 79d139b667f80544588e318074a3c1af, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
     BPM: 50
@@ -24,7 +24,7 @@ MonoBehaviour:
       type: 2}
   PlayerMelody:
     BPM: 60
-    MelodyFactory: {fileID: 11400000, guid: 0adc150719aea204a8d0ec26df771380, type: 2}
+    MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}
   DrumMelody:
@@ -39,9 +39,9 @@ MonoBehaviour:
       type: 2}
   HitConfiguration:
     BPM: 30
-    MelodyFactory: {fileID: 0}
+    MelodyFactory: {fileID: 11400000, guid: 0adc150719aea204a8d0ec26df771380, type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: ac96a814f41e6b84287c0effd3d665da,
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}
-  NextLevel: {fileID: 11400000, guid: 387c2fabd4cbacd4a8719248f930e7be, type: 2}
+  NextLevel: {fileID: 11400000, guid: 432c8c002f02e7a4ca319fb542d79c09, type: 2}

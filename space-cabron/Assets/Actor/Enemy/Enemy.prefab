@@ -202,10 +202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eebc234d855a5b44b112985b0230285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 6279716415127280445}
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  Direction: {x: 0, y: 0}
   IsResistant: 0
 --- !u!114 &4202326656841634815
 MonoBehaviour:
@@ -236,15 +236,17 @@ MonoBehaviour:
     SendTo: {fileID: 0}
     _value: 0
   items:
-  - obj: {fileID: 3262573041817289645, guid: 3838bbb4a27945342a0f807363938730, type: 3}
+  - obj: {fileID: 8913538050576589860, guid: abe676eb75093154c8db85268170c64f, type: 3}
     Weight: 1
   - obj: {fileID: 3927431444332515879, guid: e7d238c8c1b745245b6ddd681e260469, type: 3}
-    Weight: 1
+    Weight: 3
   - obj: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
     Weight: 1
   - obj: {fileID: 5710985424178225992, guid: 0ed021b659f2cfc4a8636be283272c63, type: 3}
     Weight: 1
   - obj: {fileID: 5616107406842346364, guid: 563a412d49414804b95316c24559d80b, type: 3}
+    Weight: 1
+  - obj: {fileID: 1104723741837955719, guid: 4bec959aadb1d0a41938f2656de262b4, type: 3}
     Weight: 1
 --- !u!114 &437546467635798816
 MonoBehaviour:

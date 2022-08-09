@@ -25,6 +25,9 @@ namespace Gmap.CosmicMusicUtensil
         public int Length { get { return Notes.Length; } }
         public bool IsEmpty { get { return Notes.Length == 0; } }
 
+        public ENote Root { get; set; }
+        public IScale Scale { get; set; }
+
         public Melody(Melody m)
         {
             Update(m.notation);
@@ -45,7 +48,8 @@ namespace Gmap.CosmicMusicUtensil
             List<Note> notes = new List<Note>();
             for (int i = 0; i < NotesArray.Length; i++)
                 notes.AddRange(improvisation.Apply(this, 0, new Note[] {GetNote(i)}, i));
-            return new Melody(notes.ToArray());
+            Update(notes.ToArray());
+            return this;
         }
 
         private void Update(string melody)

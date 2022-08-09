@@ -91,4 +91,27 @@ public class NoteTests
         Assert.AreEqual(4, n.Octave);
     }
 
+    [TestCase(4, 1f, ExpectedResult=1f)]
+    [TestCase(4, 0.5f, ExpectedResult=2f)]
+    [TestCase(8, 1f, ExpectedResult=0.5f)]
+    [TestCase(8, 2f, ExpectedResult=0.25f)]
+    [TestCase(16, 1f, ExpectedResult=0.25f)]
+    [TestCase(32, 1f, ExpectedResult=0.125f)]
+    [TestCase(64, 1f, ExpectedResult=0.0625f)]
+    public static float NoteDuration(int interval, float beatsPerSecond)
+    {
+        return new Note(ENote.A, interval, 3).GetDuration(beatsPerSecond);
+    }
+
+
+    [TestCase(60, ExpectedResult=1f)]
+    [TestCase(120, ExpectedResult=2f)]
+    [TestCase(30, ExpectedResult=0.5f)]
+    [TestCase(15, ExpectedResult=0.25f)]
+    [TestCase(45, ExpectedResult=0.75f)]
+    public static float BPMToBPS(int bpm)
+    {
+        return Turntable.BPMToBPS(bpm);
+    }
+
 }

@@ -5,6 +5,7 @@ using Gmap.ScriptableReferences;
 using Frictionless;
 using System.Linq;
 using SpaceCabron.Messages;
+using SpaceCabron.Gameplay;
 
 namespace Gmap
 {
@@ -18,7 +19,6 @@ namespace Gmap
 
         private bool waitingToSpawnBoss = false;
         private bool hasFiredWinMessage = false;
-        private int spawnedEnemyCount = 0;
 
         void OnEnable()
         {
@@ -26,6 +26,11 @@ namespace Gmap
             MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
             MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
             MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { shouldSpawn = true; });
+        }
+
+        private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
+        {
+            CheckIfShouldSpawnBoss();
         }
 
         void OnDisable()
@@ -43,21 +48,10 @@ namespace Gmap
             if (obj.Score < ScoreThreshold)
                 return;
 
-            if (!shouldSpawn)
-                return;
-
-            UnsubscribeFromScoreChanged();
-            SetShouldSpawn(false);
-            waitingToSpawnBoss = true;
+            if (shouldSpawn)
+                SetShouldSpawn(false);
 
             CheckIfShouldSpawnBoss();
-            // DestroyAllEnemies();
-            // GameObject boss = SpawnBossIfAny();
-            // if (boss == null)
-            //     FireWinMessage();
-            // else
-            //     StartCoroutine(PlayBossIntroAnimation(boss));
-
         }
 
         private void CheckIfShouldSpawnBoss()
@@ -65,9 +59,12 @@ namespace Gmap
             if (shouldSpawn)
                 return;
 
-            // fuck this shit
-            // > 1 because enemy hasn't actually been destroyed yet
-            if (spawnedEnemyCount > 0)
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            var allEnemiesAreDead = enemies.All(e => { 
+                Health h = e.GetComponent<Health>();
+                return h == null || h.IsBeingDestroyed;
+            });
+            if (enemies.Length > 0 && !allEnemiesAreDead)
                 return;
 
             if (hasFiredWinMessage)
@@ -95,8 +92,6 @@ namespace Gmap
 
         private void FireWinMessage()
         {
-      
-
             MessageRouter.RaiseMessage(new MsgLevelWon());
             hasFiredWinMessage = true;
         }
@@ -144,19 +139,6 @@ namespace Gmap
                 return;
 
             GameObject instance = SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));
-            spawnedEnemyCount++;
-        }
-
-        private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
-        {
-            if (obj.health.CompareTag("Player"))
-                return;
-
-            spawnedEnemyCount--;
-
-            // if (spawnedEnemyCount > 0 || !waitingToSpawnBoss)
-            //     return;        
-            CheckIfShouldSpawnBoss();
         }
 
         public GameObject SpawnNext(GameObjectPool pool, float t)

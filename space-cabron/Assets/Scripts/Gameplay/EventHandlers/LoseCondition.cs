@@ -17,16 +17,21 @@ namespace SpaceCabron.Gameplay
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
+            MessageRouter.AddHandler<MsgGameOver>(Callback_GameOver);
         }
 
         void OnDisable()
         {
             MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
+            MessageRouter.RemoveHandler<MsgGameOver>(Callback_GameOver);
         }
 
         private void Callback_OnObjectDestroyed(MsgOnObjectDestroyed obj)
         {
-            if (!obj.health.CompareTag("Player"))
+            if (!obj.health.CompareTag("PlayerChip"))
+                return;
+
+            if (GameObject.FindGameObjectsWithTag("Drone").Length > 0)
                 return;
 
             MessageRouter.RaiseMessage(new MsgGameOver());
@@ -40,5 +45,11 @@ namespace SpaceCabron.Gameplay
             yield return new WaitForSeconds(5f);
             GameOverMenuState.ChangeTo();
         }
+
+        private void Callback_GameOver(MsgGameOver obj)
+        {
+            StartCoroutine(LoseCoroutine());
+        }
+
     }
 }

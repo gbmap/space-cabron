@@ -13,6 +13,7 @@ namespace SpaceCabron.Gameplay
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgPauseGame>(Callback_PauseGameCallback);
+            GameplayState.ChangeTo();
         }
 
         void OnDisable()

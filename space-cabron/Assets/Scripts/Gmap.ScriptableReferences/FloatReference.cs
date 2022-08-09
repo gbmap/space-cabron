@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Gmap.ScriptableReferences
 {
-    public abstract class ValueReference<T> : ScriptableObject
+    public abstract class ValueReference<T> : ScriptableObject, ICloneable<ValueReference<T>>
     {
         [SerializeField]
         T value;
@@ -11,6 +11,20 @@ namespace Gmap.ScriptableReferences
         {
             get { return value; }
             set { this.value = value;}
+        }
+
+        public static ValueReference<T> Create(T value)
+        {
+            var instance = ScriptableObject.CreateInstance<ValueReference<T>>();
+            instance.Value = value;
+            return instance;
+        }
+
+        public virtual ValueReference<T> Clone()
+        {
+            var instance = ScriptableObject.CreateInstance<ValueReference<T>>();
+            instance.Value = this.Value;
+            return instance;
         }
     }
 
