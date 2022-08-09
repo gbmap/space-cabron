@@ -49,5 +49,17 @@ namespace SpaceCabron.Messages
         public System.Action<GameObject> OnSpawned;
     }
 
+    public class MsgSpawnPlayer
+    {
+        public GameObject TargetPosition;
+        public Vector3 Position;
+        public System.Action<GameObject> OnSpawned;
+    }
+
+    public class MsgSpawnPlayerChip 
+    {
+        public Vector3 Position;
+    }
+
     public class MsgGameOver {}
 }

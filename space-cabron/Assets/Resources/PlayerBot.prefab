@@ -4845,7 +4845,7 @@ GameObject:
   - component: {fileID: -8427337011671310491}
   m_Layer: 7
   m_Name: PlayerBot
-  m_TagString: Untagged
+  m_TagString: Drone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

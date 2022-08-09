@@ -73,6 +73,9 @@ namespace Gmap.CosmicMusicUtensil
 
         public void Update(System.Action<OnNoteArgs> OnNote)
         {
+            if (Melody.IsEmpty)
+                return;
+
             if (NoNotesToPlay())
                 QueueNextNotes();
             PlayQueuedNotes();
@@ -110,7 +113,7 @@ namespace Gmap.CosmicMusicUtensil
             OnNote?.Invoke(new OnNoteArgs
             {
                 Note = note,
-                HoldTime = Mathf.Max(0.2f, Mathf.Lerp(noteTime, noteTime*duration, HoldNote?1f:0f)),
+                HoldTime = Mathf.Max(0.1f, Mathf.Lerp(noteTime, noteTime*duration, HoldNote?1f:0f)),
                 Duration = duration
             });
             LastNote = note;

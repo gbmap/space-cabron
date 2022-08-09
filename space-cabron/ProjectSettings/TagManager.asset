@@ -13,6 +13,8 @@ TagManager:
   - Instrument
   - Drone1Instrument
   - EnemySpawner
+  - PlayerChip
+  - Drone
   layers:
   - Default
   - TransparentFX

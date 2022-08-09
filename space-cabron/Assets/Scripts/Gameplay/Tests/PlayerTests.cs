@@ -14,6 +14,20 @@ public class PlayerTests
 {
     private bool finishedLoading;
 
+    GameObject eventHandlers;
+
+    [SetUp]
+    public void Init()
+    {
+        eventHandlers = GameObject.Instantiate(Resources.Load<GameObject>("EventHandlers"));
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        GameObject.Destroy(eventHandlers);
+    }
+
     [UnityTest]
     public IEnumerator BeginAnimationMovesPlayerTowardsPosition()
     {
@@ -126,5 +140,49 @@ public class PlayerTests
             DroneType = MsgSpawnDrone.EDroneType.Melody,
             Player = GameObject.FindGameObjectWithTag("Player")
         });
+    }
+
+    [UnityTest]
+    public IEnumerator DestroyingPlayerSpawnsPlayerChip()
+    {
+        var player = GameObject.Instantiate(Resources.Load<GameObject>("Player"));
+        yield return new WaitForSeconds(0.2f);
+        player.GetComponent<Health>().Destroy();
+        yield return new WaitForSeconds(1f);
+        Assert.IsNotNull(GameObject.FindGameObjectWithTag("PlayerChip"));
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerChipAndDroneSpawnsPlayer()
+    {
+        yield return new WaitForSeconds(0.2f);
+        GameObject.Instantiate(Resources.Load<GameObject>("PlayerChip"));
+
+        MessageRouter.RaiseMessage(new MsgSpawnDrone {
+            DroneType = MsgSpawnDrone.EDroneType.Random
+        });
+
+        yield return new WaitForSeconds(5f);
+
+        Assert.IsNotNull(GameObject.FindGameObjectWithTag("Player"));
+    }
+
+    [UnityTest]
+    public IEnumerator DestroyingPlayerWithDroneRespawnsPlayer()
+    {
+        var player = GameObject.Instantiate(Resources.Load<GameObject>("Player"));
+        yield return new WaitForSeconds(0.2f);
+        MessageRouter.RaiseMessage(new MsgSpawnDrone 
+        { 
+            DroneType = MsgSpawnDrone.EDroneType.Melody,
+            Player = player
+        });
+        yield return new WaitForSeconds(0.2f);
+        player.GetComponent<Health>().Destroy();
+        yield return new WaitForSeconds(5f);
+
+        var player2 = GameObject.FindGameObjectWithTag("Player");
+        Assert.IsTrue(player2 != null);
+        Assert.AreNotEqual(player, player2);
     }
 }

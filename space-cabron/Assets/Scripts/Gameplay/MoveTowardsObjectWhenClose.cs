@@ -13,7 +13,7 @@ namespace SpaceCabron.Gameplay
         public float Acceleration = 1f;
 
         private Collider2D target;
-        private Vector3 velocity;
+        private Vector3 velocity = Vector3.zero;
         private Coroutine coroutineCheckObject;
 
         void Start()
@@ -31,7 +31,7 @@ namespace SpaceCabron.Gameplay
             }
 
             Vector3 delta = target.transform.position - transform.position; 
-            velocity += delta.normalized * (1f/(delta.sqrMagnitude*2f))
+            velocity += Vector3.ClampMagnitude(delta, 1f) * (1f/(Mathf.Max(1f, delta.sqrMagnitude*2f)))
                      * Acceleration * Time.fixedDeltaTime;
             transform.position += velocity;
         }

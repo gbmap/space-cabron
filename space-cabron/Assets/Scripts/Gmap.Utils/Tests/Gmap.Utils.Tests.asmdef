@@ -1,16 +1,13 @@
 {
-    "name": "SpaceCabron.Gameplay.Tests",
+    "name": "Gmap.Utils.Tests",
     "rootNamespace": "",
     "references": [
-        "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "SpaceCabron.Gameplay",
-        "Gmap.CosmicMusicUtensil",
-        "SpaceCabron.Messages",
-        "Frictionless",
-        "Gmap.ScriptableReferences"
+        "Gmap.Utils"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

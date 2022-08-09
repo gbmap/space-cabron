@@ -49,5 +49,11 @@ namespace Gmap.CosmicMusicUtensil
                 OnNoteRepeated?.Invoke(args2);
             }
         }
+
+        public void UpdateReferences(GameObject target)
+        {
+            Turntable = target.GetComponentInChildren<TurntableBehaviour>();
+            Proxy = target.GetComponentInChildren<HelmProxy>();
+        }
     }
 }

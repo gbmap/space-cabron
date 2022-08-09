@@ -1,3 +1,4 @@
+using System.Linq;
 using AudioHelm;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
@@ -14,6 +15,7 @@ namespace SpaceCabron.Gameplay
         public GameObject DronePrefab;
         public GameObject DroneMelodyPrefab;
         public GameObject DroneEveryNPrefab;
+        public GameObject PlayerPrefab;
 
         public UnityEngine.Audio.AudioMixerGroup[] Groups;
 
@@ -26,26 +28,13 @@ namespace SpaceCabron.Gameplay
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgSpawnDrone>(SpawnDrone);
+            MessageRouter.AddHandler<MsgSpawnPlayer>(SpawnPlayer);
         }
 
         void OnDisable()
         {
             MessageRouter.RemoveHandler<MsgSpawnDrone>(SpawnDrone);
-        }
-
-        private GameObject DroneTypeToPrefab(MsgSpawnDrone.EDroneType droneType)
-        {
-            switch (droneType)
-            {
-                case MsgSpawnDrone.EDroneType.Random:
-                    return DronePrefab;
-                case MsgSpawnDrone.EDroneType.Melody:
-                    return DroneMelodyPrefab;
-                case MsgSpawnDrone.EDroneType.EveryN:
-                    return DroneEveryNPrefab;
-                default:
-                    return DronePrefab;
-            }
+            MessageRouter.RemoveHandler<MsgSpawnPlayer>(SpawnPlayer);
         }
 
         private void SpawnDrone(MsgSpawnDrone msg)
@@ -53,29 +42,40 @@ namespace SpaceCabron.Gameplay
             if (msg.Player == null)
             {
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                if (players.Length == 0)
-                    return;
-                
-                msg.Player = players[Random.Range(0, players.Length)];
+                if (players.Length > 0)
+                    msg.Player = players[Random.Range(0, players.Length)];
             }
+
+            Vector3 targetPosition = Vector3.zero;
+            if (msg.Player != null)
+                targetPosition = msg.Player.transform.position;
 
             var instance = Instantiate(
                 DroneTypeToPrefab(msg.DroneType),
-                msg.Player.transform.position,
+                targetPosition,
                 Quaternion.identity
             );
+
+            ConfigureDrone(instance, msg.Player);
+
+            msg.OnSpawned?.Invoke(instance);
+        }
+
+        public void ConfigureDrone(GameObject instance, GameObject playerInstance)
+        {
+            if (playerInstance == null)
+                return;
 
             FollowAtAnOffset offset = instance.GetComponent<FollowAtAnOffset>();
             offset.Offset = UnityEngine.Random.insideUnitSphere;
             offset.Offset.z = 0f;
             offset.Offset.Normalize();
-            offset.Target = msg.Player.transform;
+            offset.Target = playerInstance.transform;
 
             RepeatNoteWithStep step = instance.GetComponent<RepeatNoteWithStep>();
             if (step != null)
             {
-                step.Turntable = msg.Player.GetComponentInChildren<TurntableBehaviour>();
-                step.Proxy = msg.Player.GetComponentInChildren<HelmProxy>();
+                step.UpdateReferences(playerInstance);
 
                 int steps = new int[] { 3, 5, 7, 15, 17, 19 }[UnityEngine.Random.Range(0, 6)];
                 step.Steps = steps;
@@ -95,22 +95,40 @@ namespace SpaceCabron.Gameplay
             TurntableBehaviour turntable = instance.GetComponentInChildren<TurntableBehaviour>();
             if (turntable != null)
                 ConfigureMelodyDrone(instance, turntable);
-          
-            msg.OnSpawned?.Invoke(instance);
         }
 
-        private void ConfigureMelodyDrone(GameObject instance, TurntableBehaviour turntable)
+        private GameObject DroneTypeToPrefab(MsgSpawnDrone.EDroneType droneType)
+        {
+            switch (droneType)
+            {
+                case MsgSpawnDrone.EDroneType.Random:
+                    return DronePrefab;
+                case MsgSpawnDrone.EDroneType.Melody:
+                    return DroneMelodyPrefab;
+                case MsgSpawnDrone.EDroneType.EveryN:
+                    return DroneEveryNPrefab;
+                default:
+                    return DronePrefab;
+            }
+        }
+
+
+        private void ConfigureMelodyDrone(GameObject instance, ITurntable turntable)
         {
             int droneAudioMixerIndex = numberOfMelodyDronesSpawned++ % MIXER_GROUP_DRONE_COUNT;
 
-            HelmController controller = turntable.GetComponent<HelmController>();
+            HelmController controller = instance.GetComponentInChildren<HelmController>();
             controller.channel = MIXER_GROUP_DRONE_INDEX + droneAudioMixerIndex;
 
-            AudioSource audioSource = turntable.GetComponentInChildren<AudioSource>();
+            AudioSource audioSource = instance.GetComponentInChildren<AudioSource>();
             audioSource.outputAudioMixerGroup = Groups[droneAudioMixerIndex];
 
             InjectPatch(instance, droneAudioMixerIndex);
+            ConfigureObjectWithNewMelody(instance, turntable);
+        }
 
+        private void ConfigureObjectWithNewMelody(GameObject instance, ITurntable turntable)
+        {
             if (DroneInstrument == null)
                 return;
 
@@ -122,7 +140,7 @@ namespace SpaceCabron.Gameplay
                 melody = DroneInstrument.MelodyFactory.GenerateMelody();
 
             turntable.SetMelody(melody);
-            var tt = turntable.GetComponent<InjectTurntableMelodyNotationOnAwake>();
+            var tt = instance.GetComponent<InjectTurntableMelodyNotationOnAwake>();
             if (tt != null)
                 Destroy(tt);
         }
@@ -145,5 +163,35 @@ namespace SpaceCabron.Gameplay
         {
             DroneInstrument = configuration.GetInstrumentConfigurationByTag("Player");
         }
+
+        private void SpawnPlayer(MsgSpawnPlayer msg)
+        {
+
+            Vector3 position = Vector3.zero;
+            if (msg.TargetPosition != null)
+                position = msg.TargetPosition.transform.position;
+            else
+                position = msg.Position;
+
+            GameObject instance = Instantiate(PlayerPrefab, position, Quaternion.identity);
+
+            // Configure player turntable with new last melody
+            ITurntable turntable = instance.GetComponentInChildren<ITurntable>();
+            ConfigureObjectWithNewMelody(instance, turntable);
+
+            // Update drones following the player.
+            GameObject[] drones = GameObject.FindGameObjectsWithTag("Drone");
+            drones.Select(d=> d.GetComponent<FollowAtAnOffset>())
+                  .ToList().ForEach(f => f.Target = instance.transform);
+
+            System.Array.ForEach(drones, d => {
+                RepeatNoteWithStep step = d.GetComponent<RepeatNoteWithStep>();
+                if (step != null)
+                    step.UpdateReferences(instance);
+            });
+
+            msg.OnSpawned?.Invoke(instance);
+        }
+
     }
 }
