@@ -1,0 +1,20 @@
+{
+    "name": "SpaceCabron.Gameplay.Editro",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0c07aa109aba5b840aef90368aa14233",
+        "GUID:279679249c8e97647a87c3abe9491edd",
+        "GUID:c8724ea9c6010314091f09b67787891d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
