@@ -22,6 +22,8 @@ namespace Gmap.Gameplay
         public bool CanTakeDamage = true;
         public bool IsResistant;
 
+        public bool IsBeingDestroyed { get; private set; }
+
         int _currentHealth;
         public int CurrentHealth => _currentHealth;
         
@@ -90,15 +92,12 @@ namespace Gmap.Gameplay
                     FireDestroyEvent(msg);
                 }
 
-            MessageRouter.RaiseMessage(new MsgOnObjectHit()
-            {
-                health = this,
-                bullet = b,
-                collider = collider
-            });
-
-            if (_currentHealth == 0)
-                this.DestroyOrDisable();
+                MessageRouter.RaiseMessage(new MsgOnObjectHit()
+                {
+                    health = this,
+                    bullet = b,
+                    collider = collider
+                });
             }
         }
 
@@ -117,8 +116,10 @@ namespace Gmap.Gameplay
 
         void FireDestroyEvent(MsgOnObjectDestroyed msg, bool global=true)
         {
+            IsBeingDestroyed = true;
             OnDestroy?.Invoke(msg);
             MessageRouter.RaiseMessage(msg);
+            this.DestroyOrDisable();
         }
     }
 }

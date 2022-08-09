@@ -75,7 +75,10 @@ public class FX : Singleton<FX>
 
     private void Callback_OnEnemyHit(MsgOnObjectHit obj)
     {
-        SpawnExplosion(EExplosionSize.Medium, obj.bullet.transform.position);
+        Vector3 position = obj.health.transform.position;
+        if (obj.bullet != null)
+            position = obj.bullet.transform.position;
+        SpawnExplosion(EExplosionSize.Medium, position);
     }
 
     private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)

@@ -9,6 +9,7 @@ using SpaceCabron.Messages;
 using SpaceCabron.Gameplay;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
+using UnityEngine.SceneManagement;
 
 public class PlayerTests
 {
@@ -25,7 +26,20 @@ public class PlayerTests
     [TearDown]
     public void TearDown()
     {
+        System.Array.ForEach(
+            new string[] {"Player", "Enemy", "Drone"}, 
+            tag => DestroyWithTag(tag)
+        );
+
+        for (int i = 1; i < SceneManager.sceneCount; i++)
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
         GameObject.Destroy(eventHandlers);
+    }
+
+    private void DestroyWithTag(string tag)
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
+        System.Array.ForEach(objects, o => GameObject.Destroy(o));
     }
 
     [UnityTest]
@@ -82,7 +96,7 @@ public class PlayerTests
         MessageRouter.RaiseMessage(new MsgSpawnDrone 
         { 
             DroneType = MsgSpawnDrone.EDroneType.Melody, 
-            Player = player , 
+            Player = player, 
             OnSpawned = (GameObject droneInstance) => {
                 drone = droneInstance;
             }
@@ -145,6 +159,7 @@ public class PlayerTests
     [UnityTest]
     public IEnumerator DestroyingPlayerSpawnsPlayerChip()
     {
+        yield return new WaitForSeconds(0.1f);
         var player = GameObject.Instantiate(Resources.Load<GameObject>("Player"));
         yield return new WaitForSeconds(0.2f);
         player.GetComponent<Health>().Destroy();
@@ -176,6 +191,8 @@ public class PlayerTests
         yield return new WaitForSeconds(5f);
 
         Assert.IsNotNull(GameObject.FindGameObjectWithTag("Player"));
+        GameObject.Destroy(GameObject.FindGameObjectWithTag("Player"));
+        GameObject.Destroy(GameObject.FindGameObjectWithTag("PlayerChip"));
     }
 
     [UnityTest]

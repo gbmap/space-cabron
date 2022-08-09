@@ -30,12 +30,6 @@ namespace Gmap
 
         private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
         {
-            if (shouldSpawn)
-                return;
-            
-            if (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
-                return;
-            
             CheckIfShouldSpawnBoss();
         }
 
@@ -55,29 +49,22 @@ namespace Gmap
                 return;
 
             if (shouldSpawn)
-            {
                 SetShouldSpawn(false);
-                waitingToSpawnBoss = true;
-            }
 
             CheckIfShouldSpawnBoss();
-            // DestroyAllEnemies();
-            // GameObject boss = SpawnBossIfAny();
-            // if (boss == null)
-            //     FireWinMessage();
-            // else
-            //     StartCoroutine(PlayBossIntroAnimation(boss));
         }
 
         private void CheckIfShouldSpawnBoss()
         {
-            if (!waitingToSpawnBoss)
-                return;
-
             if (shouldSpawn)
                 return;
 
-            if (GameObject.FindGameObjectsWithTag("Enemy").Length > 1)
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            var allEnemiesAreDead = enemies.All(e => { 
+                Health h = e.GetComponent<Health>();
+                return h == null || h.IsBeingDestroyed;
+            });
+            if (enemies.Length > 0 && !allEnemiesAreDead)
                 return;
 
             if (hasFiredWinMessage)

@@ -55,8 +55,8 @@ public class ReflectionTests
             Debug.Log(field.FieldType);
 
         string[] expectedTypes = new string[] {
-            "Vector3",
-            "GameObject",
+            "vector3",
+            "gameobject",
             "int"
         };
 
@@ -64,7 +64,8 @@ public class ReflectionTests
         {
             // Order of declaration is not garanteed.
             var field = fields[i];
-            Assert.IsTrue(expectedTypes.Any(t => field.FieldType.Name.Contains(t)));
+            string name = field.FieldType.Name.ToLower();
+            Assert.IsTrue(expectedTypes.Any(t => name.Contains(t)));
         }
     }
 
@@ -73,17 +74,6 @@ public class ReflectionTests
     {
         object a = 1;
         Assert.AreEqual(a.GetType(), typeof(int));
-    }
-
-    [Test]
-    public static void JsonUtilitySerialization()
-    {
-        object a = 1;
-        string serialized = JsonUtility.ToJson(a);
-        Debug.Log(serialized);
-
-        object deserialized = JsonUtility.FromJson(serialized, a.GetType());
-        Assert.AreEqual((int)deserialized, 1);
     }
 
 }

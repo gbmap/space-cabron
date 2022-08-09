@@ -31,8 +31,8 @@ namespace Gmap.CosmicMusicUtensil
 
         public int BPM 
         { 
-            get => BPMReference.Value; 
-            set => BPMReference.Value = value; 
+            get => Turntable.BPM; 
+            set => Turntable.BPM = value; 
         }
 
         public Melody Melody => Turntable.Melody;
