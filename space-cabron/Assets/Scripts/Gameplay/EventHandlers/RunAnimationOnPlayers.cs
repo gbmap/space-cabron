@@ -30,7 +30,7 @@ namespace SpaceCabron.Gameplay
             GameObject[] go = GameObject.FindGameObjectsWithTag("Player");
             animationCount = go.Length;
             foreach (GameObject player in go)
-                AnimationBrain.Play<T>(player, DecreaseAnimationCounter);
+                AnimationBrain.Play<T>(player, ()=>animationCount--);
             StartCoroutine(WaitAnimationEnded(OnAnimationEnded));
         }
 
@@ -44,15 +44,10 @@ namespace SpaceCabron.Gameplay
             });
         }
 
-        private void DecreaseAnimationCounter()
-        {
-            animationCount--;
-        }
-
         private IEnumerator WaitAnimationEnded(System.Action OnAnimationEnded)
         {
             while (animationCount > 0)
-                yield return new WaitForSecondsRealtime(0.1f);
+                yield return null;
             
             OnAnimationEnded?.Invoke();
         }

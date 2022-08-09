@@ -153,6 +153,17 @@ public class PlayerTests
     }
 
     [UnityTest]
+    public IEnumerator DestroyingPlayerWithoutDroneTransitionsToGameOver()
+    {
+        var player = GameObject.Instantiate(Resources.Load<GameObject>("Player"));
+        yield return new WaitForSeconds(0.2f);
+        player.GetComponent<Health>().Destroy();
+        yield return new WaitForSeconds(10f);
+        GameState gameover = Resources.Load<Gmap.Gameplay.GameState>("GameStates/GameplayGameOverMenu");
+        Assert.AreEqual(gameover, GameState.Current);
+    }
+
+    [UnityTest]
     public IEnumerator PlayerChipAndDroneSpawnsPlayer()
     {
         yield return new WaitForSeconds(0.2f);

@@ -14,12 +14,6 @@ namespace SpaceCabron.Gameplay
         void Awake()
         {
             health = GetComponent<Health>();
-            health.OnDestroy += Callback_OnDestroy;
-        }
-
-        private void Callback_OnDestroy(MsgOnObjectDestroyed obj)
-        {
-            MessageRouter.RaiseMessage(new MsgSpawnPlayer { Position = transform.position });
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -27,6 +21,7 @@ namespace SpaceCabron.Gameplay
             if (!other.CompareTag("Drone"))
                 return;
 
+            MessageRouter.RaiseMessage(new MsgSpawnPlayer { Position = transform.position });
             other.GetComponent<Health>().Destroy();
             health.Destroy();
         }

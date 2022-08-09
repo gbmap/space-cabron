@@ -8,7 +8,8 @@
         "Gmap.CosmicMusicUtensil",
         "SpaceCabron.Messages",
         "Frictionless",
-        "Gmap.ScriptableReferences"
+        "Gmap.ScriptableReferences",
+        "Gmap.Gameplay"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

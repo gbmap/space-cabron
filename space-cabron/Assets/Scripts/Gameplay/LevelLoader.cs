@@ -33,9 +33,11 @@ namespace Gmap.Gameplay
                 RenderSettings.skybox = level.Background.Material;
             }
 
-            ConfigureLevelConfigurablesWithLevelConfiguration(level);
-            PlayBeginLevelAnimationOnPlayers(() => MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{}));
             CurrentLevelConfiguration = level;
+            ConfigureLevelConfigurablesWithLevelConfiguration(level);
+            PlayBeginLevelAnimationOnPlayers(() => {
+                MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{});
+            });
         }
 
         private static void UnloadOtherScenes()
@@ -69,8 +71,11 @@ namespace Gmap.Gameplay
 
         private static void PlayBeginLevelAnimationOnPlayers(System.Action OnEnded)
         {
-            GameObject.FindObjectOfType<RunAnimationOnPlayers>()
-                      .PlayAnimation<BeginLevelBrain>(OnEnded);
+            var anim = GameObject.FindObjectOfType<RunAnimationOnPlayers>();
+            if (anim != null)
+                anim.PlayAnimation<BeginLevelBrain>(OnEnded);
+            else
+                OnEnded();
         }
 
     }

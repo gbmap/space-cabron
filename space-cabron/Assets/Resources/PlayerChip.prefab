@@ -143,8 +143,8 @@ MonoBehaviour:
   Layer:
     serializedVersion: 2
     m_Bits: 128
-  Distance: 5
-  Acceleration: 1
+  Distance: 100
+  Acceleration: 0.1
 --- !u!114 &6851549082936777231
 MonoBehaviour:
   m_ObjectHideFlags: 0

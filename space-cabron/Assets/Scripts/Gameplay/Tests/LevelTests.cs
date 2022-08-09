@@ -25,6 +25,15 @@ public class LevelTests
         return objs.Select(o => new TestCaseData(o).Returns(null)).ToArray();
     }
 
+    public static TestCaseData[] GetSingleLevel()
+    {
+        return new TestCaseData[] {
+            new TestCaseData(
+                Resources.Load<LevelConfiguration>("Levels/Level0")
+            ).Returns(null)
+        };
+    }
+
     [Test, TestCaseSource(nameof(GetLevels))]
     public IEnumerator LoadLevelLoadsLevelInformation(LevelConfiguration level)
     {
@@ -53,5 +62,23 @@ public class LevelTests
             yield return new WaitForSecondsRealtime(5f);
             Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
         }
+    }
+
+    [UnityTest]
+    [TestCaseSource(nameof(GetSingleLevel))]
+    public IEnumerator PlayerWinsWhenScoreReachesThreshold(LevelConfiguration level)
+    {
+        bool hasLoaded = false;
+        MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg)=>hasLoaded=true);
+        LevelLoader.Load(level);
+        while (!hasLoaded)
+            yield return null;
+        
+        EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
+        spawner.shouldSpawn = false;
+        yield return new WaitForSeconds(1f);
+        MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
+        yield return new WaitForSeconds(5f);
+        Assert.AreEqual(LevelLoader.CurrentLevelConfiguration, level.NextLevel);
     }
 }
