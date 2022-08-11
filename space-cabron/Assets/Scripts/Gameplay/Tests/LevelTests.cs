@@ -42,7 +42,7 @@ public class LevelTests
         Unload();
     }
 
-    public void Unload()
+    public static void Unload()
     {
         for (int i = 1; i < SceneManager.sceneCount; i++)
             SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
@@ -139,5 +139,16 @@ public class LevelTests
         yield return new WaitForSeconds(8f);
 
         Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
+    }
+
+    [UnityTest]
+    public IEnumerator WinningLevelLoadsNextLevelWithoutLoadingNewScene()
+    {
+        LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
+        yield return LoadLevelAndWait(level);
+
+        var player = GameObject.FindWithTag("Player");
+        player.GetComponent<Health>().CanTakeDamage = false;
+        player.GetComponentInChildren<TurntableBehaviour>().enabled = false;
     }
 }
