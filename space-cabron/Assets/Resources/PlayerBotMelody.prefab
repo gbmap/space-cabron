@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a92ac20a67d727448e7e69ac1b18764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnergyValue: {fileID: 11400000, guid: c2cafcdf10acbf24289db2fd74b72bf4, type: 2}
+  EnergyValue: {fileID: 0}
 --- !u!4 &1019307496587858916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8875341672761901922, guid: f5b876d251f216d4c96c6bcf61790c93,

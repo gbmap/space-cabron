@@ -32,7 +32,7 @@ namespace Gmap
         float _energy;
         float Energy
         {
-            get { return _energy; }
+            get { return _energy = 1f; }
             set 
             { 
                 float v = Mathf.Clamp01(value);

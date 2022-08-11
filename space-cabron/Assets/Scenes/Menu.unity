@@ -201,7 +201,7 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 1221995031}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -1293,6 +1293,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5534632982355208726, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
+        type: 3}
+      propertyPath: m_StretchFill
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
         type: 3}
       propertyPath: orthographic size

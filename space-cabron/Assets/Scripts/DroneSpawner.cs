@@ -5,6 +5,7 @@ using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
 using Gmap.Gun;
 using Gmap.Instruments;
+using Gmap.ScriptableReferences;
 using SpaceCabron.Messages;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace SpaceCabron.Gameplay
         public GameObject DroneMelodyPrefab;
         public GameObject DroneEveryNPrefab;
         public GameObject PlayerPrefab;
+        public FloatReference EnergyValue;
 
         public UnityEngine.Audio.AudioMixerGroup[] Groups;
 
@@ -160,6 +162,8 @@ namespace SpaceCabron.Gameplay
 
         private void SpawnPlayer(MsgSpawnPlayer msg)
         {
+            if (EnergyValue)
+                EnergyValue.Value = 1f;
 
             Vector3 position = Vector3.zero;
             if (msg.TargetPosition != null)
