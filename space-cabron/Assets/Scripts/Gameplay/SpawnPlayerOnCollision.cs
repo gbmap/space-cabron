@@ -18,9 +18,10 @@ namespace SpaceCabron.Gameplay
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Drone"))
+            if (!other.CompareTag("Drone") && !hasSpawned)
                 return;
 
+            hasSpawned = true;
             MessageRouter.RaiseMessage(new MsgSpawnPlayer { Position = transform.position });
             other.GetComponent<Health>().Destroy();
             health.Destroy();

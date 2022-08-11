@@ -77,6 +77,7 @@ public class LevelTests
         // Wait win animations.
         yield return new WaitForSecondsRealtime(1f);
         Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
+        Assert.AreEqual(level.NextLevel.Background.Material, RenderSettings.skybox);
     }
 
     private IEnumerator LoadLevelAndWait(LevelConfiguration level)

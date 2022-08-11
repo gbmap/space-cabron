@@ -144,7 +144,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   Distance: 100
-  Acceleration: 0.1
+  Acceleration: 0.05
 --- !u!114 &6851549082936777231
 MonoBehaviour:
   m_ObjectHideFlags: 0

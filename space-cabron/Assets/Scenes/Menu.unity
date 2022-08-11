@@ -178,10 +178,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 960, y: 540}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -198,8 +198,8 @@ Canvas:
   m_GameObject: {fileID: 208686878}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1221995031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1120,6 +1120,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1939098041}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1221995031 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
+    type: 3}
+  m_PrefabInstance: {fileID: 1242495688}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1222218478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,50 +1293,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5534632982355208726, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_UpscaleRT
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5534632982355208726, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_PixelSnapping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5534632982355208726, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_RefResolutionX
-      value: 480
-      objectReference: {fileID: 0}
-    - target: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_ForceIntoRT
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
         type: 3}
       propertyPath: orthographic size
-      value: 3.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.x
-      value: 0.2614314
-      objectReference: {fileID: 0}
-    - target: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 0.47713712
-      objectReference: {fileID: 0}
-    - target: {fileID: 5534632982355208727, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+      value: 3.045
       objectReference: {fileID: 0}
     - target: {fileID: 5534632982523417733, guid: 9b81a2d5889c9cf45aa270dc0f930e49,
         type: 3}
@@ -2788,7 +2754,7 @@ PrefabInstance:
     - target: {fileID: 598475415530207419, guid: f53e448c577cd584bba2a88a15d2b287,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13.333333
+      value: -13.333332
       objectReference: {fileID: 0}
     - target: {fileID: 598475415530207419, guid: f53e448c577cd584bba2a88a15d2b287,
         type: 3}

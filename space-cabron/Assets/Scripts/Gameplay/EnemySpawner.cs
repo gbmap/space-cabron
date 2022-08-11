@@ -6,6 +6,7 @@ using Frictionless;
 using System.Linq;
 using SpaceCabron.Messages;
 using SpaceCabron.Gameplay;
+using Gmap.CosmicMusicUtensil;
 
 namespace Gmap
 {
@@ -144,7 +145,7 @@ namespace Gmap
         
         private Vector3 GetRandomEnemyPosition()
         {
-            return GetEnemyPosition(Random.Range(0.15f, 0.85f));
+            return GetEnemyPosition(Random.Range(0.2f, 0.8f));
         }
 
         private Vector3 GetEnemyPosition(float t)

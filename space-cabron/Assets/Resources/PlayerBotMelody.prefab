@@ -195,6 +195,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PatchPool: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7, type: 2}
   SpecificPatch: {fileID: 0}
+--- !u!114 &6888161078633454759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834363889674689883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8591252dd2506742a11c325882e6c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BarModulus: 4
+  Permanent: 0
+  improvisationCounter:
+    MaxCount: 2147483647
+  Probability:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 1
+  improvisationPool: {fileID: 11400000, guid: 1aa182550a51342499ad634e028bcb2f, type: 2}
 --- !u!1001 &8434893551815544966
 PrefabInstance:
   m_ObjectHideFlags: 0
