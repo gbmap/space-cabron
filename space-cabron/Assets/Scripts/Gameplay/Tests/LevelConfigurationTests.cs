@@ -20,7 +20,7 @@ public class LevelConfigurationTests
     [Test]
     public void CloningLevelConfigurationDoesntChangeOriginal()
     {
-        var clone = levelConfig.Clone();
+        var clone = levelConfig.Clone() as LevelConfiguration;
         var instrumentConfig = clone.GetInstrumentConfigurationByTag("Player");
 
         ScriptableMelodyFactory melodyFactory = ScriptableObject.CreateInstance<ScriptableRandomMelodyFactory>();
@@ -40,7 +40,7 @@ public class LevelConfigurationTests
         f.Notation = m.Notation.ToLower();
 
         var oldConfig = levelConfig;
-        levelConfig = levelConfig.Clone();
+        levelConfig = levelConfig.Clone() as LevelConfiguration;
         levelConfig.GetInstrumentConfigurationByTag("Player").MelodyFactory = f;
 
         Assert.AreNotSame(oldConfig, levelConfig);

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 655430717}
   - component: {fileID: 655430725}
   - component: {fileID: 655430734}
+  - component: {fileID: 4799287862381865209}
   m_Layer: 8
   m_Name: Instrument
   m_TagString: Instrument
@@ -305,6 +306,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad7aef76f0866c458cb326fd564d137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4799287862381865209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8591252dd2506742a11c325882e6c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BarModulus: 4
+  Permanent: 1
+  improvisationCounter:
+    MaxCount: 2147483647
+  Probability:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 1
+  improvisationPool: {fileID: 11400000, guid: 1aa182550a51342499ad634e028bcb2f, type: 2}
 --- !u!1 &8875341672761901925
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +348,7 @@ GameObject:
   - component: {fileID: 601285684}
   - component: {fileID: 4134130950178418477}
   - component: {fileID: 7361229301681628336}
+  - component: {fileID: 8960374101879715445}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -576,3 +599,20 @@ MonoBehaviour:
   items:
   - obj: {fileID: 6851549082936777235, guid: 6f454032e588d8a438b823259c096ccc, type: 3}
     Weight: 1
+--- !u!114 &8960374101879715445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875341672761901925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eebc234d855a5b44b112985b0230285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageFactor: 0
+  SpawnFactor: 0
+  UpgradeValue: 0
+  Direction: {x: 0, y: 0}
+  IsResistant: 0

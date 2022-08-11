@@ -5,6 +5,7 @@ namespace Gmap.Gameplay
     public class Bullet : MonoBehaviour
     {
         public bool IsSpecial;
+        public bool DestroyOnCollision = true;
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
@@ -14,7 +15,8 @@ namespace Gmap.Gameplay
                 health.TakeDamage(this, collider);
             }
             
-            this.DestroyOrDisable();
+            if (DestroyOnCollision)
+                this.DestroyOrDisable();
         }
     }
 }

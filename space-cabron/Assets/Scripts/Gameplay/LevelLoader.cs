@@ -1,5 +1,6 @@
 using Frictionless;
 using SpaceCabron.Gameplay;
+using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Messages;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,26 +9,49 @@ namespace Gmap.Gameplay
 {
     public class LevelLoader
     {
-        static Scene activeScene;
-        public static LevelConfiguration CurrentLevelConfiguration { get; private set; }
-        public static int RandomSeed { get; private set; }
+        public  static LevelConfiguration CurrentLevelConfiguration { get; private set; }
         private static bool KeepOldScene;
-        // private static System.Action OnFinishedLoading = null;
-        public static void Load(LevelConfiguration level, System.Action OnFinishedLoading = null)
-        {
-            RandomSeed = Random.Range(0, int.MaxValue);
 
-            // level = level.Clone();
-            MessageRouter.Reset();
-            AsyncOperation aOp = SceneManager.LoadSceneAsync("Gameplay", LoadSceneMode.Additive);
-            aOp.completed += (AsyncOperation op) => { Callback_OnGameplaySceneLoaded(op, level, OnFinishedLoading); };
+        private static MonoBehaviour coroutineStarter;
+        private static MonoBehaviour CoroutineStarter
+        {
+            get
+            {
+                if (coroutineStarter == null)
+                {
+                    GameObject go = new GameObject("CoroutineStarter");
+                    coroutineStarter = go.AddComponent<CoroutineProxy>();
+                }
+                return coroutineStarter;
+            }
+        }
+
+        public static void Load(
+            LevelConfiguration level, 
+            System.Action OnFinishedLoading = null
+        ) {
+            // RandomSeed = Random.Range(0, int.MaxValue);
+
+            ILevelLoader loader = new EnemyLevelLoader(
+                level,
+                CoroutineStarter,
+                OnFinishedLoading
+            );
+            loader.Load();
+            CurrentLevelConfiguration = level;
+
+
+            // // level = level.Clone();
+            // MessageRouter.Reset();
+            // AsyncOperation aOp = SceneManager.LoadSceneAsync("Gameplay", LoadSceneMode.Additive);
+            // aOp.completed += (AsyncOperation op) => { Callback_OnGameplaySceneLoaded(op, level, OnFinishedLoading); };
         }
 
         private static void Callback_OnGameplaySceneLoaded(
             AsyncOperation op, 
             LevelConfiguration level,
-            System.Action OnFinishedLoading = null)
-        {
+            System.Action OnFinishedLoading = null
+        ) {
             UnloadOtherScenes();
             MessageRouter.RaiseMessage(new MsgLevelStartedLoading());
 

@@ -10,9 +10,15 @@ def convert_helm_files(dir):
             continue
         if ".helm" not in file:
             continue
+        original_name = os.getcwd() + "\\" + dir + "\\" + file
+        json_name = (os.getcwd() + "\\" + dir + "\\" + file).replace(".helm", ".json")
+
+        if json_name in files:
+            continue
+
         shutil.copy(
-            os.getcwd() + "\\" + dir + "\\" + file,
-            (os.getcwd() + "\\" + dir + "\\" + file).replace(".helm", ".json"),
+            original_name,
+            json_name,
         )
 
 

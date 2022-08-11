@@ -17,7 +17,7 @@ namespace Gmap.Gameplay
         {
             if (LevelConfiguration != null)
             {
-                LevelConfiguration = LevelConfiguration.Clone();
+                LevelConfiguration = LevelConfiguration.Clone() as LevelConfiguration;
             }
             else
                 throw new System.Exception("Level Configuration can't be null.");

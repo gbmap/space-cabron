@@ -67,10 +67,10 @@ public class PlayerTests
         LevelLoader.Load(Resources.Load<LevelConfiguration>("Levels/Level0"));
         yield return new WaitForSeconds(5.0f);
 
-        MessageRouter.RaiseMessage(new MsgLevelWon {});
+        var player = GameObject.FindGameObjectWithTag("Player");
+        VictoryBrain.Play<VictoryBrain>(player);
         yield return new WaitForSeconds(3.0f);
 
-        var player = GameObject.FindGameObjectWithTag("Player");
         Assert.AreEqual(1, player.GetComponentsInChildren<VictoryBrain>().Length);
 
         yield return new WaitForSeconds(1f);

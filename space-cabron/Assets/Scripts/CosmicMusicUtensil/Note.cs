@@ -118,7 +118,7 @@ namespace Gmap.CosmicMusicUtensil
         public void TransposeWrapped(int interval)
         {
             Transpose(interval);
-            Octave = Mathf.Max(2, Bar.MathMod(Octave, 8));
+            Octave = Mathf.Max(3, Bar.MathMod(Octave, 8));
         }
 
         public static Note Transpose(Note n, int interval)

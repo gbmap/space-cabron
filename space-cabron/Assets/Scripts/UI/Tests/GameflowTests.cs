@@ -11,6 +11,13 @@ using NUnit.Framework;
 
 public class GameflowTests 
 {
+    [TearDown]
+    public void TearDown()
+    {
+        for (int i = 1; i < SceneManager.sceneCount; i++)
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+    }
+
     private IEnumerator LoadMenu(System.Action<Menu> OnMenuLoaded)
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Additive);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
+using SpaceCabron.Gameplay.Level;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay
@@ -65,7 +66,7 @@ namespace SpaceCabron.Gameplay
     }
 
     [CreateAssetMenu(menuName="Space Cabrón/Gameplay/Level Configuration")]
-    public class LevelConfiguration : ScriptableObject
+    public class LevelConfiguration : BaseLevelConfiguration
     {
         public GameplayConfiguration Gameplay;
         [SerializeField] private InstrumentConfiguration EnemyMelody;
@@ -105,7 +106,12 @@ namespace SpaceCabron.Gameplay
             return instrumentConfig;
         }
 
-        public LevelConfiguration Clone()
+        public override ILevelLoader GetLoader()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ILevelConfiguration Clone()
         {
             LevelConfiguration clone = ScriptableObject.CreateInstance<LevelConfiguration>();
             clone.Background = Background.Clone();

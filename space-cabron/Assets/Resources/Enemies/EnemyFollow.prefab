@@ -112,6 +112,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1706273152082231598}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-4429191584161436614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871415668028923354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e90ad15f511cff4090d17ee66aba5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsSpecial: 0
+  DestroyOnCollision: 0
 --- !u!114 &-2347205610914259358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,19 +139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0.8
---- !u!114 &5993875754998512629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2871415668028923354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 1
 --- !u!114 &2276656934384208652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +152,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Brain: {fileID: 11400000, guid: 3c46e0ac8ecab7b4c848e458c79dd3e8, type: 2}
+--- !u!114 &5993875754998512629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871415668028923354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 1

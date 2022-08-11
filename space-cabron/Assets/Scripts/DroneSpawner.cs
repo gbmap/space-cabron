@@ -174,6 +174,7 @@ namespace SpaceCabron.Gameplay
                 position = msg.Position;
 
             GameObject instance = Instantiate(PlayerPrefab, position, Quaternion.identity);
+            instance.AddComponent<TemporaryInvincibility>();
 
             // Configure player turntable with new last melody
             ITurntable turntable = instance.GetComponentInChildren<ITurntable>();

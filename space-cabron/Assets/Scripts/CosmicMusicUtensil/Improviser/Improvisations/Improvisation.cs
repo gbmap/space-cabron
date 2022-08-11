@@ -84,8 +84,12 @@ namespace Gmap.CosmicMusicUtensil
             this.duplicateSelectionStrategy = duplicateSelectionStrategy;
         }
 
-        protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note note, int noteIndex)
-        {
+        protected override Note[] ApplyImprovisation(
+            Melody melody, 
+            int barIndex, 
+            Note note, 
+            int noteIndex
+        ) {
             if (TimesToDuplicate == 0)
                 return new Note[] { note };
 
@@ -118,7 +122,11 @@ namespace Gmap.CosmicMusicUtensil
             SelectionStrategy noteSelectionStrategy, 
             SelectionStrategy barSelectionStrategy,
             int timesToDuplicate=2
-        ) : base(noteSelectionStrategy, barSelectionStrategy, timesToDuplicate, new IncreaseIntervalNoteModifier(timesToDuplicate)) {}
+        ) : base(noteSelectionStrategy, 
+        barSelectionStrategy, 
+        timesToDuplicate, 
+        new IncreaseIntervalNoteModifier(timesToDuplicate)
+        ) {}
 
         protected override string Info()
         {

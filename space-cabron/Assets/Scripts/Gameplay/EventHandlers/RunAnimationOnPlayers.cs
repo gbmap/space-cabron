@@ -36,12 +36,13 @@ namespace SpaceCabron.Gameplay
 
         private void Callback_LevelWon(MsgLevelWon msg)
         {
-            PlayAnimation<VictoryBrain>(() => { 
-                if (levelConfiguration != null && levelConfiguration.NextLevel != null)
-                    LevelLoader.Load(levelConfiguration.NextLevel);
-                else
-                    SceneManager.LoadScene("Gameplay");
-            });
+            LevelLoader.Load(levelConfiguration.NextLevel);
+            // PlayAnimation<VictoryBrain>(() => { 
+            //     if (levelConfiguration != null && levelConfiguration.NextLevel != null)
+            //         LevelLoader.Load(levelConfiguration.NextLevel);
+            //     else
+            //         SceneManager.LoadScene("Gameplay");
+            // });
         }
 
         private IEnumerator WaitAnimationEnded(System.Action OnAnimationEnded)

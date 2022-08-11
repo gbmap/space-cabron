@@ -1,4 +1,5 @@
 using Gmap.CosmicMusicUtensil;
+using Gmap.ScriptableReferences;
 using UnityEngine;
 
 namespace Gmap.Instruments
@@ -20,7 +21,7 @@ namespace Gmap.Instruments
         public int BarModulus = 4;
         public bool Permanent;
         public Counter improvisationCounter;
-
+        public FloatBusReference Probability;
         public ImprovisationPool improvisationPool;
 
         protected ITurntable turntable;
@@ -40,7 +41,7 @@ namespace Gmap.Instruments
 
             int barModulus = Mathf.Max(1, Mathf.FloorToInt(turntable.BPM / 60))*BarModulus;
 
-            if (turntable.BarIndex % BarModulus == 0)
+            if (turntable.BarIndex % BarModulus == 0 && Random.value < Probability.Value)
             {
                 var improvisation = improvisationPool.GetNext().Get();
                 UnityEngine.Debug.Log("Adding\n" + improvisation.ToString());
