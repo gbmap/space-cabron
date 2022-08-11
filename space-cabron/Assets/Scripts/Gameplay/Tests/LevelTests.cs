@@ -65,13 +65,17 @@ public class LevelTests
     [TestCaseSource(nameof(GetLevels))]
     public IEnumerator NextLevelMessageLoadsNextLevelCorrectly(LevelConfiguration level)
     {
-        LevelLoader.Load(level);
-        yield return new WaitForSecondsRealtime(1f);
+        yield return LoadLevelAndWait(level);
+        EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
+        spawner.shouldSpawn = false;
+
+        var player = GameObject.FindWithTag("Player");
+        player.GetComponent<Health>().CanTakeDamage = false;
 
         MessageRouter.RaiseMessage(new MsgLevelWon());
 
         // Wait win animations.
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(1f);
         Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
     }
 
@@ -146,9 +150,29 @@ public class LevelTests
     {
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
+        EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
+        spawner.shouldSpawn = false;
+
+        Scene s = SceneManager.GetSceneAt(1);
+        int sceneCount = SceneManager.sceneCount;
+        SceneManager.SetActiveScene(s);
 
         var player = GameObject.FindWithTag("Player");
         player.GetComponent<Health>().CanTakeDamage = false;
         player.GetComponentInChildren<TurntableBehaviour>().enabled = false;
+        Vector3 playerPosition = player.transform.position;
+
+
+        MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
+
+        yield return new WaitForSeconds(3f);
+
+        Assert.AreEqual(sceneCount, SceneManager.sceneCount);
+        Assert.AreEqual(s, SceneManager.GetActiveScene());
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+        Assert.IsNotNull(player);
+        Assert.AreEqual(playerPosition, player.transform.position);
+
+        Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
     }
 }
