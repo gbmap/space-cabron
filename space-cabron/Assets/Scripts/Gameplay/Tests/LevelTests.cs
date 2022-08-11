@@ -174,5 +174,7 @@ public class LevelTests
         Assert.AreEqual(playerPosition, player.transform.position);
 
         Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
+        Assert.AreEqual(level.NextLevel.Gameplay.ScoreThreshold, spawner.ScoreThreshold);
+
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gameplay:
     Difficulty: 1
-    ScoreThreshold: 40000
+    ScoreThreshold: 30000
     EnemyPool: {fileID: 11400000, guid: 7e59be1c7e5a75342ab4d01b534484f8, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:

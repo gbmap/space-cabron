@@ -25,7 +25,10 @@ namespace Gmap
             MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
             MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
             MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
-            MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { shouldSpawn = true; });
+            MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { 
+                hasFiredWinMessage = false;
+                shouldSpawn = true; 
+            });
         }
 
         private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
@@ -117,20 +120,9 @@ namespace Gmap
 
         public void Configure(LevelConfiguration configuration)
         {
-            if (configuration != null)
-            {
-                ScoreThreshold = configuration.Gameplay.ScoreThreshold;
-                EnemyPool = configuration.Gameplay.EnemyPool;
-                BossPool = configuration.Gameplay.BossPool;
-            }
-            StartCoroutine(WaitAndActivate());
-        }
-
-        private IEnumerator WaitAndActivate()
-        {
-            SetShouldSpawn(false);
-            yield return new WaitForSeconds(2f);
-            SetShouldSpawn(true);
+            ScoreThreshold = configuration.Gameplay.ScoreThreshold;
+            EnemyPool = configuration.Gameplay.EnemyPool;
+            BossPool = configuration.Gameplay.BossPool;
         }
 
         public void SpawnNext()
