@@ -125,6 +125,7 @@ namespace SpaceCabron.Gameplay
 
             InjectPatch(instance, droneAudioMixerIndex);
             ConfigureObjectWithNewMelody(instance, turntable);
+            
         }
 
         private void ConfigureObjectWithNewMelody(GameObject instance, ITurntable turntable)
@@ -132,14 +133,7 @@ namespace SpaceCabron.Gameplay
             if (DroneInstrument == null)
                 return;
 
-            Melody melody = null;
-            var lastUsedFactory = DroneInstrument.MelodyFactory.LastUsedFactory;
-            if (lastUsedFactory != null)
-                melody = lastUsedFactory.GenerateMelody();
-            else
-                melody = DroneInstrument.MelodyFactory.GenerateMelody();
-
-            turntable.SetMelody(melody);
+            DroneInstrument.ConfigureTurntable(turntable, true);
             var tt = instance.GetComponent<InjectTurntableMelodyNotationOnAwake>();
             if (tt != null)
                 Destroy(tt);

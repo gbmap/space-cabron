@@ -34,10 +34,40 @@ namespace SpaceCabron.Gameplay
     }
 
     [System.Serializable]
+    public class ImprovisationConfiguration : ICloneable<ImprovisationConfiguration>
+    {
+        public IntBusReference NumberOfStartingImprovisations;
+        public ImprovisationPool PossibleStartingImprovisations;
+
+        public void Apply(ITurntable turntable)
+        {
+            if (NumberOfStartingImprovisations != null && PossibleStartingImprovisations != null)
+            {
+                int numberOfImprovisations = NumberOfStartingImprovisations.Value;
+                for (int i = 0; i< numberOfImprovisations; i++)
+                {
+                    Improvisation improvisation = PossibleStartingImprovisations.GetNext().Get(); 
+                    turntable.ApplyImprovisation(improvisation, false);
+                }
+            }
+        }
+
+        public ImprovisationConfiguration Clone()
+        {
+            return new ImprovisationConfiguration
+            {
+                NumberOfStartingImprovisations = NumberOfStartingImprovisations,
+                PossibleStartingImprovisations = PossibleStartingImprovisations != null ? PossibleStartingImprovisations.Clone() as ImprovisationPool : null
+            };
+        }
+    }
+
+    [System.Serializable]
     public class InstrumentConfiguration : ICloneable<InstrumentConfiguration>
     {
         public int BPM = 30;
         public ScriptableMelodyFactory MelodyFactory;
+        public ImprovisationConfiguration ImprovisationConfiguration;
         public TextAssetPool PossibleStartingInstruments;
 
         public InstrumentConfiguration Clone()
@@ -46,9 +76,25 @@ namespace SpaceCabron.Gameplay
             {
                 BPM = BPM,
                 MelodyFactory = MelodyFactory != null ? MelodyFactory.Clone() : null,
+                ImprovisationConfiguration = ImprovisationConfiguration != null ? ImprovisationConfiguration.Clone() : null,
                 PossibleStartingInstruments = PossibleStartingInstruments != null ? PossibleStartingInstruments.Clone() as TextAssetPool : null
             };
         }
+
+        public void ConfigureTurntable(
+            ITurntable turntable, 
+            bool useLastUsedFactory
+        ) {
+            Melody melody = null;
+            if (useLastUsedFactory && MelodyFactory.LastUsedFactory != null)
+                melody = MelodyFactory.LastUsedFactory.GenerateMelody();
+            else
+                melody = MelodyFactory.GenerateMelody();
+            turntable.SetMelody(melody);
+
+            ImprovisationConfiguration.Apply(turntable);
+        }
+
     }
 
     [System.Serializable]

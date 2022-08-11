@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1467f0aba46d9458afb931420c8e35, type: 3}
+  m_Name: PlayerInitialToneImprovisations
+  m_EditorClassIdentifier: 
+  RandomType: 1
+  Items:
+  - Value: {fileID: 11400000, guid: 1666d678e3781554ca385579e1cec59d, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: e123e0b44c1c0274d8b49992be631feb, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 171735a0fe1f6944eb0078b79f1f5e98, type: 2}
+    Weight: 1

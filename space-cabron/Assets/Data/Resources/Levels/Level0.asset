@@ -20,26 +20,57 @@ MonoBehaviour:
   EnemyMelody:
     BPM: 25
     MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: 170f0e9dd275bd545b599395341bcbe3,
       type: 2}
   PlayerMelody:
     BPM: 50
     MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 1
+      PossibleStartingImprovisations: {fileID: 11400000, guid: eaff1617cdf034441be69743c23af138,
+        type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}
   DrumMelody:
     BPM: 30
     MelodyFactory: {fileID: 11400000, guid: abba543eab3654240a3aa913f3c47828, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: c2edac38a5b243e4fa9a63df2c2bec7a,
       type: 2}
   AmbientMelody:
     BPM: 30
     MelodyFactory: {fileID: 11400000, guid: 18fc533f27c74924f936f6ae7375bff1, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: 556fd94c16eea654ca50d120c4e25970,
       type: 2}
   HitConfiguration:
     BPM: 30
     MelodyFactory: {fileID: 0}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: ac96a814f41e6b84287c0effd3d665da,
       type: 2}
   Background:

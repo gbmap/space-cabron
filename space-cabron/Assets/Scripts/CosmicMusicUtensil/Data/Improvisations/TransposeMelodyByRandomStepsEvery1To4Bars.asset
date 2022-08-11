@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23037898963bf13489d619b5cab1282d, type: 3}
-  m_Name: TransposeMelodyBy2StepsEvery1To4Bars
+  m_Name: TransposeMelodyByRandomStepsEvery1To4Bars
   m_EditorClassIdentifier: 
   BarSelection: {fileID: 11400000, guid: b5799f072e86869468c1e2960ce1a87c, type: 2}
   NoteSelection: {fileID: 11400000, guid: 8fef05c1c5011e64cbfbc6d724662598, type: 2}
-  Steps: 2
+  Steps: {fileID: 11400000, guid: b927426238efa524c845fa86e49c4149, type: 2}
   RandomizeSign: 1

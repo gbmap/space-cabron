@@ -26,9 +26,7 @@ namespace SpaceCabron.Gameplay
                 return;
 
             turntable.BPM = instrumentConfig.BPM;
-
-            Melody m = instrumentConfig.MelodyFactory.GenerateMelody();
-            turntable.SetMelody(m);
+            instrumentConfig.ConfigureTurntable(turntable, false);
         }
 
         private void LoadInstrument(InstrumentConfiguration instrumentConfig)
