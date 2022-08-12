@@ -65,7 +65,7 @@ public class PlayerTests
     public IEnumerator EndAnimationMovesPlayerTowardsPosition()
     {
         LevelLoader.Load(Resources.Load<LevelConfiguration>("Levels/Level0"));
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(6.0f);
 
         var player = GameObject.FindGameObjectWithTag("Player");
         VictoryBrain.Play<VictoryBrain>(player);
@@ -73,7 +73,7 @@ public class PlayerTests
 
         Assert.AreEqual(1, player.GetComponentsInChildren<VictoryBrain>().Length);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         Vector3 lastPos = Vector3.zero;
         for (int i = 0; i < 10; i++)

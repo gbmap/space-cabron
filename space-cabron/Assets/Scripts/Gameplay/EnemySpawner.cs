@@ -21,12 +21,15 @@ namespace Gmap
         private bool waitingToSpawnBoss = false;
         private bool hasFiredWinMessage = false;
 
+        private float initialTimer = 2f;
+
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
             MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
             MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
             MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { 
+                initialTimer = Time.time + 2f;
                 hasFiredWinMessage = false;
                 shouldSpawn = true; 
             });
@@ -114,11 +117,6 @@ namespace Gmap
             shouldSpawn = v;
         }
 
-        private bool GetShouldSpawn()
-        {
-            return shouldSpawn;
-        }
-
         public void Configure(LevelConfiguration configuration)
         {
             ScoreThreshold = configuration.Gameplay.ScoreThreshold;
@@ -128,6 +126,9 @@ namespace Gmap
 
         public void SpawnNext()
         {
+            if (Time.time < initialTimer)
+                return; 
+
             if (!shouldSpawn || EnemyPool.Length == 0)
                 return;
 

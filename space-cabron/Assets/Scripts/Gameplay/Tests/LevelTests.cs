@@ -46,6 +46,14 @@ public class LevelTests
     {
         for (int i = 1; i < SceneManager.sceneCount; i++)
             SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        System.Array.ForEach(enemies, go => GameObject.Destroy(go));
+
+        var bullets = GameObject.FindGameObjectsWithTag("Untagged")
+                                .Where(go => go.layer == LayerMask.NameToLayer("Bullet"))
+                                .ToArray();
+        System.Array.ForEach(bullets, go => GameObject.Destroy(go));
     }
 
     [Test, TestCaseSource(nameof(GetLevels))]
@@ -136,7 +144,7 @@ public class LevelTests
         while (enemyInstance != null)
         {
             time += Time.deltaTime;
-            if (time > 10f)
+            if (time > 20f)
                 break;
             // Assert.AreEqual(LevelLoader.CurrentLevelConfiguration, level);
             yield return null;

@@ -14,7 +14,14 @@ public class DisableOnOutOfScreen : MonoBehaviour
             this.DestroyOrDisable();
         }*/
 
-        if (transform.position.sqrMagnitude > 25f)
+        Vector2 pos = transform.position;
+        if (Camera.main != null)
+        {
+            Vector2 cPos = Camera.main.transform.position;
+            pos = pos - cPos;
+        }
+
+        if (pos.sqrMagnitude > 25f)
         {
             OnOutOfScreen?.Invoke();
             this.DestroyOrDisable();
