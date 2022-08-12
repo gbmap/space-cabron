@@ -1,6 +1,8 @@
 using Frictionless;
 using UnityEngine;
 using Gmap.ScriptableReferences;
+using SpaceCabron.Messages;
+using System;
 
 namespace SpaceCabron.Scoreboard
 {
@@ -12,6 +14,12 @@ namespace SpaceCabron.Scoreboard
         void OnEnable()
         {
             MessageRouter.AddHandler<Messages.MsgIncreaseScore>(Callback_IncreaseScore);
+            MessageRouter.AddHandler<Messages.MsgLevelFinishedLoading>(Callback_LevelFinishedLoading);
+        }
+
+        private void Callback_LevelFinishedLoading(MsgLevelFinishedLoading obj)
+        {
+            CurrentScore = 0;
         }
 
         void Start()
@@ -22,6 +30,7 @@ namespace SpaceCabron.Scoreboard
         void OnDisable()
         {
             MessageRouter.RemoveHandler<Messages.MsgIncreaseScore>(Callback_IncreaseScore);
+            MessageRouter.RemoveHandler<Messages.MsgLevelFinishedLoading>(Callback_LevelFinishedLoading);
         }
 
         private void Callback_IncreaseScore(Messages.MsgIncreaseScore msg)

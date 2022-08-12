@@ -294,6 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreConfigurationBPM: 1
+  ReloadMelody: 0
 --- !u!114 &655430734
 MonoBehaviour:
   m_ObjectHideFlags: 0

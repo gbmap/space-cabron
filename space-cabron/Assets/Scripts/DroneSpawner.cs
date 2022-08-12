@@ -5,6 +5,7 @@ using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
 using Gmap.Gun;
 using Gmap.Instruments;
+using Gmap.ScriptableReferences;
 using SpaceCabron.Messages;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace SpaceCabron.Gameplay
         public GameObject DroneMelodyPrefab;
         public GameObject DroneEveryNPrefab;
         public GameObject PlayerPrefab;
+        public FloatReference EnergyValue;
 
         public UnityEngine.Audio.AudioMixerGroup[] Groups;
 
@@ -125,6 +127,7 @@ namespace SpaceCabron.Gameplay
 
             InjectPatch(instance, droneAudioMixerIndex);
             ConfigureObjectWithNewMelody(instance, turntable);
+            
         }
 
         private void ConfigureObjectWithNewMelody(GameObject instance, ITurntable turntable)
@@ -132,14 +135,7 @@ namespace SpaceCabron.Gameplay
             if (DroneInstrument == null)
                 return;
 
-            Melody melody = null;
-            var lastUsedFactory = DroneInstrument.MelodyFactory.LastUsedFactory;
-            if (lastUsedFactory != null)
-                melody = lastUsedFactory.GenerateMelody();
-            else
-                melody = DroneInstrument.MelodyFactory.GenerateMelody();
-
-            turntable.SetMelody(melody);
+            DroneInstrument.ConfigureTurntable(turntable, true);
             var tt = instance.GetComponent<InjectTurntableMelodyNotationOnAwake>();
             if (tt != null)
                 Destroy(tt);
@@ -166,6 +162,8 @@ namespace SpaceCabron.Gameplay
 
         private void SpawnPlayer(MsgSpawnPlayer msg)
         {
+            if (EnergyValue)
+                EnergyValue.Value = 1f;
 
             Vector3 position = Vector3.zero;
             if (msg.TargetPosition != null)

@@ -6,6 +6,7 @@ using Frictionless;
 using System.Linq;
 using SpaceCabron.Messages;
 using SpaceCabron.Gameplay;
+using Gmap.CosmicMusicUtensil;
 
 namespace Gmap
 {
@@ -20,12 +21,18 @@ namespace Gmap
         private bool waitingToSpawnBoss = false;
         private bool hasFiredWinMessage = false;
 
+        private float initialTimer = 2f;
+
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
             MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
             MessageRouter.AddHandler<MsgLevelStartedLoading>((msg) => { shouldSpawn = false; });
-            MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { shouldSpawn = true; });
+            MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { 
+                initialTimer = Time.time + 2f;
+                hasFiredWinMessage = false;
+                shouldSpawn = true; 
+            });
         }
 
         private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
@@ -110,31 +117,18 @@ namespace Gmap
             shouldSpawn = v;
         }
 
-        private bool GetShouldSpawn()
-        {
-            return shouldSpawn;
-        }
-
         public void Configure(LevelConfiguration configuration)
         {
-            if (configuration != null)
-            {
-                ScoreThreshold = configuration.Gameplay.ScoreThreshold;
-                EnemyPool = configuration.Gameplay.EnemyPool;
-                BossPool = configuration.Gameplay.BossPool;
-            }
-            StartCoroutine(WaitAndActivate());
-        }
-
-        private IEnumerator WaitAndActivate()
-        {
-            SetShouldSpawn(false);
-            yield return new WaitForSeconds(2f);
-            SetShouldSpawn(true);
+            ScoreThreshold = configuration.Gameplay.ScoreThreshold;
+            EnemyPool = configuration.Gameplay.EnemyPool;
+            BossPool = configuration.Gameplay.BossPool;
         }
 
         public void SpawnNext()
         {
+            if (Time.time < initialTimer)
+                return; 
+
             if (!shouldSpawn || EnemyPool.Length == 0)
                 return;
 
@@ -152,7 +146,7 @@ namespace Gmap
         
         private Vector3 GetRandomEnemyPosition()
         {
-            return GetEnemyPosition(Random.Range(0.15f, 0.85f));
+            return GetEnemyPosition(Random.Range(0.2f, 0.8f));
         }
 
         private Vector3 GetEnemyPosition(float t)

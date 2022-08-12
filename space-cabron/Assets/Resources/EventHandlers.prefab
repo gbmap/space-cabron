@@ -98,6 +98,7 @@ MonoBehaviour:
     type: 3}
   PlayerPrefab: {fileID: 8875341672761901925, guid: 9281e0eefacc5cf40b0d2c31c36e5537,
     type: 3}
+  EnergyValue: {fileID: 11400000, guid: c2cafcdf10acbf24289db2fd74b72bf4, type: 2}
   Groups:
   - {fileID: 7087365600115692058, guid: bf98b516a6d07684bb68843957984ecb, type: 2}
   - {fileID: -2401537243658022274, guid: bf98b516a6d07684bb68843957984ecb, type: 2}

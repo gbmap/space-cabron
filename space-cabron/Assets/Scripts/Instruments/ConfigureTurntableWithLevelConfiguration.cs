@@ -8,6 +8,9 @@ namespace SpaceCabron.Gameplay
 {
     public class ConfigureTurntableWithLevelConfiguration : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
+        public bool IgnoreConfigurationBPM = false;
+        public bool ReloadMelody = true;
+        private bool wasConfigured = false;
         public void Configure(LevelConfiguration configuration)
         {
             var injectables = GetComponentsInChildren<Injectable>();
@@ -16,7 +19,7 @@ namespace SpaceCabron.Gameplay
             InstrumentConfiguration instrumentConfig = configuration.GetInstrumentConfigurationByTag(GetTag());
             LoadInstrument(instrumentConfig);
             SetupBPMAndMelody(instrumentConfig);
-            Destroy(this);
+            wasConfigured=true;
         }
 
         private void SetupBPMAndMelody(InstrumentConfiguration instrumentConfig)
@@ -25,10 +28,11 @@ namespace SpaceCabron.Gameplay
             if (turntable == null)
                 return;
 
-            turntable.BPM = instrumentConfig.BPM;
+            if (!wasConfigured || !IgnoreConfigurationBPM)
+                turntable.BPM = instrumentConfig.BPM;
 
-            Melody m = instrumentConfig.MelodyFactory.GenerateMelody();
-            turntable.SetMelody(m);
+            if (!wasConfigured || ReloadMelody)
+                instrumentConfig.ConfigureTurntable(turntable, false);
         }
 
         private void LoadInstrument(InstrumentConfiguration instrumentConfig)

@@ -143,7 +143,7 @@
     "unison_1_harmonize": 1,
     "unison_2_harmonize": 0,
     "velocity_track": 0,
-    "volume": 0.70710680000000003531,
+    "volume": 0.90710680000000003531,
     "modulations": [
       {
         "source": "mono_lfo_1",
