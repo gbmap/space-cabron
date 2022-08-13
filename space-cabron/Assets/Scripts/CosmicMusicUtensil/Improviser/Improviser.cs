@@ -7,6 +7,7 @@ namespace Gmap.CosmicMusicUtensil
     public class Improviser 
     {
         List<Improvisation> improvisations = new List<Improvisation>();
+        public int NumberOfImprovisations => improvisations.Count;
 
         public Note[] Improvise(Melody melody, int barIndex, Note note, int noteIndex)
         {

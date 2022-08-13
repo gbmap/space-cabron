@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
+using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Gameplay.Level;
 using UnityEngine;
@@ -152,9 +153,9 @@ namespace SpaceCabron.Gameplay
             return instrumentConfig;
         }
 
-        public override ILevelLoader GetLoader()
+        public override ILevelLoader GetLoader(System.Action OnFinishedLoading =null)
         {
-            throw new System.NotImplementedException();
+            return new EnemyLevelLoader(this, LevelLoader.CoroutineStarter, OnFinishedLoading);
         }
 
         public override ILevelConfiguration Clone()

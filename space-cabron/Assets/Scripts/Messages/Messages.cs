@@ -49,6 +49,11 @@ namespace SpaceCabron.Messages
         public System.Action<GameObject> OnSpawned;
     }
 
+    public class MsgOnDroneSpawned
+    {
+        public GameObject Drone;
+    }
+
     public class MsgSpawnPlayer
     {
         public GameObject TargetPosition;

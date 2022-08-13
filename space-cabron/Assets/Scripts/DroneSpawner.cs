@@ -61,6 +61,9 @@ namespace SpaceCabron.Gameplay
             ConfigureDrone(instance, msg.Player);
 
             msg.OnSpawned?.Invoke(instance);
+            MessageRouter.RaiseMessage(new MsgOnDroneSpawned {
+                Drone = instance
+            });
         }
 
         public void ConfigureDrone(GameObject instance, GameObject playerInstance)

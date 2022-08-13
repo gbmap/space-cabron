@@ -11,12 +11,12 @@ namespace SpaceCabron.Gameplay.Level
 {
     public interface ILevelConfiguration : ICloneable<ILevelConfiguration>
     {
-        ILevelLoader GetLoader();
+        ILevelLoader GetLoader(System.Action OnFinishedLoading =null);
     }
 
     public abstract class BaseLevelConfiguration : ScriptableObject, ILevelConfiguration
     {
-        public abstract ILevelLoader GetLoader();
+        public abstract ILevelLoader GetLoader(System.Action OnFinishedLoading =null);
         public abstract ILevelConfiguration Clone();
     }
 
@@ -134,8 +134,6 @@ namespace SpaceCabron.Gameplay.Level
             }
         }
 
-
-
         private static void PlayBeginLevelAnimationOnPlayers(System.Action OnEnded)
         {
             var anim = GameObject.FindObjectOfType<RunAnimationOnPlayers>();
@@ -145,9 +143,7 @@ namespace SpaceCabron.Gameplay.Level
                 OnEnded();
         }
 
-        protected virtual void ConfigureLevel()
-        {
-        }
+        protected virtual void ConfigureLevel() {}
 
         private void Finish()
         {

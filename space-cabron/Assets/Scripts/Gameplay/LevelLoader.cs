@@ -13,7 +13,7 @@ namespace Gmap.Gameplay
         private static bool KeepOldScene;
 
         private static MonoBehaviour coroutineStarter;
-        private static MonoBehaviour CoroutineStarter
+        public static MonoBehaviour CoroutineStarter
         {
             get
             {
@@ -32,11 +32,7 @@ namespace Gmap.Gameplay
         ) {
             // RandomSeed = Random.Range(0, int.MaxValue);
 
-            ILevelLoader loader = new EnemyLevelLoader(
-                level,
-                CoroutineStarter,
-                OnFinishedLoading
-            );
+            ILevelLoader loader = level.GetLoader(OnFinishedLoading);
             loader.Load();
             CurrentLevelConfiguration = level;
 
