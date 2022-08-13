@@ -26,6 +26,20 @@ public class InteractableTests
         }
     }
 
+    [TearDown]
+    public void TearDown()
+    {
+        MessageRouter.Reset();
+        GameObject.Destroy(playerInstance);
+        GameObject.Destroy(eventHandlers);
+
+        var turntables = GameObject.FindObjectsOfType<TurntableBehaviour>();
+        System.Array.ForEach(turntables, t => GameObject.Destroy(t.gameObject));
+
+        var interactables = GameObject.FindObjectsOfType<InteractableBehaviour>();
+        System.Array.ForEach(interactables, t => GameObject.Destroy(t.gameObject));
+    }
+
     GameObject playerInstance;
     PlayerControlBrain brain;
     GameObject eventHandlers;
