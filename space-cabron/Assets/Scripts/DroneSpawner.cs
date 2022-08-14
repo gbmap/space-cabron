@@ -193,6 +193,10 @@ namespace SpaceCabron.Gameplay
             });
 
             msg.OnSpawned?.Invoke(instance);
+            MessageRouter.RaiseMessage(new MsgOnPlayerSpawned
+            {
+                Player = instance
+            });
         }
 
     }

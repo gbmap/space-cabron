@@ -1,4 +1,5 @@
 using System;
+using Gmap;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Gameplay.Interactables;

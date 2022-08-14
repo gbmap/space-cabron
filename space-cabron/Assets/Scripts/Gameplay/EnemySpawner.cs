@@ -31,7 +31,9 @@ namespace Gmap
             MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { 
                 initialTimer = Time.time + 2f;
                 hasFiredWinMessage = false;
-                shouldSpawn = true; 
+
+                if (LevelLoader.CurrentLevelConfiguration is LevelConfiguration)
+                    shouldSpawn = true;
             });
         }
 

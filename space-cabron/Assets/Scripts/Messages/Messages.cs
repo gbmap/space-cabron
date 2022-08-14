@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
 namespace SpaceCabron.Messages
-{
+{    
+    public class MsgLevelStartedLoading {}
+    public class MsgLevelFinishedLoading {}
+
     public class MsgOnScoreChanged
     {
         public int TotalScore;
@@ -32,9 +35,6 @@ namespace SpaceCabron.Messages
         }
     }
 
-    public class MsgLevelStartedLoading {}
-    public class MsgLevelFinishedLoading {}
-
     public class MsgSpawnDrone 
     {
         public enum EDroneType
@@ -59,6 +59,11 @@ namespace SpaceCabron.Messages
         public GameObject TargetPosition;
         public Vector3 Position;
         public System.Action<GameObject> OnSpawned;
+    }
+
+    public class MsgOnPlayerSpawned
+    {
+        public GameObject Player;
     }
 
     public class MsgSpawnPlayerChip 
