@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668dc648e264e524d9680adc6a5367cf, type: 3}
   m_Name: ExchangeTwoRandomDronesToOneFixedDrone
   m_EditorClassIdentifier: 
+  Description: Two blue drones for a yellow one
   Price:
     GetFrom: {fileID: 0}
     SendTo: {fileID: 0}

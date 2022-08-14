@@ -11,6 +11,8 @@ namespace SpaceCabron.Gameplay.Interactables
             public GameObject Interactor;
         }
 
+        public string Description;
+
         public abstract void Interact(InteractArgs args);
 
         public static GameObject CreateInteractable(Interactable interactable)

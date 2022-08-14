@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e08fb43b4cf114ba360b09225ecfbd, type: 3}
   m_Name: NextLevelInteractable
   m_EditorClassIdentifier: 
+  Description: Go to next level

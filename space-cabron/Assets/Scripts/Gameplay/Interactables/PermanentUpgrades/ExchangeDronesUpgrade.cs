@@ -16,7 +16,7 @@ namespace SpaceCabron.Gameplay.Interactables.Level
         public override void Interact(InteractArgs args)
         {
             base.Interact(args);
-            throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
         }
     }
 }

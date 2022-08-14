@@ -51,6 +51,8 @@ namespace SpaceCabron.Gameplay.Level
             coroutineStarter.StartCoroutine(LoadAsync());
         }
 
+        public virtual void Unload() {}
+
         protected virtual IEnumerator LoadAsync()
         {
             int gameplaySceneIndex = GetSceneIndex(sceneName);
@@ -150,11 +152,6 @@ namespace SpaceCabron.Gameplay.Level
         {
             MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{});
             this.onFinishedLoading?.Invoke();
-        }
-
-        public void Unload()
-        {
-            throw new System.NotImplementedException();
         }
     }
 

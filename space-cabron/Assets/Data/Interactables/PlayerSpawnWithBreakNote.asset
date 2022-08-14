@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d869d4dbf4c86e4b8f79a6d93339b5b, type: 3}
   m_Name: PlayerSpawnWithBreakNote
   m_EditorClassIdentifier: SpaceCabron.Gameplay:SpaceCabron.Gameplay.Interactables:PlayerRespawnsWithImprovisation
+  Description: Increase player firing rate
   Price:
     GetFrom: {fileID: 0}
     SendTo: {fileID: 0}

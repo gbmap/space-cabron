@@ -1,5 +1,4 @@
 using System;
-using Gmap;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Gameplay.Interactables;
@@ -40,6 +39,15 @@ namespace SpaceCabron.Gameplay.Level
 
             Interactable.CreateInteractable(
                 levelConfiguration.NextLevelInteractable
+            );
+        }
+
+        public override void Unload()
+        {
+            InteractableBehaviour[] interactables = GameObject.FindObjectsOfType<InteractableBehaviour>();
+            System.Array.ForEach(
+                interactables, 
+                interactable => GameObject.Destroy(interactable.gameObject)
             );
         }
     }

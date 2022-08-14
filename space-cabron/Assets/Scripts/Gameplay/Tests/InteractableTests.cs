@@ -132,4 +132,11 @@ public class InteractableTests
         yield return new WaitForSeconds(1f);
         Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
     }
+
+    [UnityTest]
+    public IEnumerator InteractableGetsDeselected()
+    {
+        Assert.Fail("Not implemented");
+        yield break;
+    }
 }

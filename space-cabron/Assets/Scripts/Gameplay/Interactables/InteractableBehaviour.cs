@@ -1,5 +1,6 @@
 using Gmap.Gameplay;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SpaceCabron.Gameplay.Interactables
 {
@@ -13,8 +14,26 @@ namespace SpaceCabron.Gameplay.Interactables
 
         public string Tag = "Player";
         public Interactable Interactable;
+        public TMPro.TextMeshPro Description;
 
-        public bool IsSelected { get; private set; }
+        public UnityEvent OnIsSelected;
+        public UnityEvent OnIsDeselected;
+        public UnityEvent OnInteract;
+
+        bool isSelected;
+        public bool IsSelected 
+        { 
+            get => isSelected; 
+            private set 
+            {
+                isSelected = value;
+                if (isSelected)
+                    OnIsSelected.Invoke();
+                else
+                    OnIsDeselected.Invoke();
+            }
+        }
+
 
         private Interactor interactor;
 
@@ -47,6 +66,8 @@ namespace SpaceCabron.Gameplay.Interactables
         public void Configure(Interactable upgrade)
         {
             this.Interactable = upgrade;
+            if (Description != null)
+                Description.text = upgrade.Description;
         }
 
         void OnTriggerEnter2D(Collider2D collider)
@@ -68,7 +89,7 @@ namespace SpaceCabron.Gameplay.Interactables
                 return;
 
             IBrainHolder<InputState> otherBrainHolder = collider.GetComponent<IBrainHolder<InputState>>();
-            if (otherBrainHolder == interactor.brain)
+            if (otherBrainHolder.Brain == interactor.brain)
             {
                 interactor = null;
                 IsSelected = false;
