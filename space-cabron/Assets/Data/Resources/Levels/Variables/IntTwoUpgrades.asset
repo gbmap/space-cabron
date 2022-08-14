@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141c3598714a74c448fbfd202b956037, type: 3}
-  m_Name: UpgradePool
+  m_Script: {fileID: 11500000, guid: d6817882c3ff73442b3c6af599605411, type: 3}
+  m_Name: IntTwoUpgrades
   m_EditorClassIdentifier: 
-  RandomType: 1
-  Items:
-  - Value: {fileID: 0}
-    Weight: 0
+  value: 2

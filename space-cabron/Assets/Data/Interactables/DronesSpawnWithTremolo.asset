@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6817882c3ff73442b3c6af599605411, type: 3}
-  m_Name: OneUpgrade
+  m_Script: {fileID: 11500000, guid: 54ebab8ca1a8af74e8a13f4e69a93569, type: 3}
+  m_Name: DronesSpawnWithTremolo
   m_EditorClassIdentifier: 
-  value: 1
+  Price:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 2
+  Improvisation: {fileID: 11400000, guid: 5f44692e691dd224ea7793229b411f72, type: 2}

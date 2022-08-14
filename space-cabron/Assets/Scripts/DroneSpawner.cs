@@ -117,7 +117,6 @@ namespace SpaceCabron.Gameplay
             }
         }
 
-
         private void ConfigureMelodyDrone(GameObject instance, ITurntable turntable)
         {
             int droneAudioMixerIndex = numberOfMelodyDronesSpawned++ % MIXER_GROUP_DRONE_COUNT;
