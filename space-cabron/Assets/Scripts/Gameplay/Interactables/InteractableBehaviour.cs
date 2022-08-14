@@ -55,11 +55,13 @@ namespace SpaceCabron.Gameplay.Interactables
             };
             if (interactor.brain.GetInputState(inputState).Shoot)
             {
-                Interactable.Interact(new Interactable.InteractArgs
+                bool success = Interactable.Interact(new Interactable.InteractArgs
                 {
                     Interactor = interactor.obj
                 });
-                Destroy(gameObject);
+
+                if (success)
+                    Destroy(gameObject);
             }
         }
 

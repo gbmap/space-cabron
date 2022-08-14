@@ -13,10 +13,9 @@ namespace SpaceCabron.Gameplay.Interactables.Level
         public IntBusReference RewardAmount;
         public EDroneType RewardType;
 
-        public override void Interact(InteractArgs args)
+        public override bool Interact(InteractArgs args)
         {
-            base.Interact(args);
-            // throw new System.NotImplementedException();
+            return base.Interact(args);
         }
     }
 }

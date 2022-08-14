@@ -327,6 +327,34 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+--- !u!83 &899213843
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &1034143337
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +433,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!83 &1480285011
+--- !u!83 &1099914508
 AudioClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -433,7 +461,35 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!83 &1494614933
+--- !u!83 &1215131919
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
+--- !u!83 &1462064554
 AudioClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1003,34 +1059,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f, type: 3}
---- !u!83 &1651903853
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &1699387830 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 671385363, guid: 9281e0eefacc5cf40b0d2c31c36e5537,
@@ -1051,7 +1079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PatchPool: {fileID: 0}
   SpecificPatch: {fileID: 4900000, guid: 09d76477c6648244cae20c5ad7e9cb1f, type: 3}
---- !u!83 &2097904785
+--- !u!83 &1753318245
 AudioClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1491,32 +1519,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 1651903853}
+      objectReference: {fileID: 1215131919}
     - target: {fileID: 6185726435759408445, guid: 8fc96b863f2caab45b82b39ca22aaf65,
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 1480285011}
+      objectReference: {fileID: 1753318245}
     - target: {fileID: 6185726437785278072, guid: 8fc96b863f2caab45b82b39ca22aaf65,
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 2097904785}
+      objectReference: {fileID: 1099914508}
     - target: {fileID: 6185726437884079371, guid: 8fc96b863f2caab45b82b39ca22aaf65,
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 1494614933}
-    - target: {fileID: 8532393573949153233, guid: 8fc96b863f2caab45b82b39ca22aaf65,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8532393573949153247, guid: 8fc96b863f2caab45b82b39ca22aaf65,
-        type: 3}
-      propertyPath: shouldSpawn
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 899213843}
     - target: {fileID: 8532393574664662555, guid: 8fc96b863f2caab45b82b39ca22aaf65,
         type: 3}
       propertyPath: m_RootOrder

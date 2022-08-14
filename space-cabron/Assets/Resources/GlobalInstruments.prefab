@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreConfigurationBPM: 0
+  ReloadMelody: 1
 --- !u!4 &8532393574900886452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8436536320496043501, guid: 231892c16b4d95442a948d8a420ddc2a,
@@ -284,6 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreConfigurationBPM: 0
+  ReloadMelody: 1
 --- !u!4 &8532393574554085065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6670179829887138826, guid: ecd04033fad88b74f9cfbec922be4551,
@@ -429,6 +433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreConfigurationBPM: 0
+  ReloadMelody: 1
 --- !u!114 &8532393575039313929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,6 +540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreConfigurationBPM: 0
+  ReloadMelody: 1
 --- !u!4 &4500509527218785437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5581785066351700248, guid: 93dced58549cf03428f96f2f7ec8898f,

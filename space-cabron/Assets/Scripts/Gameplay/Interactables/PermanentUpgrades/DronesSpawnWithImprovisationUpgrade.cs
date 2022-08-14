@@ -10,10 +10,12 @@ namespace SpaceCabron.Gameplay.Interactables
     {
         public ScriptableImprovisation Improvisation;
 
-        public override void Interact(InteractArgs args)
+        public override bool Interact(InteractArgs args)
         {
-            base.Interact(args);
+            if (!base.Interact(args))
+                return false;
             MessageRouter.AddHandler<MsgOnDroneSpawned>(Callback_SpawnDrone);
+            return true;
         }
         
         void OnDestroy()

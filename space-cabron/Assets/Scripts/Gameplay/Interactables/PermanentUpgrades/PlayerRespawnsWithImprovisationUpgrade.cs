@@ -13,10 +13,13 @@ namespace SpaceCabron.Gameplay.Interactables
     {
         public ScriptableImprovisation Improvisation;
 
-        public override void Interact(InteractArgs args)
+        public override bool Interact(InteractArgs args)
         {
-            base.Interact(args);
+            if (!base.Interact(args))
+                return false;
+
             MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
+            return true;
         }
 
         private void Callback_OnPlayerSpawned(MsgOnPlayerSpawned msg)

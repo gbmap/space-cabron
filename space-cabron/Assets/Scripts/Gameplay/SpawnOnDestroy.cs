@@ -13,6 +13,7 @@ public class SpawnOnDestroyItem
 public class SpawnOnDestroy : MonoBehaviour
 {
     public FloatBusReference Probability;
+    public bool NeedsSpecialBullet;
     public SpawnOnDestroyItem[] items;
 
     private ShuffleBag<GameObject> bag;
@@ -40,6 +41,10 @@ public class SpawnOnDestroy : MonoBehaviour
     {
         if (Random.value > Probability.Value)
             return;
+
+        if (NeedsSpecialBullet && (msg.bullet == null || !msg.bullet.IsSpecial))
+            return;
+
         Instantiate(bag.Next(), transform.position, Quaternion.identity);
     }
 }
