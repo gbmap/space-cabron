@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Gmap.CosmicMusicUtensil
 {
-
     public class OnNoteArgs
     {
         public Note Note { get; set; }

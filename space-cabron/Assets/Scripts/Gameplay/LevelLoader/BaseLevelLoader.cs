@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Frictionless;
+using Gmap;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Messages;
@@ -11,13 +12,15 @@ namespace SpaceCabron.Gameplay.Level
 {
     public interface ILevelConfiguration : ICloneable<ILevelConfiguration>
     {
-        ILevelLoader GetLoader();
+        ILevelLoader GetLoader(System.Action OnFinishedLoading =null);
     }
 
     public abstract class BaseLevelConfiguration : ScriptableObject, ILevelConfiguration
     {
-        public abstract ILevelLoader GetLoader();
+        public abstract ILevelLoader GetLoader(System.Action OnFinishedLoading =null);
         public abstract ILevelConfiguration Clone();
+
+        public BaseLevelConfiguration NextLevel;
     }
 
     public interface ILevelLoader
@@ -134,8 +137,6 @@ namespace SpaceCabron.Gameplay.Level
             }
         }
 
-
-
         private static void PlayBeginLevelAnimationOnPlayers(System.Action OnEnded)
         {
             var anim = GameObject.FindObjectOfType<RunAnimationOnPlayers>();
@@ -145,13 +146,15 @@ namespace SpaceCabron.Gameplay.Level
                 OnEnded();
         }
 
-        protected virtual void ConfigureLevel()
-        {
-        }
+        protected virtual void ConfigureLevel() {}
 
         private void Finish()
         {
             MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{});
+
+            EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
+            spawner.shouldSpawn = false;
+
             this.onFinishedLoading?.Invoke();
         }
 
