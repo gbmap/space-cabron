@@ -6,26 +6,14 @@ using Gmap.ScriptableReferences;
 using NUnit.Framework;
 using SpaceCabron.Gameplay;
 using SpaceCabron.Gameplay.Interactables;
+using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Messages;
 using UnityEngine;
 using UnityEngine.TestTools;
+using static LevelTests;
 
 public class InteractableTests 
 {
-    public class PlayerControlBrain : ScriptableAIBrain<InputState>
-    {
-        public Vector2 Movement = new Vector2();
-        public bool Shoot = false;
-        public override InputState GetInputState(InputStateArgs args)
-        {
-            return new InputState
-            {
-                Movement = this.Movement,
-                Shoot = this.Shoot
-            };
-        }
-    }
-
     [TearDown]
     public void TearDown()
     {
@@ -44,7 +32,7 @@ public class InteractableTests
     PlayerControlBrain brain;
     GameObject eventHandlers;
 
-    private IEnumerator GetInteractable(Interactable interactable)
+    private IEnumerator SetupInteractableTestScene(Interactable interactable)
     {
         var eventHandlerPrefab = Resources.Load<GameObject>("EventHandlers");
         this.eventHandlers = GameObject.Instantiate(eventHandlerPrefab);
@@ -56,18 +44,12 @@ public class InteractableTests
             Quaternion.identity
         ) as GameObject;
 
-        brain = ScriptableObject.CreateInstance<PlayerControlBrain>();
-        InjectBrainToActor<InputState>.Inject(playerInstance, brain);
+        this.brain = InjectPlayerWithControlBrain(this.playerInstance);
 
-        var interactablePrefab = Resources.Load("Interactable");
-        GameObject interactableInstance = GameObject.Instantiate(
-            interactablePrefab, 
-            new Vector3(0, 1, 0), 
-            Quaternion.identity
-        ) as GameObject;
-
+        var interactableInstance = Interactable.CreateInteractable(
+            interactable, new Vector3(0, 1, 0)
+        );
         InteractableBehaviour ib = interactableInstance.GetComponent<InteractableBehaviour>();
-        ib.Interactable = interactable;
 
         for (int i = 0; i < 10; i++)
         {
@@ -93,7 +75,7 @@ public class InteractableTests
     public IEnumerator InteractableBehaviourRunsInteractOnScriptableObject()
     {
         NullInteractable interactable = ScriptableObject.CreateInstance<NullInteractable>();
-        yield return GetInteractable(interactable);
+        yield return SetupInteractableTestScene(interactable);
         Assert.IsTrue(interactable.HasInteracted);
     }
 
@@ -112,7 +94,7 @@ public class InteractableTests
         upgrade.Improvisation.NoteSelection = noteSelection;
         upgrade.Improvisation.BarSelection = noteSelection;
 
-        yield return GetInteractable(upgrade);
+        yield return SetupInteractableTestScene(upgrade);
 
         yield return null;
 
@@ -132,5 +114,22 @@ public class InteractableTests
 
         var turntable = droneInstance.GetComponentInChildren<ITurntable>();
         Assert.NotZero(turntable.Improviser.NumberOfImprovisations);
+    }
+
+    [UnityTest]
+    public IEnumerator BufferLevelNextLevelInteractableLoadsNextLevel()
+    {
+        BaseLevelConfiguration level = Resources.Load<BaseLevelConfiguration>("Levels/Level0");
+        yield return LevelTests.LoadLevelAndWait(level);
+        LevelTests.DisableEnemySpawner();
+        var player = LevelTests.MakePlayerInvincible();
+
+        NextLevelInteractable interactable = ScriptableObject.CreateInstance<NextLevelInteractable>();
+        interactable.Interact(new Interactable.InteractArgs {
+            Interactor = player       
+        });
+
+        yield return new WaitForSeconds(1f);
+        Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
     }
 }

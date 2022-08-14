@@ -9,7 +9,7 @@ namespace Gmap.Gameplay
 {
     public class LevelLoader
     {
-        public  static LevelConfiguration CurrentLevelConfiguration { get; private set; }
+        public  static BaseLevelConfiguration CurrentLevelConfiguration { get; private set; }
         private static bool KeepOldScene;
 
         private static MonoBehaviour coroutineStarter;
@@ -27,7 +27,7 @@ namespace Gmap.Gameplay
         }
 
         public static void Load(
-            LevelConfiguration level, 
+            BaseLevelConfiguration level, 
             System.Action OnFinishedLoading = null
         ) {
             // RandomSeed = Random.Range(0, int.MaxValue);

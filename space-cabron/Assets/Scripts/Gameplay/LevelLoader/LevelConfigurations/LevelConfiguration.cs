@@ -112,7 +112,7 @@ namespace SpaceCabron.Gameplay
         }
     }
 
-    [CreateAssetMenu(menuName="Space Cabrón/Gameplay/Level Configuration")]
+    [CreateAssetMenu(menuName="Space Cabrón/Level/Enemy")]
     public class LevelConfiguration : BaseLevelConfiguration
     {
         public GameplayConfiguration Gameplay;
@@ -122,8 +122,6 @@ namespace SpaceCabron.Gameplay
         [SerializeField] private InstrumentConfiguration AmbientMelody;
         [SerializeField] private InstrumentConfiguration HitConfiguration;
         public BackgroundConfiguration Background;
-
-        public LevelConfiguration NextLevel;
 
         private Dictionary<string, InstrumentConfiguration> dictTagToInstrument;
         private Dictionary<string, InstrumentConfiguration> DictTagToInstrument {

@@ -24,38 +24,41 @@ namespace SpaceCabron.Gameplay.Level
         {
             base.ConfigureLevel();
 
-            int numberOfUpgrades = levelConfiguration.NumberOfUpgrades.Value;
+            int numberOfUpgrades = levelConfiguration.GetNumberOfUpgrades();
             float upgradeSpacing = 2f;
             float initialX = -(numberOfUpgrades * upgradeSpacing) / 2f;
 
+            var interactablePrefab = Resources.Load<GameObject>("Interactable");
             for (int i = 0; i < numberOfUpgrades; i++)
             {
-                Interactable upgradeData = levelConfiguration.PossibleUpgrades.GetNext();
-
-                var prefab = levelConfiguration.InteractablePrefab;
-                var instance = GameObject.Instantiate(
-                    prefab, 
-                    new Vector3(initialX + i * upgradeSpacing, 0, 0), 
-                    Quaternion.identity
+                Interactable.CreateInteractable(
+                    levelConfiguration.PossibleUpgrades.GetNext(),
+                    new Vector3(initialX + i * upgradeSpacing, 2f, 0)
                 );
-                instance.GetComponent<InteractableBehaviour>().Configure(upgradeData);
             }
+
+            Interactable.CreateInteractable(
+                levelConfiguration.NextLevelInteractable
+            );
         }
     }
 
+    [CreateAssetMenu(menuName="Space Cabrón/Level/Buffer")]
     public class BufferLevelConfiguration : BaseLevelConfiguration
     {
         public IntReference NumberOfUpgrades;
-        public GameObject InteractablePrefab;
-
         public InteractablePool PossibleUpgrades;
-        public Interactable NextLevel;
+        public Interactable NextLevelInteractable;
+
+        public int GetNumberOfUpgrades()
+        {
+            return Mathf.Min(NumberOfUpgrades.Value, PossibleUpgrades.Length);
+        }
 
         public override ILevelConfiguration Clone()
         {
             var cfg = ScriptableObject.CreateInstance<BufferLevelConfiguration>();
             cfg.NumberOfUpgrades = NumberOfUpgrades.Clone() as IntReference;
-            cfg.InteractablePrefab = InteractablePrefab;
             cfg.PossibleUpgrades = PossibleUpgrades.Clone() as InteractablePool;
             return cfg;
         }

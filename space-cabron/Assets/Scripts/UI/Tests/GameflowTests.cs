@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Frictionless;
 using NUnit.Framework;
+using SpaceCabron.Gameplay;
 
 public class GameflowTests 
 {
@@ -129,7 +130,7 @@ public class GameflowTests
         yield return new WaitForSeconds(3f);
         Assert.AreEqual(GameState.Current, Resources.Load<GameState>("GameStates/GameplayPlay"));
 
-        var playerInstrument = LevelLoader.CurrentLevelConfiguration.GetInstrumentConfigurationByTag("Player");
+        var playerInstrument = (LevelLoader.CurrentLevelConfiguration as LevelConfiguration).GetInstrumentConfigurationByTag("Player");
         Melody m = playerInstrument.MelodyFactory.GenerateMelody();
         Assert.AreEqual(m.Notation, "c4/4;c4/4;c4/4;c4/4");
     }

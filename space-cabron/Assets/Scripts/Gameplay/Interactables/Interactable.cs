@@ -12,6 +12,33 @@ namespace SpaceCabron.Gameplay.Interactables
         }
 
         public abstract void Interact(InteractArgs args);
+
+        public static GameObject CreateInteractable(Interactable interactable)
+        {
+            return CreateInteractable(interactable, Vector3.zero);
+        }
+
+        public static GameObject CreateInteractable(
+            Interactable interactable,
+            Vector3 position
+        ) {
+            GameObject interactablePrefab = Resources.Load<GameObject>("Interactable");
+            var interactableInstance = Instantiate(
+                interactablePrefab,
+                position,
+                Quaternion.identity
+            );
+            MakeInteractable(interactableInstance, interactable);
+            return interactableInstance;
+        }
+
+        public static void MakeInteractable(GameObject obj, Interactable interactable)
+        {
+            var interactableBehaviour = obj.GetComponent<InteractableBehaviour>();
+            if (interactableBehaviour == null)
+                throw new System.Exception("Object {obj} must have an InteractableBehaviour component.");
+            interactableBehaviour.Configure(interactable);
+        }
     }
 
     public class NullInteractable : Interactable

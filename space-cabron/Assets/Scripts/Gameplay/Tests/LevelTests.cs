@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -12,18 +11,35 @@ using SpaceCabron.Messages;
 using SpaceCabron.Gameplay;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine.SceneManagement;
+using SpaceCabron.Gameplay.Level;
+using SpaceCabron.Gameplay.Interactables;
+using Gmap.ScriptableReferences;
 
 public class LevelTests
 {
-    public static TestCaseData[] GetLevels()
+    public class PlayerControlBrain : ScriptableAIBrain<InputState>
     {
-        // return new TestCaseData[] {
-        //     new TestCaseData(
-        //         AssetDatabase.LoadAssetAtPath<LevelConfiguration>("Assets/Data/Levels/Level0.asset")
-        //     ).Returns(null)
-        // };
+        public Vector2 Movement = new Vector2();
+        public bool Shoot = false;
+        public override InputState GetInputState(InputStateArgs args)
+        {
+            return new InputState
+            {
+                Movement = this.Movement,
+                Shoot = this.Shoot
+            };
+        }
+    }
 
+    public static TestCaseData[] GetEnemyLevels()
+    {
         var objs = Resources.LoadAll<LevelConfiguration>("Levels/");
+        return objs.Select(o => new TestCaseData(o).Returns(null)).ToArray();
+    }
+
+    public static TestCaseData[] GetBufferLevels()
+    {
+        var objs = Resources.LoadAll<BufferLevelConfiguration>("Levels/");
         return objs.Select(o => new TestCaseData(o).Returns(null)).ToArray();
     }
 
@@ -56,7 +72,7 @@ public class LevelTests
         System.Array.ForEach(bullets, go => GameObject.Destroy(go));
     }
 
-    [Test, TestCaseSource(nameof(GetLevels))]
+    [Test, TestCaseSource(nameof(GetEnemyLevels))]
     public IEnumerator LoadLevelLoadsLevelInformation(LevelConfiguration level)
     {
         LevelLoader.Load(level);
@@ -70,7 +86,7 @@ public class LevelTests
 
 
     [UnityTest]
-    [TestCaseSource(nameof(GetLevels))]
+    [TestCaseSource(nameof(GetEnemyLevels))]
     public IEnumerator NextLevelMessageLoadsNextLevelCorrectly(LevelConfiguration level)
     {
         yield return LoadLevelAndWait(level);
@@ -85,15 +101,49 @@ public class LevelTests
         // Wait win animations.
         yield return new WaitForSecondsRealtime(1f);
         Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
-        Assert.AreEqual(level.NextLevel.Background.Material, RenderSettings.skybox);
     }
 
-    private IEnumerator LoadLevelAndWait(LevelConfiguration level)
+    [UnityTest]
+    [TestCaseSource(nameof(GetBufferLevels))]
+    public IEnumerator LoadBufferLevelsLoadsLevelsCorrectly(BufferLevelConfiguration level)
+    {
+        yield return LoadLevelAndWait(level);
+
+        InteractableBehaviour[] interactables = GameObject.FindObjectsOfType<InteractableBehaviour>();
+        int interactableCount = level.GetNumberOfUpgrades() + 1;
+        Assert.AreEqual(interactableCount, interactables.Length);
+        Assert.AreEqual(1, interactables.Where(i => i.Interactable is NextLevelInteractable).Count());
+    }
+
+    public static IEnumerator LoadLevelAndWait(BaseLevelConfiguration level)
     {
         bool hasLoaded = false;
         LevelLoader.Load(level, () => hasLoaded = true);
         while (!hasLoaded)
             yield return null;
+    }
+    
+    public static EnemySpawner DisableEnemySpawner()
+    {
+        EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
+        if (spawner != null)
+            spawner.shouldSpawn = false;
+        return spawner;
+    }
+
+    public static GameObject MakePlayerInvincible()
+    {
+        var player = GameObject.FindWithTag("Player");
+        player.GetComponent<Health>().CanTakeDamage = false;
+        player.GetComponentInChildren<TurntableBehaviour>().enabled = false;
+        return player;
+    }
+
+    public static PlayerControlBrain InjectPlayerWithControlBrain(GameObject player)
+    {
+        PlayerControlBrain brain = ScriptableObject.CreateInstance<PlayerControlBrain>();
+        InjectBrainToActor<InputState>.Inject(player, brain);
+        return brain;
     }
 
     [UnityTest]
@@ -101,9 +151,7 @@ public class LevelTests
     {
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
-        
-        EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
-        spawner.shouldSpawn = false;
+        DisableEnemySpawner();
         yield return new WaitForSeconds(1f);
         MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
         yield return new WaitForSeconds(12f);
@@ -116,9 +164,7 @@ public class LevelTests
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
 
-        var player = GameObject.FindWithTag("Player");
-        player.GetComponent<Health>().CanTakeDamage = false;
-        player.GetComponentInChildren<TurntableBehaviour>().enabled = false;
+        MakePlayerInvincible();
         yield return new WaitForSeconds(7f);
         MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
         yield return new WaitForSeconds(12f);
@@ -130,12 +176,9 @@ public class LevelTests
     {
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
+        DisableEnemySpawner();
+        MakePlayerInvincible();
 
-        var player = GameObject.FindWithTag("Player");
-        player.GetComponent<Health>().CanTakeDamage = false;
-        player.GetComponentInChildren<TurntableBehaviour>().enabled = false;
-        EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
-        spawner.shouldSpawn = false;
         var enemyPrefab = Resources.Load<GameObject>("Enemies/EnemyThug");
         var enemyInstance = GameObject.Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
@@ -159,18 +202,14 @@ public class LevelTests
     {
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
-        EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
-        spawner.shouldSpawn = false;
+        var spawner = DisableEnemySpawner();
 
         Scene s = SceneManager.GetSceneAt(1);
         int sceneCount = SceneManager.sceneCount;
         SceneManager.SetActiveScene(s);
 
-        var player = GameObject.FindWithTag("Player");
-        player.GetComponent<Health>().CanTakeDamage = false;
-        player.GetComponentInChildren<TurntableBehaviour>().enabled = false;
+        var player = MakePlayerInvincible();
         Vector3 playerPosition = player.transform.position;
-
 
         MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
 
@@ -183,7 +222,11 @@ public class LevelTests
         Assert.AreEqual(playerPosition, player.transform.position);
 
         Assert.AreEqual(level.NextLevel, LevelLoader.CurrentLevelConfiguration);
-        Assert.AreEqual(level.NextLevel.Gameplay.ScoreThreshold, spawner.ScoreThreshold);
 
+        if (level.NextLevel is LevelConfiguration)
+        {
+            var nextLevel = level.NextLevel as LevelConfiguration;
+            Assert.AreEqual(nextLevel.Gameplay.ScoreThreshold, spawner.ScoreThreshold);
+        }
     }
 }

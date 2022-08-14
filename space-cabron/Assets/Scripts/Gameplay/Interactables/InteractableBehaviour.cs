@@ -40,6 +40,7 @@ namespace SpaceCabron.Gameplay.Interactables
                 {
                     Interactor = interactor.obj
                 });
+                Destroy(gameObject);
             }
         }
 

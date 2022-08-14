@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SpaceCabron.Gameplay.Interactables
 {
-    [CreateAssetMenu(menuName="Space Cabrón/Upgrades/Drones Spawn With Improvisation")]
+    [CreateAssetMenu(menuName="Space Cabrón/Interactables/Upgrades/Drones Spawn With Improvisation")]
     public class DronesSpawnWithImprovisationUpgrade : Upgrade
     {
         public ScriptableImprovisation Improvisation;
@@ -24,7 +24,8 @@ namespace SpaceCabron.Gameplay.Interactables
         private void Callback_SpawnDrone(MsgOnDroneSpawned msg)
         {
             ITurntable turntable = msg.Drone.GetComponentInChildren<ITurntable>();
-            turntable.ApplyImprovisation(Improvisation.Get(), false);
+            if (turntable != null)
+                turntable.ApplyImprovisation(Improvisation.Get(), false);
         }
     }
 }
