@@ -6,9 +6,10 @@ namespace SpaceCabron.Gameplay.Interactables
     [CreateAssetMenu(menuName="Space Cabrón/Interactables/Next Level")]
     public class NextLevelInteractable : Interactable
     {
-        public override void Interact(InteractArgs args)
+        public override bool Interact(InteractArgs args)
         {
             LevelLoader.Load(LevelLoader.CurrentLevelConfiguration.NextLevel);
+            return true;
         }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Frictionless;
@@ -78,6 +76,8 @@ public class CameraFollowPlayer : MonoBehaviour
 
         Vector2 mean = players.Select(p => p.transform.position)
                               .Aggregate((a, b) => a + b) / players.Count;
+
+        mean += Vector2.up * 1.65f;
 
         Vector2 pos = transform.position;
 

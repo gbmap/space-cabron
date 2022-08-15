@@ -24,7 +24,8 @@ namespace Gmap.ScriptableReferences
         {
             Random,
             ShuffleBag,
-            ApplicationConstant
+            ApplicationConstant,
+            ShuffleBagNoRepeat
         }
         public ERandomType RandomType = ERandomType.ShuffleBag;
 
@@ -68,6 +69,10 @@ namespace Gmap.ScriptableReferences
             {
                 System.Random r = new System.Random();
                 return Items[r.Next(0, Items.Count)].Value;
+            }
+            else if (RandomType == ERandomType.ShuffleBagNoRepeat)
+            {
+                return ShuffleBag.NextNoRepeat(1)[0];
             }
             else
                 return ShuffleBag.Next();

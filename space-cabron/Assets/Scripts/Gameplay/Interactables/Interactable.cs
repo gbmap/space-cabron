@@ -11,7 +11,9 @@ namespace SpaceCabron.Gameplay.Interactables
             public GameObject Interactor;
         }
 
-        public abstract void Interact(InteractArgs args);
+        public string Description;
+
+        public abstract bool Interact(InteractArgs args);
 
         public static GameObject CreateInteractable(Interactable interactable)
         {
@@ -44,9 +46,10 @@ namespace SpaceCabron.Gameplay.Interactables
     public class NullInteractable : Interactable
     {
         public bool HasInteracted { get; private set; }
-        public override void Interact(InteractArgs args)
+        public override bool Interact(InteractArgs args)
         {
             HasInteracted = true;
+            return true;
         }
     }
 }

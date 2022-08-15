@@ -41,6 +41,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
+      propertyPath: NoteTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
+        type: 3}
       propertyPath: Melody.notation
       value: c4/4
       objectReference: {fileID: 0}

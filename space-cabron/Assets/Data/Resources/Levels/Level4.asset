@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
   m_Name: Level4
   m_EditorClassIdentifier: 
+  NextLevel: {fileID: 11400000, guid: b440a88392e1961409d8a644218a1912, type: 2}
   Gameplay:
     Difficulty: 1
     ScoreThreshold: 30000
@@ -75,4 +76,3 @@ MonoBehaviour:
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: bc24348fc2be1d34e9055e2e1b98a6ae, type: 2}
-  NextLevel: {fileID: 11400000, guid: dd29c64f880de3145b0967f39750d45b, type: 2}

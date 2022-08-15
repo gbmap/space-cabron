@@ -41,6 +41,15 @@ namespace SpaceCabron.Gameplay.Level
                 levelConfiguration.NextLevelInteractable
             );
         }
+
+        public override void Unload()
+        {
+            InteractableBehaviour[] interactables = GameObject.FindObjectsOfType<InteractableBehaviour>();
+            System.Array.ForEach(
+                interactables, 
+                interactable => GameObject.Destroy(interactable.gameObject)
+            );
+        }
     }
 
     [CreateAssetMenu(menuName="Space Cabrón/Level/Buffer")]

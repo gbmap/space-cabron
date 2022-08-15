@@ -9,7 +9,7 @@ namespace Gmap.Gameplay
 {
     public class LevelLoader
     {
-        public  static BaseLevelConfiguration CurrentLevelConfiguration { get; private set; }
+        public static BaseLevelConfiguration CurrentLevelConfiguration { get; private set; }
         private static bool KeepOldScene;
 
         private static MonoBehaviour coroutineStarter;
@@ -30,17 +30,11 @@ namespace Gmap.Gameplay
             BaseLevelConfiguration level, 
             System.Action OnFinishedLoading = null
         ) {
-            // RandomSeed = Random.Range(0, int.MaxValue);
-
-            ILevelLoader loader = level.GetLoader(OnFinishedLoading);
-            loader.Load();
+            if (CurrentLevelConfiguration != null)
+                CurrentLevelConfiguration.GetLoader().Unload();
+            
+            level.GetLoader(OnFinishedLoading).Load();
             CurrentLevelConfiguration = level;
-
-
-            // // level = level.Clone();
-            // MessageRouter.Reset();
-            // AsyncOperation aOp = SceneManager.LoadSceneAsync("Gameplay", LoadSceneMode.Additive);
-            // aOp.completed += (AsyncOperation op) => { Callback_OnGameplaySceneLoaded(op, level, OnFinishedLoading); };
         }
 
         private static void Callback_OnGameplaySceneLoaded(

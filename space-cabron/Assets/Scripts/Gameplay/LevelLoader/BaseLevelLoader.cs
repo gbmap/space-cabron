@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using Frictionless;
-using Gmap;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Messages;
@@ -52,6 +50,8 @@ namespace SpaceCabron.Gameplay.Level
         {
             coroutineStarter.StartCoroutine(LoadAsync());
         }
+
+        public virtual void Unload() {}
 
         protected virtual IEnumerator LoadAsync()
         {
@@ -151,16 +151,7 @@ namespace SpaceCabron.Gameplay.Level
         private void Finish()
         {
             MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{});
-
-            EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
-            spawner.shouldSpawn = false;
-
             this.onFinishedLoading?.Invoke();
-        }
-
-        public void Unload()
-        {
-            throw new System.NotImplementedException();
         }
     }
 

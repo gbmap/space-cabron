@@ -13,4 +13,22 @@ MonoBehaviour:
   m_Name: UpgradePool
   m_EditorClassIdentifier: 
   RandomType: 1
-  Items: []
+  Items:
+  - Value: {fileID: 11400000, guid: 0ae58fbf9ab837d4ea2e8e27ac4a0ea4, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: a859702e1ffc5bc40b8b67d48b21ee43, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: c8232c9e2ba63674e9caed81b4e3b0d7, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 4863eb397d3248e4ead8ce8e5b535904, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: df6dd4bc4a792f94b9aafef4c45d5666, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: df6dd4bc4a792f94b9aafef4c45d5666, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: dae58026b6dbf484fbacf5e728927bee, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: fde43a48859d71648ab4aeba2da8d405, type: 2}
+    Weight: 1
+  - Value: {fileID: 11400000, guid: 9790f07014ffa0347b7cb498d839a86a, type: 2}
+    Weight: 1
