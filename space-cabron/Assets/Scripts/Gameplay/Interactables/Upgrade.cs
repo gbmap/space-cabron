@@ -23,20 +23,25 @@ namespace SpaceCabron.Gameplay.Interactables
 
     public abstract class Upgrade : Interactable 
     {
-        public List<UpgradePriceCategory> Price;
+        public static UpgradesContainer Upgrades = new UpgradesContainer();
+
+        public List<UpgradePriceCategory> Price = new List<UpgradePriceCategory>();
         public override bool Interact(InteractArgs args)
         {
             bool hasCurrency = HasEnoughCurrency();
             if (hasCurrency)
+            {
+                Upgrades.Add(0, this);
                 DeductFromCurrency(Price);
+            }
             return hasCurrency;
         }
-
 
         protected bool HasEnoughCurrency()
         {
             var wallet = GetCurrency();
-            return Price.All(p => wallet[p.DroneType] >= p.Count);
+            return Price.All(p => wallet.ContainsKey(p.DroneType) 
+                               && wallet[p.DroneType] >= p.Count);
         }
 
         private void DeductFromCurrency(List<UpgradePriceCategory> price)
@@ -48,7 +53,8 @@ namespace SpaceCabron.Gameplay.Interactables
                 GameObject drone = drones[0];
                 EDroneType droneType = GameObjectToDroneType(drone);
                 GameObject.Destroy(drone);
-                price.First(p => p.DroneType == droneType).Count--;
+                price.First(p => p.DroneType == droneType 
+                         || p.DroneType == EDroneType.Any).Count--;
             }
         }
 
@@ -56,6 +62,11 @@ namespace SpaceCabron.Gameplay.Interactables
         {
             Dictionary<EDroneType, int> currency = new Dictionary<EDroneType, int>();
             GameObject[] drones = GameObject.FindGameObjectsWithTag("Drone");
+            currency[EDroneType.Melody] = 0;
+            currency[EDroneType.EveryN] = 0;
+            currency[EDroneType.Random] = 0;
+            currency[EDroneType.Any] = drones.Length; 
+
             for (int i = 0; i < drones.Length; i++)
             {
                 var drone = drones[i];
@@ -72,6 +83,49 @@ namespace SpaceCabron.Gameplay.Interactables
                 return EDroneType.EveryN;
             else 
                 return EDroneType.Random;
+        }
+    }
+
+    [System.Serializable]
+    public class UpgradesContainer
+    {
+        [SerializeField]
+        List<List<Upgrade>> Upgrades = new List<List<Upgrade>>(4);
+
+        public UpgradesContainer()
+        {
+            for (int i = 0; i < 4; i++)
+                Upgrades.Add(new List<Upgrade>());
+        }
+
+        public List<Upgrade> GetUpgrades(int playerIndex)
+        {
+            if (Upgrades.Count <= playerIndex)
+            {
+                Debug.LogWarning($"No upgrades found for player {playerIndex}");
+                return null;
+            }
+            if (Upgrades[playerIndex] == null)
+                Upgrades[playerIndex] = new List<Upgrade>();
+            return Upgrades[playerIndex];
+        }
+
+        public void Add(int playerIndex, Upgrade upgrade)
+        {
+            var upgrades = GetUpgrades(playerIndex);
+            if (upgrades == null)
+                return;
+            upgrades.Add(upgrade);
+        }
+
+        public bool HasUpgrade(int playerIndex, Upgrade upgrade)
+        {
+            return GetUpgrades(playerIndex).Contains(upgrade);
+        }
+
+        ~UpgradesContainer()
+        {
+            Upgrades.Clear();
         }
     }
 }

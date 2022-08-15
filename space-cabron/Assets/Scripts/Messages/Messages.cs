@@ -41,7 +41,8 @@ namespace SpaceCabron.Messages
         {
             Random,
             Melody,
-            EveryN
+            EveryN,
+            Any
         }
         public EDroneType DroneType;
         public GameObject Player;

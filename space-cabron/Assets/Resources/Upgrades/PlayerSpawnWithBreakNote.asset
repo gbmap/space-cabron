@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: SpaceCabron.Gameplay:SpaceCabron.Gameplay.Interactables:PlayerRespawnsWithImprovisation
   Description: Increase player firing rate
   Price:
-    GetFrom: {fileID: 0}
-    SendTo: {fileID: 0}
-    _value: 3
+  - DroneType: 0
+    Count: 2
   Improvisation: {fileID: 11400000, guid: ae86475870639ef4183bb87e94c716ba, type: 2}

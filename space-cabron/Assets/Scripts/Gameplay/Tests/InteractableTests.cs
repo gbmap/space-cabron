@@ -4,7 +4,6 @@ using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using NUnit.Framework;
-using SpaceCabron.Gameplay;
 using SpaceCabron.Gameplay.Interactables;
 using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Messages;
@@ -31,8 +30,10 @@ public class InteractableTests
     GameObject playerInstance;
     PlayerControlBrain brain;
     GameObject eventHandlers;
+    GameObject interactableInstance;
+    InteractableBehaviour interactableBehaviour;
 
-    private IEnumerator SetupInteractableTestScene(Interactable interactable)
+    private void SetupInteractableTestScene(Interactable interactable)
     {
         var eventHandlerPrefab = Resources.Load<GameObject>("EventHandlers");
         this.eventHandlers = GameObject.Instantiate(eventHandlerPrefab);
@@ -46,36 +47,47 @@ public class InteractableTests
 
         this.brain = InjectPlayerWithControlBrain(this.playerInstance);
 
-        var interactableInstance = Interactable.CreateInteractable(
+        interactableInstance = Interactable.CreateInteractable(
             interactable, new Vector3(0, 1, 0)
         );
-        InteractableBehaviour ib = interactableInstance.GetComponent<InteractableBehaviour>();
-
+        interactableBehaviour = interactableInstance.GetComponent<InteractableBehaviour>();
+    }
+    
+    IEnumerator InteractWithInteractable()
+    {
         for (int i = 0; i < 10; i++)
         {
-            Assert.IsFalse(ib.IsSelected);
+            Assert.IsFalse(interactableBehaviour.IsSelected);
             yield return new WaitForSeconds(0.1f);
         }
 
-        while (playerInstance.transform.position.y < 1f)
-        {
-            brain.Movement = Vector2.up;
-            yield return null;
-        }
-        brain.Movement = Vector2.zero;
-
+        yield return MoveTo(interactableInstance.transform.position);
         yield return null;
-        Assert.IsTrue(ib.IsSelected);
+        Assert.IsTrue(interactableBehaviour.IsSelected);
         yield return null;
         brain.Shoot = true;
         yield return null;
+    }
+
+    IEnumerator MoveTo(Vector3 targetPosition)
+    {
+        while (Vector3.Distance(playerInstance.transform.position, targetPosition) > 0.01f)
+        {
+            brain.Movement = Vector3.ClampMagnitude(
+                targetPosition - playerInstance.transform.position,
+                1
+            );
+            yield return null;
+        }
+        brain.Movement = Vector2.zero;
     }
 
     [UnityTest]
     public IEnumerator InteractableBehaviourRunsInteractOnScriptableObject()
     {
         NullInteractable interactable = ScriptableObject.CreateInstance<NullInteractable>();
-        yield return SetupInteractableTestScene(interactable);
+        SetupInteractableTestScene(interactable);
+        yield return InteractWithInteractable();
         Assert.IsTrue(interactable.HasInteracted);
     }
 
@@ -94,8 +106,8 @@ public class InteractableTests
         upgrade.Improvisation.NoteSelection = noteSelection;
         upgrade.Improvisation.BarSelection = noteSelection;
 
-        yield return SetupInteractableTestScene(upgrade);
-
+        SetupInteractableTestScene(upgrade);
+        yield return InteractWithInteractable();
         yield return null;
 
         GameObject droneInstance = null;
@@ -126,7 +138,7 @@ public class InteractableTests
 
         NextLevelInteractable interactable = ScriptableObject.CreateInstance<NextLevelInteractable>();
         interactable.Interact(new Interactable.InteractArgs {
-            Interactor = player       
+            Interactor = player
         });
 
         yield return new WaitForSeconds(1f);
@@ -136,7 +148,53 @@ public class InteractableTests
     [UnityTest]
     public IEnumerator InteractableGetsDeselected()
     {
-        Assert.Fail("Not implemented");
-        yield break;
+        NullInteractable interactable = ScriptableObject.CreateInstance<NullInteractable>();
+        SetupInteractableTestScene(interactable);
+        yield return MoveTo(interactableInstance.transform.position);
+        Assert.IsTrue(interactableBehaviour.IsSelected);
+        yield return MoveTo(Vector3.zero);
+        Assert.IsFalse(interactableBehaviour.IsSelected);
+    }
+
+    [UnityTest]
+    public IEnumerator UpgradeDoesntGetPurchasedIfNotEnoughCurrency()
+    {
+        Upgrade upgrade = Resources.Load<Upgrade>("Upgrades/DronesSpawnWithBreakNote");
+        SetupInteractableTestScene(upgrade);
+        yield return MoveTo(interactableInstance.transform.position);
+        Assert.IsTrue(interactableBehaviour.IsSelected);
+        brain.Shoot = true;
+        yield return null;
+        brain.Shoot = false;
+        Assert.IsNotNull(interactableBehaviour);
+        Assert.IsFalse(Upgrade.Upgrades.HasUpgrade(0, upgrade));
+    }
+
+    [UnityTest]
+    public IEnumerator UpgradeGetsPurchasedIfEnoughCurrency()
+    {
+        Upgrade upgrade = Resources.Load<Upgrade>("Upgrades/DronesSpawnWithBreakNote");
+        SetupInteractableTestScene(upgrade);
+        yield return null;
+        yield return null;
+        foreach (UpgradePriceCategory priceCategory in upgrade.Price)
+        {
+            for (int i = 0; i < priceCategory.Count; i++)
+            {
+                MessageRouter.RaiseMessage(new MsgSpawnDrone
+                {
+                    DroneType = priceCategory.DroneType,
+                    Player = this.playerInstance
+                });
+            }
+        }
+        yield return MoveTo(interactableInstance.transform.position);
+        Assert.IsTrue(interactableBehaviour.IsSelected);
+        brain.Shoot = true;
+        yield return null;
+        brain.Shoot = false;
+        yield return null;
+        Assert.IsTrue(interactableBehaviour == null);
+        Assert.IsTrue(Upgrade.Upgrades.HasUpgrade(0, upgrade));
     }
 }

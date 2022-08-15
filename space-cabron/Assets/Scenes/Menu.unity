@@ -501,6 +501,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 1632147370107785352, guid: dc92e7877b6f79b4d9e7100f6dac9f57,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5439759443937438437, guid: dc92e7877b6f79b4d9e7100f6dac9f57,
         type: 3}
       propertyPath: m_RootOrder

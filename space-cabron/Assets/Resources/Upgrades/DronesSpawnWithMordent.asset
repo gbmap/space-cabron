@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: Increase drone firing rate
   Price:
-    GetFrom: {fileID: 0}
-    SendTo: {fileID: 0}
-    _value: 2
+  - DroneType: 3
+    Count: 3
   Improvisation: {fileID: 11400000, guid: dc687f3250fb43248bdb1adfe4969f40, type: 2}
