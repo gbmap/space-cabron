@@ -47,14 +47,18 @@ namespace SpaceCabron.Gameplay.Interactables
         private void DeductFromCurrency(List<UpgradePriceCategory> price)
         {
             price = price.Select(p => p.Clone()).ToList();
-            while (price.Any(p => p.Count > 0))
+            foreach (GameObject drone in GameObject.FindGameObjectsWithTag("Drone"))
             {
-                GameObject[] drones = GameObject.FindGameObjectsWithTag("Drone");
-                GameObject drone = drones[0];
                 EDroneType droneType = GameObjectToDroneType(drone);
-                GameObject.Destroy(drone);
-                price.First(p => p.DroneType == droneType 
-                         || p.DroneType == EDroneType.Any).Count--;
+                if (price.FirstOrDefault(p => p.DroneType == droneType || p.DroneType == EDroneType.Any) == null)
+                    continue;
+
+                var priceCategory = price.First(p => p.DroneType == droneType || p.DroneType == EDroneType.Any);
+                priceCategory.Count--;
+                if (priceCategory.Count == 0)
+                    price.Remove(priceCategory);
+
+                Destroy(drone);
             }
         }
 

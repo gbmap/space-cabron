@@ -5,7 +5,7 @@
 		[PerRendererData] _MainTex("Texture", 2D) = "white" {}
         // [PerRendererData] _Color("Color", Color) = (1.0, 0.0, 0.0, 0.0)
 		[PerRendererData] _Spawn("Spawn Float", Range(0.0, 1.0)) = 0.0
-		[PerRendererData] _Upgrade("Upgrade Float", Float) = 0.0
+		[PerRendererData] _Upgrade("Upgrade Float", Float) = 1.0
 
 		_NegativeColor("Negative Color", Color) = (1.0, 0.0, 0.0, 0.0)
 		_PositiveColor("Positive Color", Color) = (0.0, 1.0, 0.0, 0.0)

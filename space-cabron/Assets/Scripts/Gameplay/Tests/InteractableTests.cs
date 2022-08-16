@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
@@ -25,6 +26,11 @@ public class InteractableTests
 
         var interactables = GameObject.FindObjectsOfType<InteractableBehaviour>();
         System.Array.ForEach(interactables, t => GameObject.Destroy(t.gameObject));
+
+        var drones = GameObject.FindGameObjectsWithTag("Drone");
+        System.Array.ForEach(drones, t => GameObject.Destroy(t.gameObject));
+
+        Upgrade.Upgrades = new UpgradesContainer();
     }
 
     GameObject playerInstance;
@@ -193,6 +199,47 @@ public class InteractableTests
         brain.Shoot = true;
         yield return null;
         brain.Shoot = false;
+        yield return null;
+        Assert.IsTrue(interactableBehaviour == null);
+        Assert.IsTrue(Upgrade.Upgrades.HasUpgrade(0, upgrade));
+    }
+
+    public static TestCaseData[] GetPurchaseableUpgrades()
+    {
+        var upgrades = Resources.LoadAll<Upgrade>("Upgrades");
+        return upgrades.Select(upgrade => new TestCaseData(upgrade).Returns(null)).ToArray();
+    }
+
+    [UnityTest, TestCaseSource(nameof(GetPurchaseableUpgrades))]
+    public IEnumerator AllUpgradesCanBeBought(Upgrade upgrade)
+    {
+        SetupInteractableTestScene(upgrade);
+
+        // Spawn currency needed.
+        for (int i = 0; i < upgrade.Price.Count; i++)
+        {
+            foreach (UpgradePriceCategory priceCategory in upgrade.Price)
+            {
+                for (int j = 0; j < priceCategory.Count; j++)
+                {
+                    var targetType = priceCategory.DroneType;
+                    if (targetType == MsgSpawnDrone.EDroneType.Any)
+                        targetType = MsgSpawnDrone.EDroneType.Random;
+
+                    MessageRouter.RaiseMessage(new MsgSpawnDrone
+                    {
+                        DroneType = priceCategory.DroneType,
+                        Player = this.playerInstance
+                    });
+                }
+            }
+        }
+
+        yield return MoveTo(interactableInstance.transform.position);
+        brain.Shoot = true;
+        yield return null;
+        brain.Shoot = false;
+
         yield return null;
         Assert.IsTrue(interactableBehaviour == null);
         Assert.IsTrue(Upgrade.Upgrades.HasUpgrade(0, upgrade));

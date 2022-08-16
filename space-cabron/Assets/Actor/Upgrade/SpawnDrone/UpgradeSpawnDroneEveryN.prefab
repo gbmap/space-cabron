@@ -14,18 +14,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3089358721856365598, guid: b56a3ae1ebdaab2459371e7caa26babb,
         type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f1fd2542fff69be448b9cf5d8ef81e23,
+        type: 3}
+    - target: {fileID: 3089358721856365598, guid: b56a3ae1ebdaab2459371e7caa26babb,
+        type: 3}
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3089358721856365598, guid: b56a3ae1ebdaab2459371e7caa26babb,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3089358721856365598, guid: b56a3ae1ebdaab2459371e7caa26babb,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.76686984
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3089358721856365598, guid: b56a3ae1ebdaab2459371e7caa26babb,
         type: 3}
@@ -90,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb,
         type: 3}
       propertyPath: m_Name
-      value: SpawnDroneEveryN
+      value: UpgradeSpawnDroneEveryN
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
