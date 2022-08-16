@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
       propertyPath: UnityEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
@@ -37,7 +37,7 @@ PrefabInstance:
         type: 3}
       propertyPath: UnityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6877875826433627703}
     - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
       propertyPath: UnityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState

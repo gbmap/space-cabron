@@ -70,5 +70,6 @@ namespace Gmap.CosmicMusicUtensil
         {
             Turntable.ApplyImprovisation(improvisation, permanent);
         }
+
     }
 }
