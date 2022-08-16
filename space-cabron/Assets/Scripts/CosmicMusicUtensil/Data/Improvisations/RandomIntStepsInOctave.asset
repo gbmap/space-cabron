@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb66e4023c49d7241b2e60f9c122a9fb, type: 3}
-  m_Name: RandomStepsInOctave
+  m_Name: RandomIntStepsInOctave
   m_EditorClassIdentifier: 
   value: 0
   Min: -12

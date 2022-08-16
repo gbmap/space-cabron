@@ -70,19 +70,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8875341672761901923, guid: f5b876d251f216d4c96c6bcf61790c93,
         type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -951215939, guid: e27edb817bb192049b82c516d73c8a86,
+        type: 3}
+    - target: {fileID: 8875341672761901923, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8875341672761901923, guid: f5b876d251f216d4c96c6bcf61790c93,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.97540987
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8875341672761901923, guid: f5b876d251f216d4c96c6bcf61790c93,
         type: 3}
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8875341672761901924, guid: f5b876d251f216d4c96c6bcf61790c93,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: dea9187e519f7034dadc409ac96e90f1,
+        type: 2}
     - target: {fileID: 8875341672761901925, guid: f5b876d251f216d4c96c6bcf61790c93,
         type: 3}
       propertyPath: m_Name

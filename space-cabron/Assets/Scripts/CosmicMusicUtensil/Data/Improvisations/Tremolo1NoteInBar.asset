@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BarSelection: {fileID: 11400000, guid: b5799f072e86869468c1e2960ce1a87c, type: 2}
   NoteSelection: {fileID: 11400000, guid: 3372a7f9d71fd744d878e0878adccfc1, type: 2}
+  Icon: {fileID: 21300000, guid: 1fe12ca3be8ba064882dcaca4c178f83, type: 3}
   Steps: {fileID: 11400000, guid: b927426238efa524c845fa86e49c4149, type: 2}
   Beams: {fileID: 11400000, guid: 8a384a9232042e245ae4a350db3f51da, type: 2}

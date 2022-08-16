@@ -628,6 +628,140 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1001 &720317635
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 415514418880407069, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 736861570}
+    - target: {fileID: 1019307496587858914, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 4182165b7a174da45b9afb271e8ea61d,
+        type: 2}
+    - target: {fileID: 1019307496587858915, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerBotMelody
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858915, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858916, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858917, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1093066279, guid: c50271f61efcab44784e667e6f6e9671,
+        type: 3}
+    - target: {fileID: 1019307496587858917, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858917, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019307496587858917, guid: 1c96e93ef5d3fff4fb7afba00657197c,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c96e93ef5d3fff4fb7afba00657197c, type: 3}
+--- !u!83 &736861570
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1001 &938479328
 PrefabInstance:
   m_ObjectHideFlags: 0

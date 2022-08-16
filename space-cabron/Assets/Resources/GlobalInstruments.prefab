@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa931519b576e2e41a182173c4cb24b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MelodyFactory: {fileID: 11400000, guid: 18fc533f27c74924f936f6ae7375bff1, type: 2}
+  MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
 --- !u!114 &5461153771223605336
 MonoBehaviour:
   m_ObjectHideFlags: 0

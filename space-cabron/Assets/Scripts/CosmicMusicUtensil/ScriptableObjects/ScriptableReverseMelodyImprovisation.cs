@@ -9,6 +9,8 @@ namespace Gmap.CosmicMusicUtensil
         public ScriptableSelectionStrategy BarSelection;
         public ScriptableSelectionStrategy NoteSelection;
         public abstract Improvisation Get();
+
+        public Sprite Icon;
     }
 
     [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Improvisations/Reverse Melody")]

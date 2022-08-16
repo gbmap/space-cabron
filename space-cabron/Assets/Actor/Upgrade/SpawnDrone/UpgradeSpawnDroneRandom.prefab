@@ -11,27 +11,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c99fb25cce751cc44885aa2e0715bfa8,
+      objectReference: {fileID: 21300000, guid: 31f1f378d2b1cd84aa55da5fd2047e61,
         type: 3}
     - target: {fileID: 569090007880489849, guid: e39d571db65214a4dbb2986ce7aab1ca,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.5849056
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 569090007880489849, guid: e39d571db65214a4dbb2986ce7aab1ca,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.54430676
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 569090007880489849, guid: e39d571db65214a4dbb2986ce7aab1ca,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.5324848
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5621981252508601616, guid: e39d571db65214a4dbb2986ce7aab1ca,
         type: 3}
       propertyPath: m_Name
-      value: SpawnDroneRandom
+      value: UpgradeSpawnDroneRandom
       objectReference: {fileID: 0}
     - target: {fileID: 9134005305382111753, guid: e39d571db65214a4dbb2986ce7aab1ca,
         type: 3}
