@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -76,16 +77,18 @@ namespace Gmap.CosmicMusicUtensil
             if (Melody.IsEmpty)
                 return;
 
-            if (NoNotesToPlay())
-                QueueNextNotes();
             PlayQueuedNotes();
+            if (NoNotesToPlay())
+            {
+                AdvanceNoteIndex();
+                QueueNextNotes();
+            }  
         }
 
         void QueueNextNotes()
         {
             Note[] notesToPlay = improviser.Improvise(melody, currentBarIndex, melody.GetNote(currentNoteIndex), currentNoteIndex);
             System.Array.ForEach(notesToPlay, n => noteQueue.Enqueue(n));
-            AdvanceNoteIndex();
         }
 
         void PlayQueuedNotes()
@@ -143,5 +146,19 @@ namespace Gmap.CosmicMusicUtensil
             else
                 Improviser.AddImprovisation(improvisation);
         }
+
+        #if UNITY_EDITOR
+        public string DebugString()
+        {
+            Note[] notes = noteQueue.ToArray();
+            if (notes.Length == 0)
+                return "";
+            if (LastNote == null)
+                return "";
+            string notesStr = notes.Select(n=>n.AsString()).Aggregate((a,b)=>a+";"+b);
+            string s = $"LastNote: {LastNote.AsString()} \nNoteQueue: " + notesStr;
+            return s;
+        }
+        #endif
     }
 }

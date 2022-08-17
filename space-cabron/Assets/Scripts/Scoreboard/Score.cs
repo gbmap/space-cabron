@@ -9,7 +9,7 @@ namespace SpaceCabron.Scoreboard
     public class Score : MonoBehaviour
     {
         public IntReference TotalScore;
-        int CurrentScore;
+        public int CurrentScore { get; private set ;}
 
         void OnEnable()
         {

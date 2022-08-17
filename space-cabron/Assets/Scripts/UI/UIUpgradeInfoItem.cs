@@ -43,7 +43,7 @@ namespace SpaceCabron.UI
                 turntable.Melody, 
                 turntable.BarIndex, 
                 turntable.Melody.NoteArray, 
-                Bar.MathMod(turntable.NoteIndex-1, turntable.Melody.Length)
+                turntable.NoteIndex
                 // Turntable advances index when queueing new notes, hence -1.
             );
 
