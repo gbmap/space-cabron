@@ -82,5 +82,10 @@ PrefabInstance:
       propertyPath: IsResistent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7908018395441228954, guid: b8b77dd71b0dfe84ebb628b71066734c,
+        type: 3}
+      propertyPath: Value
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8b77dd71b0dfe84ebb628b71066734c, type: 3}

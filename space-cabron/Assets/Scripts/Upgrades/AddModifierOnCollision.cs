@@ -6,13 +6,16 @@ namespace Gmap
 {
     public abstract class CollisionHandler<T> : MonoBehaviour where T : MonoBehaviour
     {
+        public bool HandleOnlyOnce = true;
+        protected bool hasHandled;
         public void OnTriggerEnter2D(Collider2D other)
         {
             T t = other.GetComponentInChildren<T>();
             if (t == null)
                 return;
 
-            HandleCollision(t);
+            if (!HandleOnlyOnce || (HandleOnlyOnce && !hasHandled))
+                HandleCollision(t);
         }
 
         protected abstract void HandleCollision(T t);

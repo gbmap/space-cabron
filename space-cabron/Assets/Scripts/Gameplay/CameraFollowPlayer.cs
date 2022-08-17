@@ -38,14 +38,14 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Callback_OnObjectDestroyed(MsgOnObjectDestroyed obj)
     {
-        if (obj.collider == null)
+        if (obj.health == null)
             return;
 
-        if (!obj.collider.CompareTag("Player"))
+        if (!obj.health.CompareTag("Player"))
             return;
         
-        if (players.Contains(obj.collider.gameObject))
-            players.Remove(obj.collider.gameObject);
+        if (players.Contains(obj.health.gameObject))
+            players.Remove(obj.health.gameObject);
     }
 
 

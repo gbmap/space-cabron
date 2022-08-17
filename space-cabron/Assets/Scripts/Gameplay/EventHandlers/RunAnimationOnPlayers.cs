@@ -36,7 +36,7 @@ namespace SpaceCabron.Gameplay
 
         private void Callback_LevelWon(MsgLevelWon msg)
         {
-            LevelLoader.Load(levelConfiguration.NextLevel);
+            LevelLoader.Load(LevelLoader.CurrentLevelConfiguration.NextLevel);
         }
 
         private IEnumerator WaitAnimationEnded(System.Action OnAnimationEnded)

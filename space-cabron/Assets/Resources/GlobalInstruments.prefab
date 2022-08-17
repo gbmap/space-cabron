@@ -303,11 +303,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1564543275343521283, guid: 0206c6dc7c6160049bf5715a61af632d,
         type: 3}
-      propertyPath: Geometric
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1564543275343521283, guid: 0206c6dc7c6160049bf5715a61af632d,
-        type: 3}
       propertyPath: ScoreModulus
       value: 50
       objectReference: {fileID: 0}

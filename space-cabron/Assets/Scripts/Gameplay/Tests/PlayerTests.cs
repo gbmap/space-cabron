@@ -213,4 +213,37 @@ public class PlayerTests
         Assert.IsTrue(player2 != null);
         Assert.AreNotEqual(player, player2);
     }
+
+    [UnityTest]
+    public IEnumerator CollisionWithMultipleDronesSpawnsOnlyOnePlayer()
+    {
+        var player = GameObject.Instantiate(Resources.Load<GameObject>("Player"));
+        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i< 5; i++)
+        {
+            MessageRouter.RaiseMessage(new MsgSpawnDrone 
+            { 
+                DroneType = MsgSpawnDrone.EDroneType.Melody,
+                Player = player
+            });
+        }
+        yield return new WaitForSeconds(0.2f);
+
+        GameObject[] drones = GameObject.FindGameObjectsWithTag("Drone");
+        foreach (GameObject drone in drones)
+        {
+            FollowAtAnOffset f = drone.GetComponent<FollowAtAnOffset>();
+            f.Offset = Vector3.up;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+
+        player.GetComponent<Health>().Destroy();
+        yield return new WaitForSeconds(5f);
+
+        var player2 = GameObject.FindGameObjectWithTag("Player");
+        Assert.IsTrue(player2 != null);
+        Assert.AreNotEqual(player, player2);
+        Assert.AreEqual(1, GameObject.FindGameObjectsWithTag("Player").Length);
+    }
 }

@@ -18,7 +18,10 @@ namespace SpaceCabron.Gameplay
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Drone") && !hasSpawned)
+            if (!other.CompareTag("Drone"))
+                return;
+            
+            if (hasSpawned)
                 return;
 
             hasSpawned = true;

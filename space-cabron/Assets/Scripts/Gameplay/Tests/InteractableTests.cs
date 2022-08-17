@@ -59,28 +59,27 @@ public class InteractableTests
         interactableBehaviour = interactableInstance.GetComponent<InteractableBehaviour>();
     }
     
-    IEnumerator InteractWithInteractable()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            Assert.IsFalse(interactableBehaviour.IsSelected);
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        yield return MoveTo(interactableInstance.transform.position);
-        yield return null;
+    public static IEnumerator InteractWithInteractable(
+        PlayerControlBrain brain,
+        GameObject objectInstance,
+        InteractableBehaviour interactableBehaviour
+    ) {
+        yield return MoveTo(brain, objectInstance, interactableBehaviour.transform.position);
+        yield return new WaitForFixedUpdate();
         Assert.IsTrue(interactableBehaviour.IsSelected);
         yield return null;
         brain.Shoot = true;
         yield return null;
+        brain.Shoot = false;
+        yield break;
     }
 
-    IEnumerator MoveTo(Vector3 targetPosition)
+    public static IEnumerator MoveTo(PlayerControlBrain brain, GameObject objectInstance, Vector3 targetPosition)
     {
-        while (Vector3.Distance(playerInstance.transform.position, targetPosition) > 0.01f)
+        while (Vector3.Distance(objectInstance.transform.position, targetPosition) > 0.01f)
         {
             brain.Movement = Vector3.ClampMagnitude(
-                targetPosition - playerInstance.transform.position,
+                targetPosition - objectInstance.transform.position,
                 1
             );
             yield return null;
@@ -93,7 +92,7 @@ public class InteractableTests
     {
         NullInteractable interactable = ScriptableObject.CreateInstance<NullInteractable>();
         SetupInteractableTestScene(interactable);
-        yield return InteractWithInteractable();
+        yield return InteractWithInteractable(this.brain, this.playerInstance, this.interactableBehaviour);
         Assert.IsTrue(interactable.HasInteracted);
     }
 
@@ -113,7 +112,9 @@ public class InteractableTests
         upgrade.Improvisation.BarSelection = noteSelection;
 
         SetupInteractableTestScene(upgrade);
-        yield return InteractWithInteractable();
+        yield return InteractWithInteractable(
+            this.brain, this.playerInstance, this.interactableBehaviour
+        );
         yield return null;
 
         GameObject droneInstance = null;
@@ -156,9 +157,9 @@ public class InteractableTests
     {
         NullInteractable interactable = ScriptableObject.CreateInstance<NullInteractable>();
         SetupInteractableTestScene(interactable);
-        yield return MoveTo(interactableInstance.transform.position);
+        yield return MoveTo(this.brain, this.playerInstance, interactableInstance.transform.position);
         Assert.IsTrue(interactableBehaviour.IsSelected);
-        yield return MoveTo(Vector3.zero);
+        yield return MoveTo(this.brain, this.playerInstance, Vector3.zero);
         Assert.IsFalse(interactableBehaviour.IsSelected);
     }
 
@@ -167,7 +168,7 @@ public class InteractableTests
     {
         Upgrade upgrade = Resources.Load<Upgrade>("Upgrades/DronesSpawnWithBreakNote");
         SetupInteractableTestScene(upgrade);
-        yield return MoveTo(interactableInstance.transform.position);
+        yield return MoveTo(this.brain, this.playerInstance, interactableInstance.transform.position);
         Assert.IsTrue(interactableBehaviour.IsSelected);
         brain.Shoot = true;
         yield return null;
@@ -194,7 +195,7 @@ public class InteractableTests
                 });
             }
         }
-        yield return MoveTo(interactableInstance.transform.position);
+        yield return MoveTo(this.brain, this.playerInstance, interactableInstance.transform.position);
         Assert.IsTrue(interactableBehaviour.IsSelected);
         brain.Shoot = true;
         yield return null;
@@ -235,7 +236,7 @@ public class InteractableTests
             }
         }
 
-        yield return MoveTo(interactableInstance.transform.position);
+        yield return MoveTo(this.brain, this.playerInstance, interactableInstance.transform.position);
         brain.Shoot = true;
         yield return null;
         brain.Shoot = false;

@@ -39,6 +39,9 @@ namespace Gmap
 
         private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
         {
+            if (!obj.health.CompareTag("Enemy"))
+                return;
+
             CheckIfShouldSpawnBoss();
         }
 

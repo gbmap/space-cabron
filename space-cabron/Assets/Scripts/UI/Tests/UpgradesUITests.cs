@@ -1,4 +1,5 @@
 using System.Collections;
+using Frictionless;
 using Gmap.Gameplay;
 using NUnit.Framework;
 using SpaceCabron.UI;
@@ -12,14 +13,29 @@ public class UpgradesUITests
     GameObject eventHandlers;
     GameObject playerInstance;
     GameObject upgradeInstance;
+    GameObject canvasInstance;
     PlayerControlBrain brain;
+
+    [TearDown]
+    public void TearDown()
+    {
+        GameObject.Destroy(canvasInstance);
+        canvasInstance = null;
+
+        GameObject.Destroy(playerInstance);
+        playerInstance = null;
+
+        MessageRouter.Reset();
+    }
 
     private IEnumerator SetupSceneWithUpgrade(GameObject upgradePrefab)
     {
         var canvasGameplayPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(
             "Assets/Actor/UI/CanvasGameplay.prefab"
         );
-        GameObject.Instantiate(canvasGameplayPrefab, Vector3.zero, Quaternion.identity);
+        canvasInstance = GameObject.Instantiate(
+            canvasGameplayPrefab, Vector3.zero, Quaternion.identity
+        );
 
         var eventHandlerPrefab = Resources.Load<GameObject>("EventHandlers");
         this.eventHandlers = GameObject.Instantiate(eventHandlerPrefab);
@@ -53,8 +69,10 @@ public class UpgradesUITests
         while (upgradeInstance != null)
             yield return null;
 
-        UIUpgradesInfo info = GameObject.FindObjectOfType<UIUpgradesInfo>();
+        UIUpgradesInfo info = canvasInstance.GetComponentInChildren<UIUpgradesInfo>();
         Assert.AreEqual(1, info.transform.childCount);
+
+        yield return new WaitForSeconds(1f);
     }
 
     [UnityTest]
@@ -69,7 +87,7 @@ public class UpgradesUITests
         while (upgradeInstance != null)
             yield return null;
 
-        UIUpgradesInfo info = GameObject.FindObjectOfType<UIUpgradesInfo>();
+        UIUpgradesInfo info = canvasInstance.GetComponentInChildren<UIUpgradesInfo>();
         Assert.AreEqual(1, info.transform.childCount);
 
         yield return null;
@@ -79,5 +97,7 @@ public class UpgradesUITests
         yield return null;
 
         Assert.AreEqual(0, info.transform.childCount);
+
+        yield return new WaitForSeconds(1f);
     }
 }

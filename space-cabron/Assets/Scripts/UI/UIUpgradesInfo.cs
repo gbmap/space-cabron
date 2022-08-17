@@ -6,6 +6,7 @@ using SpaceCabron.Upgrades;
 using UnityEngine.UI;
 using Gmap.Gameplay;
 using System;
+using Gmap.CosmicMusicUtensil;
 
 namespace SpaceCabron.UI
 {
@@ -20,12 +21,6 @@ namespace SpaceCabron.UI
         }
         private List<UIUpgradeItem> items = new List<UIUpgradeItem>();
 
-        ImprovisationToIcon improvisationToIcon;
-
-        void Awake()
-        {
-            improvisationToIcon = Resources.Load<ImprovisationToIcon>("ImprovisationToIcon");
-        }
 
         void OnEnable()
         {
@@ -47,8 +42,7 @@ namespace SpaceCabron.UI
             if (!msg.Object.transform.parent.CompareTag("Player"))
                 return;
 
-            Sprite sprite = improvisationToIcon.GetIcon(msg.Improvisation);
-            AddItem(sprite, true);
+            AddItem(msg.Turntable, msg.Improvisation, true);
         }
 
         private void Callback_OnObjectDestroyed(MsgOnObjectDestroyed msg)
@@ -61,30 +55,25 @@ namespace SpaceCabron.UI
                 UIUpgradeItem item = items[i];
                 if (item.Temporary)
                 {
-                    items.Remove(item);
                     Destroy(item.Item);
-                    break;
+                    items.Remove(item);
                 }
             }
         }
 
         private void Callback_OnUpgradeTaken(MsgOnUpgradeTaken msg)
         {
-            // if (!(msg.Upgrade is ImprovisationUpgrade))
-            //     return;
-
-            // ImprovisationUpgrade upg = msg.Upgrade as ImprovisationUpgrade;
-            // AddItem(upg.Improvisation.Icon, false);
         }
 
-        private void AddItem(Sprite icon, bool temporary)
+        private void AddItem(ITurntable turntable, Improvisation improvisation, bool temporary)
         {
             var instance = Instantiate(ItemPrefab);
             instance.transform.parent = transform;
-            
-            var renderer = instance.GetComponent<Image>();
-            renderer.sprite = icon;
 
+            instance.GetComponent<UIUpgradeInfoItem>().Configure(
+                turntable, improvisation
+            );
+            
             items.Add(new UIUpgradeItem {
                 Item = instance,
                 Temporary = temporary
@@ -93,17 +82,7 @@ namespace SpaceCabron.UI
 
         private void Callback_OnUpgradeRemoved(MsgOnUpgradeRemoved msg)
         {
-            // if (!(msg.Upgrade is ImprovisationUpgrade))
-            //     return;
-            
-            // ImprovisationUpgrade upg = msg.Upgrade as ImprovisationUpgrade;
 
-            // var item = items.FirstOrDefault(i => i.Upgrade == upg);
-            // if (item == null)
-            //     return;
-
-            // items.Remove(item);
-            // GameObject.Destroy(item.Item);
         }
     }
 }

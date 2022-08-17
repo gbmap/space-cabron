@@ -23,6 +23,7 @@ namespace Gmap.CosmicMusicUtensil
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
         void ApplyImprovisation(Improvisation improvisation, bool permanent);
+        public System.Action<OnNoteArgs> OnNote { get; set; }
     }
 
     public class Turntable : ITurntable
@@ -52,8 +53,8 @@ namespace Gmap.CosmicMusicUtensil
         Improviser improviser = new Improviser();
         public Improviser Improviser { get { return improviser; } }
 
-
-        public System.Action<OnNoteArgs> OnNote;
+        public Action<OnNoteArgs> OnNote { get; set; }
+        // public System.Action<OnNoteArgs> OnNote;
 
         Queue<Note> noteQueue = new Queue<Note>(50);
 

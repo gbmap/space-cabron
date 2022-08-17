@@ -22,7 +22,10 @@ namespace Gmap.Gameplay
             if (obj.bullet == null)
                 return;
             
-            if (obj.name.Contains("Player"))
+            if (obj.health.CompareTag("Player"))
+                return;
+            
+            if (obj.health.CompareTag("Drone"))
                 return;
 
             MessageRouter.RaiseMessage(
