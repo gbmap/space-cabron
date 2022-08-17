@@ -62,7 +62,8 @@ namespace Gmap.Debug
             if (spawner)
             {
                 ITurntable t = spawner.GetComponentInChildren<ITurntable>();
-                GUILayout.Label($"Enemy Spawner BPM: {t.BPM}");
+                if (t != null)
+                    GUILayout.Label($"Enemy Spawner BPM: {t.BPM}");
             }
 
         }
