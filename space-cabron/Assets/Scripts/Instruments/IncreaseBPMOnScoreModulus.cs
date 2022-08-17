@@ -2,6 +2,8 @@ using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 using SpaceCabron.Messages;
+using Gmap.Gameplay;
+using SpaceCabron.Gameplay;
 
 namespace Gmap.Instruments
 {
@@ -12,6 +14,8 @@ namespace Gmap.Instruments
 
         protected ITurntable turntable;
         int counter = 1;
+        int lastScore = 0;
+        int scoreAccumulator = 0;
 
         protected abstract void HandleEvent();
 
@@ -28,25 +32,45 @@ namespace Gmap.Instruments
 
         private void Callback_OnScoreChanged(SpaceCabron.Messages.MsgOnScoreChanged msg)
         {
-            bool target; 
-            if (Geometric)
-                target = (msg.Score % (ScoreModulus*counter*2)) == 0;
-            else 
-                target = msg.Score % ScoreModulus == 0;
-
-            if (target)
+            int distance = Mathf.Abs(lastScore - msg.Score);
+            scoreAccumulator += distance;
+            if (scoreAccumulator >= ScoreModulus)
             {
                 HandleEvent();
+                scoreAccumulator = 0;
                 counter++;
             }
+            lastScore = msg.Score;
+
+            // bool target; 
+            // if (Geometric)
+            //     target = (msg.Score % (ScoreModulus*counter*2)) == 0;
+            // else 
+            //     target = msg.Score % ScoreModulus == 0;
+
+            // if (target)
+            // {
+            //     HandleEvent();
+            //     counter++;
+            // }
         }
     }
 
 
     [RequireComponent(typeof(TurntableBehaviour))]
-    public class IncreaseBPMOnScoreModulus : OnScoreModulusBehaviour
+    public class IncreaseBPMOnScoreModulus : OnScoreModulusBehaviour, ILevelConfigurable<LevelConfiguration>
     {
         public int IncreaseValue = 5;
+
+        public void Configure(LevelConfiguration configuration)
+        {
+            EnemySpawner spawner = GetComponentInParent<EnemySpawner>();
+            if (spawner == null)
+                return;
+
+            IncreaseValue = configuration.Gameplay.EnemyBPMIncreaseValue;
+            ScoreModulus = configuration.Gameplay.EnemyBPMScoreModulusToIncrease;
+        }
 
         protected override void HandleEvent()
         {

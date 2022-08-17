@@ -77,6 +77,14 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
+    public class LastSelectionStrategy : SelectionStrategy
+    {
+        public bool ShouldSelect(Note[] notes, int index)
+        {
+            return index == notes.Length - 1;
+        }
+    }
+
     public class CompositeNoteSelectionStrategy : SelectionStrategy
     {
         public enum EOperation

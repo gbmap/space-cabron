@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
+using SpaceCabron.Gameplay;
 using SpaceCabron.Scoreboard;
 using UnityEngine;
 
@@ -50,6 +51,19 @@ namespace Gmap.Debug
             GUILayout.Label($"Current Level: {LevelLoader.CurrentLevelConfiguration}");
             if (Score != null)
                 GUILayout.Label($"Current score: {Score.CurrentScore}");
+
+            if (LevelLoader.CurrentLevelConfiguration is LevelConfiguration levelConfiguration)
+            {
+                GUILayout.Label($"Target Score: {levelConfiguration.Gameplay.ScoreThreshold}");
+            }
+
+            GUILayout.Label($"======");
+            EnemySpawner spawner = FindObjectOfType<EnemySpawner>();
+            if (spawner)
+            {
+                ITurntable t = spawner.GetComponentInChildren<ITurntable>();
+                GUILayout.Label($"Enemy Spawner BPM: {t.BPM}");
+            }
 
         }
     }
