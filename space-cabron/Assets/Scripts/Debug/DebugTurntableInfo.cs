@@ -29,6 +29,8 @@ namespace Gmap.Debug
             turntableBehaviour = GetComponent<TurntableBehaviour>();
         }
 
+
+#if UNITY_EDITOR
         void OnGUI()
         {
             GUILayout.Label($"Note Index: {turntableBehaviour.NoteIndex}");
@@ -65,7 +67,7 @@ namespace Gmap.Debug
                 if (t != null)
                     GUILayout.Label($"Enemy Spawner BPM: {t.BPM}");
             }
-
         }
+#endif
     }
 }
