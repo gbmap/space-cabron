@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyCannonResistant
       objectReference: {fileID: 0}
+    - target: {fileID: 3458045767463685226, guid: 4bad73beb5bbd2f42b06c08eb64605ce,
+        type: 3}
+      propertyPath: Value
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 5048633358847537517, guid: 4bad73beb5bbd2f42b06c08eb64605ce,
         type: 3}
       propertyPath: IsResistant

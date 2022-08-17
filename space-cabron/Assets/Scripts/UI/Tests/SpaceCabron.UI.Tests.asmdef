@@ -9,7 +9,8 @@
         "Gmap.CosmicMusicUtensil",
         "SpaceCabron.Gameplay",
         "Gmap.Gameplay",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "SpaceCabron.Gameplay.Tests"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

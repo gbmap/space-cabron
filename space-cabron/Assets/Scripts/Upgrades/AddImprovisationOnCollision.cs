@@ -1,9 +1,18 @@
 using System.Linq;
+using Gmap;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
+using Frictionless;
 
-namespace Gmap
+namespace SpaceCabron.Upgrades
 {
+    public class MsgOnImprovisationAdded
+    {
+        public GameObject Object;
+        public ITurntable Turntable;
+        public Improvisation Improvisation;
+    }
+
     public class AddImprovisationOnCollision : CollisionHandler<TurntableBehaviour>
     {
         public ImprovisationPool ImprovisationPool;
@@ -25,7 +34,13 @@ namespace Gmap
 
         protected override void HandleCollision(TurntableBehaviour t)
         {
-            t.Improviser.AddImprovisation(improvisation.Get());
+            var improvisation = this.improvisation.Get();
+            MessageRouter.RaiseMessage(new MsgOnImprovisationAdded { 
+                Object = t.gameObject, 
+                Turntable = t,
+                Improvisation = improvisation 
+            });
+            t.ApplyImprovisation(improvisation, false);
         }
 
         private ScriptableImprovisation GetRandomImprovisation()

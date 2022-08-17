@@ -1,0 +1,20 @@
+{
+    "name": "SpaceCabron.Upgrades",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ac7d7974f85db534b932f6d4af9fc4f5",
+        "GUID:ca56141c7eebe114db88a6573b09bd3a",
+        "GUID:98671b1d76d21834a8a0f77fb5b3b9d4",
+        "GUID:c8724ea9c6010314091f09b67787891d",
+        "GUID:94d6d3ad6b29e0f4b857a188ff3f001a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

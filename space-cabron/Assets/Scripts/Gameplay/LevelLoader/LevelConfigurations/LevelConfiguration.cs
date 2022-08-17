@@ -19,6 +19,8 @@ namespace SpaceCabron.Gameplay
     {
         public EDifficulty Difficulty;
         public int ScoreThreshold = 5000;
+        public int EnemyBPMIncreaseValue = 1;
+        public int EnemyBPMScoreModulusToIncrease = 25;
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
 

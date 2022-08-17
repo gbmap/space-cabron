@@ -235,17 +235,18 @@ MonoBehaviour:
     GetFrom: {fileID: 11400000, guid: e5729cdd72d5d5743ab9317dc81842c2, type: 2}
     SendTo: {fileID: 0}
     _value: 0
+  NeedsSpecialBullet: 0
   items:
   - obj: {fileID: 8913538050576589860, guid: abe676eb75093154c8db85268170c64f, type: 3}
     Weight: 1
   - obj: {fileID: 3927431444332515879, guid: e7d238c8c1b745245b6ddd681e260469, type: 3}
-    Weight: 3
+    Weight: 2
   - obj: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
-    Weight: 1
+    Weight: 3
   - obj: {fileID: 5710985424178225992, guid: 0ed021b659f2cfc4a8636be283272c63, type: 3}
     Weight: 1
   - obj: {fileID: 5616107406842346364, guid: 563a412d49414804b95316c24559d80b, type: 3}
-    Weight: 1
+    Weight: 2
   - obj: {fileID: 1104723741837955719, guid: 4bec959aadb1d0a41938f2656de262b4, type: 3}
     Weight: 1
 --- !u!114 &437546467635798816

@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Gmap.CosmicMusicUtensil
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
         void ApplyImprovisation(Improvisation improvisation, bool permanent);
+        public System.Action<OnNoteArgs> OnNote { get; set; }
     }
 
     public class Turntable : ITurntable
@@ -52,8 +54,8 @@ namespace Gmap.CosmicMusicUtensil
         Improviser improviser = new Improviser();
         public Improviser Improviser { get { return improviser; } }
 
-
-        public System.Action<OnNoteArgs> OnNote;
+        public Action<OnNoteArgs> OnNote { get; set; }
+        // public System.Action<OnNoteArgs> OnNote;
 
         Queue<Note> noteQueue = new Queue<Note>(50);
 
@@ -75,16 +77,18 @@ namespace Gmap.CosmicMusicUtensil
             if (Melody.IsEmpty)
                 return;
 
-            if (NoNotesToPlay())
-                QueueNextNotes();
             PlayQueuedNotes();
+            if (NoNotesToPlay())
+            {
+                AdvanceNoteIndex();
+                QueueNextNotes();
+            }  
         }
 
         void QueueNextNotes()
         {
             Note[] notesToPlay = improviser.Improvise(melody, currentBarIndex, melody.GetNote(currentNoteIndex), currentNoteIndex);
             System.Array.ForEach(notesToPlay, n => noteQueue.Enqueue(n));
-            AdvanceNoteIndex();
         }
 
         void PlayQueuedNotes()
@@ -142,5 +146,19 @@ namespace Gmap.CosmicMusicUtensil
             else
                 Improviser.AddImprovisation(improvisation);
         }
+
+        #if UNITY_EDITOR
+        public string DebugString()
+        {
+            Note[] notes = noteQueue.ToArray();
+            if (notes.Length == 0)
+                return "";
+            if (LastNote == null)
+                return "";
+            string notesStr = notes.Select(n=>n.AsString()).Aggregate((a,b)=>a+";"+b);
+            string s = $"LastNote: {LastNote.AsString()} \nNoteQueue: " + notesStr;
+            return s;
+        }
+        #endif
     }
 }

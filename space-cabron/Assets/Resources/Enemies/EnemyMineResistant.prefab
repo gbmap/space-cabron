@@ -72,5 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyMineResistant
       objectReference: {fileID: 0}
+    - target: {fileID: 7441988174069240843, guid: 9b1de30e5d9b04945b2549048afa8450,
+        type: 3}
+      propertyPath: Value
+      value: 65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1de30e5d9b04945b2549048afa8450, type: 3}

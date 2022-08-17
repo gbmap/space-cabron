@@ -72,6 +72,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyForkResistant
       objectReference: {fileID: 0}
+    - target: {fileID: 2976080135405805866, guid: 31a6985ce6cfb5c418b02570279c490f,
+        type: 3}
+      propertyPath: Value
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 4656724326132325421, guid: 31a6985ce6cfb5c418b02570279c490f,
         type: 3}
       propertyPath: IsResistant

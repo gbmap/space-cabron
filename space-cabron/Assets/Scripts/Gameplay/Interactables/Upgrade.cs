@@ -5,6 +5,16 @@ using static SpaceCabron.Messages.MsgSpawnDrone;
 
 namespace SpaceCabron.Gameplay.Interactables
 {
+    public class MsgOnUpgradeTaken
+    {
+        public Upgrade Upgrade;
+    }
+
+    public class MsgOnUpgradeRemoved
+    {
+        public Upgrade Upgrade;
+    }
+
     [System.Serializable]
     public class UpgradePriceCategory
     {

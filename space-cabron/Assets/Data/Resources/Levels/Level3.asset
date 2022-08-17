@@ -15,7 +15,7 @@ MonoBehaviour:
   NextLevel: {fileID: 11400000, guid: 99426c108cc0f2f43b96dea7bceeb433, type: 2}
   Gameplay:
     Difficulty: 1
-    ScoreThreshold: 17500
+    ScoreThreshold: 5000
     EnemyPool: {fileID: 11400000, guid: e80cb73e4f20b2f43a9729c726d444ba, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:

@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: DamageFactor
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 437546467635798816, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: Value
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: m_RootOrder

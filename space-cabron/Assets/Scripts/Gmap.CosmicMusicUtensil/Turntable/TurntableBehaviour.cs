@@ -22,7 +22,7 @@ namespace Gmap.CosmicMusicUtensil
             get 
             { 
                 if (_turntable == null)
-                    _turntable = new Turntable(BPMReference, new Melody(""), KeepNotePlaying, NoteTime, OnNote);
+                    _turntable = new Turntable(BPMReference, new Melody(""), KeepNotePlaying, NoteTime, OnNotePlayed);
                 return _turntable;
             }
         }
@@ -39,6 +39,12 @@ namespace Gmap.CosmicMusicUtensil
         public int NoteIndex => Turntable.NoteIndex;
         public int BarIndex => Turntable.BarIndex;
 
+        public Action<OnNoteArgs> OnNote 
+        {
+            get { return Turntable.OnNote; }
+            set { Turntable.OnNote = value; }
+        }
+
         void Awake()
         {
             BPMReference.Update();
@@ -46,7 +52,7 @@ namespace Gmap.CosmicMusicUtensil
 
         void Update()
         {
-            Turntable.Update(OnNote);
+            Turntable.Update(OnNotePlayed);
         }
 
         public void SetMelody(Melody m)
@@ -54,7 +60,7 @@ namespace Gmap.CosmicMusicUtensil
             Turntable.SetMelody(m);
         }
 
-        void OnNote(OnNoteArgs note)
+        void OnNotePlayed(OnNoteArgs note)
         {
             UnityEvent.Invoke(note);
         }
@@ -70,5 +76,6 @@ namespace Gmap.CosmicMusicUtensil
         {
             Turntable.ApplyImprovisation(improvisation, permanent);
         }
+
     }
 }

@@ -229,4 +229,62 @@ public class LevelTests
             Assert.AreEqual(nextLevel.Gameplay.ScoreThreshold, spawner.ScoreThreshold);
         }
     }
+
+    [UnityTest]
+    public IEnumerator MsgSpawnPlayerSpawnsOnlyOnePlayerAfterLevelLoads()
+    {
+        LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
+        yield return LoadLevelAndWait(level);
+
+        DisableEnemySpawner();
+        var player = MakePlayerInvincible();
+        var brain = PlayerControlBrain.CreateInstance<PlayerControlBrain>();
+        brain.Shoot = false;
+        InjectBrainToActor<InputState>.Inject(player, brain);
+
+        for (int i = 0; i < 3; i++)
+        {
+            MessageRouter.RaiseMessage(new MsgSpawnDrone {
+                DroneType = MsgSpawnDrone.EDroneType.Melody,
+                Player = player
+            });
+        }
+
+        // Win level (Level0Buffer)
+        MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue/2, int.MaxValue/2));
+        yield return null;
+
+        // Go to next level (Level1)
+        InteractableBehaviour interactable = GameObject.FindObjectsOfType<InteractableBehaviour>()
+                                                       .FirstOrDefault(i => i.Interactable is NextLevelInteractable);
+        yield return InteractableTests.InteractWithInteractable(
+            brain, player, interactable
+        );
+        yield return new WaitForSeconds(1.0f);
+
+        // Win level (Level1Buffer)
+        DisableEnemySpawner();
+        MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Go to next level (Level2)
+        interactable = GameObject.FindObjectsOfType<InteractableBehaviour>()
+                                                       .FirstOrDefault(i => i.Interactable is NextLevelInteractable);
+        yield return InteractableTests.InteractWithInteractable(
+            brain, player, interactable
+        );
+
+        yield return null;
+
+        // MessageRouter.RaiseMessage(new MsgOnScoreChanged(0, 0));
+        DisableEnemySpawner();
+
+        player.GetComponent<Health>().Destroy();
+
+        yield return new WaitForSeconds(5f);
+
+        Assert.AreEqual(1, GameObject.FindGameObjectsWithTag("Player").Length);
+
+    }
 }

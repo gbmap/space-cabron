@@ -345,7 +345,6 @@ GameObject:
   - component: {fileID: 926212289}
   - component: {fileID: 926212290}
   - component: {fileID: 926212296}
-  - component: {fileID: 296070959924067386}
   - component: {fileID: 601285683}
   - component: {fileID: 601285684}
   - component: {fileID: 4134130950178418477}
@@ -526,19 +525,6 @@ MonoBehaviour:
     Prefab: {fileID: 2543485086492442931, guid: 97e6e0714bc62ff4883de3db5e575663,
       type: 3}
   GunData: {fileID: 11400000, guid: 1878086ff22555f4284509b0078b3b19, type: 2}
---- !u!114 &296070959924067386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8875341672761901925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b1a092a4fe95744684d87f7d6077345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalScore: {fileID: 11400000, guid: aa824d1a8fcc8554cb98a9f945ae3c4e, type: 2}
 --- !u!114 &601285683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +584,7 @@ MonoBehaviour:
     GetFrom: {fileID: 0}
     SendTo: {fileID: 0}
     _value: 1
+  NeedsSpecialBullet: 0
   items:
   - obj: {fileID: 6851549082936777235, guid: 6f454032e588d8a438b823259c096ccc, type: 3}
     Weight: 1
