@@ -1,17 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay
-{    
+{
     public class MsgOnImprovisationAdded
     {
         public GameObject Object;
         public ITurntable Turntable;
         public Improvisation Improvisation;
+        public int Duration;
     }
 
     public class MsgOnImprovisationRemoved : MsgOnImprovisationAdded {}
@@ -41,7 +39,8 @@ namespace SpaceCabron.Gameplay
             MessageRouter.RaiseMessage(new MsgOnImprovisationAdded {
                 Object = gameObject,
                 Turntable = msg.Turntable,
-                Improvisation = msg.Improvisation
+                Improvisation = msg.Improvisation,
+                Duration = msg.Life
             });
         }
         

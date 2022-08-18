@@ -10,6 +10,10 @@ namespace SpaceCabron.UI
         public ITurntable Turntable { get; private set; }
         public Improvisation Improvisation { get; private set; }
 
+        private int TotalTime;
+        private int CurrentTime;
+        private int LastBarIndexUpdate;
+
         static ImprovisationToIcon improvisationToIcon;
         static ImprovisationToIcon ImprovisationToIcon
         {
@@ -29,6 +33,7 @@ namespace SpaceCabron.UI
         void Awake()
         {
             icon = GetComponent<Image>();
+            icon.material = new Material(icon.material);
         }
 
         void OnDisable()
@@ -38,10 +43,13 @@ namespace SpaceCabron.UI
 
         public void Configure(
             ITurntable turntable, 
-            Improvisation improvisation
+            Improvisation improvisation,
+            int duration
         ) {
             this.Improvisation = improvisation;
             this.Turntable = turntable;
+            this.TotalTime = duration;
+            this.CurrentTime = duration;
 
             Sprite iconSprite = improvisationToIcon.GetIcon(improvisation);
             icon.sprite = iconSprite;
@@ -62,6 +70,11 @@ namespace SpaceCabron.UI
             );
 
             icon.color = shouldApply ? Color.white : Color.gray;
+            if (shouldApply && LastBarIndexUpdate != Turntable.BarIndex)
+            {
+                LastBarIndexUpdate = Turntable.BarIndex;
+                icon.material.SetFloat("_Float", ((float)--CurrentTime)/TotalTime);
+            }
         }
     }
 }

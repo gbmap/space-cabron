@@ -1,11 +1,7 @@
 using UnityEngine;
 using Frictionless;
-using SpaceCabron.Gameplay.Interactables;
 using System.Collections.Generic;
-using SpaceCabron.Upgrades;
-using UnityEngine.UI;
 using Gmap.Gameplay;
-using System;
 using Gmap.CosmicMusicUtensil;
 using SpaceCabron.Gameplay;
 
@@ -48,7 +44,7 @@ namespace SpaceCabron.UI
             if (!UIUpgradeInfoItem.HasIcon(msg.Improvisation))
                 return;
 
-            AddItem(msg.Turntable, msg.Improvisation, true);
+            AddItem(msg);
         }
 
         private void Callback_OnImprovisationRemoved(MsgOnImprovisationRemoved msg)
@@ -73,20 +69,18 @@ namespace SpaceCabron.UI
         }
 
         private void AddItem(
-            ITurntable turntable, 
-            Improvisation improvisation, 
-            bool temporary
+            MsgOnImprovisationAdded msg
         ) {
             var instance = Instantiate(ItemPrefab);
 
             UIUpgradeInfoItem infoItem = instance.GetComponent<UIUpgradeInfoItem>();
             infoItem.Configure(
-                turntable, improvisation
+                msg.Turntable, msg.Improvisation, msg.Duration
             );
             
             items.Add(new UIUpgradeItem {
                 Item = infoItem,
-                Temporary = temporary
+                Temporary = msg.Duration != -1
             });
             instance.transform.parent = transform;
         }
