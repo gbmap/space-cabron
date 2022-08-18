@@ -68,6 +68,28 @@ public class ImproviserTests
         Assert.AreEqual(melody.GetNote(0), notes[0]);
     }
 
+    [Test]
+    public void TimedImprovisation()
+    {
+        Improviser improviser = new Improviser();
+        improviser.AddImprovisation(
+            new DuplicateNoteImprovisation(new EveryNStrategy(1), new EveryNStrategy(1)),
+            2
+        );
+
+        Assert.AreEqual(1, improviser.NumberOfImprovisations);
+
+        Melody m = new Melody("c4/4;g4/4;d4/4");
+        int noteIndex = 0;
+        for (int i = 0; i < 2; i++)
+        {
+            Note[] notes = improviser.Improvise(m, 0, m.GetNote(noteIndex), noteIndex);
+            noteIndex++;
+        }
+
+        Assert.AreEqual(0, improviser.NumberOfImprovisations);
+    }
+
     [TestCase("", 1, 1, ExpectedResult=null)]
     [TestCase("c4/4", -1, 1, ExpectedResult="c4/4")]
     [TestCase("c4/4", 1, 2, ExpectedResult="c4/4")]
@@ -142,5 +164,18 @@ public class ImproviserTests
             new Melody(melody)
         ).Notation;
     }
+
+    [TestCase("c4/2;d8/4;d7/4", ENote.Gsharp, ExpectedResult="g#4/2;d8/4;d7/4")]
+    [TestCase("c4/4;d8/2;d7/4", ENote.Gsharp, ExpectedResult="c4/4;g#8/2;d7/4")]
+    public string ResolveNote(string melody, ENote root)
+    {
+        Melody m = new Melody(melody);
+        m.Root = root;
+        return ImproviseOnMelody(
+            new ResolveNoteImprovisation(new SelectAllStrategy()),
+            m
+        ).Notation;
+    }
+
 
 }

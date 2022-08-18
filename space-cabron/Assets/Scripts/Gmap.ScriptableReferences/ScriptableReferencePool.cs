@@ -25,12 +25,19 @@ namespace Gmap.ScriptableReferences
             Random,
             ShuffleBag,
             ApplicationConstant,
-            ShuffleBagNoRepeat
+            ShuffleBagNoRepeat,
+            Sequential
         }
         public ERandomType RandomType = ERandomType.ShuffleBag;
 
         [SerializeField]
         protected List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
+
+        public IEnumerable<T> GetEnumerator()
+        {
+            return Items.Select(i => i.Value);
+        }
+
         public int Length => Items.Count;
 
         private int currentSeed;
@@ -61,6 +68,27 @@ namespace Gmap.ScriptableReferences
             }
         }
 
+        T[] noRepeatArray;
+        private T[] NoRepeatArray
+        {
+            get 
+            {
+                if (noRepeatArray == null || noRepeatArray.Length == 0)
+                {
+                    try
+                    {
+                    noRepeatArray = ShuffleBag.NextNoRepeat(Items.Select(i=>i.Weight).Sum());
+                    }
+                    catch
+                    {
+                    noRepeatArray = ShuffleBag.Next(Items.Select(i=>i.Weight).Sum());
+                    }
+                }
+                return noRepeatArray;
+            }
+        }
+        int noRepeatCursor = 0;
+
         public T GetNext()
         {
             if (RandomType == ERandomType.Random)
@@ -72,10 +100,19 @@ namespace Gmap.ScriptableReferences
             }
             else if (RandomType == ERandomType.ShuffleBagNoRepeat)
             {
-                return ShuffleBag.NextNoRepeat(1)[0];
+                return NoRepeatArray[(noRepeatCursor++) % NoRepeatArray.Length];
             }
             else
                 return ShuffleBag.Next();
+        }
+
+        public T[] GetNext(int n)
+        {
+            if (RandomType == ERandomType.Random ||
+                RandomType == ERandomType.ApplicationConstant)
+                return Enumerable.Range(0, n).Select(i => GetNext()).ToArray();
+            else
+                return ShuffleBag.NextNoRepeat(n);
         }
 
         public virtual ScriptableReferencePool<T> Clone()

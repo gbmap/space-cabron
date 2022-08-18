@@ -17,23 +17,21 @@ public class CameraFollowPlayer : MonoBehaviour
 
     void OnEnable()
     {
-        MessageRouter.AddHandler<MsgSpawnPlayer>(Callback_OnSpawnPlayer);
+        MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
         MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
         MessageRouter.AddHandler<MsgLevelFinishedLoading>(Callback_OnLevelFinishedLoading);
     }
 
     void OnDisable()
     {
-        MessageRouter.RemoveHandler<MsgSpawnPlayer>(Callback_OnSpawnPlayer);
         MessageRouter.RemoveHandler<MsgLevelFinishedLoading>(Callback_OnLevelFinishedLoading);
+        MessageRouter.RemoveHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
+        MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
     }
 
-    private void Callback_OnSpawnPlayer(MsgSpawnPlayer msg)
+    private void Callback_OnPlayerSpawned(MsgOnPlayerSpawned msg)
     {
-        msg.OnSpawned += (GameObject player) =>
-        {
-            players.Add(player);
-        };
+        Add(msg.Player);
     }
 
     private void Callback_OnObjectDestroyed(MsgOnObjectDestroyed obj)

@@ -7,27 +7,41 @@ namespace SpaceCabron.UI
     public class UIUpgradeInfoItem : MonoBehaviour
     {
         Image icon;
-        ITurntable turntable;
-        Improvisation improvisation;
-        ImprovisationToIcon improvisationToIcon;
+        public ITurntable Turntable { get; private set; }
+        public Improvisation Improvisation { get; private set; }
+
+        static ImprovisationToIcon improvisationToIcon;
+        static ImprovisationToIcon ImprovisationToIcon
+        {
+            get
+            {
+                if (improvisationToIcon == null)
+                    improvisationToIcon = Resources.Load<ImprovisationToIcon>("ImprovisationToIcon");
+                return improvisationToIcon;
+            }
+        }
+
+        public static bool HasIcon(Improvisation improv)
+        {
+            return ImprovisationToIcon.GetIcon(improv) != null;
+        }
 
         void Awake()
         {
-            improvisationToIcon = Resources.Load<ImprovisationToIcon>("ImprovisationToIcon");
             icon = GetComponent<Image>();
         }
 
         void OnDisable()
         {
-            turntable.OnNote -= OnNote;
+            Turntable.OnNote -= OnNote;
         }
 
         public void Configure(
             ITurntable turntable, 
             Improvisation improvisation
         ) {
-            this.improvisation = improvisation;
-            this.turntable = turntable;
+            this.Improvisation = improvisation;
+            this.Turntable = turntable;
 
             Sprite iconSprite = improvisationToIcon.GetIcon(improvisation);
             icon.sprite = iconSprite;
@@ -39,11 +53,11 @@ namespace SpaceCabron.UI
             if (icon == null)
                 return;
 
-            bool shouldApply = improvisation.ShouldApply(
-                turntable.Melody, 
-                turntable.BarIndex, 
-                turntable.Melody.NoteArray, 
-                turntable.NoteIndex
+            bool shouldApply = Improvisation.ShouldApply(
+                Turntable.Melody, 
+                Turntable.BarIndex, 
+                Turntable.Melody.NoteArray, 
+                Turntable.NoteIndex
                 // Turntable advances index when queueing new notes, hence -1.
             );
 

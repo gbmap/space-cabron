@@ -6,13 +6,6 @@ using Frictionless;
 
 namespace SpaceCabron.Upgrades
 {
-    public class MsgOnImprovisationAdded
-    {
-        public GameObject Object;
-        public ITurntable Turntable;
-        public Improvisation Improvisation;
-    }
-
     public class AddImprovisationOnCollision : CollisionHandler<TurntableBehaviour>
     {
         public ImprovisationPool ImprovisationPool;
@@ -34,13 +27,7 @@ namespace SpaceCabron.Upgrades
 
         protected override void HandleCollision(TurntableBehaviour t)
         {
-            var improvisation = this.improvisation.Get();
-            MessageRouter.RaiseMessage(new MsgOnImprovisationAdded { 
-                Object = t.gameObject, 
-                Turntable = t,
-                Improvisation = improvisation 
-            });
-            t.ApplyImprovisation(improvisation, false);
+            t.ApplyImprovisation(this.improvisation.Get(), 20);
         }
 
         private ScriptableImprovisation GetRandomImprovisation()

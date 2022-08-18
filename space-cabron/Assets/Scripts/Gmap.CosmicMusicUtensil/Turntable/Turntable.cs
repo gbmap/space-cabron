@@ -14,6 +14,13 @@ namespace Gmap.CosmicMusicUtensil
         public float HoldTime { get; set; } = 0.1f;
     }
 
+    public class OnImprovisationArgs
+    {
+        public ITurntable Turntable { get; set; }
+        public Improvisation Improvisation { get; set; }
+        public int Life { get; set; }
+    }
+
     public interface ITurntable
     {
         int BPM { get; set; }
@@ -24,7 +31,10 @@ namespace Gmap.CosmicMusicUtensil
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
         void ApplyImprovisation(Improvisation improvisation, bool permanent);
+        void ApplyImprovisation(Improvisation improvisation, int time);
         public System.Action<OnNoteArgs> OnNote { get; set; }
+        public System.Action<OnImprovisationArgs> OnImprovisationAdded { get; set; }
+        public System.Action<OnImprovisationArgs> OnImprovisationRemoved { get; set; }
     }
 
     public class Turntable : ITurntable
@@ -51,21 +61,27 @@ namespace Gmap.CosmicMusicUtensil
         Melody melody;
         public Melody Melody { get { return melody; } }
 
-        Improviser improviser = new Improviser();
+        Improviser improviser; 
         public Improviser Improviser { get { return improviser; } }
 
         public Action<OnNoteArgs> OnNote { get; set; }
-        // public System.Action<OnNoteArgs> OnNote;
+        public Action<OnImprovisationArgs> OnImprovisationAdded { get; set; }
+        public Action<OnImprovisationArgs> OnImprovisationRemoved { get; set; }
 
         Queue<Note> noteQueue = new Queue<Note>(50);
 
-        public Turntable(IntBusReference bpmReference, Melody m, bool keepNotePlaying, float noteTime,
-            System.Action<OnNoteArgs> onNote = null)
-        {
+        public Turntable(
+            IntBusReference bpmReference, 
+            Melody m, 
+            bool keepNotePlaying, 
+            float noteTime,
+            System.Action<OnNoteArgs> onNote = null
+        ) {
             BPMReference = bpmReference;
             currentNoteIndex = 0;
             melody = m;
             HoldNote = keepNotePlaying;
+            improviser = new Improviser(this, OnImprovisationRemoved);
             this.noteTime = noteTime;
 
             if (onNote != null)
@@ -144,7 +160,26 @@ namespace Gmap.CosmicMusicUtensil
             if (permanent)
                 Melody.ApplyImprovisation(improvisation);
             else
+            {
+                OnImprovisationAdded?.Invoke(new OnImprovisationArgs
+                {
+                    Turntable = this,
+                    Improvisation = improvisation,
+                    Life = -1
+                });
                 Improviser.AddImprovisation(improvisation);
+            }
+        }
+
+        public void ApplyImprovisation(Improvisation improvisation, int time)
+        {
+            OnImprovisationAdded?.Invoke(new OnImprovisationArgs 
+            {
+                Improvisation = improvisation,
+                Life = time,
+                Turntable = this
+            });
+            improviser.AddImprovisation(improvisation, time);
         }
 
         #if UNITY_EDITOR

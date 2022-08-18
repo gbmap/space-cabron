@@ -8,6 +8,11 @@ namespace Gmap.CosmicMusicUtensil
         [SerializeField]
         private Melody Melody;
 
+        public int GetIndex(ENote root, ENote tone)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public ENote GetNote(ENote root, int i)
         {
             return ENote.None;

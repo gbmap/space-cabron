@@ -24,7 +24,7 @@ namespace Gmap.CosmicMusicUtensil
         protected abstract Note[] ApplyImprovisation(Melody melody, int barIndex, Note note, int noteIndex);
         protected abstract string Info();
 
-        public bool ShouldApply(Melody melody, int barIndex, Note[] note, int noteIndex)
+        public virtual bool ShouldApply(Melody melody, int barIndex, Note[] note, int noteIndex)
         {
             return noteSelectionStrategy.ShouldSelect(melody.NoteArray, noteIndex)
                 && barSelectionStrategy.ShouldSelect(melody.NoteArray, barIndex);
@@ -157,19 +157,34 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
-    public class TransposeNoteImprovisation : ApplyModifierImprovisation
+    public class TransposeNoteImprovisation : Improvisation
     {
-        public int Steps => (modifier as TransposeNoteModifier).Steps;
+        public int Steps { get; private set; }
         public TransposeNoteImprovisation(
             SelectionStrategy noteSelectionStrategy, 
             SelectionStrategy barSelectionStrategy,
             int steps=1
-        ) : base(noteSelectionStrategy, barSelectionStrategy, new TransposeNoteModifier(steps)) 
-        {}
+        ) : base(noteSelectionStrategy, barSelectionStrategy) 
+        {
+            Steps = steps;
+        }
+
+        protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note note, int noteIndex)
+        {
+            Note n = new Note(note);
+            if (melody.Scale != null && melody.Root != ENote.None)
+            {
+                int scaleIndex = melody.Scale.GetIndex(melody.Root, n.Tone);
+                n.Tone = melody.Scale.GetNote(melody.Root, scaleIndex+Steps);
+            }
+            else
+                n = Note.TransposeWrapped(note, Steps);
+            return new Note[] { n };
+        }
 
         protected override string Info()
         {
-            return $"Transpose {Steps} steps";
+            return "Transpose note " + Steps + " steps.";
         }
     }
 
@@ -260,6 +275,32 @@ namespace Gmap.CosmicMusicUtensil
         protected override string Info()
         {
             return "Tremolo.";
+        }
+    }
+
+    public class ResolveNoteImprovisation : Improvisation
+    {
+        public ResolveNoteImprovisation(
+            SelectionStrategy barSelectionStrategy
+        ) : base(new SelectAllStrategy(), barSelectionStrategy) {}
+
+        protected override Note[] ApplyImprovisation(Melody melody, int barIndex, Note note, int noteIndex)
+        {
+            if (melody.Root == ENote.None)
+                return new Note[] { note };
+
+            Note longestNote = melody.NoteArray.OrderBy(n=>n.Interval).First();
+            if (longestNote != note)
+                return new Note[] { note };
+            
+            Note n = new Note(note);
+            n.Tone = melody.Root;
+            return new Note[] { n };
+        }
+
+        protected override string Info()
+        {
+            return "Resolve note to root.";
         }
     }
 }

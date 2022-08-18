@@ -85,15 +85,15 @@ namespace SpaceCabron.Gameplay
                 int steps = new int[] { 3, 5, 7, 15, 17, 19 }[UnityEngine.Random.Range(0, 6)];
                 step.Steps = steps;
 
-                GunBehaviour gun = instance.GetComponent<GunBehaviour>();
-                step.OnNoteRepeated += (args) =>
-                {
-                    gun.Fire(new FireRequest
-                    {
-                        BulletScale = 1f,
-                        Special = false
-                    });
-                };
+                // GunBehaviour gun = instance.GetComponent<GunBehaviour>();
+                // step.OnNoteRepeated += (args) =>
+                // {
+                //     gun.Fire(new FireRequest
+                //     {
+                //         BulletScale = 1f,
+                //         Special = false
+                //     });
+                // };
             }
 
             // Means this is a melody drone.

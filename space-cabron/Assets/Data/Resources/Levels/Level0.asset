@@ -29,6 +29,7 @@ MonoBehaviour:
         SendTo: {fileID: 0}
         _value: 0
       PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: 170f0e9dd275bd545b599395341bcbe3,
       type: 2}
   PlayerMelody:
@@ -41,6 +42,8 @@ MonoBehaviour:
         _value: 1
       PossibleStartingImprovisations: {fileID: 11400000, guid: eaff1617cdf034441be69743c23af138,
         type: 2}
+      FixedStartingimprovisations: {fileID: 11400000, guid: 7f422710eee24f74b8ca675a95bd57c0,
+        type: 2}
     PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}
   DrumMelody:
@@ -52,6 +55,7 @@ MonoBehaviour:
         SendTo: {fileID: 0}
         _value: 0
       PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: c2edac38a5b243e4fa9a63df2c2bec7a,
       type: 2}
   AmbientMelody:
@@ -63,6 +67,7 @@ MonoBehaviour:
         SendTo: {fileID: 0}
         _value: 0
       PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: 556fd94c16eea654ca50d120c4e25970,
       type: 2}
   HitConfiguration:
@@ -74,6 +79,7 @@ MonoBehaviour:
         SendTo: {fileID: 0}
         _value: 0
       PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
     PossibleStartingInstruments: {fileID: 11400000, guid: ac96a814f41e6b84287c0effd3d665da,
       type: 2}
   Background:

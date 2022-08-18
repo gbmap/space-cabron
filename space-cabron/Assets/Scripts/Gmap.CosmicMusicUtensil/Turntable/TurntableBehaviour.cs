@@ -45,6 +45,19 @@ namespace Gmap.CosmicMusicUtensil
             set { Turntable.OnNote = value; }
         }
 
+        public Action<OnImprovisationArgs> OnImprovisationAdded
+        {
+            get { return Turntable.OnImprovisationAdded; }
+            set { Turntable.OnImprovisationAdded = value; }
+
+        }
+
+        public Action<OnImprovisationArgs> OnImprovisationRemoved
+        {
+            get { return Turntable.OnImprovisationRemoved; }
+            set { Turntable.OnImprovisationRemoved = value; }
+        }
+
         void Awake()
         {
             BPMReference.Update();
@@ -77,5 +90,14 @@ namespace Gmap.CosmicMusicUtensil
             Turntable.ApplyImprovisation(improvisation, permanent);
         }
 
+        public void ApplyImprovisation(Improvisation improvisation, int time)
+        {
+            Turntable.ApplyImprovisation(improvisation, time);
+        }
+
+        void OnDestroy()
+        {
+            this.UnityEvent.RemoveAllListeners();
+        }
     }
 }

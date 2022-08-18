@@ -40,7 +40,7 @@ namespace Gmap.Debug
 
             List<Note> notes = new List<Note>();
             string m = Enumerable.Range(0,melody.Length)
-                                 .SelectMany(i=>improviser.Improvise(melody, turntableBehaviour.BarIndex, melody.GetNote(i), i))
+                                 .SelectMany(i=>improviser.Improvise(melody, turntableBehaviour.BarIndex, melody.GetNote(i), i, false))
                                  .Select(n=>n.AsString())
                                  .Aggregate((a,b)=>a+";"+b);
             GUILayout.Label($"Melody: {m}");

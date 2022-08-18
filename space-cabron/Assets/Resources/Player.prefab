@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 655430725}
   - component: {fileID: 655430734}
   - component: {fileID: 4799287862381865209}
+  - component: {fileID: 2649800235607177160}
   m_Layer: 8
   m_Name: Instrument
   m_TagString: Instrument
@@ -329,6 +330,18 @@ MonoBehaviour:
     SendTo: {fileID: 0}
     _value: 1
   improvisationPool: {fileID: 11400000, guid: 1aa182550a51342499ad634e028bcb2f, type: 2}
+--- !u!114 &2649800235607177160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967dc9e22a9f3478e21853a7730fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8875341672761901925
 GameObject:
   m_ObjectHideFlags: 0

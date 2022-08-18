@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Gmap.Gameplay;
 using System;
 using Gmap.CosmicMusicUtensil;
+using SpaceCabron.Gameplay;
 
 namespace SpaceCabron.UI
 {
@@ -16,7 +17,7 @@ namespace SpaceCabron.UI
 
         private class UIUpgradeItem
         {
-            public GameObject Item;
+            public UIUpgradeInfoItem Item;
             public bool Temporary;
         }
         private List<UIUpgradeItem> items = new List<UIUpgradeItem>();
@@ -25,12 +26,14 @@ namespace SpaceCabron.UI
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnImprovisationAdded>(Callback_OnImprovisationAdded);
+            MessageRouter.AddHandler<MsgOnImprovisationRemoved>(Callback_OnImprovisationRemoved);
             MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
         }
 
         void OnDisable()
         {
             MessageRouter.RemoveHandler<MsgOnImprovisationAdded>(Callback_OnImprovisationAdded);
+            MessageRouter.RemoveHandler<MsgOnImprovisationRemoved>(Callback_OnImprovisationRemoved);
             MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
         }
 
@@ -42,7 +45,15 @@ namespace SpaceCabron.UI
             if (!msg.Object.transform.parent.CompareTag("Player"))
                 return;
 
+            if (!UIUpgradeInfoItem.HasIcon(msg.Improvisation))
+                return;
+
             AddItem(msg.Turntable, msg.Improvisation, true);
+        }
+
+        private void Callback_OnImprovisationRemoved(MsgOnImprovisationRemoved msg)
+        {
+            RemoveItem(msg.Improvisation);
         }
 
         private void Callback_OnObjectDestroyed(MsgOnObjectDestroyed msg)
@@ -55,34 +66,43 @@ namespace SpaceCabron.UI
                 UIUpgradeItem item = items[i];
                 if (item.Temporary)
                 {
-                    Destroy(item.Item);
+                    Destroy(item.Item.gameObject);
                     items.Remove(item);
                 }
             }
         }
 
-        private void Callback_OnUpgradeTaken(MsgOnUpgradeTaken msg)
-        {
-        }
-
-        private void AddItem(ITurntable turntable, Improvisation improvisation, bool temporary)
-        {
+        private void AddItem(
+            ITurntable turntable, 
+            Improvisation improvisation, 
+            bool temporary
+        ) {
             var instance = Instantiate(ItemPrefab);
-            instance.transform.parent = transform;
 
-            instance.GetComponent<UIUpgradeInfoItem>().Configure(
+            UIUpgradeInfoItem infoItem = instance.GetComponent<UIUpgradeInfoItem>();
+            infoItem.Configure(
                 turntable, improvisation
             );
             
             items.Add(new UIUpgradeItem {
-                Item = instance,
+                Item = infoItem,
                 Temporary = temporary
             });
+            instance.transform.parent = transform;
         }
 
-        private void Callback_OnUpgradeRemoved(MsgOnUpgradeRemoved msg)
+        private void RemoveItem(Improvisation improvisation)
         {
-
+            for (int i = items.Count-1; i >= 0; i--)
+            {
+                UIUpgradeItem item = items[i];
+                if (item.Item.Improvisation == improvisation)
+                {
+                    Destroy(item.Item.gameObject);
+                    items.Remove(item);
+                    break;
+                }
+            }
         }
     }
 }
