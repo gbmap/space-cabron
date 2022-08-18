@@ -54,7 +54,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Add(GameObject player)
     {
-        if (!players.Contains(player))
+        if (players.Contains(player))
             return;
         players.Add(player);
     }

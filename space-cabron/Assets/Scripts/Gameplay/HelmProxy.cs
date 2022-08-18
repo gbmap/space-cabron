@@ -15,7 +15,7 @@ namespace Gmap.CosmicMusicUtensil
             if (Controller)
                 Controller.NoteOn(Note.ToMIDI(note.Tone, note.Octave), Random.Range(0.5f, 1f), args.HoldTime);
             else if (Sampler)
-                Sampler.NoteOn(Note.ToMIDI(note.Tone, note.Octave), Random.value);
+                Sampler.NoteOn(Note.ToMIDI(note.Tone, 3), 1f);
         }
 
         public void LoadPatch(TextAsset patch)

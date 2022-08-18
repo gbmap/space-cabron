@@ -18,8 +18,6 @@ MonoBehaviour:
     Weight: 1
   - Value: {fileID: 4900000, guid: 3098175584234eb41b3588ee9662682b, type: 3}
     Weight: 1
-  - Value: {fileID: 4900000, guid: cc567b20f7affd74f920ee1a5df11e9a, type: 3}
-    Weight: 1
   - Value: {fileID: 4900000, guid: 83ae660153633814cab4a1bbabec630b, type: 3}
     Weight: 1
   - Value: {fileID: 4900000, guid: 38a176ee291fc3a4c827a179529ab482, type: 3}
@@ -57,8 +55,6 @@ MonoBehaviour:
   - Value: {fileID: 4900000, guid: 6f35407ff67f5f34983909fca2015ac1, type: 3}
     Weight: 1
   - Value: {fileID: 4900000, guid: d732dc589c1a08740af4da77bf78eec8, type: 3}
-    Weight: 1
-  - Value: {fileID: 4900000, guid: b8f33f7b02e9430479d5afc1da900e8e, type: 3}
     Weight: 1
   - Value: {fileID: 4900000, guid: 63adca50b757d4045b1470e6fe2bd282, type: 3}
     Weight: 1
