@@ -167,6 +167,24 @@ namespace SpaceCabron.Gameplay.Level
         {
             base.ConfigureLevel();
             RenderSettings.skybox = levelConfiguration.Background.Material;
+
+            if (levelConfiguration.name == "Level0" 
+             || string.IsNullOrEmpty(levelConfiguration.name))
+            {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i < players.Length; i++)
+                {
+                    MessageRouter.RaiseMessage(new MsgSpawnDrone {
+                        DroneType = MsgSpawnDrone.EDroneType.Random,
+                        Player = players[i]
+                    });
+
+                    MessageRouter.RaiseMessage(new MsgSpawnDrone {
+                        DroneType = MsgSpawnDrone.EDroneType.Random,
+                        Player = players[i]
+                    });
+                }
+            }
         }
     }
 }

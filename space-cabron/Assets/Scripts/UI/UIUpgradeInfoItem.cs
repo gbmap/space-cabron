@@ -34,6 +34,7 @@ namespace SpaceCabron.UI
         {
             icon = GetComponent<Image>();
             icon.material = new Material(icon.material);
+            icon.material.SetFloat("_Float", 1f);
         }
 
         void OnDisable()
