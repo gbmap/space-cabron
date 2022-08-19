@@ -14,6 +14,9 @@ namespace SpaceCabron.UI
         private int CurrentTime;
         private int LastBarIndexUpdate;
 
+        [SerializeField]
+        private Image lockIcon;
+
         static ImprovisationToIcon improvisationToIcon;
         static ImprovisationToIcon ImprovisationToIcon
         {
@@ -55,6 +58,7 @@ namespace SpaceCabron.UI
             Sprite iconSprite = improvisationToIcon.GetIcon(improvisation);
             icon.sprite = iconSprite;
             turntable.OnNote += OnNote;
+            lockIcon.enabled = duration == -1;
         }
 
         private void OnNote(OnNoteArgs obj)

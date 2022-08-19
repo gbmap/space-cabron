@@ -60,7 +60,7 @@ namespace SpaceCabron.UI
             for (int i = items.Count-1; i >= 0; i--)
             {
                 UIUpgradeItem item = items[i];
-                if (item.Temporary)
+                // if (item.Temporary)
                 {
                     Destroy(item.Item.gameObject);
                     items.Remove(item);

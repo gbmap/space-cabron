@@ -35,7 +35,7 @@ namespace Gmap.Gameplay
             OnEnemyHit?.Invoke(new OnNoteArgs
             {
                 Note = n,
-                HoldTime = 0.5f
+                HoldTime = 0.7f
             });
         }
     }

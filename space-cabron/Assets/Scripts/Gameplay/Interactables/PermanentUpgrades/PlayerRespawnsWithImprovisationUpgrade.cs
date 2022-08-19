@@ -9,14 +9,15 @@ using UnityEngine;
 namespace SpaceCabron.Gameplay.Interactables
 {
     [CreateAssetMenu(menuName="Space Cabrón/Interactables/Upgrades/Player Spawns With Improvisation")]
-    public class PlayerRespawnsWithImprovisationUpgrade : Upgrade
+    public class PlayerRespawnsWithImprovisationUpgrade : ImprovisationUpgrade
     {
-        public ScriptableImprovisation Improvisation;
-
         public override bool Interact(InteractArgs args)
         {
             if (!base.Interact(args))
                 return false;
+
+            TurntableBehaviour t = args.Interactor.GetComponentInChildren<TurntableBehaviour>();
+            t.ApplyImprovisation(Improvisation.Get(), -1);
 
             MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
             return true;
@@ -26,7 +27,7 @@ namespace SpaceCabron.Gameplay.Interactables
         {
             ITurntable turntable = msg.Player.GetComponentInChildren<ITurntable>();
             if (turntable != null)
-                turntable.ApplyImprovisation(Improvisation.Get(), false);
+                turntable.ApplyImprovisation(Improvisation.Get(), -1);
         }
     }
 }

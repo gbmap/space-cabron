@@ -142,6 +142,7 @@ MonoBehaviour:
   Tag: Player
   Interactable: {fileID: 0}
   Description: {fileID: 3004815166164691549}
+  IconRenderer: {fileID: 7038768109631083021}
   OnIsSelected:
     m_PersistentCalls:
       m_Calls:

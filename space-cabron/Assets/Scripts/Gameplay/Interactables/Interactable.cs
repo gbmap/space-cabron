@@ -12,6 +12,7 @@ namespace SpaceCabron.Gameplay.Interactables
         }
 
         public string Description;
+        public abstract Sprite Icon { get; }
 
         public abstract bool Interact(InteractArgs args);
 
@@ -46,6 +47,9 @@ namespace SpaceCabron.Gameplay.Interactables
     public class NullInteractable : Interactable
     {
         public bool HasInteracted { get; private set; }
+
+        public override Sprite Icon => null;
+
         public override bool Interact(InteractArgs args)
         {
             HasInteracted = true;

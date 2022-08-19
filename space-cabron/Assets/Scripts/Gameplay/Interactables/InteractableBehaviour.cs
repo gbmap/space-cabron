@@ -15,6 +15,7 @@ namespace SpaceCabron.Gameplay.Interactables
         public string Tag = "Player";
         public Interactable Interactable;
         public TMPro.TextMeshPro Description;
+        public SpriteRenderer IconRenderer;
 
         public UnityEvent OnIsSelected;
         public UnityEvent OnIsDeselected;
@@ -65,11 +66,14 @@ namespace SpaceCabron.Gameplay.Interactables
             }
         }
 
-        public void Configure(Interactable upgrade)
+        public virtual void Configure(Interactable interactable)
         {
-            this.Interactable = upgrade;
+            this.Interactable = interactable;
             if (Description != null)
-                Description.text = upgrade.Description;
+                Description.text = interactable.Description;
+
+            if (IconRenderer != null)
+                IconRenderer.sprite = interactable.Icon;
         }
 
         void OnTriggerEnter2D(Collider2D collider)

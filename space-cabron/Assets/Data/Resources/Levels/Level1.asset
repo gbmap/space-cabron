@@ -80,7 +80,7 @@ MonoBehaviour:
         _value: 0
       PossibleStartingImprovisations: {fileID: 0}
       FixedStartingimprovisations: {fileID: 0}
-    PossibleStartingInstruments: {fileID: 11400000, guid: ac96a814f41e6b84287c0effd3d665da,
+    PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}
   Background:
     Material: {fileID: 2100000, guid: 1e9df52ee049fb6488b1446d33ca525c, type: 2}
