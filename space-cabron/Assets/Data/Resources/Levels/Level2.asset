@@ -21,7 +21,7 @@ MonoBehaviour:
     EnemyPool: {fileID: 11400000, guid: f50136eeea61f3f4eb4a95f237579703, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
-    BPM: 40
+    BPM: 35
     MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:

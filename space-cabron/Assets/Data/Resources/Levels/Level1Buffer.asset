@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level1Buffer
   m_EditorClassIdentifier: 
   NextLevel: {fileID: 11400000, guid: 85a614ba6dbcbb042847c0e90a7530cb, type: 2}
-  NumberOfUpgrades: {fileID: 11400000, guid: d2026661b770d56439bd8e0e8da0a09b, type: 2}
+  NumberOfUpgrades: {fileID: 11400000, guid: 09477d687a268b241a7ab5416e078fd5, type: 2}
   PossibleUpgrades: {fileID: 11400000, guid: f877efa3c2182e446a9e0f5cdff1974e, type: 2}
   NextLevelInteractable: {fileID: 11400000, guid: 9431ca96e4fda9b4398793d9f2908b62,
     type: 2}

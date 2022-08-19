@@ -76,19 +76,20 @@ namespace SpaceCabron.Gameplay.Level
 
             DestroyAllWithTag("Enemy");
             if (GameObject.FindGameObjectsWithTag("Player").Length == 0)
+            {
                 DestroyAllWithTag("Drone");
+            }
             DestroyAllWithTag("Bullet");
+
+            Resources.Load<GameState>("GameStates/GameplayPlay").ChangeTo();
+
+            bool spawnedNewPlayer = SpawnPlayerIfNone();
 
             ConfigureLevel();
             ConfigureLevelConfigurablesWithConfiguration(
                 levelConfiguration,
                 gameplaySceneIndex
             );
-
-            Resources.Load<GameState>("GameStates/GameplayPlay").ChangeTo();
-
-            bool spawnedNewPlayer = SpawnPlayerIfNone();
-            yield return new WaitForFixedUpdate();
 
             if (!gameplaySceneWasLoaded || spawnedNewPlayer)
             {

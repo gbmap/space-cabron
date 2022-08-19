@@ -18,10 +18,10 @@ MonoBehaviour:
     ScoreThreshold: 5000
     EnemyBPMIncreaseValue: 1
     EnemyBPMScoreModulusToIncrease: 25
-    EnemyPool: {fileID: 11400000, guid: 7e59be1c7e5a75342ab4d01b534484f8, type: 2}
+    EnemyPool: {fileID: 11400000, guid: e80cb73e4f20b2f43a9729c726d444ba, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
-    BPM: 40
+    BPM: 25
     MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:

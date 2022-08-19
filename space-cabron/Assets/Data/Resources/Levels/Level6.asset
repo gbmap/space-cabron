@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
-  m_Name: Level0
+  m_Name: Level6
   m_EditorClassIdentifier: 
   NextLevel: {fileID: 11400000, guid: e3c45ffde95a90b43b7bf812cd383cd3, type: 2}
   Gameplay:
-    Difficulty: 0
-    ScoreThreshold: 2000
-    EnemyBPMIncreaseValue: 5
-    EnemyBPMScoreModulusToIncrease: 50
-    EnemyPool: {fileID: 11400000, guid: 2ab06b9974ec9704988c679512c05af5, type: 2}
+    Difficulty: 1
+    ScoreThreshold: 5000
+    EnemyBPMIncreaseValue: 1
+    EnemyBPMScoreModulusToIncrease: 25
+    EnemyPool: {fileID: 11400000, guid: 7e59be1c7e5a75342ab4d01b534484f8, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
-    BPM: 25
+    BPM: 35
     MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
@@ -33,7 +33,7 @@ MonoBehaviour:
     PossibleStartingInstruments: {fileID: 11400000, guid: 170f0e9dd275bd545b599395341bcbe3,
       type: 2}
   PlayerMelody:
-    BPM: 50
+    BPM: 60
     MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
@@ -83,4 +83,4 @@ MonoBehaviour:
     PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
       type: 2}
   Background:
-    Material: {fileID: 2100000, guid: ccb59cabb04a17347a8bdc6b8c22d44a, type: 2}
+    Material: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}
