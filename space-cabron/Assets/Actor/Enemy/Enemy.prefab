@@ -262,3 +262,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 50
+  ScoreLabel: {fileID: 3257101931205202792, guid: 7aaee6dbcb465744aade34e7183c19e6,
+    type: 3}

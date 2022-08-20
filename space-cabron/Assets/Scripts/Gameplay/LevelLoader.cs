@@ -45,11 +45,8 @@ namespace Gmap.Gameplay
 
         private static IEnumerator ReloadAsync(System.Action OnFinishedReloading)
         {
-            // AsyncOperation op = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-            // while (!op.isDone)
-            //     yield return null;
             yield return null;
-            Load(Resources.Load<LevelConfiguration>("Levels/Level0"), OnFinishedReloading);
+            Load(CurrentLevelConfiguration, OnFinishedReloading);
         }
 
         private static void Callback_OnGameplaySceneLoaded(
