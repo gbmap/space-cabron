@@ -16,8 +16,8 @@ MonoBehaviour:
   Gameplay:
     Difficulty: 0
     ScoreThreshold: 3000
-    EnemyBPMIncreaseValue: 1
-    EnemyBPMScoreModulusToIncrease: 25
+    EnemyBPMIncreaseValue: 5
+    EnemyBPMScoreModulusToIncrease: 50
     EnemyPool: {fileID: 11400000, guid: f50136eeea61f3f4eb4a95f237579703, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:

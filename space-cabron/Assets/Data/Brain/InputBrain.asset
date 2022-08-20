@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d1b512dcb3aa140bf5ae0a10f71499, type: 3}
   m_Name: InputBrain
   m_EditorClassIdentifier: 
+  ActionAsset: {fileID: -944628639613478452, guid: ca61221b0109df8488a19abf6cdbe458,
+    type: 3}
