@@ -11,6 +11,7 @@ using SpaceCabron.Messages;
 using UnityEngine;
 using UnityEngine.TestTools;
 using static LevelTests;
+using static SpaceCabron.Messages.MsgSpawnDrone;
 
 public class InteractableTests 
 {
@@ -20,6 +21,9 @@ public class InteractableTests
         MessageRouter.Reset();
         GameObject.Destroy(playerInstance);
         GameObject.Destroy(eventHandlers);
+
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        System.Array.ForEach(players, player => GameObject.Destroy(player));
 
         var turntables = GameObject.FindObjectsOfType<TurntableBehaviour>();
         System.Array.ForEach(turntables, t => GameObject.Destroy(t.gameObject));
@@ -53,10 +57,10 @@ public class InteractableTests
 
         this.brain = InjectPlayerWithControlBrain(this.playerInstance);
 
-        interactableInstance = Interactable.CreateInteractable(
+        this.interactableInstance = Interactable.CreateInteractable(
             interactable, new Vector3(0, 1, 0)
         );
-        interactableBehaviour = interactableInstance.GetComponent<InteractableBehaviour>();
+        this.interactableBehaviour = interactableInstance.GetComponent<InteractableBehaviour>();
     }
     
     public static IEnumerator InteractWithInteractable(
@@ -184,17 +188,7 @@ public class InteractableTests
         SetupInteractableTestScene(upgrade);
         yield return null;
         yield return null;
-        foreach (UpgradePriceCategory priceCategory in upgrade.Price)
-        {
-            for (int i = 0; i < priceCategory.Count; i++)
-            {
-                MessageRouter.RaiseMessage(new MsgSpawnDrone
-                {
-                    DroneType = priceCategory.DroneType,
-                    Player = this.playerInstance
-                });
-            }
-        }
+        SpawnResourcesToPayFor(this.playerInstance, upgrade);
         yield return MoveTo(this.brain, this.playerInstance, interactableInstance.transform.position);
         Assert.IsTrue(interactableBehaviour.IsSelected);
         brain.Shoot = true;
@@ -203,6 +197,23 @@ public class InteractableTests
         yield return null;
         Assert.IsTrue(interactableBehaviour == null);
         Assert.IsTrue(Upgrade.Upgrades.HasUpgrade(0, upgrade));
+    }
+
+    public static void SpawnResourcesToPayFor(
+        GameObject playerInstance, 
+        Upgrade upgrade
+    ) {
+        foreach (UpgradePriceCategory priceCategory in upgrade.Price)
+        {
+            for (int i = 0; i < priceCategory.Count; i++)
+            {
+                MessageRouter.RaiseMessage(new MsgSpawnDrone
+                {
+                    DroneType = priceCategory.DroneType,
+                    Player = playerInstance
+                });
+            }
+        }
     }
 
     public static TestCaseData[] GetPurchaseableUpgrades()
@@ -244,5 +255,35 @@ public class InteractableTests
         yield return null;
         Assert.IsTrue(interactableBehaviour == null);
         Assert.IsTrue(Upgrade.Upgrades.HasUpgrade(0, upgrade));
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerRespawnsWithSamePermanentImprovisations()
+    {
+        Upgrade upgrade = Resources.Load<Upgrade>("Upgrades/PlayerSpawnWithBreakNote");
+        SetupInteractableTestScene(upgrade);
+        SpawnResourcesToPayFor(this.playerInstance, upgrade);
+        yield return InteractWithInteractable(brain, playerInstance, interactableBehaviour);
+
+        ImprovisationUpgrade improvisationUpgrade = upgrade as ImprovisationUpgrade;
+        Improvisation improvisation = improvisationUpgrade.Improvisation.Get();
+
+        MessageRouter.RaiseMessage(new MsgSpawnDrone
+        {
+            DroneType = EDroneType.Melody,
+            Player = this.playerInstance
+        });
+
+        yield return null;
+
+        this.playerInstance.GetComponent<Health>().Destroy();
+
+        yield return new WaitForSeconds(2f);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        TurntableBehaviour t = player.GetComponentInChildren<TurntableBehaviour>();
+
+        Assert.AreEqual(1,t.Improviser.NumberOfImprovisations);
+        Assert.AreEqual(improvisation,t.Improviser.GetEnumerable().ToList()[0]);
     }
 }

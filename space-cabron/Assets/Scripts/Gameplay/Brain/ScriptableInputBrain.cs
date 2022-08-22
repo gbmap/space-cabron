@@ -17,9 +17,10 @@ namespace SpaceCabron.Gameplay
             InputAction movement = ActionAsset.actionMaps[0].FindAction("Movement");
             InputAction shoot = ActionAsset.actionMaps[0].FindAction("Jump");
             InputAction pause = ActionAsset.actionMaps[0].FindAction("Pause");
+            Vector2 m = movement.ReadValue<Vector2>();
             return new InputState
             {
-                Movement = movement.ReadValue<Vector2>(),
+                Movement = m,
                 Shoot = shoot.WasPressedThisFrame(),
                 Pause = pause.WasPressedThisFrame()
             };

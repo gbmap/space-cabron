@@ -8,7 +8,16 @@ namespace Gmap.CosmicMusicUtensil
     {
         public ScriptableSelectionStrategy BarSelection;
         public ScriptableSelectionStrategy NoteSelection;
-        public abstract Improvisation Get();
+
+        private Improvisation improvisationCache;
+        public Improvisation Get()
+        {
+            if (improvisationCache == null)
+                improvisationCache = Create();
+            return improvisationCache;
+        }
+
+        protected abstract Improvisation Create();
 
         public Sprite Icon;
     }
@@ -16,7 +25,7 @@ namespace Gmap.CosmicMusicUtensil
     [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Improvisations/Reverse Melody")]
     public class ScriptableReverseMelodyImprovisation : ScriptableImprovisation
     {
-        public override Improvisation Get()
+        protected override Improvisation Create()
         {
             return new ReverseMelodyImprovisation(BarSelection.Get());
         }

@@ -10,6 +10,11 @@ namespace Gmap.CosmicMusicUtensil
             = new Dictionary<Improvisation, int>();
         List<Improvisation> improvisations = new List<Improvisation>();
 
+        public IEnumerable<Improvisation> GetEnumerable()
+        {
+            return improvisations;
+        }
+
         public int NumberOfImprovisations => improvisations.Count;
 
         Improvisation[] toRemove = new Improvisation[10];

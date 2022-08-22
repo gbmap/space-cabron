@@ -204,8 +204,7 @@ namespace SpaceCabron.Gameplay.Level
             base.ConfigureLevel();
             RenderSettings.skybox = levelConfiguration.Background.Material;
 
-            if (levelConfiguration.name == "Level0" 
-             || string.IsNullOrEmpty(levelConfiguration.name))
+            if (GameObject.FindGameObjectsWithTag("Drone").Length == 0)
             {
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 for (int i = 0; i < players.Length; i++)

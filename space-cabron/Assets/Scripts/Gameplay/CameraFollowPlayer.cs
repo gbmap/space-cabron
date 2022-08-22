@@ -72,14 +72,24 @@ public class CameraFollowPlayer : MonoBehaviour
         if (players.Count == 0)
             return;
 
-        Vector2 mean = players.Select(p => p.transform.position)
-                              .Aggregate((a, b) => a + b) / players.Count;
+        Vector2 averagePosition = Vector2.zero;
+        int count = 0;
+        foreach (GameObject player in players)
+        {
+            if (player == null)
+                continue;
+            averagePosition += (Vector2)player.transform.position;
+            count++;
+        }
 
-        mean += Vector2.up * 1.65f;
+        if (count != 0)
+            averagePosition /= count;
+
+        averagePosition += Vector2.up * 1.65f;
 
         Vector2 pos = transform.position;
 
-        Vector2 delta = Vector3.ClampMagnitude(mean-pos, Speed);
+        Vector2 delta = Vector3.ClampMagnitude(averagePosition-pos, Speed);
 
         Vector2 target = pos + delta*Time.fixedDeltaTime;
         target.x = Mathf.Clamp(target.x, -2f, 2f);

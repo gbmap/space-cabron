@@ -11,9 +11,14 @@ namespace Gmap.CosmicMusicUtensil
         public IntReference Steps;
         public IntReference Beams; 
 
-        public override Improvisation Get()
+        protected override Improvisation Create()
         {
-            return new TremoloImprovisation(NoteSelection.Get(), BarSelection.Get(), Beams.Value, Steps.Value);
+            return new TremoloImprovisation(
+                NoteSelection.Get(), 
+                BarSelection.Get(), 
+                Beams.Value, 
+                Steps.Value
+            );
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Gmap.CosmicMusicUtensil
     [CreateAssetMenu(menuName="Gmap/Cosmic Music Utensil/Improvisations/Resolve Note")]
     public class ScriptableResolveNoteImprovisation : ScriptableImprovisation
     {
-        public override Improvisation Get()
+        protected override Improvisation Create()
         {
             return new ResolveNoteImprovisation(BarSelection.Get());
         }
