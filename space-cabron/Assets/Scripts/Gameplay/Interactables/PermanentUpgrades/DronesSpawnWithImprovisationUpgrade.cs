@@ -5,17 +5,15 @@ using UnityEngine;
 
 namespace SpaceCabron.Gameplay.Interactables
 {
-
     public class ImprovisationUpgrade : Upgrade 
     {
         public ScriptableImprovisation Improvisation;
+        public override Sprite Icon => this.Improvisation.Icon;
     }
 
     [CreateAssetMenu(menuName="Space Cabrón/Interactables/Upgrades/Drones Spawn With Improvisation")]
     public class DronesSpawnWithImprovisationUpgrade : ImprovisationUpgrade
     {
-        // public ScriptableImprovisation Improvisation;
-
         public override bool Interact(InteractArgs args)
         {
             if (!base.Interact(args))

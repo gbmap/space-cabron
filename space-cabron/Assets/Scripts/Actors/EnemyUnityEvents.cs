@@ -18,21 +18,24 @@ namespace Gmap.Gameplay
         void Awake()
         {
             this.Melody = new Melody(Melody);
-            MessageRouter.AddHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
+            MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyHit);
         }
 
         void OnDestroy()
         {
-            MessageRouter.RemoveHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
+            MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnEnemyHit);
         }
 
         private void Callback_OnEnemyHit(MsgOnObjectHit obj)
         {
+            if (!obj.health.CompareTag("Enemy"))
+                return;
+
             Note n = Melody.GetNote(noteIndex++);
             OnEnemyHit?.Invoke(new OnNoteArgs
             {
                 Note = n,
-                HoldTime = 0.35f
+                HoldTime = 0.7f
             });
         }
     }

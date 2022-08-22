@@ -7,31 +7,58 @@ namespace SpaceCabron.UI
     public class UIUpgradeInfoItem : MonoBehaviour
     {
         Image icon;
-        ITurntable turntable;
-        Improvisation improvisation;
-        ImprovisationToIcon improvisationToIcon;
+        public ITurntable Turntable { get; private set; }
+        public Improvisation Improvisation { get; private set; }
+
+        private int TotalTime;
+        private int CurrentTime;
+        private int LastBarIndexUpdate;
+
+        [SerializeField]
+        private Image lockIcon;
+
+        static ImprovisationToIcon improvisationToIcon;
+        static ImprovisationToIcon ImprovisationToIcon
+        {
+            get
+            {
+                if (improvisationToIcon == null)
+                    improvisationToIcon = Resources.Load<ImprovisationToIcon>("ImprovisationToIcon");
+                return improvisationToIcon;
+            }
+        }
+
+        public static bool HasIcon(Improvisation improv)
+        {
+            return ImprovisationToIcon.GetIcon(improv) != null;
+        }
 
         void Awake()
         {
-            improvisationToIcon = Resources.Load<ImprovisationToIcon>("ImprovisationToIcon");
             icon = GetComponent<Image>();
+            icon.material = new Material(icon.material);
+            icon.material.SetFloat("_Float", 1f);
         }
 
         void OnDisable()
         {
-            turntable.OnNote -= OnNote;
+            Turntable.OnNote -= OnNote;
         }
 
         public void Configure(
             ITurntable turntable, 
-            Improvisation improvisation
+            Improvisation improvisation,
+            int duration
         ) {
-            this.improvisation = improvisation;
-            this.turntable = turntable;
+            this.Improvisation = improvisation;
+            this.Turntable = turntable;
+            this.TotalTime = duration;
+            this.CurrentTime = duration;
 
             Sprite iconSprite = improvisationToIcon.GetIcon(improvisation);
             icon.sprite = iconSprite;
             turntable.OnNote += OnNote;
+            lockIcon.enabled = duration == -1;
         }
 
         private void OnNote(OnNoteArgs obj)
@@ -39,15 +66,20 @@ namespace SpaceCabron.UI
             if (icon == null)
                 return;
 
-            bool shouldApply = improvisation.ShouldApply(
-                turntable.Melody, 
-                turntable.BarIndex, 
-                turntable.Melody.NoteArray, 
-                turntable.NoteIndex
+            bool shouldApply = Improvisation.ShouldApply(
+                Turntable.Melody, 
+                Turntable.BarIndex, 
+                Turntable.Melody.NoteArray, 
+                Turntable.NoteIndex
                 // Turntable advances index when queueing new notes, hence -1.
             );
 
             icon.color = shouldApply ? Color.white : Color.gray;
+            if (shouldApply && LastBarIndexUpdate != Turntable.BarIndex)
+            {
+                LastBarIndexUpdate = Turntable.BarIndex;
+                icon.material.SetFloat("_Float", ((float)--CurrentTime)/TotalTime);
+            }
         }
     }
 }

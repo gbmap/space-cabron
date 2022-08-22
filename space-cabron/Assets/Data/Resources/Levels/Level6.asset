@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
+  m_Name: Level6
+  m_EditorClassIdentifier: 
+  NextLevel: {fileID: 11400000, guid: e3c45ffde95a90b43b7bf812cd383cd3, type: 2}
+  Gameplay:
+    Difficulty: 1
+    ScoreThreshold: 5000
+    EnemyBPMIncreaseValue: 1
+    EnemyBPMScoreModulusToIncrease: 25
+    EnemyPool: {fileID: 11400000, guid: 7e59be1c7e5a75342ab4d01b534484f8, type: 2}
+    BossPool: {fileID: 0}
+  EnemyMelody:
+    BPM: 35
+    MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
+    PossibleStartingInstruments: {fileID: 11400000, guid: 170f0e9dd275bd545b599395341bcbe3,
+      type: 2}
+  PlayerMelody:
+    BPM: 60
+    MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 1
+      PossibleStartingImprovisations: {fileID: 11400000, guid: eaff1617cdf034441be69743c23af138,
+        type: 2}
+      FixedStartingimprovisations: {fileID: 11400000, guid: 7f422710eee24f74b8ca675a95bd57c0,
+        type: 2}
+    PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
+      type: 2}
+  DrumMelody:
+    BPM: 30
+    MelodyFactory: {fileID: 11400000, guid: abba543eab3654240a3aa913f3c47828, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
+    PossibleStartingInstruments: {fileID: 11400000, guid: c2edac38a5b243e4fa9a63df2c2bec7a,
+      type: 2}
+  AmbientMelody:
+    BPM: 30
+    MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
+    PossibleStartingInstruments: {fileID: 11400000, guid: 556fd94c16eea654ca50d120c4e25970,
+      type: 2}
+  HitConfiguration:
+    BPM: 30
+    MelodyFactory: {fileID: 0}
+    ImprovisationConfiguration:
+      NumberOfStartingImprovisations:
+        GetFrom: {fileID: 0}
+        SendTo: {fileID: 0}
+        _value: 0
+      PossibleStartingImprovisations: {fileID: 0}
+      FixedStartingimprovisations: {fileID: 0}
+    PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
+      type: 2}
+  Background:
+    Material: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}

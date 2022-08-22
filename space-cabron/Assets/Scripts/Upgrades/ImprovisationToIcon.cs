@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Gmap.CosmicMusicUtensil;
 using UnityEngine;
-
 
 namespace SpaceCabron
 {
@@ -22,6 +19,11 @@ namespace SpaceCabron
             if (type is TremoloImprovisation)
                 return TremoloIcon;
             return null;
+        }
+
+        public bool HasIcon(Improvisation type)
+        {
+            return GetIcon(type) != null;
         }
     }
 }

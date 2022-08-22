@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
@@ -9,7 +7,7 @@ namespace Gmap.CosmicMusicUtensil
     public class ScriptableMordentImprovisation : ScriptableImprovisation
     {
         public IntReference Steps;
-        public override Improvisation Get()
+        protected override Improvisation Create()
         {
             return new MordentImprovisation(NoteSelection.Get(), BarSelection.Get(), Steps.Value);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Frictionless;
 using Gmap.Gameplay;
@@ -60,7 +61,7 @@ namespace SpaceCabron.Gameplay.Level
             if (!gameplaySceneWasLoaded)
             {
                 SceneManager.LoadScene(
-                    "Gameplay", 
+                    "Gameplay",
                     LoadSceneMode.Additive
                 );
                 gameplaySceneIndex = GetSceneIndex(sceneName);
@@ -72,21 +73,56 @@ namespace SpaceCabron.Gameplay.Level
             gameplaySceneIndex = GetSceneIndex(sceneName);
             MessageRouter.RaiseMessage(new MsgLevelStartedLoading());
 
+
+            DestroyAllWithTag("Enemy");
+            if (GameObject.FindGameObjectsWithTag("Player").Length == 0)
+            {
+                DestroyAllWithTag("Drone");
+            }
+            DestroyAllWithTag("Bullet");
+
+            Resources.Load<GameState>("GameStates/GameplayPlay").ChangeTo();
+
+            bool spawnedNewPlayer = SpawnPlayerIfNone();
+
             ConfigureLevel();
             ConfigureLevelConfigurablesWithConfiguration(
                 levelConfiguration,
                 gameplaySceneIndex
             );
 
-            if (!gameplaySceneWasLoaded)
+            if (!gameplaySceneWasLoaded || spawnedNewPlayer)
             {
-                PlayBeginLevelAnimationOnPlayers(() => {
+                PlayBeginLevelAnimationOnPlayers(() =>
+                {
                     Finish();
                 });
             }
             else
                 Finish();
 
+        }
+
+        private static void DestroyAllWithTag(string tags)
+        {
+            GameObject[] objs = GameObject.FindGameObjectsWithTag(tags);
+            for (int i = 0; i < objs.Length; i++)
+            {
+                GameObject.Destroy(objs[i]);
+            }
+        }
+
+        private bool SpawnPlayerIfNone()
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            if (players.Length == 0)
+            {
+                MessageRouter.RaiseMessage(new MsgSpawnPlayer {
+                    Position = Vector3.down*10f
+                });
+                return true;
+            }
+            return false;
         }
 
         private int GetSceneIndex(string name)
@@ -167,6 +203,23 @@ namespace SpaceCabron.Gameplay.Level
         {
             base.ConfigureLevel();
             RenderSettings.skybox = levelConfiguration.Background.Material;
+
+            if (GameObject.FindGameObjectsWithTag("Drone").Length == 0)
+            {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i < players.Length; i++)
+                {
+                    MessageRouter.RaiseMessage(new MsgSpawnDrone {
+                        DroneType = MsgSpawnDrone.EDroneType.Random,
+                        Player = players[i]
+                    });
+
+                    MessageRouter.RaiseMessage(new MsgSpawnDrone {
+                        DroneType = MsgSpawnDrone.EDroneType.Random,
+                        Player = players[i]
+                    });
+                }
+            }
         }
     }
 }

@@ -22,8 +22,9 @@ namespace Gmap
         public Gmap.ScriptableReferences.FloatReference EnergyValue;
 
         public IBrain<InputState> Brain { get; set; }
+        public float LastNote { get; private set; }
+
         float _lastPress = 0f;
-        float _lastNote = 0f;
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
@@ -76,7 +77,7 @@ namespace Gmap
             {
                 waitingForPress = StartCoroutine(WaitForPress());
             }
-            _lastNote = Time.time;
+            LastNote = Time.time;
         }
 
         void Update()

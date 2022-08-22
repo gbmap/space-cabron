@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using SpaceCabron.Messages;
@@ -8,25 +5,31 @@ using UnityEngine;
 
 namespace SpaceCabron.Gameplay.Interactables
 {
-    [CreateAssetMenu(menuName="Space Cabrón/Interactables/Upgrades/Player Spawns With Improvisation")]
-    public class PlayerRespawnsWithImprovisationUpgrade : Upgrade
+    public class MsgOnPermanentImprovisationUpgrade
     {
-        public ScriptableImprovisation Improvisation;
+        public GameObject Player;
+        public int playerIndex = 0;
+        public Improvisation Improvisation;
+    }
 
+    [CreateAssetMenu(menuName="Space Cabrón/Interactables/Upgrades/Player Spawns With Improvisation")]
+    public class PlayerRespawnsWithImprovisationUpgrade : ImprovisationUpgrade
+    {
         public override bool Interact(InteractArgs args)
         {
             if (!base.Interact(args))
                 return false;
 
-            MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
-            return true;
-        }
+            TurntableBehaviour t = args.Interactor.GetComponentInChildren<TurntableBehaviour>();
+            t.ApplyImprovisation(Improvisation.Get(), -1);
 
-        private void Callback_OnPlayerSpawned(MsgOnPlayerSpawned msg)
-        {
-            ITurntable turntable = msg.Player.GetComponentInChildren<ITurntable>();
-            if (turntable != null)
-                turntable.ApplyImprovisation(Improvisation.Get(), false);
+            MessageRouter.RaiseMessage(
+                new MsgOnPermanentImprovisationUpgrade {
+                    Improvisation = Improvisation.Get(),
+                    Player = args.Interactor
+                }
+            );
+            return true;
         }
     }
 }

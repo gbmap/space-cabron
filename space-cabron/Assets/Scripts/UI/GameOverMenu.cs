@@ -10,8 +10,10 @@ namespace SpaceCabron.Gameplay
     {
         public void Retry()
         {
-            if (LevelLoader.CurrentLevelConfiguration)
-                LevelLoader.Load(Resources.Load<LevelConfiguration>("Levels/Level0"));
+            if (LevelLoader.CurrentLevelConfiguration != null)
+            {
+                LevelLoader.Reload();
+            }
             else
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

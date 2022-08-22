@@ -8,6 +8,11 @@ namespace Gmap.CosmicMusicUtensil
         [SerializeField]
         private Scale Scale;
 
+        public int GetIndex(ENote root, ENote tone)
+        {
+            return Scale.GetIndex(root, tone);
+        }
+
         public ENote GetNote(ENote root, int i)
         {
             return Scale.GetNote(root, i);

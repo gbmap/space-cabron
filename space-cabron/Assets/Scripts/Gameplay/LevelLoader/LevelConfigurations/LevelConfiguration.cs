@@ -41,6 +41,7 @@ namespace SpaceCabron.Gameplay
     {
         public IntBusReference NumberOfStartingImprovisations;
         public ImprovisationPool PossibleStartingImprovisations;
+        public ImprovisationPool FixedStartingimprovisations;
 
         public void Apply(ITurntable turntable)
         {
@@ -51,6 +52,14 @@ namespace SpaceCabron.Gameplay
                 {
                     Improvisation improvisation = PossibleStartingImprovisations.GetNext().Get(); 
                     turntable.ApplyImprovisation(improvisation, false);
+                }
+            }
+            
+            if (FixedStartingimprovisations != null)
+            {
+                foreach (ScriptableImprovisation improvisation in FixedStartingimprovisations.GetEnumerator())
+                {
+                    turntable.ApplyImprovisation(improvisation.Get(), false);
                 }
             }
         }

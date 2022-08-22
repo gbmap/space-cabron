@@ -10,7 +10,8 @@
         "SpaceCabron.Gameplay",
         "Gmap.Gameplay",
         "Unity.TextMeshPro",
-        "SpaceCabron.Gameplay.Tests"
+        "SpaceCabron.Gameplay.Tests",
+        "SpaceCabron.Messages"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

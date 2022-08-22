@@ -18,7 +18,6 @@ namespace Gmap
         public bool shouldSpawn = false;
         public int ScoreThreshold = int.MaxValue;
 
-        private bool waitingToSpawnBoss = false;
         private bool hasFiredWinMessage = false;
 
         private float initialTimer = 2f;

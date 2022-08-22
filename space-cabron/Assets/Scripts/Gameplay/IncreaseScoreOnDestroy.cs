@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Frictionless;
+using SpaceCabron.Gameplay;
 using UnityEngine;
 
 namespace Gmap.Gameplay
@@ -10,6 +8,8 @@ namespace Gmap.Gameplay
     {
         public int Value;
         Health health;
+
+        public GameObject ScoreLabel;
         
         void Awake()
         {
@@ -27,6 +27,13 @@ namespace Gmap.Gameplay
             
             if (obj.health.CompareTag("Drone"))
                 return;
+
+            var scoreInstance = Instantiate(
+                ScoreLabel, 
+                transform.position, 
+                Quaternion.identity
+            );
+            scoreInstance.GetComponent<ScoreLabel>().Score = Value;
 
             MessageRouter.RaiseMessage(
                 new SpaceCabron.Messages.MsgIncreaseScore(Value)

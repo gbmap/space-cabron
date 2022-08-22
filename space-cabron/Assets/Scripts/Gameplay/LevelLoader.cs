@@ -1,3 +1,4 @@
+using System.Collections;
 using Frictionless;
 using SpaceCabron.Gameplay;
 using SpaceCabron.Gameplay.Level;
@@ -35,6 +36,17 @@ namespace Gmap.Gameplay
             
             level.GetLoader(OnFinishedLoading).Load();
             CurrentLevelConfiguration = level;
+        }
+
+        public static void Reload(System.Action OnFinishedReloading=null)
+        {
+            CoroutineStarter.StartCoroutine(ReloadAsync(OnFinishedReloading));
+        }
+
+        private static IEnumerator ReloadAsync(System.Action OnFinishedReloading)
+        {
+            yield return null;
+            Load(CurrentLevelConfiguration, OnFinishedReloading);
         }
 
         private static void Callback_OnGameplaySceneLoaded(

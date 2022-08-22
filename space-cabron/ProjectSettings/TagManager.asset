@@ -15,6 +15,7 @@ TagManager:
   - EnemySpawner
   - PlayerChip
   - Drone
+  - Bullet
   layers:
   - Default
   - TransparentFX

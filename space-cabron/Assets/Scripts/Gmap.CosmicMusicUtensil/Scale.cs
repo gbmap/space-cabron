@@ -64,6 +64,7 @@ namespace Gmap.CosmicMusicUtensil
     public interface IScale
     {
         public ENote GetNote(ENote root, int i);
+        public int GetIndex(ENote root, ENote tone);
         public int GetNumberOfNotes();
     }
 
@@ -79,6 +80,11 @@ namespace Gmap.CosmicMusicUtensil
 
             i = Bar.MathMod(i,Intervals.Length);
             return Note.OffsetNote(root, Intervals[..i].Sum(x=>x));
+        }
+
+        public int GetIndex(ENote root, ENote tone)
+        {
+            return Intervals.Select(i=>GetNote(root, i)).ToList().IndexOf(tone);
         }
 
         public int GetNumberOfNotes()

@@ -9,7 +9,7 @@ namespace Gmap.CosmicMusicUtensil
     public class ScriptableBreakNoteImprovisation : ScriptableImprovisation
     {
         public IntReference TimesToDuplicate;
-        public override Improvisation Get()
+        protected override Improvisation Create()
         {
             return new BreakNoteImprovisation(
                 NoteSelection.Get(), 

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Gmap.CosmicMusicUtensil
@@ -14,6 +15,15 @@ namespace Gmap.CosmicMusicUtensil
         public HelmProxy Proxy;
 
         public System.Action<OnNoteArgs> OnNoteRepeated;
+        public UnityEvent<OnNoteArgs> UnityEvent;
+
+        public float LastNote { get; private set; }
+
+        public void SetTurntable(TurntableBehaviour turntable)
+        {
+            Turntable = turntable;
+            Turntable.UnityEvent.AddListener(OnNote);
+        }
 
         void Start()
         {
@@ -23,7 +33,7 @@ namespace Gmap.CosmicMusicUtensil
                 return;
             }
 
-            Turntable.UnityEvent.AddListener(OnNote);
+            SetTurntable(Turntable);
         }
 
         void OnDestroy()
@@ -47,12 +57,17 @@ namespace Gmap.CosmicMusicUtensil
 
                 Proxy.Play(args2);
                 OnNoteRepeated?.Invoke(args2);
+                UnityEvent?.Invoke(args2);
+
+                LastNote = Time.time;
             }
         }
 
         public void UpdateReferences(GameObject target)
         {
             Turntable = target.GetComponentInChildren<TurntableBehaviour>();
+            Turntable.OnNote += OnNote;
+
             Proxy = target.GetComponentInChildren<HelmProxy>();
         }
     }

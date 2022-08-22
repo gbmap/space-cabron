@@ -450,6 +450,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8532393574664662555}
     m_Modifications:
+    - target: {fileID: 1123222023, guid: 93dced58549cf03428f96f2f7ec8898f, type: 3}
+      propertyPath: OnEnemyDestroyed.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123222023, guid: 93dced58549cf03428f96f2f7ec8898f, type: 3}
+      propertyPath: OnEnemyDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123222023, guid: 93dced58549cf03428f96f2f7ec8898f, type: 3}
+      propertyPath: OnEnemyDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7380393890273419930}
+    - target: {fileID: 1123222023, guid: 93dced58549cf03428f96f2f7ec8898f, type: 3}
+      propertyPath: OnEnemyDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2799940495385900029, guid: 93dced58549cf03428f96f2f7ec8898f,
         type: 3}
       propertyPath: m_audioClip
@@ -543,3 +559,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8287606691187008901}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7380393890273419930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1544474378487449375, guid: 93dced58549cf03428f96f2f7ec8898f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8287606691187008901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372248899238849854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007ba5d2ae4dcd145add0acb2c044997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

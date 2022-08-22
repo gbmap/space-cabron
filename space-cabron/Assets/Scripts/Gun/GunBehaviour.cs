@@ -19,7 +19,7 @@ namespace Gmap.Gun
         public BulletData Bullet;
         public GunData GunData;
 
-        private ShotData lastShot;
+        public ShotData LastShot { get; private set; }
 
         public ShotData Fire(FireRequest request)
         {
@@ -30,10 +30,17 @@ namespace Gmap.Gun
                 Bullet = this.Bullet,
                 Special = request.Special,
                 BulletScale = request.BulletScale
-                
             };
-            lastShot = GunData.Fire(lastShot, shotRequest);
-            return lastShot;
+            LastShot = GunData.Fire(LastShot, shotRequest);
+            return LastShot;
+        }
+
+        public void Fire()
+        {
+            Fire(new FireRequest {
+                BulletScale = 1f,
+                Special = false
+            });
         }
     }
 }
