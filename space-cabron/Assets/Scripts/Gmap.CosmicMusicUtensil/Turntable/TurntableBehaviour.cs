@@ -49,13 +49,18 @@ namespace Gmap.CosmicMusicUtensil
         {
             get { return Turntable.OnImprovisationAdded; }
             set { Turntable.OnImprovisationAdded = value; }
-
         }
 
         public Action<OnImprovisationArgs> OnImprovisationRemoved
         {
             get { return Turntable.OnImprovisationRemoved; }
             set { Turntable.OnImprovisationRemoved = value; }
+        }
+
+        public int MaxBPM
+        {
+            get { return Turntable.MaxBPM; }
+            set { Turntable.MaxBPM = value; }
         }
 
         void Awake()

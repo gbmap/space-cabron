@@ -78,6 +78,7 @@ namespace SpaceCabron.Gameplay
     public class InstrumentConfiguration : ICloneable<InstrumentConfiguration>
     {
         public int BPM = 30;
+        public int MaxBPM = 120;
         public ScriptableMelodyFactory MelodyFactory;
         public ImprovisationConfiguration ImprovisationConfiguration;
         public TextAssetPool PossibleStartingInstruments;

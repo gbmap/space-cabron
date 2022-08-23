@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Gmap.Gameplay;
 using UnityEngine;
 using UnityEngine.SceneManagement;
