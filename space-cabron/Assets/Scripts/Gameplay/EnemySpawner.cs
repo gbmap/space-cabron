@@ -14,6 +14,8 @@ namespace Gmap
     {
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
+        public int MaxEnemiesAlive { get; private set; }
+        public int EnemiesAlive { get; private set; }
 
         public bool shouldSpawn = false;
         public int ScoreThreshold = int.MaxValue;
@@ -21,6 +23,7 @@ namespace Gmap
         private bool hasFiredWinMessage = false;
 
         private float initialTimer = 2f;
+
 
         void OnEnable()
         {
@@ -40,6 +43,8 @@ namespace Gmap
         {
             if (!obj.health.CompareTag("Enemy"))
                 return;
+
+            EnemiesAlive = Mathf.Max(0, EnemiesAlive - 1);
 
             CheckIfShouldSpawnBoss();
         }
@@ -126,6 +131,7 @@ namespace Gmap
             ScoreThreshold = configuration.Gameplay.ScoreThreshold;
             EnemyPool = configuration.Gameplay.EnemyPool;
             BossPool = configuration.Gameplay.BossPool;
+            MaxEnemiesAlive = configuration.Gameplay.MaxEnemiesAlive;
         }
 
         public void SpawnNext()
@@ -136,6 +142,10 @@ namespace Gmap
             if (!shouldSpawn || EnemyPool.Length == 0)
                 return;
 
+            if (EnemiesAlive >= MaxEnemiesAlive)
+                return;
+
+            EnemiesAlive++;
             GameObject instance = SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));
         }
 

@@ -21,6 +21,7 @@ namespace SpaceCabron.Gameplay
         public int ScoreThreshold = 5000;
         public int EnemyBPMIncreaseValue = 1;
         public int EnemyBPMScoreModulusToIncrease = 25;
+        public int MaxEnemiesAlive = 10;
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
 

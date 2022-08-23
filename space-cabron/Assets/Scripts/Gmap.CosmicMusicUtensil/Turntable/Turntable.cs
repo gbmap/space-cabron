@@ -91,6 +91,7 @@ namespace Gmap.CosmicMusicUtensil
             System.Action<OnNoteArgs> onNote = null
         ) {
             BPMReference = bpmReference;
+            MaxBPM = 120;
             currentNoteIndex = 0;
             melody = m;
             HoldNote = keepNotePlaying;
