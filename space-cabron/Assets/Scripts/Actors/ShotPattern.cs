@@ -7,6 +7,7 @@ using UnityEngine;
 public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
 {
     public GameObject Bullet;
+    public bool UsePool = true;
     public float Cooldown = 2f;
     float _lastShot;
 
@@ -31,7 +32,7 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
 
     void Awake()
     {
-        if (_enemyBulletPool == null)
+        if (_enemyBulletPool == null && UsePool)
         {
             _enemyBulletPool = new ObjectPool.GameObjectPool(Bullet);
             _enemyBulletPool.InitPool(500);
@@ -61,6 +62,8 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
             _anim.SetTrigger(_animShotId);
         }
 
-        return _enemyBulletPool.Instantiate(pos, rot);
+        if (UsePool)
+            return _enemyBulletPool.Instantiate(pos, rot);
+        return Instantiate(Bullet, pos, rot);
     }
 }

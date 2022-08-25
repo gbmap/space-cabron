@@ -36,7 +36,7 @@
     "fil_sustain": 0.5,
     "filter_blend": 0,
     "filter_drive": 0,
-    "filter_on": 1,
+    "filter_on": 0,
     "filter_shelf": 0,
     "filter_style": 1,
     "formant_on": 0,
@@ -143,7 +143,7 @@
     "unison_1_harmonize": 0,
     "unison_2_harmonize": 0,
     "velocity_track": 0,
-    "volume": 1.501030519480519354,
+    "volume": 0.7501030519480519354,
     "modulations": [
       {
         "source": "mono_lfo_1",

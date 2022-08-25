@@ -16,6 +16,9 @@ public class SpawnOnDestroy : MonoBehaviour
     public bool NeedsSpecialBullet;
     public SpawnOnDestroyItem[] items;
 
+    public bool ApplyRigidbodyForce;
+    public float Force = 2f;
+
     private ShuffleBag<GameObject> bag;
 
     Health health;
@@ -45,6 +48,15 @@ public class SpawnOnDestroy : MonoBehaviour
         if (NeedsSpecialBullet && (msg.bullet == null || !msg.bullet.IsSpecial))
             return;
 
-        Instantiate(bag.Next(), transform.position, Quaternion.identity);
+        var obj = Instantiate(bag.Next(), transform.position, Quaternion.identity);
+        if (ApplyRigidbodyForce)
+        {
+            Rigidbody2D r = obj.GetComponent<Rigidbody2D>();
+            if (r != null)
+            {
+                Vector2 force = Random.insideUnitCircle * Force;
+                r.AddForce(force, ForceMode2D.Impulse);
+            }
+        }
     }
 }

@@ -33,6 +33,7 @@ namespace Gmap
             MessageRouter.AddHandler<MsgLevelFinishedLoading>((msg) => { 
                 initialTimer = Time.time + 2f;
                 hasFiredWinMessage = false;
+                EnemiesAlive = 0;
 
                 if (LevelLoader.CurrentLevelConfiguration is LevelConfiguration)
                     shouldSpawn = true;

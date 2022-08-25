@@ -25,10 +25,7 @@ namespace SpaceCabron.Gameplay
         {
             yield return new WaitForSeconds(time);
 
-            if (health == null)
-                yield break;
-
-            if (health)
+            if (health != null)
                 health.Destroy();
             else
                 Destroy(gameObject);

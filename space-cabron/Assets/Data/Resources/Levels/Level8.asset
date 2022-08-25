@@ -18,10 +18,12 @@ MonoBehaviour:
     ScoreThreshold: 5000
     EnemyBPMIncreaseValue: 1
     EnemyBPMScoreModulusToIncrease: 25
-    EnemyPool: {fileID: 11400000, guid: 7e59be1c7e5a75342ab4d01b534484f8, type: 2}
+    MaxEnemiesAlive: 10
+    EnemyPool: {fileID: 11400000, guid: 82637390353ee5a44b5d5e847b8cdb5a, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
     BPM: 35
+    MaxBPM: 120
     MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
@@ -34,6 +36,7 @@ MonoBehaviour:
       type: 2}
   PlayerMelody:
     BPM: 60
+    MaxBPM: 120
     MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
@@ -48,6 +51,7 @@ MonoBehaviour:
       type: 2}
   DrumMelody:
     BPM: 30
+    MaxBPM: 120
     MelodyFactory: {fileID: 11400000, guid: abba543eab3654240a3aa913f3c47828, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
@@ -60,6 +64,7 @@ MonoBehaviour:
       type: 2}
   AmbientMelody:
     BPM: 30
+    MaxBPM: 120
     MelodyFactory: {fileID: 11400000, guid: 181f825f54ff5244e9bc41036c0678d8, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
@@ -72,6 +77,7 @@ MonoBehaviour:
       type: 2}
   HitConfiguration:
     BPM: 30
+    MaxBPM: 120
     MelodyFactory: {fileID: 0}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
