@@ -19,7 +19,7 @@ namespace Gmap.Gameplay
 
         private void Callback_OnDestroy(MsgOnObjectDestroyed obj)
         {
-            if (obj.bullet == null)
+            if (obj.bullet == null && obj.collider == null)
                 return;
             
             if (obj.health.CompareTag("Player"))

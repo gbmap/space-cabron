@@ -21,7 +21,7 @@ public class DisableOnOutOfScreen : MonoBehaviour
             pos = pos - cPos;
         }
 
-        if (pos.sqrMagnitude > 25f)
+        if (pos.sqrMagnitude > 35f)
         {
             OnOutOfScreen?.Invoke();
             this.DestroyOrDisable();

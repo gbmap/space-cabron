@@ -24,6 +24,11 @@ namespace Gmap
 
         private float initialTimer = 2f;
 
+        void Awake()
+        {
+            EnemiesAlive = 0;
+            MaxEnemiesAlive = 10;
+        }
 
         void OnEnable()
         {
