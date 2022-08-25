@@ -21,6 +21,7 @@ namespace SpaceCabron.Gameplay
         public int ScoreThreshold = 5000;
         public int EnemyBPMIncreaseValue = 1;
         public int EnemyBPMScoreModulusToIncrease = 25;
+        public int MaxEnemiesAlive = 10;
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
 
@@ -78,6 +79,7 @@ namespace SpaceCabron.Gameplay
     public class InstrumentConfiguration : ICloneable<InstrumentConfiguration>
     {
         public int BPM = 30;
+        public int MaxBPM = 120;
         public ScriptableMelodyFactory MelodyFactory;
         public ImprovisationConfiguration ImprovisationConfiguration;
         public TextAssetPool PossibleStartingInstruments;

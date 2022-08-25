@@ -109,6 +109,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: b1676da8350d0d24a9953414e52b1da6,
         type: 2}
+    - target: {fileID: 9098098668432030991, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098098668432030991, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098098668432030991, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a158df808659c1c40a605ae3ab61debf, type: 3}
 --- !u!1 &2871415668028923354 stripped

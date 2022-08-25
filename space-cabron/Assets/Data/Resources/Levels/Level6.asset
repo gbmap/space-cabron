@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
   m_Name: Level6
   m_EditorClassIdentifier: 
-  NextLevel: {fileID: 11400000, guid: e3c45ffde95a90b43b7bf812cd383cd3, type: 2}
+  NextLevel: {fileID: 11400000, guid: 30d99eee622b92b4e888174c724cce44, type: 2}
   Gameplay:
     Difficulty: 1
     ScoreThreshold: 5000

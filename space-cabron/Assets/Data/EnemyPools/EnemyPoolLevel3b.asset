@@ -19,7 +19,7 @@ MonoBehaviour:
   - Value: {fileID: 1845278815985660862, guid: 4bad73beb5bbd2f42b06c08eb64605ce, type: 3}
     Weight: 3
   - Value: {fileID: 5460528552418457928, guid: 9da84e2a7d6d24844bc81bf095f6b78d, type: 3}
-    Weight: 2
+    Weight: 1
   - Value: {fileID: 3920777516458841108, guid: 08ba2457e9012d54eba91d053daec8fb, type: 3}
     Weight: 2
   - Value: {fileID: 5846109728729050079, guid: 9b1de30e5d9b04945b2549048afa8450, type: 3}

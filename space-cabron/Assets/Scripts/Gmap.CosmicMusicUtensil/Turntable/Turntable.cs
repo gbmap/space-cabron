@@ -24,6 +24,7 @@ namespace Gmap.CosmicMusicUtensil
     public interface ITurntable
     {
         int BPM { get; set; }
+        int MaxBPM { get; set; }
         public int NoteIndex { get; }
         public int BarIndex { get; }
         public Melody Melody { get; }
@@ -43,7 +44,12 @@ namespace Gmap.CosmicMusicUtensil
 
         // public int BPM { get; set; }
         public IntBusReference BPMReference;
-        public int BPM { get => BPMReference.Value; set => BPMReference.Value = value; }
+        public int BPM 
+        { 
+            get => BPMReference.Value; 
+            set => BPMReference.Value = Mathf.Min(MaxBPM, value); 
+        }
+
         public float BPS
         {
             get { return BPMToBPS(BPM); }
@@ -68,6 +74,13 @@ namespace Gmap.CosmicMusicUtensil
         public Action<OnImprovisationArgs> OnImprovisationAdded { get; set; }
         public Action<OnImprovisationArgs> OnImprovisationRemoved { get; set; }
 
+        int maxBPM;
+        public int MaxBPM 
+        { 
+            get { return maxBPM; } 
+            set { maxBPM = value; }
+        } 
+
         Queue<Note> noteQueue = new Queue<Note>(50);
 
         public Turntable(
@@ -78,6 +91,7 @@ namespace Gmap.CosmicMusicUtensil
             System.Action<OnNoteArgs> onNote = null
         ) {
             BPMReference = bpmReference;
+            MaxBPM = 120;
             currentNoteIndex = 0;
             melody = m;
             HoldNote = keepNotePlaying;

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668dc648e264e524d9680adc6a5367cf, type: 3}
   m_Name: ExchangeTwoRandomDronesToOneFixedDrone
   m_EditorClassIdentifier: 
-  Description: Two blue drones for a yellow one
+  Description: Two blue drones for a green one
   Price:
   - DroneType: 0
     Count: 2
+  icon: {fileID: 0}
+  DroneReward: 2

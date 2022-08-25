@@ -29,7 +29,10 @@ namespace SpaceCabron.Gameplay
                 return;
 
             if (!wasConfigured || !IgnoreConfigurationBPM)
+            {
                 turntable.BPM = instrumentConfig.BPM;
+                turntable.MaxBPM = instrumentConfig.MaxBPM;
+            }
 
             if (!wasConfigured || ReloadMelody)
                 instrumentConfig.ConfigureTurntable(turntable, false);

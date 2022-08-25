@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3d12066ebe26446b07dee3b5366c20, type: 3}
   m_Name: ItemDropProbability
   m_EditorClassIdentifier: 
-  value: 0.165
+  value: 0.17

@@ -5,7 +5,7 @@
   "folder_name": "Custom",
   "author": "gmap",
   "settings": {
-    "amp_attack": 0,
+    "amp_attack": 1.0,
     "amp_decay": 0,
     "amp_release": 1.5294117647058822484,
     "amp_sustain": 0.029411764705882352533,

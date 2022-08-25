@@ -10,7 +10,8 @@
         "Frictionless",
         "Gmap.ScriptableReferences",
         "Gmap.Gameplay",
-        "Gmap.Gun"
+        "Gmap.Gun",
+        "SpaceCabron.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

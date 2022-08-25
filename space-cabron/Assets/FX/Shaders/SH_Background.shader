@@ -50,8 +50,8 @@
                     clr = bg04(i, uv);
 
                 fixed3 hsv = rgb_to_hsv_no_clip(clr);
-                hsv.g = 0.65;
-                hsv.b = .15*beat_curve();
+                hsv.g = 0.625;
+                hsv.b = .125*beat_curve();
                 clr.rgb = hsv_to_rgb(hsv);
 
                 return clr;

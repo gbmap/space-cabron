@@ -14,6 +14,7 @@ using UnityEngine.SceneManagement;
 using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Gameplay.Interactables;
 using Gmap.ScriptableReferences;
+using static SpaceCabron.Messages.MsgSpawnDrone;
 
 public class LevelTests
 {
@@ -286,5 +287,65 @@ public class LevelTests
 
         Assert.AreEqual(1, GameObject.FindGameObjectsWithTag("Player").Length);
 
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerSpawnsWithTwoDronesOnNextLevel()
+    {
+        LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
+        yield return LoadLevelAndWait(level);
+
+        DisableEnemySpawner();
+        var player = MakePlayerInvincible();
+        var brain = PlayerControlBrain.CreateInstance<PlayerControlBrain>();
+        brain.Shoot = false;
+        InjectBrainToActor<InputState>.Inject(player, brain);
+
+        var drones = GameObject.FindGameObjectsWithTag("Drone");
+        for (int i = 0; i < drones.Length; i++)
+            GameObject.Destroy(drones[i]);
+
+        // Win level (Level0Buffer)
+        MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue/2, int.MaxValue/2));
+        yield return null;
+
+        InteractableBehaviour interactable = GameObject.FindObjectsOfType<InteractableBehaviour>()
+                                                       .FirstOrDefault(i => i.Interactable is NextLevelInteractable);
+        yield return InteractableTests.InteractWithInteractable(
+            brain, player, interactable
+        );
+        yield return new WaitForSeconds(1.0f);
+
+        drones = GameObject.FindGameObjectsWithTag("Drone");
+        Assert.AreEqual(2, drones.Length);
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerSpawnsWithTwoDronesOnRespawn()
+    {
+        LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
+        yield return LoadLevelAndWait(level);
+
+        DisableEnemySpawner();
+        var player = MakePlayerInvincible();
+        var brain = PlayerControlBrain.CreateInstance<PlayerControlBrain>();
+        brain.Shoot = false;
+        InjectBrainToActor<InputState>.Inject(player, brain);
+
+        player.GetComponent<Health>().Destroy();
+
+        GameObject[] drones = GameObject.FindGameObjectsWithTag("Drone");
+        for (int i = 0; i < drones.Length; i++)
+            GameObject.Destroy(drones[i]);
+
+        yield return new WaitForSeconds(12f);
+
+        GameOverMenu menu = GameObject.FindObjectOfType<GameOverMenu>();
+        menu.Retry();
+
+        yield return new WaitForSeconds(3f);
+        player = MakePlayerInvincible();
+
+        Assert.AreEqual(2, GameObject.FindGameObjectsWithTag("Drone").Length);
     }
 }
