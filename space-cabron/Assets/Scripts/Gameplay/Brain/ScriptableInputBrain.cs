@@ -14,9 +14,17 @@ namespace SpaceCabron.Gameplay
 
         public override InputState GetInputState(InputStateArgs args)
         {
-            InputAction movement = ActionAsset.actionMaps[0].FindAction("Movement");
-            InputAction shoot = ActionAsset.actionMaps[0].FindAction("Jump");
-            InputAction pause = ActionAsset.actionMaps[0].FindAction("Pause");
+            PlayerInput input = args.Input;
+            if (input == null)
+            {
+                input = args.Object?.GetComponent<PlayerInput>();
+                if (input == null)
+                    return new InputState{ Movement = Vector2.zero };
+            }
+
+            InputAction movement = input.currentActionMap.FindAction("Movement");
+            InputAction shoot = input.currentActionMap.FindAction("Jump");
+            InputAction pause = input.currentActionMap.FindAction("Pause");
             Vector2 m = movement.ReadValue<Vector2>();
             return new InputState
             {

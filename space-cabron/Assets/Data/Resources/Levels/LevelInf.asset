@@ -17,12 +17,12 @@ MonoBehaviour:
     Difficulty: 1
     ScoreThreshold: 5000
     EnemyBPMIncreaseValue: 1
-    EnemyBPMScoreModulusToIncrease: 25
+    EnemyBPMScoreModulusToIncrease: 50
     MaxEnemiesAlive: 10
     EnemyPool: {fileID: 11400000, guid: 79d139b667f80544588e318074a3c1af, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
-    BPM: 35
+    BPM: 10
     MaxBPM: 120
     MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
     ImprovisationConfiguration:

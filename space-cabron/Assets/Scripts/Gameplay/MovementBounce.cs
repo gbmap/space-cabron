@@ -17,21 +17,24 @@ namespace SpaceCabron.Gameplay
 
         private void BounceOnScreenBorder()
         {
+            if (Camera.main == null)
+                return;
+
             // Bounces on screen border
-            var screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-            if (transform.position.y > screenBounds.y)
+            var viewport = Camera.main.WorldToViewportPoint(transform.position);
+            if (viewport.x > 1f)
             {
                 transform.up = Vector3.Reflect(transform.up, Vector3.up);
             }
-            else if (transform.position.y < -screenBounds.y)
+            else if (viewport.y < 0f)
             {
                 transform.up = Vector3.Reflect(transform.up, Vector3.down);
             }
-            else if (transform.position.x > screenBounds.x)
+            else if (viewport.x < 0f)
             {
                 transform.up = Vector3.Reflect(transform.up, Vector3.right);
             }
-            else if (transform.position.x < -screenBounds.x)
+            else if (viewport.x > 1f)
             {
                 transform.up = Vector3.Reflect(transform.up, Vector3.left);
             }
