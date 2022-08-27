@@ -33,6 +33,10 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     public float UpgradeValue = 0f;
     float _lastUpgradeValue = 0f;
 
+    public EColor Color = EColor.Pink;
+    EColor _lastColor = EColor.Pink;
+
+
     public Vector2 Direction = Vector2.zero;
     Vector2 _lastDirection;
 
@@ -46,6 +50,7 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     int _upgradeId = Shader.PropertyToID("_Upgrade");
     int _isResistentId = Shader.PropertyToID("_IsResistant");
     int _directionId = Shader.PropertyToID("_Direction");
+    int _colorIndexId = Shader.PropertyToID("_ColorIndex");
 
     bool isUpgrade;
 
@@ -76,6 +81,7 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
         ShaderFloatCheck(_mat, ref _lastSpawnFactor, SpawnFactor, _spawnId);
         ShaderFloatCheck(_mat, ref _lastIsResistent, IsResistant ? 1f : 0f, _isResistentId);
         ShaderVectorCheck(_mat, ref _lastDirection, Vector2.Lerp(_lastDirection, Direction, Time.deltaTime*3f), _directionId);
+        ShaderEColorCheck(_mat, ref _lastColor, Color, _colorIndexId);
         if (isUpgrade)
             ShaderFloatCheck(_mat, ref _lastUpgradeValue, UpgradeValue, _upgradeId);
 
@@ -105,6 +111,13 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     {
         if (lastValue != currentValue)
             m.SetVector(id, currentValue);
+        lastValue = currentValue;
+    }
+
+    private void ShaderEColorCheck(Material m, ref EColor lastValue, EColor currentValue, int id)
+    {
+        if (lastValue != currentValue)
+            m.SetFloat(id, (int)currentValue);
         lastValue = currentValue;
     }
 }

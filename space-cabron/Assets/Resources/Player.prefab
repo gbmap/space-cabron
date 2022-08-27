@@ -219,7 +219,7 @@ MonoBehaviour:
   UnityEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601285683}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpaceCabron.Fire, Assembly-CSharp
         m_MethodName: Callback_OnNote
         m_Mode: 0
@@ -358,12 +358,12 @@ GameObject:
   - component: {fileID: 926212289}
   - component: {fileID: 926212290}
   - component: {fileID: 926212296}
-  - component: {fileID: 601285683}
   - component: {fileID: 601285684}
   - component: {fileID: 4134130950178418477}
   - component: {fileID: 7361229301681628336}
   - component: {fileID: 8960374101879715445}
   - component: {fileID: 5549334860834346758}
+  - component: {fileID: 4028480632272702308}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -539,19 +539,6 @@ MonoBehaviour:
     Prefab: {fileID: 2543485086492442931, guid: 97e6e0714bc62ff4883de3db5e575663,
       type: 3}
   GunData: {fileID: 11400000, guid: 1878086ff22555f4284509b0078b3b19, type: 2}
---- !u!114 &601285683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8875341672761901925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a92ac20a67d727448e7e69ac1b18764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnergyValue: {fileID: 11400000, guid: c2cafcdf10acbf24289db2fd74b72bf4, type: 2}
 --- !u!114 &601285684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,3 +639,16 @@ MonoBehaviour:
   m_DefaultActionMap: Default
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4028480632272702308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875341672761901925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fedcb3d547c1d70498f46874c913d801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnergyValue: {fileID: 11400000, guid: c2cafcdf10acbf24289db2fd74b72bf4, type: 2}

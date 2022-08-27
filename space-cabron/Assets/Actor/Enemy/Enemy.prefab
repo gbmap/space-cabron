@@ -123,7 +123,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3491617036780379380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfd7c184585af564bb90e2a350f8e34d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e616191902998349a48511fc13c8e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 2
@@ -205,6 +205,7 @@ MonoBehaviour:
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  Color: 0
   Direction: {x: 0, y: 0}
   IsResistant: 0
 --- !u!114 &4202326656841634815
@@ -249,6 +250,8 @@ MonoBehaviour:
     Weight: 2
   - obj: {fileID: 1104723741837955719, guid: 4bec959aadb1d0a41938f2656de262b4, type: 3}
     Weight: 1
+  ApplyRigidbodyForce: 0
+  Force: 2
 --- !u!114 &437546467635798816
 MonoBehaviour:
   m_ObjectHideFlags: 0

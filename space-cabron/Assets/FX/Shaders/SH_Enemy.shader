@@ -9,6 +9,7 @@
         [PerRendererData] _Direction ("Direction", Vector) = (0.0, 0.0, 0.0)
         _DirectionScale ("Direction Scale", Float) = 0.35
         _ResistantHueOffset ("Resistant Hue Offset", Float) = 0.0
+        [PerRendererData] _ColorIndex ("Color Index", Int) = 0
     }
     SubShader
     {
@@ -52,6 +53,12 @@
             float _ResistantHueOffset;
             fixed2 _Direction;
             float _DirectionScale;
+
+            float _Pink = 0.0;
+            float _Yellow = 0.08;
+            float _Green = 0.16;
+            float _Blue = 0.24;
+            int _ColorIndex = 0;
 
             v2f vert (appdata v)
             {
@@ -100,17 +107,23 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
+
+                const fixed4 basecolor = fixed4(230.0/255., 0., 84./255.,1.);
+
 				i.uv += spawnfxuv(i.uv, _Spawn)*_Spawn;
                 fixed4 col = tex2D(_MainTex, i.uv);
-				col.rgb += fixed3(1.0, 1.0, 1.0) * damage_factor();
-				col.rgb += spawnfx(i.uv) * _Spawn;
-				col.rgb *= col.a;
+                float a = col.a;
 
                 float3 hsv = rgb_to_hsv_no_clip(col.rgb);
-                hsv.r += _IsResistant*3.14159268*_ResistantHueOffset;
+                hsv.r += 3.14159268
+                        * step(length(col.rgb-basecolor.rgb), 0.7)
+                        * 0.0685
+                        *_ColorIndex;
                 col.rgb = hsv_to_rgb(hsv);
-
+				col.rgb += fixed3(1.0, 1.0, 1.0) * damage_factor();
+				col.rgb += spawnfx(i.uv) * _Spawn;
                 col.rgb *= i.color.rgb;
+				col.rgb *= a;
                 return col;
             }
             ENDCG
