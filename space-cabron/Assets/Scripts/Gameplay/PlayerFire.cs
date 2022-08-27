@@ -16,7 +16,11 @@ namespace SpaceCabron.Gameplay
             base.Update();
 
             if (LastInputState.Color != EColor.None)
+            {
                 currentColor = LastInputState.Color;
+                if (Mathf.Abs(Time.time - lastShotData.Time) < 0.1f)
+                    SetBulletColors(currentColor);
+            }
         }
 
         protected override void FireGun(OnNoteArgs args, bool special)

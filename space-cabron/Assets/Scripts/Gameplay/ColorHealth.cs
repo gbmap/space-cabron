@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ColorHealth : Health 
 {
-    private List<EColor> ColorLife = new List<EColor>(20);
+    public List<EColor> ColorLife = new List<EColor>(20);
 
     private EColor CurrentColor => ColorLife[Mathf.Clamp(CurrentHealth, 0, MaxHealth-1)];
 
@@ -16,11 +16,6 @@ public class ColorHealth : Health
     {
         base.Awake();
         materialController = GetComponentInChildren<EnemyMaterialController>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         for (int i = 0; i <= MaxHealth; i++)
         {
             ColorLife.Add((EColor)Random.Range(0, 4));
