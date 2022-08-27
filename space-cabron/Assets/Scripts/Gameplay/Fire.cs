@@ -28,7 +28,7 @@ namespace SpaceCabron.Gameplay
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
-        float _waitTime = 0.125f;
+        float _waitTime = 0.2f;
 
         float _energy;
         float Energy
@@ -45,9 +45,8 @@ namespace SpaceCabron.Gameplay
         float _energyLoss = 0.1f;
 
         OnNoteArgs lastNoteArgs;
-        protected ShotData lastShotData;
-
-        protected InputState LastInputState;
+        protected ShotData lastShotData = new ShotData{};
+        protected InputState LastInputState = new InputState{};
 
         TurntableBehaviour turntable;
         GunBehaviour gun;

@@ -53,12 +53,18 @@
             float _ResistantHueOffset;
             fixed2 _Direction;
             float _DirectionScale;
+            float _LastShotTime;
 
             float _Pink = 0.0;
             float _Yellow = 0.08;
             float _Green = 0.16;
             float _Blue = 0.24;
             int _ColorIndex = 0;
+
+            float last_shot_factor() 
+            {
+                return 1. - saturate(_Time.y - _LastShotTime);
+            }
 
             v2f vert (appdata v)
             {
@@ -123,6 +129,7 @@
 				col.rgb += fixed3(1.0, 1.0, 1.0) * damage_factor();
 				col.rgb += spawnfx(i.uv) * _Spawn;
                 col.rgb *= i.color.rgb;
+                col.rgb += fixed4(1.0, 1.0, 1.0, a) * last_shot_factor();
 				col.rgb *= a;
                 return col;
             }

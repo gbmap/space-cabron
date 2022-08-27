@@ -44,7 +44,7 @@ namespace Gmap.Gun
                 Quaternion shotRotation = GetBulletRotation(lastShot);
                 GameObject instance = InstantiateBullet(
                     shotRequest.Bullet.Prefab, 
-                    shotPosition + Vector3.left * 0.15f, 
+                    shotPosition, 
                     shotRotation
                 );
 
