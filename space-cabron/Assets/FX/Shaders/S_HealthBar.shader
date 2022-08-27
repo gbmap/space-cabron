@@ -7,14 +7,16 @@ Shader "Unlit/S_HealthBar"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+            Blend One OneMinusSrcAlpha
+        Tags { 
+            "RenderType"="Transparent" 
+            "Queue"="Transparent"
+        }
         LOD 100
 
         Pass
         {
             CGPROGRAM
-// // Upgrade NOTE: excluded shader from DX11, OpenGL ES 2.0 because it uses unsized arrays
-// #pragma exclude_renderers d3d11 gles
             #pragma vertex vert
             #pragma fragment frag
             // make fog work
@@ -39,7 +41,8 @@ Shader "Unlit/S_HealthBar"
             float4 _MainTex_ST;
 
             int _NumberOfColors;
-            float _ColorIndexes[5];
+            float _ColorIndexes[20];
+            int _CurrentHealth;
 
             v2f vert (appdata v)
             {
@@ -49,6 +52,17 @@ Shader "Unlit/S_HealthBar"
                 return o;
             }
 
+            float sdf_square(float empty_width, float2 uv)
+            {
+                fixed2 frame = fixed2(empty_width, empty_width);
+
+                fixed2 ff = step(uv, fixed2(1.0,1.0)-empty_width) 
+                          * step(empty_width, uv);
+                float a = min(ff.x,ff.y);
+                a = ff.x*ff.y;
+                return a;
+            }
+
             fixed4 frag (v2f i) : SV_Target
             {
                 const fixed4 basecolor = fixed4(230.0/255., 0., 84./255.,1.);
@@ -56,17 +70,24 @@ Shader "Unlit/S_HealthBar"
 
                 fixed3 hsv = rgb_to_hsv_no_clip(basecolor.rgb);
 
-                int index = (int)floor((1.-i.uv.y*.99f) * _NumberOfColors);
-                hsv.r += hue_offset * _ColorIndexes[index];
+                int index = (int)floor((1.-i.uv.y*.999f) * _NumberOfColors);
+                hsv.r += hue_offset * _ColorIndexes[(_NumberOfColors-(index+1))];
 
                 fixed3 rgb = hsv_to_rgb(hsv);
 
-                return fixed4(rgb.x, rgb.y, rgb.z, 1.0);
+                float x = i.uv.x;
+                float y = frac(i.uv.y * _NumberOfColors);
+                fixed2 uv_frame = fixed2(x, y);
 
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                return basecolor;
+                float frame = sdf_square(0.00, uv_frame) - sdf_square(0.2, uv_frame);
+                // rgb.rgb *= (1.-frame)*0.9;
+                rgb.rgb = lerp(rgb.rgb, rgb.rgb*0.35, ceil(frame));
+
+                float a = sdf_square(0.1, uv_frame);
+                a *= step(i.uv.y, ((float)_CurrentHealth)/_NumberOfColors);
+                rgb.rgb *= a;
+
+                return fixed4(rgb.x, rgb.y, rgb.z, a);
             }
             ENDCG
         }

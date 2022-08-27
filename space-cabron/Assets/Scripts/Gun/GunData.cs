@@ -48,18 +48,18 @@ namespace Gmap.Gun
                     shotRotation
                 );
 
-                GameObject instance2 = InstantiateBullet(
-                    shotRequest.Bullet.Prefab, 
-                    shotPosition + Vector3.right * 0.15f, 
-                    shotRotation
-                );
+                // GameObject instance2 = InstantiateBullet(
+                //     shotRequest.Bullet.Prefab, 
+                //     shotPosition + Vector3.right * 0.15f, 
+                //     shotRotation
+                // );
 
                 instance.transform.localScale *= shotRequest.BulletScale;
-                instance2.transform.localScale *= shotRequest.BulletScale;
+                // instance2.transform.localScale *= shotRequest.BulletScale;
 
                 return new ShotData
                 {
-                    BulletInstances = new GameObject[]{instance, instance2},
+                    BulletInstances = new GameObject[]{instance},
                     Position = shotPosition,
                     Time = Time.time,
                 };

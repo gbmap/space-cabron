@@ -120,7 +120,7 @@ namespace SpaceCabron.Gameplay
                 }
                 yield return null;
             }
-            FireGun(lastNoteArgs, false);
+            // FireGun(lastNoteArgs, false);
         }
 
         IEnumerator DisableGun(float time)
