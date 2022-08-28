@@ -256,6 +256,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  UnityEventBar:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5571610043482372228}
+        m_TargetAssemblyTypeName: Gmap.UpdateBackgroundShaderGlobalVariables, Assembly-CSharp
+        m_MethodName: OnBar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   KeepNotePlaying: 0
   NoteTime: 0.1
 --- !u!114 &655430716
@@ -364,6 +379,7 @@ GameObject:
   - component: {fileID: 8960374101879715445}
   - component: {fileID: 5549334860834346758}
   - component: {fileID: 4028480632272702308}
+  - component: {fileID: 5571610043482372228}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -653,3 +669,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnergyValue: {fileID: 11400000, guid: c2cafcdf10acbf24289db2fd74b72bf4, type: 2}
+--- !u!114 &5571610043482372228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875341672761901925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ccc5c6491c8360489c0efd2ab65c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

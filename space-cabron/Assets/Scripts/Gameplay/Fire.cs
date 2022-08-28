@@ -28,7 +28,7 @@ namespace SpaceCabron.Gameplay
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
-        float _waitTime = 0.2f;
+        float _waitTime = 0.3f;
 
         float _energy;
         float Energy
@@ -89,15 +89,8 @@ namespace SpaceCabron.Gameplay
                 return;
 
             LastInputState = Brain.GetInputState(new InputStateArgs{Object=gameObject});
-            if (LastInputState.Shoot && waitingForPress == null)
-            {
-                Energy -= _energyLoss;
-                if (Energy <= 0)
-                {
-                    StartCoroutine(DisableGun(3f));
-                }
-            }
-        
+            if (LastInputState.Shoot)
+                _lastPress = Time.time;
             Energy = Mathf.Clamp01(Energy + Time.deltaTime*0.1f);
         }
 
@@ -113,13 +106,11 @@ namespace SpaceCabron.Gameplay
                 timeWaited += Time.deltaTime;
                 if (LastInputState.Shoot)
                 {
-                    Energy += _energyLoss * 1f/3f;
                     FireGun(lastNoteArgs, true);
                     yield break;
                 }
                 yield return null;
             }
-            // FireGun(lastNoteArgs, false);
         }
 
         IEnumerator DisableGun(float time)

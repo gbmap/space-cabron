@@ -9,10 +9,13 @@ namespace Gmap.CosmicMusicUtensil
 {
     public class OnNoteArgs
     {
+        public Turntable Turntable { get; set; }
         public Note Note { get; set; }
         public float Duration { get; set; }
         public float HoldTime { get; set; } = 0.1f;
     }
+
+    public class OnBarArgs : OnNoteArgs {}
 
     public class OnImprovisationArgs
     {
@@ -34,6 +37,7 @@ namespace Gmap.CosmicMusicUtensil
         void ApplyImprovisation(Improvisation improvisation, bool permanent);
         void ApplyImprovisation(Improvisation improvisation, int time);
         public System.Action<OnNoteArgs> OnNote { get; set; }
+        public System.Action<OnBarArgs> OnBar { get; set; }
         public System.Action<OnImprovisationArgs> OnImprovisationAdded { get; set; }
         public System.Action<OnImprovisationArgs> OnImprovisationRemoved { get; set; }
     }
@@ -60,7 +64,8 @@ namespace Gmap.CosmicMusicUtensil
 
         int currentBarIndex;
         public int BarIndex => currentBarIndex;
-        private Note LastNote { get; set; } 
+        public Note LastNote { get; private set; } 
+        public float LastNoteTime { get; private set; }
 
         float noteTime = 0.1f;
 
@@ -71,6 +76,7 @@ namespace Gmap.CosmicMusicUtensil
         public Improviser Improviser { get { return improviser; } }
 
         public Action<OnNoteArgs> OnNote { get; set; }
+        public Action<OnBarArgs> OnBar { get; set; }
         public Action<OnImprovisationArgs> OnImprovisationAdded { get; set; }
         public Action<OnImprovisationArgs> OnImprovisationRemoved { get; set; }
 
@@ -79,7 +85,8 @@ namespace Gmap.CosmicMusicUtensil
         { 
             get { return maxBPM; } 
             set { maxBPM = value; }
-        } 
+        }
+
 
         Queue<Note> noteQueue = new Queue<Note>(50);
 
@@ -132,7 +139,7 @@ namespace Gmap.CosmicMusicUtensil
         private bool LastNoteFinishedPlaying()
         {
             return LastNote == null 
-                || Time.time % LastNote.GetDuration(BPS) <= Time.deltaTime;
+                || (Time.time - LastNoteTime) >= LastNote.GetDuration(BPS);
         }
 
         private bool NoNotesToPlay()
@@ -145,11 +152,13 @@ namespace Gmap.CosmicMusicUtensil
             float duration = note.GetDuration(BPS);
             OnNote?.Invoke(new OnNoteArgs
             {
+                Turntable = this,
                 Note = note,
                 HoldTime = Mathf.Max(0.1f, Mathf.Lerp(noteTime, noteTime*duration, HoldNote?1f:0f)),
                 Duration = duration
             });
             LastNote = note;
+            LastNoteTime = Time.time;
         }
 
         public void SetMelody(Melody m)
@@ -161,7 +170,14 @@ namespace Gmap.CosmicMusicUtensil
         {
             currentNoteIndex = (currentNoteIndex + 1) % melody.Length;
             if (currentNoteIndex == 0)
+            {
                 currentBarIndex++;
+                OnBar?.Invoke(new OnBarArgs
+                {
+                    Turntable = this,
+                    Note = melody.GetNote(0)
+                });
+            }
         }
 
         public static float BPMToBPS(int bpm)

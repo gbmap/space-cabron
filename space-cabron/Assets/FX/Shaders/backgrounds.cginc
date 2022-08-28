@@ -39,6 +39,7 @@ struct v2f
 {
 	float2 uv : TEXCOORD0;
 	float4 vertex : SV_POSITION;
+	float4 worldPos : TEXCOORD1;
 };
 
 float _Beat;
@@ -93,9 +94,6 @@ float3 hsv_to_rgb(float3 HSV)
 
 	return (RGB);
 }
-
-
-
 
 float beat_curve()
 {
