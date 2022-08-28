@@ -18,7 +18,7 @@ MonoBehaviour:
     ScoreThreshold: 2000
     EnemyBPMIncreaseValue: 5
     EnemyBPMScoreModulusToIncrease: 100
-    MaxEnemiesAlive: 10
+    MaxEnemiesAlive: 3
     EnemyPool: {fileID: 11400000, guid: 2ab06b9974ec9704988c679512c05af5, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:

@@ -50,10 +50,11 @@
 
             }
 
-            float line_time(float time, float2 uv)
+            float line_time(float time, float2 uv, float line_width=0.02)
             {
                 float l = (uv.y-0.25)-max(0,(time-_EngineTime));
-                l = smoothstep(-0.02, 0.00, l) - smoothstep(0.00, 0.02, l);
+                l = smoothstep(-line_width, -line_width+0.01, l) 
+                  - smoothstep(line_width-0.01, line_width, l);
                 return l;
             }
 
@@ -84,13 +85,13 @@
                 float l = 0.;
                 for (int i = 0; i < _NoteCount; i++)
                 {
-                    l = max(l, line_time(_NoteTimes[i], screen));
+                    l = max(l, line_time(_NoteTimes[i], screen, 0.01));
                     // l = max(l, line_time(_LastNoteTimes[i], screen));
                     // l = max(l, line_time(_NextNoteTimes[i], screen));
                 }
 
 
-                clr.rgb += fixed4(1.,1.,1.,1.)*l*.25;
+                clr.rgb += fixed4(1.,1.,1.,1.)*l*.15;
 
 
                 return clr;
