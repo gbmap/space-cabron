@@ -72,32 +72,9 @@
 
                 float z = v.vertex.z;
 
-                // float m = min(0.5, length(_Direction));
-                // _Direction = normalize(_Direction)*m;
-
                 float xscale = 1 + dot(v.vertex.xy, float2(0., _Direction.y))*-_DirectionScale;
                 float yscale = 1 + dot(v.vertex.xy, float2(_Direction.x, 0.))*-_DirectionScale;
                 v.vertex.xy *= xscale*yscale;
-
-
-                // float angleX = -_Direction.x;
-                // float4x4 directionRotY = float4x4(
-                //     cos(angleX), 0., sin(angleX), 0.,
-                //     0., 1., 0., 0.,
-                //     -sin(angleX), 0., cos(angleX), 0.,
-                //     0., 0., 0., 1.
-                // );
-
-                // float angleY = -_Direction.y;
-                // float4x4 directionRotX = float4x4(
-                //     1.0, 0., 0., 0.,
-                //     0., cos(angleY), -sin(angleY), 0.,
-                //     0., sin(angleY), cos(angleY), 0.,
-                //     0., 0., 0., 1.
-                // );
-
-                // v.vertex = mul(mul(directionRotY, directionRotX), v.vertex);
-                // v.vertex.z = z;
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);

@@ -1,11 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using Gmap.Gameplay;
+using Gmap.Utils;
 using SpaceCabron.Gameplay;
 using UnityEngine;
 
 public class ColorHealth : Health 
 {
+    [System.Serializable]
+    public class ColorHealthItem
+    {
+        public EColor Color;
+        public int Weight;
+    }
+
+    [Header("Life Configuration")]
+    public List<ColorHealthItem> LifeConfiguration;
+
     public List<EColor> ColorLife = new List<EColor>(20);
 
     private EColor PreviousColor => ColorLife[Mathf.Clamp(CurrentHealth, 0, MaxHealth-1)];
@@ -22,10 +33,13 @@ public class ColorHealth : Health
     {
         base.Awake();
         materialController = GetComponentInChildren<EnemyMaterialController>();
-        for (int i = 0; i < MaxHealth; i++)
-        {
-            ColorLife.Add((EColor)Random.Range(0, 4));
-        }
+
+        ShuffleBag<EColor> bag = new ShuffleBag<EColor>();
+        foreach (var healthItem in LifeConfiguration)
+            bag.Add(healthItem.Color, healthItem.Weight);
+
+        ColorLife.AddRange(bag.Next(MaxHealth));
+
         colorIndex = MaxHealth-1;
         materialController.Color = CurrentColor;
     }

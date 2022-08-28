@@ -11,6 +11,14 @@ namespace SpaceCabron.Gameplay
     {
         EColor currentColor = EColor.Pink;
 
+        EnemyMaterialController materialController;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            materialController = GetComponent<EnemyMaterialController>();
+        }
+
         protected override void Update()
         {
             base.Update();
@@ -38,6 +46,9 @@ namespace SpaceCabron.Gameplay
 
                 bullet.GetComponent<ColorBullet>().Color = color;
             }
+
+            if (materialController != null)
+                materialController.Color = color;
         }
     }
 }

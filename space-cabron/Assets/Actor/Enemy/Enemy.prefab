@@ -244,6 +244,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  LifeConfiguration:
+  - Color: 3
+    Weight: 4
+  - Color: 0
+    Weight: 1
+  - Color: 1
+    Weight: 1
+  - Color: 2
+    Weight: 1
   ColorLife: 
 --- !u!95 &8742632640915627268
 Animator:
@@ -306,6 +315,7 @@ MonoBehaviour:
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  LastShotTime: 0
   Color: 0
   Direction: {x: 0, y: 0}
   IsResistant: 0

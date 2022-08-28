@@ -51,7 +51,7 @@ namespace SpaceCabron.Gameplay
         TurntableBehaviour turntable;
         GunBehaviour gun;
 
-        void Awake()
+        protected virtual void Awake()
         {
             gun = GetComponentInChildren<GunBehaviour>();
 
