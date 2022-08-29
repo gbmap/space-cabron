@@ -48,12 +48,13 @@
                     clr = bg03(i, uv);
                 else if (_Background == 3)
                     clr = bg04(i, uv);
+                else if (_Background == 4)
+                    clr = bg05(i, uv);
 
                 fixed3 hsv = rgb_to_hsv_no_clip(clr);
-                hsv.g = 0.625;
-                hsv.b = .125*beat_curve();
+                hsv.g *= 0.725;
+                // hsv.b = .125 * beat_curve();
                 clr.rgb = hsv_to_rgb(hsv);
-
                 return clr;
             }
             ENDCG

@@ -123,5 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 3596539818960352333, guid: fa6b981ef003a724182913993f74abad, type: 3}
+  UsePool: 0
   Cooldown: 15
   _angle: 180
+  randomizeAngle: 0
+  angleRange: 60
