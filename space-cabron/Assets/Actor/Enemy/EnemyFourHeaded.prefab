@@ -275,6 +275,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyFourHeaded
       objectReference: {fileID: 0}
+    - target: {fileID: 3866330673829711138, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866330673829711138, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279716415127280445, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9fea7567086197d42abe095894d9dcff,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a158df808659c1c40a605ae3ab61debf, type: 3}
 --- !u!4 &116247903713523934 stripped
