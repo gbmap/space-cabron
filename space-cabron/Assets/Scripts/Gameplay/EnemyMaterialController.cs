@@ -62,6 +62,8 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     {
         renderer = GetComponent<Renderer>();
         health = GetComponentInChildren<Health>();
+        if (!health)
+            health = GetComponentInParent<Health>();
         if (health)
         {
             health.OnTakenDamage += () => DamageFactor = 1f;
