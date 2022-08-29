@@ -1,5 +1,4 @@
 ﻿using Gmap.Gameplay;
-using Managers;
 using SpaceCabron.Gameplay;
 using System.Collections;
 using UnityEngine;
@@ -9,12 +8,15 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
     public GameObject Bullet;
     public bool UsePool = true;
     public float Cooldown = 2f;
+    public float TimeOffset = 0f;
     float _lastShot;
 
     static ObjectPool.GameObjectPool _enemyBulletPool;
 
     Animator _anim;
     int _animShotId;
+
+    Coroutine shootCoroutine;
 
     public bool CanFire
     {
@@ -28,10 +30,18 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
         set => Brain = value; 
     }
 
+    private IEnumerator CShoot()
+    {
+        // yield return new WaitForSeconds(TimeOffset);
+        yield return ShootCoroutine();
+        shootCoroutine = null;
+    }
+
     public abstract IEnumerator ShootCoroutine();
 
     void Awake()
     {
+        _lastShot = -TimeOffset;
         if (_enemyBulletPool == null && UsePool)
         {
             _enemyBulletPool = new ObjectPool.GameObjectPool(Bullet);
@@ -45,13 +55,8 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
     private void Update()
     {
         bool isShooting = Brain == null ? true : Brain.GetInputState(new InputStateArgs {Object=gameObject}).Shoot;
-        if (CanFire && isShooting)
-            StartCoroutine(ShootCoroutine());
-    }
-
-    public void Fire()
-    {
-        StartCoroutine(ShootCoroutine());
+        if (CanFire && isShooting && shootCoroutine == null)
+            shootCoroutine = StartCoroutine(CShoot());
     }
 
     public GameObject Shoot(Vector3 pos, Quaternion rot)

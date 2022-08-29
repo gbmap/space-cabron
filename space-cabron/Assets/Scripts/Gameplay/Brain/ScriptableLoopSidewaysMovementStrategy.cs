@@ -6,7 +6,19 @@ namespace SpaceCabron.Gameplay
     [CreateAssetMenu(menuName="Space Cabrón/Brain/Movement Strategy/Loop Sideways")]
     public class ScriptableLoopSidewaysMovementStrategy : ScriptableMovementStrategy2D
     {
+        static GameObject player;
+        static GameObject Player
+        {
+            get
+            {
+                if (player == null)
+                    player = GameObject.FindGameObjectWithTag("Player");
+                return player;
+            }
+        }
+
         public float SteerSpeed = 1f;
+        public float Width = 8f;
         public override Vector2 GetDirection(MovementStrategyArgs args)
         {
             Vector2 pos = args.Object.transform.position;
@@ -32,8 +44,13 @@ namespace SpaceCabron.Gameplay
             if (Camera.main == null)
                 return Vector2.zero; 
 
-            Vector2 a = Camera.main.ViewportToWorldPoint(new Vector3(0.15f, 0.85f, 0));
-            Vector2 b = Camera.main.ViewportToWorldPoint(new Vector3(0.85f, 0.85f, 0));
+            Vector3 up = Camera.main.ViewportToWorldPoint(new Vector3(0.0f, 0.75f, 0f));
+            Vector2 a = Camera.main.transform.position 
+                      + Vector3.left*Width/2f
+                      + Vector3.up*(up.y-Camera.main.transform.position.y);
+            Vector2 b = Camera.main.transform.position 
+                      + Vector3.right*Width/2f
+                      + Vector3.up*(up.y-Camera.main.transform.position.y);
             if (vel.x < 0f)
             {
                 if (pos.x < a.x)

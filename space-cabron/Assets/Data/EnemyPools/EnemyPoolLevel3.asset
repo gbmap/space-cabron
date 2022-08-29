@@ -14,11 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RandomType: 1
   Items:
-  - Value: {fileID: 6618076858268308302, guid: b8b77dd71b0dfe84ebb628b71066734c, type: 3}
-    Weight: 4
-  - Value: {fileID: 1845278815985660862, guid: 4bad73beb5bbd2f42b06c08eb64605ce, type: 3}
-    Weight: 3
-  - Value: {fileID: 5846109728729050079, guid: 9b1de30e5d9b04945b2549048afa8450, type: 3}
-    Weight: 2
-  - Value: {fileID: 3920777516458841108, guid: 08ba2457e9012d54eba91d053daec8fb, type: 3}
+  - Value: {fileID: 717592275119140011, guid: 2a4b98763dec3a240aee79b1382c0187, type: 3}
+    Weight: 1
+  - Value: {fileID: 6093116438882789931, guid: aca726e5f8f931f41b7437891bffa8c1, type: 3}
+    Weight: 1
+  - Value: {fileID: 2164155370929651503, guid: eeca75515e853b747a9dde54a9698f63, type: 3}
     Weight: 2

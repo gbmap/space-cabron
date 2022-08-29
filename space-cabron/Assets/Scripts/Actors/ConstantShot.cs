@@ -12,13 +12,16 @@ public class ConstantShot : ShotPattern
 
     [SerializeField]
     float angleRange = 60f;
+
+
+    public bool Relative = false;
     
     public virtual float Angle { get { return _angle; } }
-    
 
     public override IEnumerator ShootCoroutine()
     {
-        float a = transform.localRotation.eulerAngles.z 
+        float a = Relative?transform.rotation.eulerAngles.z:0f
+                + transform.localRotation.eulerAngles.z 
                 + Angle
                 + Random.Range(-angleRange, angleRange) 
                 * (randomizeAngle ? 1f : 0);

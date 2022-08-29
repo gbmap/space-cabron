@@ -60,10 +60,11 @@
             float _Green = 0.16;
             float _Blue = 0.24;
             int _ColorIndex = 0;
+            float _EngineTime;
 
             float last_shot_factor() 
             {
-                return 1. - saturate(_Time.y - _LastShotTime);
+                return 1. - saturate(_EngineTime - _LastShotTime);
             }
 
             v2f vert (appdata v)

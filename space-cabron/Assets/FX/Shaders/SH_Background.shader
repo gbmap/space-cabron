@@ -86,12 +86,12 @@
                 for (int i = 0; i < _NoteCount; i++)
                 {
                     l = max(l, line_time(_NoteTimes[i], screen, 0.01));
-                    // l = max(l, line_time(_LastNoteTimes[i], screen));
-                    // l = max(l, line_time(_NextNoteTimes[i], screen));
+                    // l = max(l, line_time(_LastNoteTimes[i], screen, 0.01));
+                    l = max(l, line_time(_NextNoteTimes[i], screen, 0.01));
                 }
 
 
-                clr.rgb += fixed4(1.,1.,1.,1.)*l*.15;
+                clr.rgb += fixed4(1.,1.,1.,1.)*l*.1;
 
 
                 return clr;

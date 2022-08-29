@@ -246,7 +246,7 @@ MonoBehaviour:
         m_CallState: 2
   LifeConfiguration:
   - Color: 3
-    Weight: 4
+    Weight: 6
   - Color: 0
     Weight: 1
   - Color: 1

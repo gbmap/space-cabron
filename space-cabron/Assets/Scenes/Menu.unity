@@ -2905,12 +2905,12 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca61221b0109df8488a19abf6cdbe458,
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 923946505e2a3534b959d2feb1bff23f,
     type: 3}
   m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: -2589318500650086497, guid: ca61221b0109df8488a19abf6cdbe458,
+  m_MoveAction: {fileID: -7126060555331670749, guid: 923946505e2a3534b959d2feb1bff23f,
     type: 3}
-  m_SubmitAction: {fileID: -5274279599274819742, guid: ca61221b0109df8488a19abf6cdbe458,
+  m_SubmitAction: {fileID: -8460247953469015087, guid: 923946505e2a3534b959d2feb1bff23f,
     type: 3}
   m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: 0}

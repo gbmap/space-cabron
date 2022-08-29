@@ -137,6 +137,7 @@ namespace SpaceCabron.Gameplay
             }
 
             waitingForPress = null;
+            _lastPress = -float.NegativeInfinity;
         }
     }
 }

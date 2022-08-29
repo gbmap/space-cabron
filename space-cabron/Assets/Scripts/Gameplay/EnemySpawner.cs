@@ -18,7 +18,7 @@ namespace Gmap
         private int maxEnemiesAlive;
         public int MaxEnemiesAlive 
         { 
-            get { return maxEnemiesAlive + GameObject.FindGameObjectsWithTag("Drone").Length/2; } 
+            get { return maxEnemiesAlive + GameObject.FindGameObjectsWithTag("Drone").Length/3; } 
             private set { maxEnemiesAlive = value; } 
         }
 
@@ -34,7 +34,7 @@ namespace Gmap
         void Awake()
         {
             EnemiesAlive = 0;
-            MaxEnemiesAlive = 10;
+            MaxEnemiesAlive = 5;
         }
 
         void OnEnable()
