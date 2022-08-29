@@ -34,6 +34,7 @@ namespace Gmap.Gameplay
             Note n = Melody.GetNote(noteIndex++);
             OnEnemyHit?.Invoke(new OnNoteArgs
             {
+                Turntable = null,
                 Note = n,
                 HoldTime = 0.7f
             });

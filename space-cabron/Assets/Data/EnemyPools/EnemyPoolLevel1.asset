@@ -15,7 +15,7 @@ MonoBehaviour:
   RandomType: 1
   Items:
   - Value: {fileID: 6618076858268308302, guid: b8b77dd71b0dfe84ebb628b71066734c, type: 3}
-    Weight: 3
+    Weight: 10
   - Value: {fileID: 1845278815985660862, guid: 4bad73beb5bbd2f42b06c08eb64605ce, type: 3}
     Weight: 2
   - Value: {fileID: 5846109728729050079, guid: 9b1de30e5d9b04945b2549048afa8450, type: 3}

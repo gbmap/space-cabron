@@ -11,6 +11,7 @@ namespace Gmap.CosmicMusicUtensil
         public IntBusReference BPMReference;
         public ScriptableCompositeBar Bar;
         public UnityEvent<OnNoteArgs> UnityEvent;
+        public UnityEvent<OnBarArgs> UnityEventBar;
 
         [Header("Note Time")]
         public bool KeepNotePlaying;
@@ -45,6 +46,12 @@ namespace Gmap.CosmicMusicUtensil
             set { Turntable.OnNote = value; }
         }
 
+        public Action<OnBarArgs> OnBar
+        {
+            get => Turntable.OnBar;
+            set => Turntable.OnBar = value;
+        }
+
         public Action<OnImprovisationArgs> OnImprovisationAdded
         {
             get { return Turntable.OnImprovisationAdded; }
@@ -68,6 +75,11 @@ namespace Gmap.CosmicMusicUtensil
             BPMReference.Update();
         }
 
+        void Start()
+        {
+            Turntable.OnBar += Callback_OnBar;
+        }
+
         void Update()
         {
             Turntable.Update(OnNotePlayed);
@@ -81,6 +93,11 @@ namespace Gmap.CosmicMusicUtensil
         void OnNotePlayed(OnNoteArgs note)
         {
             UnityEvent.Invoke(note);
+        }
+
+        void Callback_OnBar(OnBarArgs bar)
+        {
+            UnityEventBar.Invoke(bar);
         }
 
         public void SetBPM(int bpm)

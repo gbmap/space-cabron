@@ -14,7 +14,14 @@ namespace Gmap
     {
         public GameObjectPool EnemyPool;
         public GameObjectPool BossPool;
-        public int MaxEnemiesAlive { get; private set; }
+
+        private int maxEnemiesAlive;
+        public int MaxEnemiesAlive 
+        { 
+            get { return maxEnemiesAlive + GameObject.FindGameObjectsWithTag("Drone").Length/3; } 
+            private set { maxEnemiesAlive = value; } 
+        }
+
         public int EnemiesAlive { get; private set; }
 
         public bool shouldSpawn = false;
@@ -27,7 +34,7 @@ namespace Gmap
         void Awake()
         {
             EnemiesAlive = 0;
-            MaxEnemiesAlive = 10;
+            MaxEnemiesAlive = 5;
         }
 
         void OnEnable()

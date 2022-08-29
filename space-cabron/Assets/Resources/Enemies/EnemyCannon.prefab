@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: Value
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 742425838784812704, guid: a158df808659c1c40a605ae3ab61debf,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: m_RootOrder
@@ -135,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
+  UsePool: 1
   Cooldown: 3
   Bullets: 7
   CooldownPerBullet: 0.05

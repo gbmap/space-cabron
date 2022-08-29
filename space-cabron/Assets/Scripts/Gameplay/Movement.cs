@@ -8,6 +8,7 @@ namespace SpaceCabron.Gameplay
         public Vector2 Movement { get; set; }
         public bool Shoot { get; set; }
         public bool Pause { get; set; }
+        public EColor Color { get; set; }
     }
 
     public class Movement : MonoBehaviour, IBrainHolder<InputState>

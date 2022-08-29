@@ -23,8 +23,21 @@
                 float2 uv : TEXCOORD0;
             };
 
+            struct fragmentData
+            {
+                float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _NextNoteTime;
+
+            int _NoteCount;
+            float _EngineTime;
+            float _NoteTimes[100];
+            float _LastNoteTimes[100];
+            float _NextNoteTimes[100];
             const int _Background;
 
             v2f vert (appdata v)
@@ -32,12 +45,24 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.worldPos = ComputeScreenPos(o.vertex);
                 return o;
+
+            }
+
+            float line_time(float time, float2 uv, float line_width=0.02)
+            {
+                float l = (uv.y-0.25)-max(0,(time-_EngineTime));
+                l = smoothstep(-line_width, -line_width+0.01, l) 
+                  - smoothstep(line_width-0.01, line_width, l);
+                return l;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
 				fixed2 uv = i.uv;
+                fixed2 screen = i.worldPos.xy/i.worldPos.w;
+                screen.y*=2.;
 
                 fixed4 clr = fixed4(0., 0., 0., 1.);
                 if (_Background == 0)
@@ -51,10 +76,24 @@
                 else if (_Background == 4)
                     clr = bg05(i, uv);
 
+
                 fixed3 hsv = rgb_to_hsv_no_clip(clr);
                 hsv.g *= 0.725;
-                // hsv.b = .125 * beat_curve();
                 clr.rgb = hsv_to_rgb(hsv);
+
+                clr.rgb *= 1.-line_time(_EngineTime, screen);
+                float l = 0.;
+                for (int i = 0; i < _NoteCount; i++)
+                {
+                    l = max(l, line_time(_NoteTimes[i], screen, 0.01));
+                    // l = max(l, line_time(_LastNoteTimes[i], screen, 0.01));
+                    l = max(l, line_time(_NextNoteTimes[i], screen, 0.01));
+                }
+
+
+                clr.rgb += fixed4(1.,1.,1.,1.)*l*.1;
+
+
                 return clr;
             }
             ENDCG

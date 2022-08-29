@@ -7,7 +7,7 @@ using Gmap.Gun;
 using SpaceCabron.Gameplay;
 using UnityEngine;
 
-namespace Gmap
+namespace SpaceCabron.Gameplay
 {
     public class Fire : MonoBehaviour, IBrainHolder<InputState>
     {
@@ -28,7 +28,7 @@ namespace Gmap
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
-        float _waitTime = 0.125f;
+        float _waitTime = 0.3f;
 
         float _energy;
         float Energy
@@ -44,11 +44,14 @@ namespace Gmap
         }
         float _energyLoss = 0.1f;
 
-        OnNoteArgs _lastNoteArgs;
+        OnNoteArgs lastNoteArgs;
+        protected ShotData lastShotData = new ShotData{};
+        protected InputState LastInputState = new InputState{};
+
         TurntableBehaviour turntable;
         GunBehaviour gun;
 
-        void Awake()
+        protected virtual void Awake()
         {
             gun = GetComponentInChildren<GunBehaviour>();
 
@@ -66,7 +69,7 @@ namespace Gmap
             if (!_canFire)
                 return;
 
-            _lastNoteArgs = n;
+            lastNoteArgs = n;
             bool special = Mathf.Abs(Time.time - _lastPress) < _waitTime;
             if (special)
             {
@@ -80,20 +83,14 @@ namespace Gmap
             LastNote = Time.time;
         }
 
-        void Update()
+        protected virtual void Update()
         {
             if (Brain == null)
                 return;
 
-            if (Brain.GetInputState(new InputStateArgs{Object=gameObject}).Shoot && waitingForPress == null)
-            {
-                Energy -= _energyLoss;
-                if (Energy <= 0)
-                {
-                    StartCoroutine(DisableGun(3f));
-                }
-            }
-        
+            LastInputState = Brain.GetInputState(new InputStateArgs{Object=gameObject});
+            if (LastInputState.Shoot)
+                _lastPress = Time.time;
             Energy = Mathf.Clamp01(Energy + Time.deltaTime*0.1f);
         }
 
@@ -107,15 +104,13 @@ namespace Gmap
             while (timeWaited < _waitTime)
             {
                 timeWaited += Time.deltaTime;
-                if (Brain.GetInputState(new InputStateArgs{Object=gameObject}).Shoot)
+                if (LastInputState.Shoot)
                 {
-                    Energy += _energyLoss * 1f/3f;
-                    FireGun(_lastNoteArgs, true);
+                    FireGun(lastNoteArgs, true);
                     yield break;
                 }
                 yield return null;
             }
-            FireGun(_lastNoteArgs, false);
         }
 
         IEnumerator DisableGun(float time)
@@ -125,16 +120,16 @@ namespace Gmap
             _canFire = true;
         }
 
-        private void FireGun(OnNoteArgs args, bool special)
+        protected virtual void FireGun(OnNoteArgs args, bool special)
         {
             _isSpecial = special;
-            ShotData lastData = gun.Fire(new FireRequest
+            lastShotData = gun.Fire(new FireRequest
             {
                 BulletScale = Mathf.Max(0.01f, args.Duration*5f),
                 Special = special
             });
 
-            foreach (var instance in lastData.BulletInstances)
+            foreach (var instance in lastShotData.BulletInstances)
             {
                 Bullet bullet = instance.GetComponent<Bullet>();
                 if (bullet != null)
@@ -142,6 +137,7 @@ namespace Gmap
             }
 
             waitingForPress = null;
+            _lastPress = -float.NegativeInfinity;
         }
     }
 }

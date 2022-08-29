@@ -72,7 +72,7 @@ namespace Gmap.CosmicMusicUtensil
         public Melody GenerateMelody()
         {
             Debug.Log($"Generating melody with config:\n\tRoot: {root}\n\tScale: {scale}\n\tNumber of notes: {numberOfNotes}\n\tOctave {Octave}");
-            int[] intervals = new int[] { 2, 4, 8, 16 };
+            int[] intervals = new int[] { 4, 8, 16 };
             Note[] noteArray = new Note[numberOfNotes];
             for (int i = 0; i< noteArray.Length; i++)
             {

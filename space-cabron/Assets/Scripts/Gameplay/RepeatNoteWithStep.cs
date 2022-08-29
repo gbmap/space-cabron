@@ -50,6 +50,7 @@ namespace Gmap.CosmicMusicUtensil
             {
                 OnNoteArgs args2 = new OnNoteArgs
                 {
+                    Turntable = args.Turntable,
                     Duration = args.Duration,
                     HoldTime = args.HoldTime,
                     Note = Note.TransposeWrapped(args.Note, Steps)

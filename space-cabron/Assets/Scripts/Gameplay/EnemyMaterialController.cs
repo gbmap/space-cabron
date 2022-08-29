@@ -33,6 +33,13 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     public float UpgradeValue = 0f;
     float _lastUpgradeValue = 0f;
 
+    public float LastShotTime = 0f;
+    float _lastShotTime = 0f;
+
+    public EColor Color = EColor.Pink;
+    EColor _lastColor = EColor.Pink;
+
+
     public Vector2 Direction = Vector2.zero;
     Vector2 _lastDirection;
 
@@ -46,6 +53,8 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     int _upgradeId = Shader.PropertyToID("_Upgrade");
     int _isResistentId = Shader.PropertyToID("_IsResistant");
     int _directionId = Shader.PropertyToID("_Direction");
+    int _colorIndexId = Shader.PropertyToID("_ColorIndex");
+    int _lastShotTimeId = Shader.PropertyToID("_LastShotTime");
 
     bool isUpgrade;
 
@@ -53,6 +62,8 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     {
         renderer = GetComponent<Renderer>();
         health = GetComponentInChildren<Health>();
+        if (!health)
+            health = GetComponentInParent<Health>();
         if (health)
         {
             health.OnTakenDamage += () => DamageFactor = 1f;
@@ -75,7 +86,9 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
         ShaderFloatCheck(_mat, ref _lastDamageFactor, DamageFactor, _damageId);
         ShaderFloatCheck(_mat, ref _lastSpawnFactor, SpawnFactor, _spawnId);
         ShaderFloatCheck(_mat, ref _lastIsResistent, IsResistant ? 1f : 0f, _isResistentId);
+        ShaderFloatCheck(_mat, ref _lastShotTime, LastShotTime, _lastShotTimeId);
         ShaderVectorCheck(_mat, ref _lastDirection, Vector2.Lerp(_lastDirection, Direction, Time.deltaTime*3f), _directionId);
+        ShaderEColorCheck(_mat, ref _lastColor, Color, _colorIndexId);
         if (isUpgrade)
             ShaderFloatCheck(_mat, ref _lastUpgradeValue, UpgradeValue, _upgradeId);
 
@@ -93,6 +106,11 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
             Caller = this
         }).Movement;
     }
+    
+    public void Blink()
+    {
+        LastShotTime = Time.time;
+    }
 
     private void ShaderFloatCheck(Material m, ref float lastValue, float currentValue, int id)
     {
@@ -105,6 +123,13 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     {
         if (lastValue != currentValue)
             m.SetVector(id, currentValue);
+        lastValue = currentValue;
+    }
+
+    private void ShaderEColorCheck(Material m, ref EColor lastValue, EColor currentValue, int id)
+    {
+        if (lastValue != currentValue)
+            m.SetFloat(id, (int)currentValue);
         lastValue = currentValue;
     }
 }

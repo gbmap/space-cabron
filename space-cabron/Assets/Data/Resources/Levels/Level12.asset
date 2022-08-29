@@ -15,10 +15,10 @@ MonoBehaviour:
   NextLevel: {fileID: 11400000, guid: 0625a17dd2f1b5b4b8d5e1ee2f3272f7, type: 2}
   Gameplay:
     Difficulty: 1
-    ScoreThreshold: 5000
+    ScoreThreshold: 1000
     EnemyBPMIncreaseValue: 1
     EnemyBPMScoreModulusToIncrease: 25
-    MaxEnemiesAlive: 10
+    MaxEnemiesAlive: 6
     EnemyPool: {fileID: 11400000, guid: bda1c86571624d241846ad2e6a504fc1, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody:
