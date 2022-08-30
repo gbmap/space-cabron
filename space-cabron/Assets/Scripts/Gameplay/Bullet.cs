@@ -9,7 +9,7 @@ namespace Gmap.Gameplay
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            var health = collider.GetComponent<Health>();
+            var health = collider.GetComponentInParent<Health>();
             if (health)
             {
                 health.TakeDamage(this, collider);

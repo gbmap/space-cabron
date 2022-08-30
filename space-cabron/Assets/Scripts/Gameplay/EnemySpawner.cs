@@ -7,6 +7,7 @@ using System.Linq;
 using SpaceCabron.Messages;
 using SpaceCabron.Gameplay;
 using Gmap.CosmicMusicUtensil;
+using System.Collections.Generic;
 
 namespace Gmap
 {
@@ -30,6 +31,8 @@ namespace Gmap
         private bool hasFiredWinMessage = false;
 
         private float initialTimer = 2f;
+
+        private List<GameObject> enemies = new List<GameObject>();
 
         void Awake()
         {
@@ -57,7 +60,12 @@ namespace Gmap
             if (!obj.health.CompareTag("Enemy"))
                 return;
 
-            EnemiesAlive = Mathf.Max(0, EnemiesAlive - 1);
+            var enemy = obj.health.gameObject;
+            if (enemies.Contains(enemy))
+            {
+                enemies.Remove(enemy);
+                EnemiesAlive = Mathf.Max(0, EnemiesAlive - 1);
+            }
 
             CheckIfShouldSpawnBoss();
         }
@@ -164,11 +172,13 @@ namespace Gmap
 
         public GameObject SpawnNext(GameObjectPool pool, float t)
         {
-            return Instantiate(
+            var enemy = Instantiate(
                 pool.GetNext(),
                 GetEnemyPosition(t),
                 Quaternion.identity
             );
+            enemies.Add(enemy);
+            return enemy;
         }
         
         private Vector3 GetRandomEnemyPosition()

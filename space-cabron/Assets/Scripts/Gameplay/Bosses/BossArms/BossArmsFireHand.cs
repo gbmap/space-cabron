@@ -23,15 +23,28 @@ public class BossArmsFireHand : MonoBehaviour
     {
         while (true)
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
             float time = 0f;
             int numberOfIterations = Random.Range(100, 200);
             float targetTime = Random.Range(5f, 7f);
             while (time <= targetTime)
             {
-                shoulder.transform.Rotate(
-                    Vector3.forward * Mathf.Sin(time*RotationSpeed + Mathf.PI / 2f) * AngleRange * Time.deltaTime, 
-                    Space.Self
-                );
+                if (player == null)
+                {
+                    shoulder.transform.Rotate(
+                        Vector3.forward * Mathf.Sin(time*RotationSpeed + Mathf.PI / 2f) * AngleRange * Time.deltaTime, 
+                        Space.Self
+                    );
+                }
+                else
+                {
+                    Vector3 deltaPlayer = player.transform.position - shoulder.transform.position;
+                    Vector3 deltaHand = hand.transform.position - shoulder.transform.position;
+                    float angle = Vector3.SignedAngle(deltaPlayer, deltaHand, Vector3.forward);
+                    shoulder.transform.Rotate(
+                        Vector3.forward * -angle * RotationSpeed * Time.deltaTime
+                    );
+                }
                 yield return null;
                 time += Time.deltaTime;
             }
