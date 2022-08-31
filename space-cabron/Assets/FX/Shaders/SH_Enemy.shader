@@ -55,10 +55,10 @@
             float _DirectionScale;
             float _LastShotTime;
 
-            float _Pink = 0.0;
-            float _Yellow = 0.08;
-            float _Green = 0.16;
-            float _Blue = 0.24;
+            const float _Pink = 0.0;
+            const float _Yellow = 0.08;
+            const float _Green = 0.16;
+            const float _Blue = 0.24;
             int _ColorIndex = 0;
             float _EngineTime;
 
@@ -98,11 +98,18 @@
                 fixed4 col = tex2D(_MainTex, i.uv);
                 float a = col.a;
 
+                const float _Pink = 0.0;
+                const float _Yellow = 0.065;
+                const float _Green = 0.165;
+                const float _Blue = 0.218;
+                const float hueOffsets[4] = {0., _Yellow, _Green, _Blue};
+
                 float3 hsv = rgb_to_hsv_no_clip(col.rgb);
                 hsv.r += 3.14159268
-                        * step(length(col.rgb-basecolor.rgb), 0.7)
-                        * 0.0685
-                        *_ColorIndex;
+                        * step(length(col.rgb-basecolor.rgb), 0.5)
+                        * hueOffsets[_ColorIndex];
+                        // * 0.0685
+                        // *_ColorIndex;
                 col.rgb = hsv_to_rgb(hsv);
 				col.rgb += fixed3(1.0, 1.0, 1.0) * damage_factor();
 				col.rgb += spawnfx(i.uv) * _Spawn;
