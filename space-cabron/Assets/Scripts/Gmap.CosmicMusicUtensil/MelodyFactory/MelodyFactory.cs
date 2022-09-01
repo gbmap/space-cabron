@@ -61,8 +61,11 @@ namespace Gmap.CosmicMusicUtensil
         int numberOfNotes;
         IntReference Octave;
 
-        public RandomMelodyFactory(ENote note, IScale scale, int numberOfNotes, IntReference octave)
-        {
+        public RandomMelodyFactory(ENote note,
+                                   IScale scale,
+                                   int numberOfNotes,
+                                   IntReference octave
+        ) {
             this.root = note;
             this.scale = scale;
             this.numberOfNotes = numberOfNotes;
@@ -88,7 +91,65 @@ namespace Gmap.CosmicMusicUtensil
             return melody;
         }
     }
-    
+
+    public class BreakNoteMelodyFactory : MelodyFactory
+    {
+        ENote root;
+        IScale scale;
+        IntReference octave;
+        Vector2Int timeSignature;
+        int numberOfBreaks;
+        public BreakNoteMelodyFactory(
+            ENote root,
+            IScale scale,
+            IntReference octave,
+            Vector2Int timeSignature,
+            int numberOfBreaks
+        ) {
+            this.root = root;
+            this.scale = scale;
+            this.timeSignature = timeSignature;
+            this.octave = octave;
+            this.numberOfBreaks = numberOfBreaks;
+        }
+
+        public Melody GenerateMelody()
+        {
+            int[] intervals = Enumerable.Range(0, timeSignature.x)
+                      .Select(i=>timeSignature.y)
+                      .ToArray();
+
+            ENote[] tones = Enumerable.Range(0, timeSignature.x)
+                                   .Select(i=>GetRandomNote())
+                                   .ToArray();     
+
+            Note[] notes = Enumerable.Range(0, timeSignature.x)
+                      .Select(i=>new Note(
+                          tones[i],
+                          intervals[i],
+                          octave.Value
+                      ))
+                      .ToArray();
+
+            Melody m = new Melody(notes);
+            for (int i = 0; i < numberOfBreaks; i++)
+            {
+                int index = Random.Range(0, m.Length);
+                m = new BreakMelodyNoteModifier(2).Apply(m);
+            }
+
+            return m;
+        }
+
+        private ENote GetRandomNote()
+        {
+            return this.scale.GetNote(
+                this.root,
+                Random.Range(0, this.scale.GetNumberOfNotes())
+            );
+        }
+    }
+
     public abstract class MelodyFactoryBase : MelodyFactory, INoteArrayFactory, IIntervalsFactory
     {
         protected int numberOfNotes;

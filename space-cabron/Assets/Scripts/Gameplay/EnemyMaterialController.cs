@@ -3,6 +3,7 @@ using SpaceCabron.Gameplay;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
+[ExecuteInEditMode]
 public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
 {
     new Renderer renderer;

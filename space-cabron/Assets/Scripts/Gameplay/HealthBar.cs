@@ -66,14 +66,16 @@ public class HealthBar : MonoBehaviour
 
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         mpb.SetInt("_NumberOfColors", Mathf.Min(10, colorHealth.MaxHealth));
-        if (colorHealth.CurrentHealth % 10 == 0)
+        if (colorHealth.CurrentHealth % 10 == 0 || lastColorValues == null)
         {
             lastColorValues = colorHealth.ColorLife.Take(colorHealth.CurrentHealth)
                                      .TakeLast(Mathf.Min(10, colorHealth.CurrentHealth))
                                      .Select(c=>(float)c)
                                      .ToArray();
         }
-        mpb.SetFloatArray("_ColorIndexes", lastColorValues );
+
+        if (lastColorValues.Length > 0)
+            mpb.SetFloatArray("_ColorIndexes", lastColorValues );
 
         int currentHealth = colorHealth.CurrentHealth % 10 == 0 
                             ? 10 

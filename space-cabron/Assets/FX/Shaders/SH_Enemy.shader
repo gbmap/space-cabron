@@ -60,7 +60,7 @@
             const float _Green = 0.16;
             const float _Blue = 0.24;
             int _ColorIndex = 0;
-            float _EngineTime;
+            float _EngineTime = -1.;
 
             float last_shot_factor() 
             {
