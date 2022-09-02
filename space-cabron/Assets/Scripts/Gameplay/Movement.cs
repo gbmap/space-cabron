@@ -13,6 +13,8 @@ namespace SpaceCabron.Gameplay
 
     public class Movement : MonoBehaviour, IBrainHolder<InputState>
     {
+        public bool ScaleTowardsDirection;
+
         private IBrain<InputState> Brain;
         public float Speed = 1f;
 
@@ -46,6 +48,16 @@ namespace SpaceCabron.Gameplay
 
             if (animator)
                 animator.SetFloat(horizontalHash, state.Movement.x);
+
+            if (ScaleTowardsDirection)
+            {
+                Vector3 direction = (transform.position - LastPosition).normalized;
+                transform.localScale = new Vector3(
+                    transform.localScale.x * -Mathf.Sign(direction.x),
+                    transform.localScale.y,
+                    transform.localScale.z
+                );
+            }
         }
     }
 }

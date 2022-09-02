@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossArmsFireHand : MonoBehaviour
@@ -16,54 +15,46 @@ public class BossArmsFireHand : MonoBehaviour
     void Start()
     {
         initialHandLocalY = hand.transform.localPosition.y;
-        StartCoroutine(FireHand());
+        // StartCoroutine(FireHand(GameObject.FindGameObjectWithTag("Player")));
     }
 
-    IEnumerator FireHand()
+    public IEnumerator FireHand(GameObject player)
     {
-        while (true)
+        float time = 0f;
+        int numberOfIterations = Random.Range(100, 200);
+        float targetTime = Random.Range(5f, 7f);
+        while (time <= targetTime)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            float time = 0f;
-            int numberOfIterations = Random.Range(100, 200);
-            float targetTime = Random.Range(5f, 7f);
-            while (time <= targetTime)
+            if (player == null)
             {
-                if (player == null)
-                {
-                    shoulder.transform.Rotate(
-                        Vector3.forward * Mathf.Sin(time*RotationSpeed + Mathf.PI / 2f) * AngleRange * Time.deltaTime, 
-                        Space.Self
-                    );
-                }
-                else
-                {
-                    Vector3 deltaPlayer = player.transform.position - shoulder.transform.position;
-                    Vector3 deltaHand = hand.transform.position - shoulder.transform.position;
-                    float angle = Vector3.SignedAngle(deltaPlayer, deltaHand, Vector3.forward);
-                    shoulder.transform.Rotate(
-                        Vector3.forward * -angle * RotationSpeed * Time.deltaTime
-                    );
-                }
-                yield return null;
-                time += Time.deltaTime;
+                shoulder.transform.Rotate(
+                    Vector3.forward * Mathf.Sin(time*RotationSpeed + Mathf.PI / 2f) * AngleRange * Time.deltaTime, 
+                    Space.Self
+                );
             }
-
-            yield return new WaitForSeconds(1.0f);
-
-            while (Camera.main.WorldToViewportPoint(hand.position).y > 0.05f)
+            else
             {
-                hand.transform.localPosition += Vector3.down * HandSpeed * Time.deltaTime;
-                yield return null;
+                Vector3 deltaPlayer = player.transform.position - shoulder.transform.position;
+                Vector3 deltaHand = hand.transform.position - shoulder.transform.position;
+                float angle = Vector3.SignedAngle(deltaPlayer, deltaHand, Vector3.forward);
+                shoulder.transform.Rotate(
+                    Vector3.forward * -angle * RotationSpeed * Time.deltaTime
+                );
             }
+            yield return null;
+            time += Time.deltaTime;
+        }
 
-            yield return new WaitForSeconds(5f);
-            yield return RecoverHand();
-            yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1.0f);
+
+        while (Camera.main.WorldToViewportPoint(hand.position).y > 0.05f)
+        {
+            hand.transform.localPosition += Vector3.down * HandSpeed * Time.deltaTime;
+            yield return null;
         }
     }
 
-    IEnumerator RecoverHand()
+    public IEnumerator RecoverHand()
     {
         while (Mathf.Abs(hand.transform.localPosition.y - initialHandLocalY) > 0.1f)
         {

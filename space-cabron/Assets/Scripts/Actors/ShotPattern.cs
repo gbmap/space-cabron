@@ -54,7 +54,10 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
 
     private void Update()
     {
-        bool isShooting = Brain == null ? true : Brain.GetInputState(new InputStateArgs {Object=gameObject}).Shoot;
+        bool isShooting = Brain == null 
+                        ? true 
+                        : Brain.GetInputState(new InputStateArgs {Object=gameObject}).Shoot;
+
         if (CanFire && isShooting && shootCoroutine == null)
             shootCoroutine = StartCoroutine(CShoot());
     }

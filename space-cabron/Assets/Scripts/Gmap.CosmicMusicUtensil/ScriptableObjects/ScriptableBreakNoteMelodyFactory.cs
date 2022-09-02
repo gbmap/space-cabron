@@ -20,6 +20,8 @@ namespace Gmap.CosmicMusicUtensil
             clone.Root = Root.Clone() as ScriptableNotePool;
             clone.Scale = Scale.Clone() as ScriptableScalePool;
             clone.Octave = Octave.Clone() as RandomIntReference;
+            clone.TimeSignature = TimeSignature;
+            clone.NumberOfBreaks = NumberOfBreaks;
             return clone;
         }
 

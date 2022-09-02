@@ -1728,6 +1728,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992215638}
   m_CullTransparentMesh: 1
+--- !u!1001 &1063267582
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70791108234933173, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229898196655776943, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemyQuestionMark
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02c73e24a87d0f749be8ff8fbee2837f, type: 3}
 --- !u!1 &1065083035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2801,39 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 950255706}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1508606148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2229898196655776943, guid: 02c73e24a87d0f749be8ff8fbee2837f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1063267582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1508606159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508606148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScaleTowardsDirection: 1
+  Speed: 1
+--- !u!114 &1508606160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508606148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Brain: {fileID: 11400000, guid: ae1836d90d9a0d64494eed5333e318f1, type: 2}
 --- !u!114 &1518984008 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8806946095525373292, guid: f53e448c577cd584bba2a88a15d2b287,
