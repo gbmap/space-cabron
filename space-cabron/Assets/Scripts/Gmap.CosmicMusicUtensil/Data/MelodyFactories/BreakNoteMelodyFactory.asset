@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b40a513b2a98954a9e09ea00e50af28, type: 3}
   m_Name: BreakNoteMelodyFactory
   m_EditorClassIdentifier: 
-  Root: {fileID: 0}
-  Scale: {fileID: 0}
-  Octave: {fileID: 0}
-  TimeSignature: {x: 0, y: 0}
+  Root: {fileID: 11400000, guid: f4689ed470f56e847ab94b729e3d0a32, type: 2}
+  Scale: {fileID: 11400000, guid: c0d842fbb337f8c429dd0a42d9039fdf, type: 2}
+  Octave: {fileID: 11400000, guid: 2196f2cb2133e9145aa9aa9072f16a22, type: 2}
+  TimeSignature: {x: 4, y: 4}
+  NumberOfBreaks: 5
