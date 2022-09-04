@@ -97,6 +97,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7013576733045995307}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &41430837331960319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5846109728729050079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c168904999ab79e46adef3929d743fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AngularSpeed: 30
 --- !u!114 &5944423036011593002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,9 +122,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdc8493be18f934b91f9d5b631dae95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
+  Bullet: {fileID: 5049060946952378972, guid: 5e4e26b1d31a24c4c801a64c9890d37f, type: 3}
+  UsePool: 1
   Cooldown: 2
+  TimeOffset: 0
   AngleIncrement: 30
+  TimeBetweenBullets: 0
 --- !u!114 &7764663157406262467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScaleTowardsDirection: 0
   Speed: 0.05
 --- !u!114 &9033793736921967930
 MonoBehaviour:
@@ -138,16 +155,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
---- !u!114 &41430837331960319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5846109728729050079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c168904999ab79e46adef3929d743fe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AngularSpeed: 30
