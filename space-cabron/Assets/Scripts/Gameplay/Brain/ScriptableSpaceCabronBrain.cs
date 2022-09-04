@@ -25,7 +25,8 @@ namespace SpaceCabron.Gameplay
                     Object = args.Object,
                     LastPosition = lastPosition
                 }),
-                Shoot = FiringStrategy.GetFire()
+                Shoot = FiringStrategy.GetFire(),
+                Color = (EColor)Random.Range(0,4)
             };
         }
     }

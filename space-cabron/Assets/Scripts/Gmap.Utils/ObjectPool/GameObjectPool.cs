@@ -36,7 +36,7 @@ namespace ObjectPool {
                 GameObject.Destroy(obj);
         }
 
-        public GameObject Instantiate( Vector3 pPos, Quaternion pRot ) {
+        public GameObject Instantiate(Vector3 pPos, Quaternion pRot) {
             if (m_unused.Count == 0) {
                 Debug.Log("[ObjPool::Instantiate] Maximum amount of enabled objects reached, instantiating more.");
                 for (int i = 0; i < m_pool.Count * 0.25; i++)

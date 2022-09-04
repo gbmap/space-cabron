@@ -129,7 +129,6 @@ namespace SpaceCabron.Gameplay
 
             InjectPatch(instance, droneAudioMixerIndex);
             ConfigureObjectWithNewMelody(instance, turntable);
-            
         }
 
         private void ConfigureObjectWithNewMelody(GameObject instance, ITurntable turntable)

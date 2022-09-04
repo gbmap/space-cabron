@@ -47,19 +47,19 @@ public class FX : Singleton<FX>
         MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
     }
 
-
-    public void SpawnExplosion(EExplosionSize size, Vector3 pos)
+    public void SpawnExplosion(EExplosionSize size, Vector3 pos, bool damage=true)
     {
         _shake.Trauma += size == EExplosionSize.Big ? 0.2f : 0.1f;
-        _explosionPool[size].Instantiate(pos, Quaternion.identity);
+        GameObject explosion = _explosionPool[size].Instantiate(pos, Quaternion.identity);
+        explosion.GetComponent<DestroyFunction>().DamageOnDestroy = damage;
     }
 
-    public void SpawnExplosionCluster(int n, Vector3 pos)
+    public void SpawnExplosionCluster(int n, Vector3 pos, bool shouldDamage)
     {
-        StartCoroutine(CExplosionCluster(n, pos));
+        StartCoroutine(CExplosionCluster(n, pos, shouldDamage));
     }
 
-    private IEnumerator CExplosionCluster(int n, Vector3 pos)
+    private IEnumerator CExplosionCluster(int n, Vector3 pos, bool shouldDamage)
     {
         var values = Enum.GetValues(typeof(EExplosionSize));
         for (int i = 0; i < n; i++)
@@ -68,7 +68,7 @@ public class FX : Singleton<FX>
             _shake.Trauma += sz == EExplosionSize.Big ? 0.2f : 0.1f;
             Vector3 offset = UnityEngine.Random.insideUnitSphere * 0.3f;
             offset.z = 0f;
-            _explosionPool[sz].Instantiate(pos + offset, Quaternion.identity);
+            SpawnExplosion(sz, pos + offset, shouldDamage);
             yield return new WaitForSeconds(0.05f);
         }
     }
@@ -83,6 +83,9 @@ public class FX : Singleton<FX>
 
     private void Callback_OnEnemyDestroyed(MsgOnObjectDestroyed obj)
     {
-        SpawnExplosionCluster(4, obj.health.transform.position);
+        bool shouldDamage = obj.health != null 
+                         && obj.health.CompareTag("Enemy")
+                         && obj.bullet != null;
+        SpawnExplosionCluster(4, obj.health.transform.position, shouldDamage);
     }
 }

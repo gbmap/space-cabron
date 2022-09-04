@@ -37,7 +37,7 @@ PrefabInstance:
         type: 3}
       propertyPath: UnityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 6877875826433627703}
+      objectReference: {fileID: 0}
     - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
       propertyPath: UnityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -336,8 +336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Brain: {fileID: 11400000, guid: 2a05cc28faca3cf4abe546aec8a10af2, type: 2}
---- !u!114 &6877875826433627703
+  Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
+--- !u!114 &6389048528981140765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1019307496587858915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a92ac20a67d727448e7e69ac1b18764, type: 3}
+  m_Script: {fileID: 11500000, guid: fedcb3d547c1d70498f46874c913d801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnergyValue: {fileID: 0}

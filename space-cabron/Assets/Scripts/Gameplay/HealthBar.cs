@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,7 +7,16 @@ public class HealthBar : MonoBehaviour
     [SerializeField] ColorHealth colorHealth;
     SpriteRenderer barRenderer;
 
-    // Start is called before the first frame update
+    public enum ESide
+    {
+        Left,
+        Right
+    }
+    public ESide Side = ESide.Right;
+    public Vector3 Offset = Vector3.zero;
+    public Vector3 Scale = Vector3.one;
+    private float[] lastColorValues;
+
     void Start()
     {
         barRenderer = GetComponent<SpriteRenderer>();
@@ -19,11 +26,29 @@ public class HealthBar : MonoBehaviour
         if (enemyRenderer == null)
             throw new System.Exception("HealthBar requires an enemyRenderer component");
 
-        transform.localPosition = Vector3.right * (enemyRenderer.bounds.extents.x + 5f/100f);
-        transform.localScale = new Vector3(10f/100f, enemyRenderer.bounds.size.y + 10f/100f, 1f);
+        UpdateTransform();
 
         colorHealth.OnTakenDamage += Callback_OnDamage;
         UpdateHealthBar();
+    }
+
+    void FixedUpdate()
+    {
+        UpdateTransform();
+    }
+
+    private void UpdateTransform()
+    {
+        transform.localPosition = (Side == ESide.Left
+                                ? Vector3.left
+                                : Vector3.right)
+                                * (enemyRenderer.bounds.extents.x + 5f / 100f)
+                                + Offset;
+        transform.localScale = new Vector3(
+            (10f / 100f) * Scale.x,
+            (enemyRenderer.bounds.size.y + 10f / 100f) * Scale.y,
+            1f * Scale.z
+        );
     }
 
     private void Callback_OnDamage()
@@ -40,9 +65,22 @@ public class HealthBar : MonoBehaviour
         //     indexes.Add((float)colorHealth.ColorLife[i-1]);
 
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-        mpb.SetInt("_NumberOfColors", colorHealth.MaxHealth);
-        mpb.SetFloatArray("_ColorIndexes", colorHealth.ColorLife.Select(c=>(float)c).ToArray());
-        mpb.SetInt("_CurrentHealth", colorHealth.CurrentHealth);
+        mpb.SetInt("_NumberOfColors", Mathf.Min(10, colorHealth.MaxHealth));
+        if (colorHealth.CurrentHealth % 10 == 0 || lastColorValues == null)
+        {
+            lastColorValues = colorHealth.ColorLife.Take(colorHealth.CurrentHealth)
+                                     .TakeLast(Mathf.Min(10, colorHealth.CurrentHealth))
+                                     .Select(c=>(float)c)
+                                     .ToArray();
+        }
+
+        if (lastColorValues.Length > 0)
+            mpb.SetFloatArray("_ColorIndexes", lastColorValues );
+
+        int currentHealth = colorHealth.CurrentHealth % 10 == 0 
+                            ? 10 
+                            : colorHealth.CurrentHealth%10;
+        mpb.SetInt("_CurrentHealth", currentHealth);
         barRenderer.SetPropertyBlock(mpb);
     }
 }
