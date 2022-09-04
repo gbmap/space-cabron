@@ -110,6 +110,12 @@
                         * hueOffsets[_ColorIndex];
                         // * 0.0685
                         // *_ColorIndex;
+
+                float shadow = step(0.5, i.uv.x)*0.05f;
+                hsv.r += shadow*0.5;
+                hsv.g -= shadow;
+                hsv.b -= shadow*2.0;
+
                 col.rgb = hsv_to_rgb(hsv);
 				col.rgb += fixed3(1.0, 1.0, 1.0) * damage_factor();
 				col.rgb += spawnfx(i.uv) * _Spawn;
