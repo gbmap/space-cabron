@@ -114,7 +114,7 @@
                 float shadow = step(0.5, i.uv.x)*0.05f;
                 hsv.r += shadow*0.5;
                 hsv.g -= shadow;
-                hsv.b -= shadow*2.0;
+                hsv.b -= shadow*3.0;
 
                 col.rgb = hsv_to_rgb(hsv);
 				col.rgb += fixed3(1.0, 1.0, 1.0) * damage_factor();

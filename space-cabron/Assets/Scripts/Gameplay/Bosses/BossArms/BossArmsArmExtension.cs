@@ -6,6 +6,7 @@ namespace SpaceCabron.Gameplay.Bosses
     {
         [SerializeField] Transform shoulder;
         [SerializeField] Transform hand;
+        [SerializeField] bool adjustRotation;
 
         void Update()
         {
@@ -21,6 +22,11 @@ namespace SpaceCabron.Gameplay.Bosses
                 targetScale/(32f/100f), 
                 transform.localScale.z
             );
+
+            if (adjustRotation)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, Vector3.SignedAngle(Vector3.up, b-a, Vector3.forward));
+            }
         }
     }
 }

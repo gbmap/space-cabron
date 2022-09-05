@@ -8,11 +8,27 @@ namespace SpaceCabron.Gameplay
     public class MovementBounce : MonoBehaviour
     {
         public float Speed = 10f;
+        public float TimeBouncing = float.MaxValue;
+
+        float startTime;
+        bool shouldBounce = true;
+
+        void Awake()
+        {
+            startTime = Time.time;
+        }
 
         void Update()
         {
             transform.position += transform.up * Speed * Time.deltaTime;
-            BounceOnScreenBorder();
+
+            if (Time.time - startTime > TimeBouncing)
+            {
+                shouldBounce = false;
+            }
+
+            if (shouldBounce)
+                BounceOnScreenBorder();
         }
 
         private void BounceOnScreenBorder()
@@ -21,22 +37,22 @@ namespace SpaceCabron.Gameplay
                 return;
 
             // Bounces on screen border
-            var viewport = Camera.main.WorldToViewportPoint(transform.position);
-            if (viewport.x > 1f)
+            var viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+            if (viewportPosition.x > 1f)
             {
-                transform.up = Vector3.Reflect(transform.up, Vector3.up);
+                transform.up = Vector3.Reflect(transform.up, Vector3.left);
             }
-            else if (viewport.y < 0f)
-            {
-                transform.up = Vector3.Reflect(transform.up, Vector3.down);
-            }
-            else if (viewport.x < 0f)
+            else if (viewportPosition.x < 0f)
             {
                 transform.up = Vector3.Reflect(transform.up, Vector3.right);
             }
-            else if (viewport.x > 1f)
+            else if (viewportPosition.y < 0f)
             {
-                transform.up = Vector3.Reflect(transform.up, Vector3.left);
+                transform.up = Vector3.Reflect(transform.up, Vector3.up);
+            }
+            else if (viewportPosition.y > 1f)
+            {
+                transform.up = Vector3.Reflect(transform.up, Vector3.down);
             }
         }
     }

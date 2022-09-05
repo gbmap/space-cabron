@@ -2,9 +2,9 @@ using System.Collections;
 using Gmap.Gameplay;
 using UnityEngine;
 
-namespace SpaceCabron.Gameplay
+namespace SpaceCabron.Gameplay.Bosses
 {
-    public class BossArmsBehaviour : MonoBehaviour
+    public class BossArmsBehaviour : BossBehaviour
     {
         public Health LeftArmHealth;
         public Health RightArmHealth;
@@ -46,7 +46,7 @@ namespace SpaceCabron.Gameplay
             }
         }
 
-        float BurstShotCooldown => Mathf.Lerp(1f, 3.00f, ((float)CurrentHealth) / MaxHealth);
+        float BurstShotCooldown => LerpByHealth(1f, 3.00f);
 
         void Start()
         {
@@ -137,9 +137,9 @@ namespace SpaceCabron.Gameplay
 
         IEnumerator ShotPattern1(Transform gunTransformA, Transform gunTransformB)
         {
-            int numberOfBursts = Mathf.RoundToInt(Mathf.Lerp(8, 5, ((float)CurrentHealth)/MaxHealth));
-            int numberOfBullets = Mathf.RoundToInt(Mathf.Lerp(25, 10, ((float)CurrentHealth)/MaxHealth));
-            float timeBetweenBursts = Mathf.Lerp(0.25f, 1f, ((float)CurrentHealth)/MaxHealth);
+            int numberOfBursts = LerpByHealth(8, 5);
+            int numberOfBullets = LerpByHealth(25, 10);
+            float timeBetweenBursts = LerpByHealth(0.25f, 1f);
             for (int j = 0; j < numberOfBursts; j++)
             {
                 for (int i = 0; i < numberOfBullets; i++)
@@ -155,9 +155,9 @@ namespace SpaceCabron.Gameplay
 
         IEnumerator ShotPattern2(Transform gunTransformA, Transform gunTransformB, GameObject player)
         {
-            int numberOfBursts = Mathf.RoundToInt(Mathf.Lerp(8, 5, ((float)CurrentHealth)/MaxHealth));
-            int numberOfBullets = Mathf.RoundToInt(Mathf.Lerp(40, 20, ((float)CurrentHealth)/MaxHealth));
-            float timeBetweenBursts = Mathf.Lerp(0.25f, 1f, ((float)CurrentHealth)/MaxHealth);
+            int numberOfBursts = LerpByHealth(8, 5);
+            int numberOfBullets = LerpByHealth(40, 20);
+            float timeBetweenBursts = LerpByHealth(0.25f, 1f);
             for (int j = 0; j < numberOfBursts; j++)
             {
                 Transform targetTransform = j % 2 == 0 ? gunTransformA : gunTransformB;
@@ -176,9 +176,9 @@ namespace SpaceCabron.Gameplay
 
         IEnumerator ShotPattern3(Transform gunTransformA, Transform gunTransformB, GameObject player)
         {
-            int numberOfBursts = Mathf.RoundToInt(Mathf.Lerp(8, 5, ((float)CurrentHealth)/MaxHealth));
-            int numberOfBullets = Mathf.RoundToInt(Mathf.Lerp(25, 10, ((float)CurrentHealth)/MaxHealth));
-            float timeBetweenBursts = Mathf.Lerp(0.25f, 1f, ((float)CurrentHealth)/MaxHealth);
+            int numberOfBursts = LerpByHealth(8, 5);
+            int numberOfBullets = LerpByHealth(25, 10);
+            float timeBetweenBursts = LerpByHealth(0.25f, 1f);
             for (int j = 0; j < numberOfBursts; j++)
             {
                 float initialAngle = Random.Range(0f, 360f);

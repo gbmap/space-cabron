@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 2
+  TimeBouncing: 15
 --- !u!4 &7529206449138620216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6297675616790175561, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48,
