@@ -16,15 +16,10 @@ namespace SpaceCabron.Gameplay
 
         public bool UseCos;
 
-        void Start()
-        {
-            InitialAngle = transform.localEulerAngles.z;
-        }
-
         void OnEnable()
         {
+            InitialAngle = transform.localEulerAngles.z;
             timer = 0f;
-            // InitialAngle = transform.localEulerAngles.z;
         }
 
         void Update()

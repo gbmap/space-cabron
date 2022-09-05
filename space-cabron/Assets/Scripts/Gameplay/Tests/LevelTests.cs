@@ -81,7 +81,6 @@ public class LevelTests
         EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
         Assert.AreEqual(spawner.ScoreThreshold, level.Gameplay.ScoreThreshold);
         Assert.AreEqual(spawner.EnemyPool, level.Gameplay.EnemyPool);
-        Assert.AreEqual(spawner.BossPool, level.Gameplay.BossPool);
         Assert.AreEqual(RenderSettings.skybox, level.Background.Material);
     }
 

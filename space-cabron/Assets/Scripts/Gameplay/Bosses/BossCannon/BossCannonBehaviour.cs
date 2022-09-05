@@ -10,22 +10,20 @@ namespace SpaceCabron.Gameplay.Bosses
         [SerializeField] BossCannonNode Right;
 
         [SerializeField] GameObject bulletSin;
+        [SerializeField] GameObject bulletCos;
 
-        void Start()
-        {
-            StartCoroutine(CLogic());
-        }
+        [SerializeField] Transform shootTransform;
 
-        IEnumerator CLogic()
+        protected override IEnumerator CLogic()
         {
             while (true)
             {
                 yield return Shake(1);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(3f);
                 yield return FireBounce();
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(3f);
                 yield return WallOfBullets();
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(3f);
             }
         }
 
@@ -92,15 +90,15 @@ namespace SpaceCabron.Gameplay.Bosses
 
         IEnumerator WallOfBullets()
         {
-            StartCoroutine(Left.Extend(2));
-            StartCoroutine(Right.Extend(2));
-            StartCoroutine(FireTowards(GameObject.FindGameObjectWithTag("Player")));
+            StartCoroutine(Shake(2));
+            StartCoroutine(FireTowardsSin(GameObject.FindGameObjectWithTag("Player")));
             yield return new WaitForSeconds(2f);
         }
 
-        IEnumerator FireTowards(GameObject player)
+        IEnumerator FireTowardsSin(GameObject player)
         {
-            float angle = 180f;
+            int numberOfBursts = LerpByHealth(10, 5);
+            float angle = 0f;
             if (player != null)
             {
                 angle = Vector3.Angle(
@@ -108,10 +106,18 @@ namespace SpaceCabron.Gameplay.Bosses
                 );
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int j = 0; j < numberOfBursts; j++)
             {
-                Shoot(bulletSin, angle + i * 10, transform);
-                yield return new WaitForSeconds(0.1f);
+                int numberOfBullets = LerpByHealth(10, 5);
+                for (int i = 0; i < numberOfBullets; i++)
+                {
+                    float alpha = Mathf.Lerp(
+                        -60f, 60f, 
+                        ((float)(i+j)/(numberOfBullets+numberOfBursts))
+                    );
+                    Shoot(bulletSin, angle + alpha, shootTransform);
+                    yield return new WaitForSeconds(0.25f);
+                }
             }
         }
     }

@@ -14,7 +14,6 @@ namespace Gmap
     public class EnemySpawner : MonoBehaviour, ILevelConfigurable<LevelConfiguration>
     {
         public GameObjectPool EnemyPool;
-        public GameObjectPool BossPool;
 
         private int maxEnemiesAlive;
         public int MaxEnemiesAlive 
@@ -67,7 +66,7 @@ namespace Gmap
                 EnemiesAlive = Mathf.Max(0, EnemiesAlive - 1);
             }
 
-            CheckIfShouldSpawnBoss();
+            CheckIfLevelWon();
         }
 
         void OnDisable()
@@ -88,10 +87,10 @@ namespace Gmap
             if (shouldSpawn)
                 SetShouldSpawn(false);
 
-            CheckIfShouldSpawnBoss();
+            CheckIfLevelWon();
         }
 
-        private void CheckIfShouldSpawnBoss()
+        private void CheckIfLevelWon()
         {
             if (shouldSpawn)
                 return;
@@ -107,19 +106,7 @@ namespace Gmap
             if (hasFiredWinMessage)
                 return;
 
-            GameObject boss = SpawnBossIfAny();
-            if (boss == null)
-                FireWinMessage();
-            else
-                StartCoroutine(PlayBossIntroAnimation(boss));
-        }
-
-        private GameObject SpawnBossIfAny()
-        {
-            if (BossPool == null || BossPool.Length == 0)
-                return null;
-            
-            return SpawnNext(BossPool, 0.5f);
+            FireWinMessage();
         }
 
         private IEnumerator PlayBossIntroAnimation(GameObject boss)
@@ -151,7 +138,6 @@ namespace Gmap
         {
             ScoreThreshold = configuration.Gameplay.ScoreThreshold;
             EnemyPool = configuration.Gameplay.EnemyPool;
-            BossPool = configuration.Gameplay.BossPool;
             MaxEnemiesAlive = configuration.Gameplay.MaxEnemiesAlive;
         }
 

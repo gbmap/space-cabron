@@ -35,6 +35,9 @@ namespace SpaceCabron.Gameplay
 
         void Update()
         {
+            if (Brain == null)
+                return;
+
             InputState state = Brain.GetInputState(new InputStateArgs
             {
                 Object = gameObject,

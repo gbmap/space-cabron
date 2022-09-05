@@ -48,14 +48,9 @@ namespace SpaceCabron.Gameplay.Bosses
 
         float BurstShotCooldown => LerpByHealth(1f, 3.00f);
 
-        void Start()
+        protected override IEnumerator CLogic()
         {
-            StartCoroutine(Logic());
             StartCoroutine(ConstantBurstShot(BulletSpawnLeft, BulletSpawnRight));
-        }
-
-        IEnumerator Logic()
-        {
             while (true)
             {
                 yield return HandsLoop(6f, Random.Range(0, 3));

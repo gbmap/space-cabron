@@ -46,7 +46,7 @@ namespace SpaceCabron.Gameplay.Bosses
             while (!IsContracted)
             {
                 transform.localPosition += 
-                    -Vector3.ClampMagnitude(Direction * Speed * Time.deltaTime, transform.localPosition.sqrMagnitude);
+                    Vector3.ClampMagnitude(-Direction * Speed * Time.deltaTime, transform.localPosition.sqrMagnitude);
                 yield return null;
             }
 
@@ -85,7 +85,7 @@ namespace SpaceCabron.Gameplay.Bosses
             while (true)
             {
                 Shoot(bullet, 180f, shootTransform);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.05f);
             }
         }
 
@@ -97,6 +97,11 @@ namespace SpaceCabron.Gameplay.Bosses
         public IEnumerator FireBounce()
         {
             yield return Arc(100f, 360f-100f, Distance/Speed, shootTransform, bulletBounce, 6);
+        }
+
+        protected override IEnumerator CLogic()
+        {
+            yield break;
         }
     }
 }

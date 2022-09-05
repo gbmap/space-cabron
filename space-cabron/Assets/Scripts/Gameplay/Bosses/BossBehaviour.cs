@@ -4,11 +4,19 @@ using UnityEngine;
 
 namespace SpaceCabron.Gameplay.Bosses
 {
-    public class BossBehaviour : MonoBehaviour
+    public abstract class BossBehaviour : MonoBehaviour
     {
+        public bool IsRunning { get; private set; }
+
+        public void StartLogic() { 
+            IsRunning = true;
+            StartCoroutine(CLogic()); 
+        }
+        protected abstract IEnumerator CLogic();
+
         protected ColorHealth[] healths;
 
-        void Awake()
+        protected virtual void Awake()
         {
             healths = GetComponentsInChildren<ColorHealth>();
         }
@@ -45,7 +53,7 @@ namespace SpaceCabron.Gameplay.Bosses
             var instance = Instantiate(
                 bullet, 
                 gunTransform.position,
-                Quaternion.Euler(0f, 0f, angle)
+                Quaternion.Euler(0f, 0f, angle) * gunTransform.localRotation
             );
             return instance;
         }

@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shoulder: {fileID: 334571285818782440}
   hand: {fileID: 334571285405459027}
+  adjustRotation: 0
 --- !u!61 &334571284494822610
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -667,9 +668,10 @@ GameObject:
   - component: {fileID: 334571285885012693}
   - component: {fileID: 334571285885012692}
   - component: {fileID: 6286857903804810795}
+  - component: {fileID: 1259617755384300846}
   m_Layer: 9
-  m_Name: boss_arms_body
-  m_TagString: Untagged
+  m_Name: BossArms
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -805,11 +807,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe32f44e30e8cf4fbbeb5323bc6663b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftArmHealth: {fileID: 0}
+  RightArmHealth: {fileID: 0}
+  MainHealth: {fileID: 0}
   HandLeft: {fileID: 334571286093711275}
   HandRight: {fileID: 8199919683223484699}
   Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
+  BulletSinSpeed: {fileID: 0}
   BulletSpawnLeft: {fileID: 4547382554377202460}
   BulletSpawnRight: {fileID: 7682434400708855308}
+--- !u!114 &1259617755384300846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334571285885012689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScaleTowardsDirection: 0
+  Speed: 1
 --- !u!1 &334571286093711270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,6 +1112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shoulder: {fileID: 334571286093711271}
   hand: {fileID: 334571284435609930}
+  adjustRotation: 0
 --- !u!61 &334571286122387614
 BoxCollider2D:
   m_ObjectHideFlags: 0
