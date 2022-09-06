@@ -153,7 +153,21 @@ namespace Gmap
                 return;
 
             EnemiesAlive++;
-            GameObject instance = SpawnNext(EnemyPool, Random.Range(0.15f, 0.85f));
+            GameObject instance = SpawnNext(EnemyPool, GetSpawnX());
+        }
+
+        private float GetSpawnX()
+        {
+            float t = 0f;
+            Collider2D c = null;
+            int tries = 0;
+            do
+            {
+                t = Random.Range(0.15f, 0.85f);
+                Vector3 p = GetEnemyPosition(t);
+                c = Physics2D.OverlapCircle(p, 0.5f);
+            } while (c != null && c.gameObject.CompareTag("Enemy") && tries++ < 10);
+            return t;
         }
 
         public GameObject SpawnNext(GameObjectPool pool, float t)

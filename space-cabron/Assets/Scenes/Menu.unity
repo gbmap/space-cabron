@@ -4733,6 +4733,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossCannon
       objectReference: {fileID: 0}
+    - target: {fileID: 6623315264534397594, guid: 5e89589cff03d9d46bd9e98909938c6d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6623315264534397595, guid: 5e89589cff03d9d46bd9e98909938c6d,
         type: 3}
       propertyPath: m_RootOrder

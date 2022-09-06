@@ -47,7 +47,7 @@ public class FX : Singleton<FX>
         MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
     }
 
-    public void SpawnExplosion(EExplosionSize size, Vector3 pos, bool damage=true)
+    public void SpawnExplosion(EExplosionSize size, Vector3 pos, bool damage=false)
     {
         _shake.Trauma += size == EExplosionSize.Big ? 0.2f : 0.1f;
         GameObject explosion = _explosionPool[size].Instantiate(pos, Quaternion.identity);
