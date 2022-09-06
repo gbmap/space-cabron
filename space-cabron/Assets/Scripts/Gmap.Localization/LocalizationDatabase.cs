@@ -77,7 +77,7 @@ namespace Gmap.Localization
         [SerializeField] string[] keys;
         [SerializeField] string[] values;
 
-        private static LocalizationCacheCollection databases;
+        private static LocalizationCacheCollection databases = new LocalizationCacheCollection();
         private LocalizationCache GetCache()
         {
             LocalizationCache cache = databases.Get(LanguageKey);

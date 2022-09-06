@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd59978e1a6397b4d9f0198cfa519b8d, type: 3}
-  m_Name: Localization_pt-BR
+  m_Name: pt-BR
   m_EditorClassIdentifier: 
   LanguageKey: pt-BR
   keys:
