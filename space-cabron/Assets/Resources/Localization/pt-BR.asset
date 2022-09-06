@@ -15,6 +15,7 @@ MonoBehaviour:
   LanguageKey: pt-BR
   keys:
   - key
+  - warning_controller
   - new_game
   - exit_game
   - standard_game
@@ -22,8 +23,16 @@ MonoBehaviour:
   - game_over
   - insert_coin
   - options
+  - help_label1
+  - help_label2
+  - help_label3
+  - help_label4
+  - help_label5
+  - help_label6
+  - paused
   values:
   - pt-BR
+  - "Jogue com um controle e fones de ouvido para uma experi\xEAncia melhor."
   - NOVO JOGO
   - SAIR
   - MODO NORMAL
@@ -31,3 +40,12 @@ MonoBehaviour:
   - FIM DE JOGO
   - INSIRA UMA MOEDA
   - "CONFIGURA\xC7\xD5ES"
+  - "Cada inimigo \xE9 colorido de acordo com a sua vulnerabilidade."
+  - "Cada cor \xE9 configurada a um bot\xE3o do seu controle."
+  - "Voc\xEA pode configurar bot\xF5es diferentes para as cores na tela de configura\xE7\xF5es."
+  - "A barra de vida dos inimigos mostra a sequ\xEAncia de cores que eles s\xE3o
+    vulner\xE1veis."
+  - "O jogador s\xF3 pode atirar quando seu sintetizador toca uma nota."
+  - "Memorize seu ritmo ou use as linhas-guia brancas no fundo para se certificar
+    de que voc\xEA consegue atirar."
+  - '[PAUSADO]'

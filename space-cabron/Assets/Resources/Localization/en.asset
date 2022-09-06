@@ -15,6 +15,7 @@ MonoBehaviour:
   LanguageKey: en
   keys:
   - key
+  - warning_controller
   - new_game
   - exit_game
   - standard_game
@@ -22,8 +23,16 @@ MonoBehaviour:
   - game_over
   - insert_coin
   - options
+  - help_label1
+  - help_label2
+  - help_label3
+  - help_label4
+  - help_label5
+  - help_label6
+  - paused
   values:
   - en
+  - Play with a controller and headphones for a better experience.
   - NEW GAME
   - EXIT GAME
   - STANDARD MODE
@@ -31,3 +40,11 @@ MonoBehaviour:
   - GAME OVER
   - INSERT COIN
   - OPTIONS
+  - Each enemy is colored according to the color they are vulnerable to.
+  - Each color is assigned to a different button on your controller.
+  - You can configure different buttons to each color in the options screen.
+  - The enemies' health bars tell you the sequence they are vulnerable to.
+  - The player can only fire when its synthesizer plays a note.
+  - Memorize its rythm or use the white guidelines on the background to make sure
+    you are on beat.
+  - '[PAUSED]'

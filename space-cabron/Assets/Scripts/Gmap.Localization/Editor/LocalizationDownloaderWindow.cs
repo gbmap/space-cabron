@@ -30,7 +30,7 @@ namespace Gmap.Localization
                     LocalizationDatabase[] databases = LocalizationDatabaseFactory.FromDataTable(result.Result);
                     foreach (LocalizationDatabase database in databases)
                     {
-                        AssetDatabase.CreateAsset(database, $"Resources/Localization/{database.LanguageKey}.asset");
+                        AssetDatabase.CreateAsset(database, $"Assets/Resources/Localization/{database.LanguageKey}.asset");
                         AssetDatabase.SaveAssets();
                     }
                 }

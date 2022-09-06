@@ -15,8 +15,8 @@ namespace Gmap.Localization
     public class SpreadsheetDownloader
     {
         string url;
-        char separator = ',';
-        char newLine = '\n';
+        public const char Separator = ',';
+        public const char NewLine = '\n';
         public SpreadsheetDownloader(string url)
         {
             this.url = url;
@@ -53,12 +53,12 @@ namespace Gmap.Localization
         private DataTable CsvStringToDataTable(string str)
         {
             str = str.Replace("\r", "");
-            string[] lines = str.Split(newLine);
-            string[] columns = lines[0].Split(',');
+            string[] lines = str.Split(NewLine);
+            string[] columns = lines[0].Split(Separator);
 
             DataTable dataTable = new DataTable();
             System.Array.ForEach(columns, c => dataTable.Columns.Add(c));
-            System.Array.ForEach(lines, line => dataTable.Rows.Add(line.Split(separator)));
+            System.Array.ForEach(lines, line => dataTable.Rows.Add(line.Split(Separator)));
             return dataTable;
         }
     }
