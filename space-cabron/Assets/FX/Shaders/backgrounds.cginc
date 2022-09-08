@@ -382,32 +382,34 @@ fixed4 bg06(v2f i, float2 uv) {
 	clr.rgb = hsv_to_rgb(hsv);
 
 	float darkerSea = noise((uv*0.25+float2(0.,_Time.y*0.25))*uvNoiseScale);
-	fixed4 clrDarker = clr*0.8;
+	fixed4 clrDarker = clr*0.7;
 	clr = lerp(clr, clrDarker, darkerSea);
 	
-	float darkSea = smoothstep(0.0, 0.5, noise((uv+float2(0.,_Time.y*0.5))*uvNoiseScale*v.y*2.));
+	float darkSea = smoothstep(0.0, 0.5, noise((uv+float2(0.,_Time.y*0.5))*uvNoiseScale*2.));
 	// darkSea *= ;
-	fixed4 clrDark = clr*0.9;
+	fixed4 clrDark = clr*0.8;
 	clr = lerp(clr, clrDark, darkSea);
 
-	// float lighterSea = smoothstep(0.0, 1.0, noise((uv*1.+float2(noise(uv),noise(uv)+_Time.y*0.5))*uvNoiseScale));
-	// // lighterSea = v.z;
-	// fixed4 clrLight = clr*2.0;
-	// clr = lerp(clr, clrLight, lighterSea);
+	float c = noise(seaUv*0.25);
+	float x = (noise(uv+fixed2(0.,ddx(uv.x))))-c;
+	float y = (noise(uv+fixed2(0.,ddy(uv.y))))-c;
+	float lighterSea = x*y;
+	fixed4 clrLight = clr * 2.1;
+	clr = lerp(clr, clrLight, lighterSea);
 
+	float a = lighterSea;
 
 	float ripples = smoothstep(0.045, 0.5, v.x*v.x*v.x);
 	ripples = saturate(ripples-noise(seaUv));
+
+	float2 ruv = seaUv*.75;
+	ripples = length(frac(ruv)*2.-1);
+	float nruv = fbm(ruv);
+	ripples = step(.5, nruv) - step(.6, nruv);
+	ripples = smoothstep(0.45, 0.5, nruv) - smoothstep(0.5, 0.525, nruv);
 	fixed4 clrRipples = fixed4(245./255.,208./255.,162./255.,1.)*0.7;
 	clr = lerp(clr, clrRipples, ripples);
 
-	// clr*= saturate(mainWave+1.0);
-
-	// float waves = uv.y*0.5 + noise(uv*uvNoiseScale)*0.5;
-	// fixed4 clrWaves = fixed4(245./255.,208./255.,162./255.,1.)*0.7;
-	// clr = lerp(clr, clrWaves, waves);
-
-	return clr;
 	return clr;
 }
 
