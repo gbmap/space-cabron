@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InjectOnStart: 1
   Brain: {fileID: 11400000, guid: ae1836d90d9a0d64494eed5333e318f1, type: 2}
 --- !u!114 &7725396870969678413
 MonoBehaviour:
@@ -125,6 +126,7 @@ MonoBehaviour:
   Bullet: {fileID: 6242563318997825797, guid: 5b57dc649a21249459097b5b502a0314, type: 3}
   UsePool: 0
   Cooldown: 2
+  TimeOffset: 0
   Angle: 0
   NumberOfShots: 5
   DelayInSeconds: 0.5

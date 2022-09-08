@@ -54,7 +54,10 @@ namespace SpaceCabron.Gameplay
         protected virtual void Awake()
         {
             gun = GetComponentInChildren<GunBehaviour>();
+        }
 
+        void Start()
+        {
             turntable = GetTurntable(false, "");
             turntable.UnityEvent.AddListener(Callback_OnNote);
         }

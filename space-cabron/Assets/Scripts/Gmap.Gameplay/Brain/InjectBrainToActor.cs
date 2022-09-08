@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Gmap.Gameplay
 {
     public class InjectBrainToActor<InputStateType> : MonoBehaviour
     {
+        public bool InjectOnStart = true;
         public ScriptableBrain<InputStateType> Brain;
 
-        void Awake()
+        void Start()
+        {
+            if (InjectOnStart)
+            {
+                Inject();
+                Destroy(this);
+            }
+        }
+
+        public void Inject()
         {
             InjectBrainToActor<InputStateType>.Inject(gameObject, Brain);
-            Destroy(this);
         }
 
         public static void Inject(GameObject target, IBrain<InputStateType> brain)

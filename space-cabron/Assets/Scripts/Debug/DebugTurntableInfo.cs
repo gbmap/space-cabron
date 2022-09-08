@@ -38,16 +38,18 @@ namespace Gmap.Debug
             var melody = turntableBehaviour.Melody;
             var improviser = turntableBehaviour.Improviser;
 
-            List<Note> notes = new List<Note>();
-            string m = Enumerable.Range(0,melody.Length)
-                                 .SelectMany(i=>improviser.Improvise(melody, turntableBehaviour.BarIndex, melody.GetNote(i), i, false))
-                                 .Select(n=>n.AsString())
-                                 .Aggregate((a,b)=>a+";"+b);
-            GUILayout.Label($"Melody: {m}");
-            GUILayout.Label($"{(turntableBehaviour.Turntable as Turntable).DebugString()}");
-            GUILayout.Label("======");
+            if (melody.Length > 0) {
+                List<Note> notes = new List<Note>();
+                string m = Enumerable.Range(0,melody.Length)
+                                    .SelectMany(i=>improviser.Improvise(melody, turntableBehaviour.BarIndex, melody.GetNote(i), i, false))
+                                    .Select(n=>n.AsString())
+                                    .Aggregate((a,b)=>a+";"+b);
+                GUILayout.Label($"Melody: {m}");
+                GUILayout.Label($"{(turntableBehaviour.Turntable as Turntable).DebugString()}");
+                GUILayout.Label("======");
 
-            GUILayout.Label($"Last Note: {turntableBehaviour.Melody.GetNote(turntableBehaviour.NoteIndex - 1).ToString()}");
+                GUILayout.Label($"Last Note: {turntableBehaviour.Melody.GetNote(turntableBehaviour.NoteIndex - 1).ToString()}");
+            }
             GUILayout.Label($"Melody Root: {turntableBehaviour.Melody.Root}");
             GUILayout.Label($"Scale: {turntableBehaviour.Melody.Scale}");
             GUILayout.Label($"Current Level: {LevelLoader.CurrentLevelConfiguration}");

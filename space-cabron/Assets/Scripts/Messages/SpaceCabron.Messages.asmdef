@@ -2,7 +2,8 @@
     "name": "SpaceCabron.Messages",
     "rootNamespace": "",
     "references": [
-        "GUID:98671b1d76d21834a8a0f77fb5b3b9d4"
+        "GUID:98671b1d76d21834a8a0f77fb5b3b9d4",
+        "GUID:e37c82ff00beb1148a0eb99884d07e1c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

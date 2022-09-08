@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Linq;
 using Gmap.Gameplay;
@@ -7,6 +6,7 @@ using SpaceCabron.Gameplay;
 using SpaceCabron.Gameplay.Bosses;
 using SpaceCabron.Gameplay.Level;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 public class BossTests 
@@ -20,7 +20,11 @@ public class BossTests
     [TearDown]
     public void Destroy()
     {
+        System.Array.ForEach(GameObject.FindObjectsOfType<MonoBehaviour>(), m => Object.Destroy(m.gameObject));
         System.Array.ForEach(GameObject.FindGameObjectsWithTag("Enemy"), e => GameObject.Destroy(e));
+        for (int i = 1; i < SceneManager.sceneCount; i++) {
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+        }
     }
     
     [UnityTest, TestCaseSource(nameof(GetBossLevels))]
@@ -37,10 +41,11 @@ public class BossTests
     {
         LevelLoader.Load(level);
         yield return new WaitForSeconds(1f);
-        BossBehaviour boss = GameObject.FindObjectOfType<BossBehaviour>();
+        BossBehaviour[] bosses = GameObject.FindObjectsOfType<BossBehaviour>();
+        BossBehaviour boss = bosses.FirstOrDefault(b => b.transform.parent == null);
         Assert.IsTrue(Vector3.Distance(boss.transform.position, Vector3.up * 2f) > 0.02f);
         yield return new WaitForSeconds(10f);
-        Assert.IsTrue(Vector3.Distance(boss.transform.position, Vector3.up * 2f) < 0.10f);
+        Assert.IsTrue(Vector3.Distance(boss.transform.position, Vector3.up * 2f) < 0.20f);
     }
 
     [UnityTest, TestCaseSource(nameof(GetBossLevels))]

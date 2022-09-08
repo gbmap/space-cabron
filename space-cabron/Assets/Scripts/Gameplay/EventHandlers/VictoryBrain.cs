@@ -68,31 +68,39 @@ namespace SpaceCabron.Gameplay
             FinishAnimationAndDestroy();
         }
 
-        public static void Play<T>(GameObject target, System.Action OnEnd=null) where T : AnimationBrain
+        public static T Play<T>(GameObject target, System.Action OnEnd=null) where T : AnimationBrain
         {
             AnimationBrain[] brains = target.GetComponents<AnimationBrain>();
             System.Array.ForEach(brains, b=> b.CancelAnimation());
 
-            T b = target.AddComponent<T>();
+            T component = target.AddComponent<T>();
             if (OnEnd != null)
-                b.OnAnimationEnded += OnEnd;
-            InjectBrainToActor<InputState>.Inject(target, b);
+                component.OnAnimationEnded += OnEnd;
+            InjectBrainToActor<InputState>.Inject(target, component);
+
+            return component;
         }
     }
 
     public class VictoryBrain : AnimationBrain
     {
+        public int Index = 0;
+        public int MaxPlayers = 2;
+
         protected override IEnumerator AnimationCoroutine()
         {
-            Vector3 centerPosition = Camera.main.ViewportToWorldPoint(
-                new Vector3(0.5f, 0.25f, 0f)
-            );
+            float halfWidth = 0.25f;
+
+            float x = Mathf.Lerp(0.5f-halfWidth, 0.5f+halfWidth, ((float)Index)/MaxPlayers);
+            Vector3 centerPosition = Vector3.zero;
+            if (Camera.main != null)
+                centerPosition = Camera.main.ViewportToWorldPoint(
+                    new Vector3(x, 0.25f, 0f)
+                );
             yield return MoveTowardsPosition(centerPosition);
             yield return new WaitForSeconds(3f);
 
-            Vector3 outsideOfScreenTop = Camera.main.ViewportToWorldPoint(
-                new Vector3(0.5f, 1.2f, 0f)
-            );
+            Vector3 outsideOfScreenTop = Vector3.up * 15f + Vector3.right * centerPosition.x;
             yield return MoveTowardsPosition(outsideOfScreenTop);
         }
     }

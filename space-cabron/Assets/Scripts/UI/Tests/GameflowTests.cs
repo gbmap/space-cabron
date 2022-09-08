@@ -73,7 +73,7 @@ public class GameflowTests
     }
 
     [UnityTest]
-    public IEnumerator NewGameTransitionsToGameOptions()
+    public IEnumerator NewGameTransitionsToNumberOfPlayers()
     {
         Menu menu = null;
         yield return LoadMenu((m) => menu = m);
@@ -82,6 +82,22 @@ public class GameflowTests
         var newGameButton = GetButton(menu, "new");
         Assert.IsNotNull(newGameButton, "Could not find new game button.");
         newGameButton.onClick.Invoke();
+
+        Assert.AreEqual(GameState.Current, Resources.Load<GameState>("GameStates/MenuNumberOfPlayers"));
+    }
+
+    [UnityTest, TestCase("one", ExpectedResult=null), TestCase("two", ExpectedResult=null)]
+    public IEnumerator NumberOfPlayersTransitionsToGameMode(string buttonName)
+    {
+        Menu menu = null;
+        yield return LoadMenu((m) => menu = m);
+
+        GetButton(menu, "press").onClick.Invoke();
+        var newGameButton = GetButton(menu, "new");
+        Assert.IsNotNull(newGameButton, "Could not find new game button.");
+        newGameButton.onClick.Invoke();
+
+        GetButton(menu, buttonName).onClick.Invoke();
 
         Assert.AreEqual(GameState.Current, Resources.Load<GameState>("GameStates/MenuSelectMelody"));
     }
@@ -94,6 +110,7 @@ public class GameflowTests
 
         GetButton(menu, "press").onClick.Invoke();
         GetButton(menu, "new").onClick.Invoke();
+        GetButton(menu, "one").onClick.Invoke();
         var buttonRandom = GetButton(menu, "random");
         Assert.IsNotNull(buttonRandom, "Could not find standard melody button.");
 
@@ -110,6 +127,7 @@ public class GameflowTests
 
         GetButton(menu, "press").onClick.Invoke();
         GetButton(menu, "new").onClick.Invoke();
+        GetButton(menu, "one").onClick.Invoke();
         var buttonRandom = GetButton(menu, "custom");
         Assert.IsNotNull(buttonRandom, "Could not find custom melody button.");
         buttonRandom.onClick.Invoke();
@@ -124,6 +142,7 @@ public class GameflowTests
 
         GetButton(menu, "press").onClick.Invoke();
         GetButton(menu, "new").onClick.Invoke();
+        GetButton(menu, "one").onClick.Invoke();
         GetButton(menu, "custom").onClick.Invoke();
         Get<TMPro.TMP_InputField>(menu, "custommelody").text = "c4/4;c4/4;c4/4;c4/4";
         Get<UnityEngine.UI.Button>(menu, "ok").onClick.Invoke();
@@ -133,5 +152,26 @@ public class GameflowTests
         var playerInstrument = (LevelLoader.CurrentLevelConfiguration as LevelConfiguration).GetInstrumentConfigurationByTag("Player");
         Melody m = playerInstrument.MelodyFactory.GenerateMelody();
         Assert.AreEqual(m.Notation, "c4/4;c4/4;c4/4;c4/4");
+    }
+
+    [
+        UnityTest,
+        TestCase("one", 1, ExpectedResult=null),
+        TestCase("two", 2, ExpectedResult=null)
+    ]
+    public IEnumerator NumberOfPlayerBeginsGameWithCorrectNumberOfPlayers(
+        string buttonName, int playersExpected
+    ) {
+        Menu menu = null;
+        yield return LoadMenu((m) => menu = m);
+
+        GetButton(menu, "press").onClick.Invoke();
+        GetButton(menu, "new").onClick.Invoke();
+        GetButton(menu, buttonName).onClick.Invoke();
+        GetButton(menu, "random").onClick.Invoke();
+
+        yield return new WaitForSeconds(5f);
+
+        Assert.AreEqual(playersExpected, GameObject.FindGameObjectsWithTag("Player").Length);
     }
 }

@@ -16,6 +16,8 @@ MonoBehaviour:
   keys:
   - key
   - warning_controller
+  - menu_one_player
+  - menu_two_players
   - new_game
   - exit_game
   - standard_game
@@ -33,6 +35,8 @@ MonoBehaviour:
   values:
   - pt-BR
   - "Jogue com um controle e fones de ouvido para uma experi\xEAncia melhor."
+  - 1 JOGADOR
+  - 2 JOGADORES
   - NOVO JOGO
   - SAIR
   - MODO NORMAL

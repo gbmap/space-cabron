@@ -54,6 +54,7 @@ public class InteractableTests
             Vector3.zero, 
             Quaternion.identity
         ) as GameObject;
+        this.playerInstance.name += "0";
 
         this.brain = InjectPlayerWithControlBrain(this.playerInstance);
 
@@ -80,14 +81,20 @@ public class InteractableTests
 
     public static IEnumerator MoveTo(PlayerControlBrain brain, GameObject objectInstance, Vector3 targetPosition)
     {
-        while (Vector3.Distance(objectInstance.transform.position, targetPosition) > 0.01f)
+        float time = 0f;
+        while (Vector3.Distance(objectInstance.transform.position, targetPosition) > 0.05f && time < 10f)
         {
             brain.Movement = Vector3.ClampMagnitude(
                 targetPosition - objectInstance.transform.position,
                 1
             );
             yield return null;
+            time += Time.deltaTime;
         }
+
+        if (time >= 10f)
+            Assert.Fail("Timed out while moving to target position");
+
         brain.Movement = Vector2.zero;
     }
 

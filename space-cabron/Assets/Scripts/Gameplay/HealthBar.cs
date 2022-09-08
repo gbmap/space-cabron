@@ -10,7 +10,9 @@ public class HealthBar : MonoBehaviour
     public enum ESide
     {
         Left,
-        Right
+        Right,
+        Top,
+        Bottom
     }
     public ESide Side = ESide.Right;
     public Vector3 Offset = Vector3.zero;
@@ -39,16 +41,36 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateTransform()
     {
-        transform.localPosition = (Side == ESide.Left
-                                ? Vector3.left
-                                : Vector3.right)
-                                * (enemyRenderer.bounds.extents.x + 5f / 100f)
-                                + Offset;
-        transform.localScale = new Vector3(
-            (10f / 100f) * Scale.x,
-            (enemyRenderer.bounds.size.y + 10f / 100f) * Scale.y,
-            1f * Scale.z
-        );
+        Vector3 pos = Offset;
+        Vector3 scale = Scale;
+        if (Side == ESide.Left)
+        {
+            pos.x -= enemyRenderer.bounds.extents.x + 5f/100f;
+            scale.x = 0.05f;
+            scale.y = enemyRenderer.bounds.size.y + 0.1f;
+        }
+        else if (Side == ESide.Right)
+        {
+            pos.x += enemyRenderer.bounds.extents.x + 5f/100f;
+            scale.x = 0.05f;
+            scale.y = enemyRenderer.bounds.size.y + 0.1f;
+        }
+        else if (Side == ESide.Top)
+        {
+            pos.y += enemyRenderer.bounds.extents.y + 5f/100f;
+            scale.y = 0.05f;
+            scale.x = enemyRenderer.bounds.size.x + 0.1f;
+        }
+        else if (Side == ESide.Bottom)
+        {
+            pos.y -= enemyRenderer.bounds.extents.y + 5f/100f;
+            scale.y = 0.05f;
+            scale.x = enemyRenderer.bounds.size.x + 0.1f;
+        }
+        scale = new Vector3(scale.x * Scale.x, scale.y * Scale.y, 1f);
+
+        transform.localPosition = pos;
+        transform.localScale = scale;
     }
 
     private void Callback_OnDamage()
@@ -66,6 +88,7 @@ public class HealthBar : MonoBehaviour
 
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         mpb.SetInt("_NumberOfColors", Mathf.Min(10, colorHealth.MaxHealth));
+        mpb.SetInt("_Axis", Side >= ESide.Top ? 1 : 0);
         if (colorHealth.CurrentHealth % 10 == 0 || lastColorValues == null)
         {
             lastColorValues = colorHealth.ColorLife.Take(colorHealth.CurrentHealth)

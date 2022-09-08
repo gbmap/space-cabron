@@ -25,7 +25,12 @@ namespace SpaceCabron.Gameplay
                 return;
 
             hasSpawned = true;
-            MessageRouter.RaiseMessage(new MsgSpawnPlayer { Position = transform.position });
+            MessageRouter.RaiseMessage(new MsgSpawnPlayer 
+            { 
+                PlayerIndex = Mathf.Clamp(gameObject.name[gameObject.name.Length-1] - '0', 0, 1),
+                Position = transform.position,
+                IsRespawn = true
+            });
             other.GetComponent<Health>().Destroy();
             health.Destroy();
         }

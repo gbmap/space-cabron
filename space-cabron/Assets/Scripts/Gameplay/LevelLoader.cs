@@ -49,46 +49,6 @@ namespace Gmap.Gameplay
             Load(CurrentLevelConfiguration, OnFinishedReloading);
         }
 
-        private static void Callback_OnGameplaySceneLoaded(
-            AsyncOperation op, 
-            LevelConfiguration level,
-            System.Action OnFinishedLoading = null
-        ) {
-            UnloadOtherScenes();
-            MessageRouter.RaiseMessage(new MsgLevelStartedLoading());
-
-            if (level != null)
-            {
-                Debug.Log($"Configuring level {level.name}.");
-                RenderSettings.skybox = level.Background.Material;
-            }
-
-            CurrentLevelConfiguration = level;
-            ConfigureLevelConfigurablesWithLevelConfiguration(level);
-            PlayBeginLevelAnimationOnPlayers(() => {
-                MessageRouter.RaiseMessage(new MsgLevelFinishedLoading{});
-                OnFinishedLoading?.Invoke();
-            });
-        }
-
-        private static void UnloadOtherScenes()
-        {
-            SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
-            // SceneManager.sceneCount-1 because we don't want to unload the last 
-            // loaded scene.
-            for (int i = 0; i < SceneManager.sceneCount - 1; i++)
-            {
-                var scene = SceneManager.GetSceneAt(i);
-                if (ShouldUnloadScene(scene))
-                    SceneManager.UnloadSceneAsync(scene);
-            }
-        }
-
-        private static bool ShouldUnloadScene(Scene s)
-        {
-            return !s.name.ToLower().Contains("test");
-        }
-
         private static void ConfigureLevelConfigurablesWithLevelConfiguration(LevelConfiguration level)
         {
             Scene gameplayScene = SceneManager.GetActiveScene();

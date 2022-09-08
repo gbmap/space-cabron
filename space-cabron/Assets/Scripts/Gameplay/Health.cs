@@ -30,6 +30,7 @@ namespace Gmap.Gameplay
 
         public System.Action<MsgOnObjectDestroyed> OnDestroy;
         public UnityEvent<OnNoteArgs> OnDamage;
+        public UnityEvent<MsgOnObjectDestroyed> OnDestroyUnity;
         public System.Action OnTakenDamage;
         public System.Action<bool> OnSetResistant;
 
@@ -61,6 +62,9 @@ namespace Gmap.Gameplay
 
         public virtual bool TakeDamage(Bullet b, Collider2D collider)
         {
+            if (!enabled)
+                return false;
+
             if (!CanTakeDamage)
                 return false;
 
@@ -106,6 +110,7 @@ namespace Gmap.Gameplay
         {
             IsBeingDestroyed = true;
             OnDestroy?.Invoke(msg);
+            OnDestroyUnity?.Invoke(msg);
             MessageRouter.RaiseMessage(msg);
             this.DestroyOrDisable();
         }

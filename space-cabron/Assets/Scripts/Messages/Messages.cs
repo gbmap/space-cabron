@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Gmap.Gameplay;
 
 namespace SpaceCabron.Messages
 {    
@@ -57,6 +58,8 @@ namespace SpaceCabron.Messages
 
     public class MsgSpawnPlayer
     {
+        public int PlayerIndex = 0;
+        public bool IsRespawn = false;
         public GameObject TargetPosition;
         public Vector3 Position;
         public System.Action<GameObject> OnSpawned;
@@ -73,4 +76,7 @@ namespace SpaceCabron.Messages
     }
 
     public class MsgGameOver {}
+
+    public class MsgPlayerJoined {}
+    public class MsgPlayerLeft {}
 }

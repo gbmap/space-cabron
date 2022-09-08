@@ -43,6 +43,10 @@ namespace SpaceCabron.Gameplay
 
         private void Callback_OnPlayerSpawned(MsgOnPlayerSpawned msg)
         {
+            if (GameObject.FindGameObjectsWithTag("Player").Length > 1) {
+                return;
+            }
+
             TurntableBehaviour turntable = msg.Player.GetComponentInChildren<TurntableBehaviour>();
 
             int playerIndex = GetPlayerIndexFromGameObject(msg.Player);

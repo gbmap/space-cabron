@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScaleTowardsDirection: 0
   Speed: 0.3
 --- !u!114 &2130818586
 MonoBehaviour:
@@ -162,8 +163,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
+  UsePool: 1
   Cooldown: 0.25
+  TimeOffset: 0
   _angle: -90
+  randomizeAngle: 0
+  angleRange: 60
+  Relative: 0
 --- !u!114 &4857748815557414005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,4 +182,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InjectOnStart: 1
   Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}

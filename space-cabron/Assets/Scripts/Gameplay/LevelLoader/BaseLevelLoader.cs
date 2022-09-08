@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Frictionless;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
+using SpaceCabron.Gameplay.Multiplayer;
 using SpaceCabron.Messages;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -83,7 +85,8 @@ namespace SpaceCabron.Gameplay.Level
 
             Resources.Load<GameState>("GameStates/GameplayPlay").ChangeTo();
 
-            bool spawnedNewPlayer = SpawnPlayerIfNone();
+
+            bool spawnedNewPlayer = SpawnPlayers();
 
             ConfigureLevel();
             ConfigureLevelConfigurablesWithConfiguration(
@@ -100,7 +103,6 @@ namespace SpaceCabron.Gameplay.Level
             }
             else
                 Finish();
-
         }
 
         private static void DestroyAllWithTag(string tags)
@@ -112,17 +114,33 @@ namespace SpaceCabron.Gameplay.Level
             }
         }
 
-        private bool SpawnPlayerIfNone()
+        private bool SpawnPlayers()
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            if (players.Length == 0)
+
+            // Use the list to avoid respawning existing players.
+            List<int> alivePlayerIndexes = new List<int>();
+            for (int i = 0; i < players.Length; i++)
             {
+                var player = players[i];
+                alivePlayerIndexes.Add(player.name[player.name.Length-1]-'0');
+            }
+
+            bool spawnedPlayer = false;
+            for (int i = 0; i < MultiplayerManager.PlayerCount; i++)
+            {
+                if (alivePlayerIndexes.Contains(i))
+                    continue;
+
                 MessageRouter.RaiseMessage(new MsgSpawnPlayer {
+                    PlayerIndex = Mathf.Clamp(i, 0, 1),
+                    IsRespawn = true,
                     Position = Vector3.down*10f
                 });
-                return true;
+
+                spawnedPlayer = true;
             }
-            return false;
+            return spawnedPlayer;
         }
 
         private int GetSceneIndex(string name)

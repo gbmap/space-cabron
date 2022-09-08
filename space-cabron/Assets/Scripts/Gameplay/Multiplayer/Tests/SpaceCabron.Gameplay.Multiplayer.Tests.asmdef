@@ -1,0 +1,29 @@
+{
+    "name": "SpaceCabron.Gameplay.Multiplayer.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0c07aa109aba5b840aef90368aa14233",
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:6d618e0ce1281494e86844f49c3ee3e9",
+        "GUID:ac7d7974f85db534b932f6d4af9fc4f5",
+        "GUID:e37c82ff00beb1148a0eb99884d07e1c",
+        "GUID:98671b1d76d21834a8a0f77fb5b3b9d4",
+        "GUID:c8724ea9c6010314091f09b67787891d",
+        "GUID:59592d14d8b22ea4bb502b178e891a73",
+        "GUID:70defad6938a3e44ca26aad287a9d05b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

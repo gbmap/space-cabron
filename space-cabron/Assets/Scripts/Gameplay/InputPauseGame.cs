@@ -18,6 +18,9 @@ namespace SpaceCabron
         // Update is called once per frame
         void Update()
         {
+            if (Brain == null)
+                return;
+
             InputState input = Brain.GetInputState(new InputStateArgs
             {
                 Object = gameObject

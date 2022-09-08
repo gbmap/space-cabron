@@ -23,6 +23,9 @@ public class SpawnOnDestroy : MonoBehaviour
 
     Health health;
 
+    // Shouldn't be here.
+    public bool NameObjectSpawned;
+
     void Awake()
     {
         health = GetComponentInChildren<Health>();
@@ -49,6 +52,12 @@ public class SpawnOnDestroy : MonoBehaviour
             return;
 
         var obj = Instantiate(bag.Next(), transform.position, Quaternion.identity);
+        if (NameObjectSpawned)
+        {
+            obj.name = obj.name.Replace("(Clone)", "") 
+                     + gameObject.name[gameObject.name.Length-1];
+        }
+
         if (ApplyRigidbodyForce)
         {
             Rigidbody2D r = obj.GetComponent<Rigidbody2D>();

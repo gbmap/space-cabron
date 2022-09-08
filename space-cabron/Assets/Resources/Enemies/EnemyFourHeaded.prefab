@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InjectOnStart: 1
   Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
 --- !u!114 &4829498680600461317
 MonoBehaviour:
@@ -330,6 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScaleTowardsDirection: 0
   Speed: 0.1
 --- !u!114 &8789273482446217634
 MonoBehaviour:

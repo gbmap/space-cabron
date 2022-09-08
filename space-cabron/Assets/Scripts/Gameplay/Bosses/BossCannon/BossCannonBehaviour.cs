@@ -30,42 +30,66 @@ namespace SpaceCabron.Gameplay.Bosses
 
         IEnumerator ExtendFiringSimultaneous(int shotPattern)
         {
-            StartCoroutine(Left.Extend(shotPattern));
-            StartCoroutine(Right.Extend(shotPattern));
-            while (!Left.IsExtended && !Right.IsExtended)
+            StartCoroutine(ExtendIfExists(Left, shotPattern));
+            StartCoroutine(ExtendIfExists(Right, shotPattern));
+            if (Left == null && Right == null)
+                yield break;
+            
+            while (Left != null || !Left.IsExtended)
+                yield return null;
+            
+            while (Right != null || !Right.IsExtended)
                 yield return null;
         }
 
         IEnumerator ContractFiringSimultaneous()
         {
-            StartCoroutine(Left.Contract());
-            StartCoroutine(Right.Contract());
-            while (!Left.IsContracted && !Right.IsContracted)
+            StartCoroutine(ContractIfExists(Left, -1));
+            StartCoroutine(ContractIfExists(Right, -1));
+            if (Left == null && Right == null)
+                yield break;
+            
+            while (Left != null || !Left.IsContracted)
+                yield return null;
+            
+            while (Right != null || !Right.IsContracted)
                 yield return null;
         }
 
         IEnumerator ExtendLeftThenRight(int shotPattern=-1)
         {
-            yield return Left.Extend(shotPattern);
-            yield return Right.Extend(shotPattern);
+            yield return ExtendIfExists(Left, shotPattern);
+            yield return ExtendIfExists(Right, shotPattern);
         }
 
         IEnumerator ContractLeftThenRight(int shotPattern)
         {
-            yield return Left.Contract(shotPattern);
-            yield return Right.Contract(shotPattern);
+            yield return ContractIfExists(Left, shotPattern);
+            yield return ContractIfExists(Right, shotPattern);
         }
 
         IEnumerator ExtendRightThenLeft(int shotPattern=-1)
         {
-            yield return Right.Extend(shotPattern);
-            yield return Left.Extend(shotPattern);
+            yield return ExtendIfExists(Right, shotPattern);
+            yield return ExtendIfExists(Left, shotPattern);
         }
 
         IEnumerator ContractRightThenLeft(int shotPattern)
         {
-            yield return Right.Contract(shotPattern);
-            yield return Left.Contract(shotPattern);
+            yield return ContractIfExists(Right, shotPattern);
+            yield return ContractIfExists(Left, shotPattern);
+        }
+
+        IEnumerator ExtendIfExists(BossCannonNode node, int shotPattern)
+        {
+            if (node != null)
+                yield return node.Extend(shotPattern);
+        }
+
+        IEnumerator ContractIfExists(BossCannonNode node, int shotPattern)
+        {
+            if (node != null)
+                yield return node.Contract(shotPattern);
         }
 
         ////////////
@@ -83,8 +107,10 @@ namespace SpaceCabron.Gameplay.Bosses
 
         IEnumerator FireBounce()
         {
-            StartCoroutine(Left.FireBounce());
-            StartCoroutine(Right.FireBounce());
+            if (Left != null)
+                StartCoroutine(Left.FireBounce());
+            if (Right != null)
+                StartCoroutine(Right.FireBounce());
             yield return new WaitForSeconds(2f);
         }
 

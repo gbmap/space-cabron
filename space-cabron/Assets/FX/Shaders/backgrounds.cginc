@@ -288,7 +288,6 @@ float draw_stars(float2 uv, float2 vel) {
 }
 
 fixed4 bg05(v2f i, float2 uv) {
-
 	float t = _Time.y*4.;
 	float x = fbm((uv-fixed2(0., -t*0.125))*5.)*0.750 + beat_curve()*0.05;
 	x = smoothstep(0., 1., x*x*x);
@@ -318,7 +317,98 @@ fixed4 bg05(v2f i, float2 uv) {
 	return clr;
 	return bgcolor + (max(green*saturate(x), purple*saturate(x2)))*0.5;
 	return fixed4(x,x,x,1.);
+}
 
+
+float hash1( float n )
+{
+	return frac(sin(n)*43758.5453);
+}
+
+float2 hash2( float2  p )
+{
+	p = float2( dot(p,float2(127.1,311.7)), dot(p,float2(269.5,183.3)) );
+	return frac(sin(p)*43758.5453);
+}
+
+float4 voronoi( in float2 x, float w, float frame_count )
+{
+    float2 n = floor( x );
+    float2 f = frac( x );
+
+	float4 m = float4( 8.0, 0.0, 0.0, 0.0 );
+    for( int j=-1; j<=2; j++ )
+    for( int i=-1; i<=2; i++ )
+    {
+        float2 g = float2( float(i),float(j) );
+        float2 o = hash2( n + g );
+		
+		// animate
+        o = 0.5 + 0.5*sin( 0.01 * frame_count + 6.2831*o );
+
+        // distance to cell		
+		float d = length(g - f + o);
+		
+        // do the smooth min for colors and distances		
+		float3 col = 0.5 + 0.5*sin( hash1(dot(n+g,float2(7.0,113.0)))*2.5 + 3.5 + float3(2.0,3.0,0.0));
+		float h = smoothstep( 0.0, 1.0, 0.5 + 0.5*(m.x-d)/w );
+		
+	    m.x   = lerp( m.x,     d, h ) - h*(1.0-(h))*w/(1.0+3.0*w); // distance
+		m.yzw = lerp( m.yzw, col, h ) - h*(1.0-h)*w/(1.0+3.0*w); // cioloe
+    }
+	
+	return m;
+}
+
+fixed4 bg06(v2f i, float2 uv) {
+	uv*=2.;
+	float uvNoiseScale = 5.;
+	float noiseScale = 0.5;
+	float2 seaUv = ((uv+float2(0., _Time.y*0.5)) * 10.)
+				 + float2(noise(uv*uvNoiseScale), noise((uv+float2(5.,-5.))*uvNoiseScale))
+				 * noiseScale;
+
+	float mainWave = 0.25*cos(abs(
+		(uv.y + (frac(_Time.y*0.125)-0.5)*20.) - (-0.5*uv.x)
+	));
+	// seaUv.xy += mainWave*1.;
+	float4 v = voronoi(seaUv, 0.00, _Time.y*100.);
+
+	fixed4 clr = fixed4(113./255., 266./255., 246./255., 1.)*0.35;
+	fixed3 hsv = rgb_to_hsv_no_clip(clr.rgb);
+	// hsv.r += fbm(seaUv*10.)*0.125;
+	hsv.b -= 0.1;
+	// hsv.r = frac(hsv.g + v.x*0.5);
+	clr.rgb = hsv_to_rgb(hsv);
+
+	float darkerSea = noise((uv*0.25+float2(0.,_Time.y*0.25))*uvNoiseScale);
+	fixed4 clrDarker = clr*0.8;
+	clr = lerp(clr, clrDarker, darkerSea);
+	
+	float darkSea = smoothstep(0.0, 0.5, noise((uv+float2(0.,_Time.y*0.5))*uvNoiseScale*v.y*2.));
+	// darkSea *= ;
+	fixed4 clrDark = clr*0.9;
+	clr = lerp(clr, clrDark, darkSea);
+
+	// float lighterSea = smoothstep(0.0, 1.0, noise((uv*1.+float2(noise(uv),noise(uv)+_Time.y*0.5))*uvNoiseScale));
+	// // lighterSea = v.z;
+	// fixed4 clrLight = clr*2.0;
+	// clr = lerp(clr, clrLight, lighterSea);
+
+
+	float ripples = smoothstep(0.045, 0.5, v.x*v.x*v.x);
+	ripples = saturate(ripples-noise(seaUv));
+	fixed4 clrRipples = fixed4(245./255.,208./255.,162./255.,1.)*0.7;
+	clr = lerp(clr, clrRipples, ripples);
+
+	// clr*= saturate(mainWave+1.0);
+
+	// float waves = uv.y*0.5 + noise(uv*uvNoiseScale)*0.5;
+	// fixed4 clrWaves = fixed4(245./255.,208./255.,162./255.,1.)*0.7;
+	// clr = lerp(clr, clrWaves, waves);
+
+	return clr;
+	return clr;
 }
 
 

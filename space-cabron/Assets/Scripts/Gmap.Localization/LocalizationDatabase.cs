@@ -72,6 +72,7 @@ namespace Gmap.Localization
     [CreateAssetMenu(menuName="Gmap/Localization/Localization Database")]
     public class LocalizationDatabase : ScriptableObject
     {
+        public static string TargetKey = "en";
         public string LanguageKey="--";
 
         [SerializeField] string[] keys;

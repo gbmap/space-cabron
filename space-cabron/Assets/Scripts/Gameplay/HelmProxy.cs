@@ -9,6 +9,12 @@ namespace Gmap.CosmicMusicUtensil
         public AudioHelm.HelmController Controller;
         public AudioHelm.Sampler Sampler;
 
+        public int Channel 
+        {
+            get => Controller.channel;
+            set => Controller.channel = value;
+        }
+
         public void Play(OnNoteArgs args)
         {
             var note = args.Note;

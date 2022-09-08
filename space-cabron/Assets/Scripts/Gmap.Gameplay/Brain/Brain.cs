@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Gmap.Gameplay
 {
@@ -14,7 +13,6 @@ namespace Gmap.Gameplay
     {
         public GameObject Object;
         public MonoBehaviour Caller;
-        public PlayerInput Input;
     }
 
     public interface IBrain<InputStateType>

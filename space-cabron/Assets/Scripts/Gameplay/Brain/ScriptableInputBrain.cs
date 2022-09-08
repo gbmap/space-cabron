@@ -1,45 +1,45 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Gmap.Gameplay;
-using SpaceCabron.Gameplay;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace SpaceCabron.Gameplay
 {
     [CreateAssetMenu(menuName="Gmap/Brain/Input")]
     public class ScriptableInputBrain : ScriptableBrain<InputState>
     {
-        public InputActionAsset ActionAsset;
+        public int Index = 0;
+
+        Rewired.Player rewiredPlayer;
+        Rewired.Player RewiredPlayer
+        {
+            get
+            {
+                if (!Rewired.ReInput.isReady) {
+                    Instantiate(Resources.Load("Rewired Input Manager"));
+                }
+
+                if (rewiredPlayer == null)
+                {
+                    rewiredPlayer = Rewired.ReInput.players.GetPlayer(Index);
+                }
+                return rewiredPlayer;
+            }
+        }
 
         public override InputState GetInputState(InputStateArgs args)
         {
-            PlayerInput input = args.Input;
-            if (input == null)
-            {
-                input = args.Object?.GetComponent<PlayerInput>();
-                if (input == null)
-                    return new InputState{ Movement = Vector2.zero };
-            }
-
-            InputAction movement = input.currentActionMap.FindAction("Movement");
-            InputAction shoot = input.currentActionMap.FindAction("Jump");
-            InputAction pause = input.currentActionMap.FindAction("Pause");
-
-            EColor color = GetColor(input);
-
-            Vector2 m = movement.ReadValue<Vector2>();
+            EColor color = GetColor();
             return new InputState
             {
-                Movement = m,
+                Movement = RewiredPlayer.GetAxis2D("MoveHorizontal", "MoveVertical"),
                 Shoot = color != EColor.None,
-                Pause = pause.WasPressedThisFrame(),
+                Pause = RewiredPlayer.GetButtonDown("Pause"),
                 Color = color
             };
         }
 
-        private EColor GetColor(PlayerInput input)
+        private EColor GetColor()
         {
             List<Tuple<string, EColor>> colors = new List<Tuple<string, EColor>>
             {
@@ -49,9 +49,10 @@ namespace SpaceCabron.Gameplay
                 new Tuple<string, EColor>("Yellow", EColor.Yellow)
             };
 
+
             foreach (Tuple<string, EColor> color in colors)
             {
-                if (input.currentActionMap.FindAction(color.Item1).WasPressedThisFrame())
+                if (RewiredPlayer.GetButtonDown(color.Item1))
                     return color.Item2;
             }
 

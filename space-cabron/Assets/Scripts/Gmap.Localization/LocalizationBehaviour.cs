@@ -13,7 +13,7 @@ namespace Gmap.Localization
 
         void Start()
         {
-            value = GetString(Key, "en");
+            value = GetString(Key, LocalizationDatabase.TargetKey);
             OnLocalizationUpdate?.Invoke(value);
         }
 

@@ -2,6 +2,7 @@ using System;
 using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Gameplay;
+using SpaceCabron.Gameplay.Multiplayer;
 using UnityEngine;
 
 namespace Gmap.Gameplay
@@ -23,6 +24,10 @@ namespace Gmap.Gameplay
                 throw new System.Exception("Level Configuration can't be null.");
         }
 
+        public void SetNumberOfPlayers(int n)
+        {
+            MultiplayerManager.PlayerCount = n;
+        }
 
         public void SelectRandomMelody()
         {

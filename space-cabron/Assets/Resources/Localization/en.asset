@@ -16,6 +16,8 @@ MonoBehaviour:
   keys:
   - key
   - warning_controller
+  - menu_one_player
+  - menu_two_players
   - new_game
   - exit_game
   - standard_game
@@ -33,6 +35,8 @@ MonoBehaviour:
   values:
   - en
   - Play with a controller and headphones for a better experience.
+  - 1 PLAYER
+  - 2 PLAYERS
   - NEW GAME
   - EXIT GAME
   - STANDARD MODE

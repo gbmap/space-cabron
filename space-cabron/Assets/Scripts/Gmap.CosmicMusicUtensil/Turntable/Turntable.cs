@@ -34,6 +34,7 @@ namespace Gmap.CosmicMusicUtensil
         public Improviser Improviser { get; }
         void Update(System.Action<OnNoteArgs> OnNote);
         void SetMelody(Melody m);
+        void SetImproviser(Improviser i);
         void ApplyImprovisation(Improvisation improvisation, bool permanent);
         void ApplyImprovisation(Improvisation improvisation, int time);
         public System.Action<OnNoteArgs> OnNote { get; set; }
@@ -224,6 +225,11 @@ namespace Gmap.CosmicMusicUtensil
             string s = $"LastNote: {LastNote.AsString()} \nNoteQueue: " + notesStr;
             return s;
         }
-        #endif
+
+        public void SetImproviser(Improviser i)
+        {
+            this.improviser = i;
+        }
+#endif
     }
 }

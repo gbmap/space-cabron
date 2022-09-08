@@ -11,7 +11,8 @@
         "Gmap.ScriptableReferences",
         "Gmap.Gameplay",
         "Gmap.Gun",
-        "SpaceCabron.UI"
+        "SpaceCabron.UI",
+        "SpaceCabron.Gameplay.Multiplayer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

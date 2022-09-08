@@ -142,6 +142,7 @@ public class LevelTests
     public static PlayerControlBrain InjectPlayerWithControlBrain(GameObject player)
     {
         PlayerControlBrain brain = ScriptableObject.CreateInstance<PlayerControlBrain>();
+        GameObject.Destroy(player.GetComponent<InjectBrainToActor<InputState>>());
         InjectBrainToActor<InputState>.Inject(player, brain);
         return brain;
     }
@@ -163,9 +164,8 @@ public class LevelTests
     {
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
-
         MakePlayerInvincible();
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(10f);
         MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
         yield return new WaitForSeconds(12f);
         Assert.AreEqual(LevelLoader.CurrentLevelConfiguration, level);
@@ -187,8 +187,11 @@ public class LevelTests
         while (enemyInstance != null)
         {
             time += Time.deltaTime;
-            if (time > 20f)
+            if (time > 30f)
+            {
+                Assert.Fail("Enemy didn't go out of screen.");
                 break;
+            }
             // Assert.AreEqual(LevelLoader.CurrentLevelConfiguration, level);
             yield return null;
         }

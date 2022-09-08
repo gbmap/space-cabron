@@ -4,6 +4,7 @@ Shader "Unlit/S_HealthBar"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _NumberOfColors ("Number Of Colors", Int) = 4
+        _Axis ("Axis", Int) = 0
     }
     SubShader
     {
@@ -43,6 +44,7 @@ Shader "Unlit/S_HealthBar"
             int _NumberOfColors;
             float _ColorIndexes[20];
             int _CurrentHealth;
+            int _Axis;
 
             v2f vert (appdata v)
             {
@@ -68,23 +70,24 @@ Shader "Unlit/S_HealthBar"
                 const fixed4 basecolor = fixed4(230.0/255., 0., 84./255.,1.);
                 const float hue_offset = 0.0685 * 3.14159268;
 
+                float x = lerp(i.uv.x, i.uv.y, _Axis);
+                float y = lerp(i.uv.y, i.uv.x, _Axis);
+
                 fixed3 hsv = rgb_to_hsv_no_clip(basecolor.rgb);
 
-                int index = (int)floor((1.-i.uv.y*.999f) * _NumberOfColors);
+                int index = (int)floor((1.-y*.999f) * _NumberOfColors);
                 hsv.r += hue_offset * _ColorIndexes[(_NumberOfColors-(index+1))];
 
                 fixed3 rgb = hsv_to_rgb(hsv);
 
-                float x = i.uv.x;
-                float y = frac(i.uv.y * _NumberOfColors);
-                fixed2 uv_frame = fixed2(x, y);
+                // y = frac(y * _NumberOfColors);
+                fixed2 uv_frame = fixed2(frac(y*_NumberOfColors), x);
 
                 float frame = sdf_square(0.00, uv_frame) - sdf_square(0.2, uv_frame);
-                // rgb.rgb *= (1.-frame)*0.9;
                 rgb.rgb = lerp(rgb.rgb, rgb.rgb*0.35, ceil(frame));
 
                 float a = sdf_square(0.1, uv_frame);
-                a *= step(i.uv.y, ((float)_CurrentHealth)/_NumberOfColors);
+                a *= step(y, ((float)_CurrentHealth)/_NumberOfColors);
                 rgb.rgb *= a;
 
                 return fixed4(rgb.x, rgb.y, rgb.z, a);

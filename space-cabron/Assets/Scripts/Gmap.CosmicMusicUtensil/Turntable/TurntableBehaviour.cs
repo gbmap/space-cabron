@@ -5,9 +5,56 @@ using UnityEngine.Events;
 
 namespace Gmap.CosmicMusicUtensil
 {
+    public class TurntableSoftReference : ITurntable
+    {
+        public TurntableSoftReference(ITurntable turntable)
+        {
+            OriginalTurntable = turntable;
+        }
+
+        public ITurntable OriginalTurntable { get; set; }
+
+        public int BPM { get => OriginalTurntable.BPM; set => OriginalTurntable.BPM = value; }
+        public int MaxBPM { get => OriginalTurntable.MaxBPM; set => OriginalTurntable.MaxBPM = value; }
+        public int NoteIndex => OriginalTurntable.NoteIndex;
+        public int BarIndex => OriginalTurntable.BarIndex;
+        public Melody Melody => OriginalTurntable.Melody;
+        public Improviser Improviser => OriginalTurntable.Improviser;
+
+        public Action<OnNoteArgs> OnNote { get => OriginalTurntable.OnNote; set => OriginalTurntable.OnNote = value; }
+        public Action<OnBarArgs> OnBar { get => OriginalTurntable.OnBar; set => OriginalTurntable.OnBar = value; }
+        public Action<OnImprovisationArgs> OnImprovisationAdded { get => OriginalTurntable.OnImprovisationAdded; set => OriginalTurntable.OnImprovisationAdded = value; }
+        public Action<OnImprovisationArgs> OnImprovisationRemoved { get => OriginalTurntable.OnImprovisationRemoved; set => OriginalTurntable.OnImprovisationRemoved = value; }
+
+        public void ApplyImprovisation(Improvisation improvisation, bool permanent)
+        {
+            OriginalTurntable.ApplyImprovisation(improvisation, permanent);
+        }
+
+        public void ApplyImprovisation(Improvisation improvisation, int time)
+        {
+            OriginalTurntable.ApplyImprovisation(improvisation, time);
+        }
+
+        public void SetImproviser(Improviser i)
+        {
+            OriginalTurntable.SetImproviser(i);
+        }
+
+        public void SetMelody(Melody m)
+        {
+            OriginalTurntable.SetMelody(m);
+        }
+
+        public void Update(Action<OnNoteArgs> OnNote)
+        {
+            OriginalTurntable.Update(OnNote);
+        }
+    }
+
+
     public class TurntableBehaviour : MonoBehaviour, ITurntable
     {
-        // public int BPM = 60;
         public IntBusReference BPMReference;
         public ScriptableCompositeBar Bar;
         public UnityEvent<OnNoteArgs> UnityEvent;
@@ -23,9 +70,14 @@ namespace Gmap.CosmicMusicUtensil
             get 
             { 
                 if (_turntable == null)
-                    _turntable = new Turntable(BPMReference, new Melody(""), KeepNotePlaying, NoteTime, OnNotePlayed);
+                    _turntable = new Turntable(BPMReference, new Melody(""), KeepNotePlaying, NoteTime, Callback_OnNote);
                 return _turntable;
             }
+        }
+
+        public void ForceSetTurntable(Turntable turntable)
+        {
+            _turntable = turntable;
         }
 
         public Improviser Improviser => Turntable.Improviser;
@@ -78,11 +130,12 @@ namespace Gmap.CosmicMusicUtensil
         void Start()
         {
             Turntable.OnBar += Callback_OnBar;
+            Turntable.OnNote += Callback_OnNote;
         }
 
         void Update()
         {
-            Turntable.Update(OnNotePlayed);
+            Turntable.Update(Callback_OnNote);
         }
 
         public void SetMelody(Melody m)
@@ -90,7 +143,7 @@ namespace Gmap.CosmicMusicUtensil
             Turntable.SetMelody(m);
         }
 
-        void OnNotePlayed(OnNoteArgs note)
+        void Callback_OnNote(OnNoteArgs note)
         {
             UnityEvent.Invoke(note);
         }
@@ -120,6 +173,11 @@ namespace Gmap.CosmicMusicUtensil
         void OnDestroy()
         {
             this.UnityEvent.RemoveAllListeners();
+        }
+
+        public void SetImproviser(Improviser i)
+        {
+            Turntable.SetImproviser(i);
         }
     }
 }

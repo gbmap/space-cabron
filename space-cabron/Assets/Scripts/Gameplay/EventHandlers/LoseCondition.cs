@@ -33,6 +33,9 @@ namespace SpaceCabron.Gameplay
 
             if (GameObject.FindGameObjectsWithTag("Drone").Length > 0)
                 return;
+            
+            if (GameObject.FindGameObjectsWithTag("Player").Length > 0)
+                return;
 
             MessageRouter.RaiseMessage(new MsgGameOver());
             StartCoroutine(LoseCoroutine());

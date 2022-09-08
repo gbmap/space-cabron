@@ -150,6 +150,14 @@ namespace SpaceCabron.Gameplay.Bosses
 
         IEnumerator ShotPattern2(Transform gunTransformA, Transform gunTransformB, GameObject player)
         {
+            if (gunTransformA == null)
+                gunTransformA = gunTransformB;
+            else if (gunTransformB == null)
+                gunTransformB = gunTransformA;
+
+            if (gunTransformA == null && gunTransformB == null)
+                yield break;
+
             int numberOfBursts = LerpByHealth(8, 5);
             int numberOfBullets = LerpByHealth(40, 20);
             float timeBetweenBursts = LerpByHealth(0.25f, 1f);
@@ -192,6 +200,9 @@ namespace SpaceCabron.Gameplay.Bosses
 
         private GameObject Shoot(float angle, Transform gunTransform, int bulletType=0)
         {
+            if (gunTransform == null)
+                return null;
+
             var instance = Instantiate(
                 bulletType == 0 ? Bullet : BulletSinSpeed, 
                 gunTransform.position,
