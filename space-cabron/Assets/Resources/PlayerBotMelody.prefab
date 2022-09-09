@@ -60,6 +60,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2571902645299572584, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
+      propertyPath: Pan2D
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2571902645299572584, guid: 570b2b318c3ef4d4290bb35e281dd60c,
+        type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 0}
@@ -336,6 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InjectOnStart: 1
   Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
 --- !u!114 &6389048528981140765
 MonoBehaviour:

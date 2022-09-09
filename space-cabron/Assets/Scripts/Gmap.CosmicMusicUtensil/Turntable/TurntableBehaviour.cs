@@ -70,7 +70,7 @@ namespace Gmap.CosmicMusicUtensil
             get 
             { 
                 if (_turntable == null)
-                    _turntable = new Turntable(BPMReference, new Melody(""), KeepNotePlaying, NoteTime, Callback_OnNote);
+                    _turntable = new Turntable(BPMReference, new Melody(""), KeepNotePlaying, NoteTime);
                 return _turntable;
             }
         }

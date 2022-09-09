@@ -139,6 +139,8 @@ namespace SpaceCabron.Gameplay
                     bullet.IsSpecial = special;
             }
 
+            if (waitingForPress != null)
+                StopCoroutine(waitingForPress);
             waitingForPress = null;
             _lastPress = -float.NegativeInfinity;
         }

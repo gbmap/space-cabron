@@ -57,9 +57,11 @@ namespace SpaceCabron.Gameplay
             HelmProxy helmProxy = instance.GetComponentInChildren<HelmProxy>();
             helmProxy.LoadPatch(instrumentConfig.PossibleStartingInstruments.GetNext());
 
-            helmProxy.Channel = 0;
-            if (instance.name[instance.name.Length-1]-'0' == 2) {
-                helmProxy.Channel = 8;
+            if (instance.CompareTag("Player")) {
+                helmProxy.Channel = 0;
+                if (instance.name[instance.name.Length-1]-'0' == 2) {
+                    helmProxy.Channel = 8;
+                }
             }
         }
 

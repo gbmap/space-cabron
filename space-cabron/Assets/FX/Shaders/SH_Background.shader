@@ -74,6 +74,8 @@
                 fixed2 screen = i.worldPos.xy/i.worldPos.w;
                 screen.y*=2.;
 
+                uv.xy += _WorldSpaceCameraPos.xy*.1;
+
                 fixed4 clr = fixed4(0., 0., 0., 1.);
                 if (_Background == 0)
                     clr = bg01(i, uv);
@@ -102,7 +104,7 @@
                     l = max(l, line_time(_LastNoteTimes0[i], screen, 0.01));
                     l = max(l, line_time(_NextNoteTimes0[i], screen, 0.01));
                 }
-                clr.rgb = lerp(clr.rgb, float4(1.,1.,1.,1.)*0.2, l*step(screen.x, 1.0));
+                clr.rgb = lerp(clr.rgb, float4(1.,1.,1.,1.)*0.5, l/(screen.y*5.));
 
                 // l = 0.;
                 // for (int i = 0; i < _NoteCount1; i++)

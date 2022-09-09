@@ -407,8 +407,13 @@ fixed4 bg06(v2f i, float2 uv) {
 	float nruv = fbm(ruv);
 	ripples = step(.5, nruv) - step(.6, nruv);
 	ripples = smoothstep(0.45, 0.5, nruv) - smoothstep(0.5, 0.525, nruv);
-	fixed4 clrRipples = fixed4(245./255.,208./255.,162./255.,1.)*0.7;
+	fixed4 clrRipples = fixed4(245./255.,208./255.,162./255.,1.)*0.4;
 	clr = lerp(clr, clrRipples, ripples);
+
+	hsv = rgb_to_hsv_no_clip(clr.rgb);
+	hsv.g -= 0.1;
+	hsv.b -= 0.05;
+	clr.rgb = hsv_to_rgb(hsv);
 
 	return clr;
 }
