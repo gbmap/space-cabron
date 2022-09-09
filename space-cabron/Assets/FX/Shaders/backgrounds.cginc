@@ -413,5 +413,169 @@ fixed4 bg06(v2f i, float2 uv) {
 	return clr;
 }
 
+// uv.y += _Time.y*.5;
+	// float2 buv = uv*5.;
+	// float2 id = floor(buv);
+	// buv.y += (id.x % 2.)*1.5;
+	// id = floor(buv);
+	// buv = frac(buv)*2.-1.;
+
+	// float angle = noise(id*2.)*100.;
+	// float2x2 rot = float2x2(
+	// 	cos(angle), -sin(angle),
+	// 	sin(angle), cos(angle)
+	// );
+	// buv = mul(rot, buv);
+
+	// float upper = .7;
+	// float lower = .1;
+
+	// float ml1 = lerp(-upper, -lower, noise(id.x));
+	// float ml2 = lerp(-upper, -lower, noise(id.y));
+	// float mr1 = lerp(lower, upper, noise(id.y));
+	// float mr2 = lerp(lower, upper, noise(id.x));
+
+	// float2 sqr = step(float2(ml1,ml2), buv) * step(buv, float2(mr1,mr2));
+	// float a = sqr.x * sqr.y;
+	// a *= step(.5, noise(id));
+	// // a = noise(id);
+	// // a += sqr.x * sqr.y;
+
+
+	// return fixed4(a,0.,0.,1.0);
+
+// https://iquilezles.org/articles/distfunctions/
+float sdBox( float3 p, float3 b )
+{
+  float3 q = abs(p) - b;
+  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0)-.001;
+}
+
+// Calcs the gradient of the distance to a box. Works at
+// any point in space, including the interior of the box.
+float boxGradient( in float3 p, in float3 rad ) 
+{
+    float3 d = abs(p)-rad;
+    float3 s = sign(p);
+    float g = max(d.z, max(d.x, d.y));
+    return s*((g>0.0) ? normalize(max(d,0.0)) : 
+                        step(d.yzx,d.xyz)*step(d.zxy,d.xyz));
+}
+
+#define mod(x,y) (x-y*floor(x/y))
+float f(float3 p ) {
+	// Repeat domain for multiple boxes
+	float e = 1.0;
+	float3 c = float3(e, e, e);
+
+	// Id each box and rotate it randomly
+	// float2 op = round(p.xz+.5*c.xz)-.5*c.xz;
+	float2 op = round(p.xz);
+	p.xz = mod(p.xz+0.5*c.xz,c.xz)-0.5*c.xz;
+
+	float angle = (noise(op.xy))*180.;
+	float3x3 rotY = float3x3(
+		cos(angle), 0., sin(angle),
+		0., 1., 0.,
+		-sin(angle), 0., cos(angle)
+	);
+	p = mul(rotY, p);
+
+	float sdf = max(0., p.y+0.1);
+
+
+	float n = (noise(op.xy-.5/c.xz)+.5/c.xz);
+	float bsz = .125;
+	float boxWidth= bsz + noise(op)*.25;
+	float boxDepth = bsz + noise(op)*.25;
+	float boxHeight = bsz*1. + n*1.0;
+	float boxY = boxHeight + 0.1;
+
+	float3 boxSz = float3(boxWidth,boxHeight,boxDepth);
+	// boxSz *= step(.5, noise(op.xz));
+
+	sdf = min(sdf, sdBox(p-float3(0.,boxY,0.), boxSz));
+	return sdf;
+}
+
+float m(float3 p, float3 d) {
+	float sdf = 0.;
+	for (int i = 0; i < 50; i++) {
+		float dd = f(p);
+		p += d*dd;
+		sdf += dd;
+		if (dd <= 0.01 || dd >= 1000.)
+			break;
+	}
+	return sdf;
+}
+
+float shadow(float3 p, float3 n, float3 lpos)
+{
+    float3 dir = normalize(lpos-p);
+	float3 pp = p+n*.1;
+    float d = m(pp, dir);
+	if (d < length(lpos-p))
+		return 0.0;
+	return 1.;
+    return clamp(d/length(lpos-p), 0., 1.);
+}
+
+float3 calcNormal(float3 p ) // for function f(p)
+{
+   float s = f(p).x;
+    float2 a = float2(0.01, 0.);
+    float3 n = float3(
+        s - f(p-a.xyy).x,
+        s - f(p-a.yxy).x,
+        s - f(p-a.yyx).x
+    );
+
+    return normalize(n);
+}
+
+
+fixed4 bg07(v2f i, float2 uv) {
+	float3 p = float3(0.,8.0,-3.);
+	p += float3(0.,0.,1.)*_Time.y*0.5;
+	float3 target = p+float3(0.,-1.0,1.35);
+	float3 fwd = normalize(target - p);
+	float3 up = float3(0., 1., 0.);
+	float3 right = cross(up, fwd);
+	up = cross(fwd, right);
+	float3 dir = normalize(fwd+up*uv.y+right*uv.x);
+	float sdf = 999.;
+	float obj = 0.;
+	float3 pp = p;
+
+	sdf = m(p, dir);
+	pp = p+dir*sdf;
+
+	fixed4 clr = fixed4(0., 0., 0., 1.);
+	clr = fixed4(1.,1.,1.,1.);
+
+	if (pp.y <= 0.1)
+		clr = fixed4(0.3, 0.45, 0.3,1.);
+	else {
+		float2 id = round(pp.xz);
+		clr = lerp(
+			fixed4(0.2, 0.15, 0.5,1.), 
+			fixed4(0.05, 0.15, 0.4,1.), 
+			noise(id.xy)
+		);
+		// clr = fixed4(noise(id), noise(id*2.), noise(id*3.), 1.);
+	}
+
+	float3 normal = calcNormal(pp);
+
+	float3 lpos = p + float3(10., 10., -5.)*3.;
+	// clr.rgb = normal;
+	clr.rgb *= max(0.5,dot(normal, normalize(lpos-pp)));
+
+	float ss = shadow(pp, normal, lpos);
+	clr.rgb *= clamp(ss, .25, 1.);
+	return clr;
+}
+
 
 #endif

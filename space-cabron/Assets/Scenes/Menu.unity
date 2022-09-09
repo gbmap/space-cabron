@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 11401992cf8c79145a2441f79feb43fb, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -817,6 +817,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318498760}
   m_CullTransparentMesh: 1
+--- !u!1001 &333450756
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5895919182597900464, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_Name
+      value: BossWashingMachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6fd93549b02e2ae4e84070815b34c52a, type: 3}
 --- !u!1001 &440474940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3061,6 +3130,7 @@ MonoBehaviour:
   TimeOffset: 0
   AngleIncrement: 10
   TimeBetweenBullets: 0
+  Relative: 1
 --- !u!114 &1518984008 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8806946095525373292, guid: f53e448c577cd584bba2a88a15d2b287,

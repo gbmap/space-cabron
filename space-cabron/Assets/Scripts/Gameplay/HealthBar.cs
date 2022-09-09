@@ -41,7 +41,7 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateTransform()
     {
-        Vector3 pos = Offset;
+        Vector3 pos = enemyRenderer.bounds.center + Offset;
         Vector3 scale = Scale;
         if (Side == ESide.Left)
         {
@@ -69,7 +69,7 @@ public class HealthBar : MonoBehaviour
         }
         scale = new Vector3(scale.x * Scale.x, scale.y * Scale.y, 1f);
 
-        transform.localPosition = pos;
+        transform.position = pos;
         transform.localScale = scale;
     }
 

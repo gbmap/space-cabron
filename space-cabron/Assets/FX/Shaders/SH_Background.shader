@@ -87,6 +87,8 @@
                     clr = bg05(i, uv);
                 else if (_Background == 5)
                     clr = bg06(i, uv);
+                else if (_Background == 6)
+                    clr = bg07(i, uv);
 
                 fixed3 hsv = rgb_to_hsv_no_clip(clr);
                 hsv.g *= 0.725;
