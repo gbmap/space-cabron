@@ -829,6 +829,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossWashingMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 5895919182597900464, guid: 6fd93549b02e2ae4e84070815b34c52a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5895919182597900465, guid: 6fd93549b02e2ae4e84070815b34c52a,
         type: 3}
       propertyPath: m_RootOrder
@@ -3131,6 +3136,10 @@ MonoBehaviour:
   AngleIncrement: 10
   TimeBetweenBullets: 0
   Relative: 1
+  AngleOffset:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 0
 --- !u!114 &1518984008 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8806946095525373292, guid: f53e448c577cd584bba2a88a15d2b287,

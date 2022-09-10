@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.Gameplay;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay.Bosses
@@ -15,10 +17,18 @@ namespace SpaceCabron.Gameplay.Bosses
         protected abstract IEnumerator CLogic();
 
         protected ColorHealth[] healths;
+        ColorHealth mainHealth;
 
         protected virtual void Awake()
         {
             healths = GetComponentsInChildren<ColorHealth>();
+            mainHealth = GetComponent<ColorHealth>();
+            mainHealth.OnDestroy += Callback_OnDestroyed;
+        }
+
+        private void Callback_OnDestroyed(MsgOnObjectDestroyed obj)
+        {
+            StopAllCoroutines();
         }
 
         protected float HealthPercentage

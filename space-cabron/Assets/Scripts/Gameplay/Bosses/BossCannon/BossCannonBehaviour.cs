@@ -35,10 +35,10 @@ namespace SpaceCabron.Gameplay.Bosses
             if (Left == null && Right == null)
                 yield break;
             
-            while (Left != null || !Left.IsExtended)
+            while (Left != null && !Left.IsExtended)
                 yield return null;
             
-            while (Right != null || !Right.IsExtended)
+            while (Right != null && !Right.IsExtended)
                 yield return null;
         }
 
@@ -49,10 +49,10 @@ namespace SpaceCabron.Gameplay.Bosses
             if (Left == null && Right == null)
                 yield break;
             
-            while (Left != null || !Left.IsContracted)
+            while (Left != null && !Left.IsContracted)
                 yield return null;
             
-            while (Right != null || !Right.IsContracted)
+            while (Right != null && !Right.IsContracted)
                 yield return null;
         }
 
@@ -105,6 +105,16 @@ namespace SpaceCabron.Gameplay.Bosses
             }
         }
 
+        IEnumerator Shake(BossCannonNode node, int shotPattern) 
+        {
+            int numberOfShakes = LerpByHealth(10, 5);
+            for (int i = 0; i < numberOfShakes; i++)
+            {
+                yield return ExtendIfExists(node, shotPattern);
+                yield return ContractIfExists(node, shotPattern);
+            }
+        }
+
         IEnumerator FireBounce()
         {
             if (Left != null)
@@ -116,8 +126,9 @@ namespace SpaceCabron.Gameplay.Bosses
 
         IEnumerator WallOfBullets()
         {
-            StartCoroutine(Shake(2));
             StartCoroutine(FireTowardsSin(GameObject.FindGameObjectWithTag("Player")));
+            yield return Shake(Left, 2);
+            yield return Shake(Right, 2);
             yield return new WaitForSeconds(2f);
         }
 

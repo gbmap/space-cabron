@@ -87,6 +87,7 @@ namespace SpaceCabron.Gameplay.Level
 
 
             bool spawnedNewPlayer = SpawnPlayers();
+            bool spawnedDrones = SpawnDronesIfNecessary();
 
             ConfigureLevel();
             ConfigureLevelConfigurablesWithConfiguration(
@@ -134,13 +135,36 @@ namespace SpaceCabron.Gameplay.Level
 
                 MessageRouter.RaiseMessage(new MsgSpawnPlayer {
                     PlayerIndex = Mathf.Clamp(i, 0, 1),
-                    IsRespawn = true,
+                    IsRespawn = false,
                     Position = Vector3.down*10f
                 });
 
                 spawnedPlayer = true;
             }
             return spawnedPlayer;
+        }
+
+        private bool SpawnDronesIfNecessary()
+        {
+            if (GameObject.FindGameObjectsWithTag("Drone").Length != 0)
+                return false;
+
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            for (int i = 0; i < players.Length; i++)
+            {
+                MessageRouter.RaiseMessage(new MsgSpawnDrone
+                {
+                    DroneType = MsgSpawnDrone.EDroneType.Random,
+                    Player = players[i]
+                });
+
+                MessageRouter.RaiseMessage(new MsgSpawnDrone
+                {
+                    DroneType = MsgSpawnDrone.EDroneType.Random,
+                    Player = players[i]
+                });
+            }
+            return true;
         }
 
         private int GetSceneIndex(string name)
@@ -221,23 +245,6 @@ namespace SpaceCabron.Gameplay.Level
         {
             base.ConfigureLevel();
             RenderSettings.skybox = levelConfiguration.Background.Material;
-
-            if (GameObject.FindGameObjectsWithTag("Drone").Length == 0)
-            {
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                for (int i = 0; i < players.Length; i++)
-                {
-                    MessageRouter.RaiseMessage(new MsgSpawnDrone {
-                        DroneType = MsgSpawnDrone.EDroneType.Random,
-                        Player = players[i]
-                    });
-
-                    MessageRouter.RaiseMessage(new MsgSpawnDrone {
-                        DroneType = MsgSpawnDrone.EDroneType.Random,
-                        Player = players[i]
-                    });
-                }
-            }
         }
     }
 }

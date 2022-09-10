@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using Gmap.Gameplay;
+using Gmap.ScriptableReferences;
 using NUnit.Framework;
 using SpaceCabron.Gameplay;
 using SpaceCabron.Gameplay.Bosses;
@@ -11,6 +12,24 @@ using UnityEngine.TestTools;
 
 public class BossTests 
 {
+    public static void LoadLevelWithBoss(string bossResourcePath)
+    {
+        GameObjectPool pool = ScriptableObject.CreateInstance<GameObjectPool>();
+        pool.SetItems(new ScriptableReferenceItem<GameObject>[] { 
+            new ScriptableReferenceItem<GameObject> { 
+                Weight = 1, 
+                Value = Resources.Load<GameObject>(bossResourcePath) 
+            }
+        });
+
+        BossLevelConfiguration bossLevelConfiguration 
+            = ScriptableObject.CreateInstance<BossLevelConfiguration>();
+
+        bossLevelConfiguration.PossibleBosses = pool;
+
+        LevelLoader.Load(bossLevelConfiguration);
+    }
+
     public static TestCaseData[] GetBossLevels()
     {
         var objs = Resources.LoadAll<BossLevelConfiguration>("Levels/");
@@ -101,5 +120,117 @@ public class BossTests
         System.Array.ForEach(bossBehaviours, b => b.GetComponent<Health>().Destroy());
         yield return new WaitForSeconds(5.0f);
         Assert.IsTrue(LevelLoader.CurrentLevelConfiguration != level);
+    }
+}
+
+public class BossCannonTests
+{
+    [UnityTest]
+    public IEnumerator DestroyingNodesEnablesMainColorHealth()
+    {
+        BossTests.LoadLevelWithBoss("Enemies/Bosses/BossCannons");
+        yield return new WaitForSeconds(10f);
+
+        var boss = GameObject.FindObjectOfType<BossCannonBehaviour>();
+        var nodes = GameObject.FindObjectsOfType<BossCannonNode>();
+
+        foreach (var node in nodes) {
+            node.GetComponent<ColorHealth>().Destroy();
+        }
+        yield return null;
+
+        Assert.IsTrue(boss.GetComponentInChildren<ColorHealth>().enabled);
+    }
+
+    [UnityTest]
+    public IEnumerator DestroyingNodeDestroysExtension()
+    {
+        BossTests.LoadLevelWithBoss("Enemies/Bosses/BossArms");
+        yield return new WaitForSeconds(10f);
+
+        Assert.AreEqual(2, GameObject.FindObjectsOfType<BossArmsArmExtension>().Length);
+
+        var arms = GameObject.FindObjectsOfType<BossArmsFireHand>();
+        foreach (var arm in arms) {
+            arm.GetComponent<ColorHealth>().Destroy();
+            break;
+        }
+        yield return null;
+
+        Assert.AreEqual(1, GameObject.FindObjectsOfType<BossArmsArmExtension>().Length);
+    }
+}
+
+public class BossArmsTests
+{
+    [UnityTest]
+    public IEnumerator DestroyNodesEnablesMainColorHealth()
+    {
+        BossTests.LoadLevelWithBoss("Enemies/Bosses/BossArms");
+        yield return new WaitForSeconds(10f);
+
+        var boss = GameObject.FindObjectOfType<BossArmsBehaviour>();
+        var arms = GameObject.FindObjectsOfType<BossArmsFireHand>();
+        foreach (var arm in arms) {
+            arm.GetComponent<ColorHealth>().Destroy();
+        }
+        yield return null;
+
+        Assert.IsTrue(boss.GetComponentInChildren<ColorHealth>().enabled);
+    }
+
+    [UnityTest]
+    public IEnumerator DestroyingNodeDestroysExtension()
+    {
+        BossTests.LoadLevelWithBoss("Enemies/Bosses/BossArms");
+        yield return new WaitForSeconds(10f);
+
+        Assert.AreEqual(2, GameObject.FindObjectsOfType<BossArmsArmExtension>().Length);
+
+        var arms = GameObject.FindObjectsOfType<BossArmsFireHand>();
+        foreach (var arm in arms) {
+            arm.GetComponent<ColorHealth>().Destroy();
+            break;
+        }
+        yield return null;
+
+        Assert.AreEqual(1, GameObject.FindObjectsOfType<BossArmsArmExtension>().Length);
+    }
+}
+
+public class BossWashingMachineTests
+{
+    [UnityTest]
+    public IEnumerator DestroyingNodesEnablesMainColorHealth()
+    {
+        BossTests.LoadLevelWithBoss("Enemies/Bosses/BossWashingMachine");
+        yield return new WaitForSeconds(10f);
+
+        var boss = GameObject.FindObjectOfType<BossWashingMachineBehaviour>();
+        var arms = GameObject.FindObjectsOfType<BurstShot>();
+        foreach (var arm in arms) {
+            arm.GetComponent<ColorHealth>().Destroy();
+        }
+        yield return null;
+
+        Assert.IsTrue(boss.GetComponentInChildren<ColorHealth>().enabled);
+    }
+
+    [UnityTest]
+    public IEnumerator DestroyingNodeDestroysExtension()
+    {
+        BossTests.LoadLevelWithBoss("Enemies/Bosses/BossWashingMachine");
+        yield return new WaitForSeconds(10f);
+
+        Assert.AreEqual(4, GameObject.FindObjectsOfType<BossArmsArmExtension>().Length);
+
+        var arms = GameObject.FindObjectsOfType<BurstShot>();
+        foreach (var arm in arms) {
+            arm.GetComponent<ColorHealth>().Destroy();
+            break;
+        }
+        yield return null;
+
+        Assert.AreEqual(3, GameObject.FindObjectsOfType<BossArmsArmExtension>().Length);
     }
 }

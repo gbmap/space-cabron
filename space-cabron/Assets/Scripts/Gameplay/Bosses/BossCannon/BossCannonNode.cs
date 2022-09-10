@@ -29,12 +29,17 @@ namespace SpaceCabron.Gameplay.Bosses
 
         public IEnumerator Extend(int shotPattern=-1, float distance=2f)
         {
+            StopAllCoroutines();
+
             Coroutine fireCoroutine = FireBehaviour(shotPattern);
-            while (!IsExtended)
+            while (this != null && !IsExtended)
             {
                 transform.localPosition += Direction * Speed * Time.deltaTime;
                 yield return null;
             }
+
+            if (this == null)
+                yield break;
 
             if (fireCoroutine != null)
                 StopCoroutine(fireCoroutine);
@@ -42,12 +47,18 @@ namespace SpaceCabron.Gameplay.Bosses
 
         public IEnumerator Contract(int shotPattern=-1)
         {
+            StopAllCoroutines();
+
             Coroutine fireCoroutine = FireBehaviour(shotPattern);
-            while (!IsContracted)
+            while (this != null && !IsContracted)
             {
                 transform.localPosition += 
                     Vector3.ClampMagnitude(-Direction * Speed * Time.deltaTime, transform.localPosition.sqrMagnitude);
                 yield return null;
+            }
+
+            if (this == null) {
+                yield break;
             }
 
             if (fireCoroutine != null)
@@ -73,11 +84,6 @@ namespace SpaceCabron.Gameplay.Bosses
         IEnumerator FireTowardsPlayer(GameObject bullet, GameObject player)
         {
             yield break;
-            while (true)
-            {
-
-            }
-
         }
 
         IEnumerator FireDown(GameObject bullet)

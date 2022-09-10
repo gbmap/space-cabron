@@ -295,7 +295,7 @@ fixed4 bg05(v2f i, float2 uv) {
 	x2 = smoothstep(0., 1., x2*x2*x2);
 
 	float s1 = draw_stars(uv*3., fixed2(0.,t*1.5)); 
-	float s2 = draw_stars((uv+fixed2(0.257, 0.356))*2., fixed2(0.,t*1.25));
+	float s2 = draw_stars((uv+fixed2(0.257, 0.356)+_WorldSpaceCameraPos.xy*.1)*2., fixed2(0.,t*1.25));
 	fixed4 stars = fixed4(0.63, 0.63, 0.1, 1.0)*(s1+s2);
 	stars.a = 1.;
 
@@ -303,7 +303,7 @@ fixed4 bg05(v2f i, float2 uv) {
 	fixed4 green = fixed4(noise(uv*20.), noise(uv*10.), noise(uv*30.), 1.0);
 	fixed4 purple = fixed4(noise(uv*100.), noise(uv*50.), noise(uv*60.), 1.0);
 
-	fixed4 nebula = green*x+purple*x2*noise(1000.*uv);
+	fixed4 nebula = green*x+purple*x2*noise(1000.*uv+_WorldSpaceCameraPos.xy);
 	fixed3 nebula_hsv = rgb_to_hsv_no_clip(nebula.rgb);
 	nebula_hsv.g += 0.8;
 	nebula.rgb = hsv_to_rgb(nebula_hsv);

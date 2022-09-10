@@ -23,7 +23,7 @@ public class BossArmsFireHand : MonoBehaviour
         float time = 0f;
         int numberOfIterations = Random.Range(100, 200);
         float targetTime = Random.Range(5f, 7f);
-        while (time <= targetTime)
+        while (shoulder!= null && time <= targetTime)
         {
             if (player == null)
             {
@@ -56,7 +56,7 @@ public class BossArmsFireHand : MonoBehaviour
 
     public IEnumerator RecoverHand()
     {
-        while (Mathf.Abs(hand.transform.localPosition.y - initialHandLocalY) > 0.1f)
+        while (hand != null && Mathf.Abs(hand.transform.localPosition.y - initialHandLocalY) > 0.1f)
         {
             float delta = initialHandLocalY - hand.transform.localPosition.y;
             hand.transform.localPosition += Vector3.up 
@@ -66,7 +66,7 @@ public class BossArmsFireHand : MonoBehaviour
             yield return null;
         }
 
-        while (Mathf.Abs(shoulder.transform.rotation.z) > 0.001f)
+        while (shoulder != null && Mathf.Abs(shoulder.transform.rotation.z) > 0.001f)
         {
             float z = shoulder.transform.rotation.z;
             shoulder.transform.rotation = Quaternion.Lerp(
