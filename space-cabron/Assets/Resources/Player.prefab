@@ -199,6 +199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 671385366}
   Sampler: {fileID: 0}
+  RandomizePatchOnLoad: 1
+  ValueRange: 0.1
+  ProbabilityOfChange: 0.5
 --- !u!114 &671385365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +217,7 @@ MonoBehaviour:
   BPMReference:
     GetFrom: {fileID: 0}
     SendTo: {fileID: 11400000, guid: 9ae749a27ae89f94d97079cb2b8e5e6e, type: 2}
-    _value: 60
+    _value: 40
   Bar: {fileID: 11400000, guid: 3da6b913f94efee498cebfb89e75bae9, type: 2}
   UnityEvent:
     m_PersistentCalls:
@@ -583,6 +586,9 @@ MonoBehaviour:
   MaxHealth: 1
   CanTakeDamage: 1
   OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDestroyUnity:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7361229301681628336

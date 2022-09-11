@@ -12,6 +12,8 @@ using Gmap.CosmicMusicUtensil;
 using UnityEngine.SceneManagement;
 using SpaceCabron.Gameplay.Multiplayer;
 using System.Linq;
+using SpaceCabron.Gameplay.Interactables;
+using UnityEditor;
 
 public class DefaultTestScene
 {
@@ -52,6 +54,21 @@ public class DefaultTestScene
         instance.name = "Player0";
         return instance;
     }
+
+    public static void DestroyAllDrones()
+    {
+        GameObject[] drones = GameObject.FindGameObjectsWithTag("Drone");
+        System.Array.ForEach(drones, d=>GameObject.Destroy(d));
+    }
+
+    public static void DestroyPlayer()
+    {
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) {
+            player.GetComponentInChildren<Health>().Destroy();
+        }
+    }
+
 }
 
 public class PlayerTests : DefaultTestScene
@@ -154,6 +171,43 @@ public class PlayerTests : DefaultTestScene
         Assert.IsTrue(player2 != null);
         Assert.AreNotEqual(player, player2);
         Assert.AreEqual(1, GameObject.FindGameObjectsWithTag("Player").Length);
+    }
+
+    public class UpgradesTests {
+        [UnityTest]
+        public IEnumerator RetryingSpawnsWithPermanentUpgrades() {
+            yield return LevelTests.LoadLevelAndWait("Levels/Level0");
+            LevelTests.DisableEnemySpawner();
+
+            var player = GameObject.FindGameObjectWithTag("Player");
+            var brain = LevelTests.InjectPlayerWithControlBrain(player);
+
+            yield return InteractableTests.SpawnAndBuyImprovisationUpgrade(
+                player, brain, "Assets/Scripts/Gmap.CosmicMusicUtensil/Data/Improvisations/BreakRandomNote.asset"
+            );
+
+            // DestroyAllDrones();
+            PlayerTests.DestroyAllDrones();
+
+            // DestroyPlayer();
+            PlayerTests.DestroyPlayer();
+
+            yield return new WaitForSeconds(15f);
+
+            float waitTime = 0f;
+            while (
+                GameState.Current != Resources.Load<GameState>("GameStates/GameplayGameOverMenu")
+                && waitTime < 20f
+            ) {
+                yield return new WaitForSeconds(0.1f);
+                waitTime += 0.1f;
+            }
+
+            LevelTests.RetryGame();
+
+            // Assert player has improvisation upgrade
+        }
+
     }
 
 }

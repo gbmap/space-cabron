@@ -27,10 +27,11 @@ namespace SpaceCabron.Gameplay
 
         IEnumerator Coroutine()
         {
+            bool canTakeDamage = GetCanTakeDamage();
             SetCanTakeDamage(false);
             input.Movement = Vector2.zero;
             yield return AnimationCoroutine();
-            SetCanTakeDamage(true);
+            SetCanTakeDamage(canTakeDamage);
 
             FinishAnimationAndDestroy();
         }
@@ -49,6 +50,13 @@ namespace SpaceCabron.Gameplay
             Health h = gameObject.GetComponent<Health>();
             if (h != null)
                 h.CanTakeDamage = v;
+        }
+
+        protected bool GetCanTakeDamage() {
+            Health h = gameObject.GetComponent<Health>();
+            if (h != null)
+                return h.CanTakeDamage;
+            return false;
         }
 
         protected IEnumerator MoveTowardsPosition(Vector3 targetPos)

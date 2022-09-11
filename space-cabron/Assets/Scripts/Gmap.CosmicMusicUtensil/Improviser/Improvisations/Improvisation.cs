@@ -125,7 +125,10 @@ namespace Gmap.CosmicMusicUtensil
         ) : base(noteSelectionStrategy, 
         barSelectionStrategy, 
         timesToDuplicate, 
-        new IncreaseIntervalNoteModifier(timesToDuplicate)
+        new CompositeNoteModifier(new NoteModifier[] {
+            new IncreaseIntervalNoteModifier(timesToDuplicate),
+            new TransposeNoteModifier(Random.Range(0, 12))
+            })
         ) {}
 
         protected override string Info()
@@ -301,6 +304,36 @@ namespace Gmap.CosmicMusicUtensil
         protected override string Info()
         {
             return "Resolve note to root.";
+        }
+    }
+
+    public class RandomizeNoteImprovisation : Improvisation
+    {
+        public RandomizeNoteImprovisation(
+            SelectionStrategy noteSelectionStrategy, 
+            SelectionStrategy barSelectionStrategy
+        ) : base(noteSelectionStrategy, barSelectionStrategy) {}
+
+        protected override Note[] ApplyImprovisation(
+            Melody melody,
+            int barIndex,
+            Note note,
+            int noteIndex
+        ) {
+            var newNote = new Note(note);
+            ENote tone = (ENote)UnityEngine.Random.Range(0, 12);
+            if (melody.Scale != null && melody.Root != ENote.None) {
+                tone = melody.Scale.GetNote(melody.Root, Random.Range(0, melody.Scale.GetNumberOfNotes()));
+            }
+            newNote.Tone = tone;
+            return new Note[] { 
+                newNote
+            };
+        }
+
+        protected override string Info()
+        {
+            return "Randomize note.";
         }
     }
 }

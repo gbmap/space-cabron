@@ -15,5 +15,6 @@ MonoBehaviour:
   Root: {fileID: 11400000, guid: f4689ed470f56e847ab94b729e3d0a32, type: 2}
   Scale: {fileID: 11400000, guid: c0d842fbb337f8c429dd0a42d9039fdf, type: 2}
   Octave: {fileID: 11400000, guid: 2196f2cb2133e9145aa9aa9072f16a22, type: 2}
-  TimeSignature: {x: 4, y: 4}
+  TimeSignature: {fileID: 11400000, guid: a5f89cb008c070c4d85078fef24b5032, type: 2}
+  ImprovisationPool: {fileID: 11400000, guid: 4647bdbf7b566274c95e6a7540119db2, type: 2}
   NumberOfBreaks: 5

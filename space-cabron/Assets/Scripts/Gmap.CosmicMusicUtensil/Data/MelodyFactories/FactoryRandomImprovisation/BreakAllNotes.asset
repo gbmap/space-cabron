@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4454243a604513240921c17d67175efe, type: 3}
+  m_Name: BreakAllNotes
+  m_EditorClassIdentifier: 
+  BarSelection: {fileID: 11400000, guid: 8fef05c1c5011e64cbfbc6d724662598, type: 2}
+  NoteSelection: {fileID: 11400000, guid: 8fef05c1c5011e64cbfbc6d724662598, type: 2}
+  Icon: {fileID: 0}
+  TimesToDuplicate: {fileID: 11400000, guid: 35288220a69b9ac4381fecb5642572e0, type: 2}

@@ -32,6 +32,11 @@ public class LevelTests
         }
     }
 
+    public static void RetryGame() {
+        var menu = GameObject.FindObjectOfType<GameOverMenu>();
+        menu.Retry();
+    }
+
     public static TestCaseData[] GetEnemyLevels()
     {
         var objs = Resources.LoadAll<LevelConfiguration>("Levels/");
@@ -113,6 +118,10 @@ public class LevelTests
         int interactableCount = level.GetNumberOfUpgrades() + 1;
         Assert.AreEqual(interactableCount, interactables.Length);
         Assert.AreEqual(1, interactables.Where(i => i.Interactable is NextLevelInteractable).Count());
+    }
+
+    public static IEnumerator LoadLevelAndWait(string levelName) {
+        yield return LoadLevelAndWait(Resources.Load<LevelConfiguration>(levelName));
     }
 
     public static IEnumerator LoadLevelAndWait(BaseLevelConfiguration level)

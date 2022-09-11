@@ -9,6 +9,7 @@ namespace SpaceCabron.Gameplay.Bosses
         [SerializeField] BossCannonNode Left;
         [SerializeField] BossCannonNode Right;
 
+        [SerializeField] GameObject bullet;
         [SerializeField] GameObject bulletSin;
         [SerializeField] GameObject bulletCos;
 
@@ -18,12 +19,20 @@ namespace SpaceCabron.Gameplay.Bosses
         {
             while (true)
             {
+                // yield return WallOfBullets();
+                // yield return new WaitForSeconds(3f);
+                float waitTime = LerpByHealth(0.5f, 1f);
                 yield return Shake(1);
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(waitTime);
                 yield return FireBounce();
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(waitTime);
+                yield return Shake(2);
+                yield return new WaitForSeconds(waitTime);
+                yield return FireBounce();
+                yield return new WaitForSeconds(waitTime);
                 yield return WallOfBullets();
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(waitTime);
+                yield return FireArcs();
             }
         }
 
@@ -92,26 +101,39 @@ namespace SpaceCabron.Gameplay.Bosses
                 yield return node.Contract(shotPattern);
         }
 
+        IEnumerator FireIfExists(BossCannonNode node, int shotPattern) 
+        {
+            if (node != null)
+                yield return node.CFireBehaviour(shotPattern);
+        }
+
         ////////////
         // BEHAVIOURS
-
-        IEnumerator Shake(int shotPattern)
+        IEnumerator Shake(int shotPattern) 
         {
             int numberOfShakes = LerpByHealth(10, 5);
+            float waitTime = LerpByHealth(0f, 0.5f);
+            var node = Left;
             for (int i = 0; i < numberOfShakes; i++)
             {
-                yield return ExtendLeftThenRight(shotPattern);
-                yield return ContractLeftThenRight(shotPattern);
+                yield return ExtendIfExists(node, shotPattern);
+                yield return new WaitForSeconds(waitTime);
+                yield return ContractIfExists(node, shotPattern);
+                yield return new WaitForSeconds(waitTime);
+                node = node == Left ? Right : Left;
             }
         }
 
         IEnumerator Shake(BossCannonNode node, int shotPattern) 
         {
             int numberOfShakes = LerpByHealth(10, 5);
+            float waitTime = LerpByHealth(0f, 1f);
             for (int i = 0; i < numberOfShakes; i++)
             {
                 yield return ExtendIfExists(node, shotPattern);
+                yield return new WaitForSeconds(waitTime);
                 yield return ContractIfExists(node, shotPattern);
+                yield return new WaitForSeconds(waitTime);
             }
         }
 
@@ -124,9 +146,24 @@ namespace SpaceCabron.Gameplay.Bosses
             yield return new WaitForSeconds(2f);
         }
 
+        IEnumerator FireArcs()
+        {
+            float waitTime = LerpByHealth(0.25f, 1f);
+            var node = Left;
+            for (int i = 0; i < 2; i++) {
+                yield return ExtendIfExists(node, -1);
+                yield return new WaitForSeconds(waitTime);
+                yield return FireIfExists(node, 3);
+                yield return new WaitForSeconds(waitTime);
+                node = Right;
+            }
+        }
+
         IEnumerator WallOfBullets()
         {
             StartCoroutine(FireTowardsSin(GameObject.FindGameObjectWithTag("Player")));
+            // Coroutine shakeCoroutine = StartCoroutine(Shake(Left, 2));
+            // Coroutine fireCoroutine = StartCoroutine(FireIfExists(Right, 0));
             yield return Shake(Left, 2);
             yield return Shake(Right, 2);
             yield return new WaitForSeconds(2f);
@@ -136,24 +173,33 @@ namespace SpaceCabron.Gameplay.Bosses
         {
             int numberOfBursts = LerpByHealth(10, 5);
             float angle = 0f;
-            if (player != null)
-            {
-                angle = Vector3.Angle(
-                    transform.position, player.transform.position
-                );
-            }
 
             for (int j = 0; j < numberOfBursts; j++)
             {
                 int numberOfBullets = LerpByHealth(10, 5);
+                var bullet = bulletSin;
+                float timeOffset = j%2==0?0f:Mathf.PI;
+                float timeBetweenBullets = LerpByHealth(0.1f, 0.5f);
                 for (int i = 0; i < numberOfBullets; i++)
                 {
-                    float alpha = Mathf.Lerp(
-                        -60f, 60f, 
-                        ((float)(i+j)/(numberOfBullets+numberOfBursts))
-                    );
-                    Shoot(bulletSin, angle + alpha, shootTransform);
-                    yield return new WaitForSeconds(0.25f);
+                    if (player != null)
+                    {
+                        angle = Vector3.SignedAngle(
+                            shootTransform.position, 
+                            player.transform.position-shootTransform.position,
+                            Vector3.forward
+                        ) + Vector3.Angle(shootTransform.up, Vector3.up);
+                        // angle = 0f;
+                    }
+                    else
+                        player = GameObject.FindGameObjectWithTag("Player");
+
+                    float alpha = 0f;
+                    var bulletInstance = Shoot(bullet,  angle + alpha, shootTransform);
+                    bulletInstance.GetComponent<SinMovement>().TimeOffset = timeOffset;
+
+                    Shoot(this.bullet, angle+alpha, shootTransform);
+                    yield return new WaitForSeconds(timeBetweenBullets);
                 }
             }
         }

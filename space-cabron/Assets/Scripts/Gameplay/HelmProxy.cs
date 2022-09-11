@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -8,6 +9,10 @@ namespace Gmap.CosmicMusicUtensil
     {
         public AudioHelm.HelmController Controller;
         public AudioHelm.Sampler Sampler;
+
+        public bool RandomizePatchOnLoad;
+        public float ValueRange = 0.1f;
+        public float ProbabilityOfChange = 0.5f;
 
         public int Channel 
         {
@@ -39,7 +44,25 @@ namespace Gmap.CosmicMusicUtensil
             helmPatch.LoadPatchDataFromText(patch.text);
 
             Controller = GetComponent<AudioHelm.HelmController>();
+            if (RandomizePatchOnLoad)
+                RandomizePatch(helmPatch);
+
             Controller.LoadPatch(helmPatch);
+        }
+
+        public void RandomizePatch(AudioHelm.HelmPatch patch)
+        {
+            var config = patch.patchData;
+            var fields = config.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var field in fields)
+            {
+                if (field.FieldType == typeof(float))
+                {
+                    var value = (float)field.GetValue(config);
+                    var newValue = value + Random.Range(-ValueRange, ValueRange);
+                    field.SetValue(config, newValue);
+                }
+            }
         }
     }
 

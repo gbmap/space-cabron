@@ -28,17 +28,6 @@ public class MultiplayerTests
         yield return new WaitForSeconds(2f);
     }
 
-    private void DisableEnemySpawner()
-    {
-        System.Array.ForEach(GameObject.FindObjectsOfType<EnemySpawner>(), s=> s.shouldSpawn = false);
-    }
-
-    private void DestroyAllDrones()
-    {
-        GameObject[] drones = GameObject.FindGameObjectsWithTag("Drone");
-        System.Array.ForEach(drones, d=>GameObject.Destroy(d));
-    }
-
     private void DestroyNPlayers(int n)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -68,8 +57,8 @@ public class MultiplayerTests
     public IEnumerator OnePlayerDeathDoesntTransitionToGameOver()
     {
         yield return LoadLevel(2);
-        DisableEnemySpawner();
-        DestroyAllDrones();
+        LevelTests.DisableEnemySpawner();
+        PlayerTests.DestroyAllDrones();
 
         yield return new WaitForSeconds(2f);
 
@@ -85,8 +74,8 @@ public class MultiplayerTests
     public IEnumerator TwoPlayerDeathsTransitionToGameOver()
     {
         yield return LoadLevel(2);
-        DisableEnemySpawner();
-        DestroyAllDrones();
+        LevelTests.DisableEnemySpawner();
+        PlayerTests.DestroyAllDrones();
 
         yield return new WaitForSeconds(2f);
 
@@ -103,8 +92,8 @@ public class MultiplayerTests
     {
         yield return LoadLevel(2);
         yield return new WaitForSeconds(1f);
-        DisableEnemySpawner();
-        DestroyAllDrones();
+        LevelTests.DisableEnemySpawner();
+        PlayerTests.DestroyAllDrones();
 
         yield return new WaitForSeconds(3f);
         
@@ -129,14 +118,13 @@ public class MultiplayerTests
     public IEnumerator RetrySpawnsBothPlayers()
     {
         yield return LoadLevel(2);
-        DisableEnemySpawner();
+        LevelTests.DisableEnemySpawner();
         yield return new WaitForSeconds(5f);
-        DestroyAllDrones();
+        PlayerTests.DestroyAllDrones();
         DestroyNPlayers(2);
         yield return new WaitForSeconds(15f);
 
-        var menu = GameObject.FindObjectOfType<GameOverMenu>();
-        menu.Retry();
+        LevelTests.RetryGame();
 
         yield return new WaitForSeconds(2f);
         Assert.AreEqual(2, GameObject.FindGameObjectsWithTag("Player").Length);

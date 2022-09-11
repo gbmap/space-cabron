@@ -141,7 +141,73 @@ namespace Gmap.CosmicMusicUtensil
             return m;
         }
 
-        private ENote GetRandomNote()
+        protected ENote GetRandomNote()
+        {
+            return this.scale.GetNote(
+                this.root,
+                Random.Range(0, this.scale.GetNumberOfNotes())
+            );
+        }
+    }
+
+    public class RandomImprovisationMelodyFactory : MelodyFactory
+    {
+        ENote root;
+        IScale scale;
+        IntReference octave;
+        Vector2Int timeSignature;
+        int numberOfImprovisations;
+        ImprovisationPool improvisations;
+        int numberOfBars;
+
+        public RandomImprovisationMelodyFactory(
+            ENote root,
+            IScale scale,
+            IntReference octave,
+            Vector2Int timeSignature,
+            int numberOfImprovisations,
+            ImprovisationPool improvisations,
+            int numberOfBars
+        ) {
+            this.root = root;
+            this.scale = scale;
+            this.timeSignature = timeSignature;
+            this.octave = octave;
+            this.numberOfImprovisations = numberOfImprovisations;
+            this.improvisations = improvisations;
+            this.numberOfBars = numberOfBars;
+        }
+
+        public Melody GenerateMelody()
+        {
+            int[] intervals = Enumerable.Range(0, timeSignature.x*numberOfBars)
+                      .Select(i=>timeSignature.y)
+                      .ToArray();
+
+            ENote[] tones = Enumerable.Range(0, timeSignature.x*numberOfBars)
+                                   .Select(i=>GetRandomNote())
+                                   .ToArray();     
+
+            Note[] notes = Enumerable.Range(0, timeSignature.x*numberOfBars)
+                      .Select(i=>new Note(
+                          tones[i],
+                          intervals[i],
+                          octave.Value
+                      ))
+                      .ToArray();
+
+            Melody m = new Melody(notes);
+            for (int i = 0; i < numberOfImprovisations; i++)
+            {
+                int index = Random.Range(0, m.Length);
+                var improvisation = improvisations.GetNext().Get();
+                m = new Melody(improvisation.Apply(m, 0, m.NoteArray, index));
+            }
+
+            return m;
+        }
+
+        protected ENote GetRandomNote()
         {
             return this.scale.GetNote(
                 this.root,

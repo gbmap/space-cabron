@@ -18,11 +18,13 @@ public class Latch : MonoBehaviour
     {
         count--;
         if (count == 0)
+        {
             OnLatch?.Invoke();
 
-        if (resetOnZero)
-            count = initialValue;
-        else
-            Destroy(this);
+            if (resetOnZero)
+                count = initialValue;
+            else
+                Destroy(this);
+        }
     }
 }

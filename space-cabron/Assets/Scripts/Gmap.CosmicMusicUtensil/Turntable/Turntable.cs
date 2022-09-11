@@ -225,11 +225,11 @@ namespace Gmap.CosmicMusicUtensil
             string s = $"LastNote: {LastNote.AsString()} \nNoteQueue: " + notesStr;
             return s;
         }
+        #endif
 
         public void SetImproviser(Improviser i)
         {
             this.improviser = i;
         }
-#endif
     }
 }

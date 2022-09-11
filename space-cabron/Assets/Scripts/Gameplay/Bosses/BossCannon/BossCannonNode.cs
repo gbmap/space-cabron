@@ -65,6 +65,20 @@ namespace SpaceCabron.Gameplay.Bosses
                 StopCoroutine(fireCoroutine);
         }
 
+        public IEnumerator CFireBehaviour(int shotPattern)
+        {
+            if (shotPattern == 0)
+                yield return FireTowardsPlayer(bullet, GameObject.FindGameObjectWithTag("Player"));
+            else if (shotPattern == 1)
+                yield return FireArc(bullet);
+            else if (shotPattern == 2)
+                yield return FireDown(bulletPointy);
+            else if (shotPattern == 3)
+                yield return FireSemiCircles(bullet);
+            else
+                yield return null;
+        }
+
         Coroutine FireBehaviour(int shotPattern)
         {
             switch (shotPattern)
@@ -75,6 +89,8 @@ namespace SpaceCabron.Gameplay.Bosses
                     return StartCoroutine(FireArc(bullet));
                 case 2:
                     return StartCoroutine(FireDown(bulletPointy));
+                case 3:
+                    return StartCoroutine(FireSemiCircles(bullet));
                 default:
                 case -1:
                     return null;
@@ -83,21 +99,52 @@ namespace SpaceCabron.Gameplay.Bosses
 
         IEnumerator FireTowardsPlayer(GameObject bullet, GameObject player)
         {
-            yield break;
+            int numberOfBullets = Parent.LerpByHealth(10, 5);
+            float timeBetweenBullets = Parent.LerpByHealth(0.1f, 0.25f);
+            float timeBetweenBursts = Parent.LerpByHealth(0.5f, 2.0f);
+            while (true) {
+                for (int i = 0; i < numberOfBullets; i++) {
+                    Shoot(
+                        bullet, 
+                        Vector3.Angle(shootTransform.position, player.transform.position),
+                        shootTransform
+                    );
+                    yield return new WaitForSeconds(timeBetweenBullets);
+                }
+                yield return new WaitForSeconds(timeBetweenBursts);
+            }
         }
 
         IEnumerator FireDown(GameObject bullet)
         {
+            float timeBetweenBullets = Parent.LerpByHealth(0.05f, 0.2f);
             while (true)
             {
                 Shoot(bullet, 180f, shootTransform);
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(timeBetweenBullets);
             }
         }
 
-        IEnumerator FireArc(GameObject bullet)
+        public IEnumerator FireArc(GameObject bullet)
         {
             yield return Arc(90f, 360f-90f, Distance/Speed, shootTransform, bullet, 10);
+        }
+
+        public IEnumerator FireSemiCircles(GameObject bullet) {
+            float waitTime = Parent.LerpByHealth(0.25f, 0.5f);
+
+            float angleA = -180f;
+            float angleB = -90f;
+            if (Direction.x > 0f) {
+                angleA = 90f;
+                angleB = 180f;
+            }
+
+            for (int i = 0; i < 5; i++) {
+                float deltaAngle = 10f*i;
+                yield return Arc(angleA-deltaAngle, angleB+deltaAngle, Distance/Speed, shootTransform, bullet, 10);
+                yield return new WaitForSeconds(waitTime);
+            }
         }
 
         public IEnumerator FireBounce()

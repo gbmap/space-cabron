@@ -8,6 +8,8 @@ namespace SpaceCabron.Gameplay.Bosses
 {
     public abstract class BossBehaviour : MonoBehaviour
     {
+        protected BossBehaviour Parent;
+
         public bool IsRunning { get; private set; }
 
         public void StartLogic() { 
@@ -21,9 +23,16 @@ namespace SpaceCabron.Gameplay.Bosses
 
         protected virtual void Awake()
         {
+            if (transform.parent != null)
+                Parent = transform.parent.GetComponentInParent<BossBehaviour>();
             healths = GetComponentsInChildren<ColorHealth>();
             mainHealth = GetComponent<ColorHealth>();
             mainHealth.OnDestroy += Callback_OnDestroyed;
+        }
+
+        public void EnableColorHealth()
+        {
+            mainHealth.CanTakeDamage = true;
         }
 
         private void Callback_OnDestroyed(MsgOnObjectDestroyed obj)
@@ -45,12 +54,12 @@ namespace SpaceCabron.Gameplay.Bosses
             }
         }
 
-        protected float LerpByHealth(float min, float max)
+        public float LerpByHealth(float min, float max)
         {
             return Mathf.Lerp(min, max, HealthPercentage);
         }
 
-        protected int LerpByHealth(int min, int max)
+        public int LerpByHealth(int min, int max)
         {
             return Mathf.RoundToInt(Mathf.Lerp(min, max, HealthPercentage));
         }
@@ -63,18 +72,19 @@ namespace SpaceCabron.Gameplay.Bosses
             var instance = Instantiate(
                 bullet, 
                 gunTransform.position,
-                Quaternion.Euler(0f, 0f, angle) * gunTransform.localRotation
+                Quaternion.Euler(0f, 0f, angle+gunTransform.eulerAngles.z) 
             );
             return instance;
         }
 
 
-        protected IEnumerator Arc(float targetAngle,
-                        float startingAngle,
-                        float totalTime,
-                        Transform shootTransform,
-                        GameObject bullet,
-                        int nShots
+        protected IEnumerator Arc(
+            float targetAngle,
+            float startingAngle,
+            float totalTime,
+            Transform shootTransform,
+            GameObject bullet,
+            int nShots
         ) {
             // float totalTime = Distance/Speed;
 

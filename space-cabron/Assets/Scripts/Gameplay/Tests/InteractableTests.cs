@@ -8,6 +8,7 @@ using NUnit.Framework;
 using SpaceCabron.Gameplay.Interactables;
 using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Messages;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 using static LevelTests;
@@ -77,6 +78,25 @@ public class InteractableTests
         yield return null;
         brain.Shoot = false;
         yield break;
+    }
+
+    public static IEnumerator SpawnAndBuyImprovisationUpgrade(
+        GameObject player, PlayerControlBrain brain, string upgradePath
+    ) {
+        // AddPermanentUpgrade();
+        var upgrade = ScriptableObject.CreateInstance<PlayerRespawnsWithImprovisationUpgrade>();
+        upgrade.Improvisation = AssetDatabase.LoadAssetAtPath<ScriptableImprovisation>(
+            upgradePath
+        );
+
+        InteractableTests.SpawnResourcesToPayFor(player, upgrade);
+
+        var interactable = Interactable.CreateInteractable(upgrade, Vector3.zero);
+        yield return InteractableTests.InteractWithInteractable(
+            brain, 
+            player,
+            interactable.GetComponent<InteractableBehaviour>()
+        );
     }
 
     public static IEnumerator MoveTo(PlayerControlBrain brain, GameObject objectInstance, Vector3 targetPosition)

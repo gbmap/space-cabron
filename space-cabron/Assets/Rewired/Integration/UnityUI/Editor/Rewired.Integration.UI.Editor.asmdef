@@ -1,0 +1,20 @@
+{
+    "name": "Rewired.Integration.UI.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c6d3f911139dbb04e8f47b8a39a61ee1",
+        "GUID:7248cf6e161a0e64792948481460c906",
+        "GUID:46fdccc9b6ab4ad488dc2ea422b21b54"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

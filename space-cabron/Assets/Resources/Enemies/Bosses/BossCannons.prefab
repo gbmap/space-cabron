@@ -49,7 +49,7 @@ MonoBehaviour:
   colorHealth: {fileID: 6623315264968629509}
   Side: 0
   Offset: {x: 0, y: -0.1, z: 0}
-  Scale: {x: 1, y: 1, z: 1}
+  Scale: {x: 4, y: 1, z: 1}
 --- !u!212 &722970939341843226
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   colorHealth: {fileID: 6623315264358117523}
   Side: 1
   Offset: {x: 0, y: -0.1, z: 0}
-  Scale: {x: 1, y: 1, z: 1}
+  Scale: {x: 4, y: 1, z: 1}
 --- !u!212 &7474013068381518029
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   colorHealth: {fileID: 6623315264534397597}
   Side: 2
   Offset: {x: 0, y: -0.5, z: 0}
-  Scale: {x: 1, y: 1, z: 1}
+  Scale: {x: 1, y: 4, z: 1}
 --- !u!212 &5886560272455288080
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -382,6 +382,8 @@ GameObject:
   - component: {fileID: 6623315264358117522}
   - component: {fileID: 6623315264358117524}
   - component: {fileID: 8050121057176327658}
+  - component: {fileID: 4017464250751189201}
+  - component: {fileID: 1888007857920716728}
   m_Layer: 9
   m_Name: boss_cannon_right
   m_TagString: Untagged
@@ -567,6 +569,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &4017464250751189201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6623315264358117535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ef242b13259047a9d14f71b0a357b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Probability:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 1
+  NeedsSpecialBullet: 0
+  items:
+  - obj: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
+    Weight: 1
+  ApplyRigidbodyForce: 0
+  Force: 2
+  NameObjectSpawned: 0
+--- !u!114 &1888007857920716728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6623315264358117535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ef242b13259047a9d14f71b0a357b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Probability:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 1
+  NeedsSpecialBullet: 0
+  items:
+  - obj: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
+    Weight: 1
+  ApplyRigidbodyForce: 0
+  Force: 2
+  NameObjectSpawned: 0
 --- !u!1 &6623315264431901783
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,13 +817,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6623315264534397594}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e616191902998349a48511fc13c8e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 50
-  CanTakeDamage: 1
+  CanTakeDamage: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -825,6 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Left: {fileID: 6623315264968629510}
   Right: {fileID: 6623315264358117524}
+  bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
   bulletSin: {fileID: 6242563318997825797, guid: 5b57dc649a21249459097b5b502a0314,
     type: 3}
   bulletCos: {fileID: 6242563318997825797, guid: 8a3b2d7fa378d784d8418c3d85c03d2b,
@@ -887,10 +936,10 @@ MonoBehaviour:
   OnLatch:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6623315264534397597}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 6623315264534397599}
+        m_TargetAssemblyTypeName: SpaceCabron.Gameplay.Bosses.BossBehaviour, SpaceCabron.Gameplay
+        m_MethodName: EnableColorHealth
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -898,7 +947,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 1
+        m_CallState: 2
 --- !u!1 &6623315264782415191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1062,8 @@ GameObject:
   - component: {fileID: 6623315264968629508}
   - component: {fileID: 6623315264968629510}
   - component: {fileID: 9150135248930479497}
+  - component: {fileID: 5800495640074945240}
+  - component: {fileID: 7679424487753870196}
   m_Layer: 9
   m_Name: boss_cannon_left
   m_TagString: Untagged
@@ -1198,6 +1249,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &5800495640074945240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6623315264968629505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ef242b13259047a9d14f71b0a357b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Probability:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 1
+  NeedsSpecialBullet: 0
+  items:
+  - obj: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
+    Weight: 1
+  ApplyRigidbodyForce: 0
+  Force: 2
+  NameObjectSpawned: 0
+--- !u!114 &7679424487753870196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6623315264968629505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ef242b13259047a9d14f71b0a357b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Probability:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 1
+  NeedsSpecialBullet: 0
+  items:
+  - obj: {fileID: 7151435913419977335, guid: b56a3ae1ebdaab2459371e7caa26babb, type: 3}
+    Weight: 1
+  ApplyRigidbodyForce: 0
+  Force: 2
+  NameObjectSpawned: 0
 --- !u!1 &6623315264969643793
 GameObject:
   m_ObjectHideFlags: 0

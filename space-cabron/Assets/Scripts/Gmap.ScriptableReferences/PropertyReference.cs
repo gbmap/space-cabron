@@ -47,4 +47,7 @@ namespace Gmap.ScriptableReferences
 
     [System.Serializable]
     public class StringBusReference : PropertyReference<string, StringReference> {}
+
+    [System.Serializable]
+    public class Vector2IntBusReference : PropertyReference<Vector2Int, Vector2IntReference> {}
 }

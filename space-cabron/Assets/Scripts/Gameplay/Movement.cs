@@ -45,9 +45,20 @@ namespace SpaceCabron.Gameplay
             });
 
             LastPosition = transform.position;
-            transform.position += new Vector3(
+
+            Vector3 velocity = new Vector3(
                 state.Movement.x, state.Movement.y, 0f
             )*Time.deltaTime*Speed;
+
+            if (Camera.main != null && Brain is ScriptableInputBrain) {
+                Vector3 viewport = Camera.main.WorldToViewportPoint(transform.position + velocity);
+                if (viewport.x < 0f || viewport.x > 1f)
+                    velocity.x = 0f;
+                else if (viewport.y < 0f || viewport.y > 1f)
+                    velocity.y = 0f;
+            }
+
+            transform.position += velocity;
 
             if (animator)
                 animator.SetFloat(horizontalHash, state.Movement.x);
