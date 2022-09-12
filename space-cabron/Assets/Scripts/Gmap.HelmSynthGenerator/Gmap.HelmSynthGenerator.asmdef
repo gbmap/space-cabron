@@ -1,0 +1,16 @@
+{
+    "name": "Gmap.HelmSynthGenerator",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6fd4830b280c4ae4bb20b18373051bca"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

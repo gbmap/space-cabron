@@ -9,16 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e137bc0284e4a44b9810657eed4d03, type: 3}
-  m_Name: TimeSignaturePool
+  m_Script: {fileID: 11500000, guid: f65dab3579f03eb448d90ec497724482, type: 3}
+  m_Name: InitialPlayerInstrumentsPiano
   m_EditorClassIdentifier: 
   RandomType: 1
   Items:
-  - Value: {x: 3, y: 4}
+  - Value: {fileID: 4900000, guid: 95109c0fd53c21442aae645674a1d2ec, type: 3}
     Weight: 1
-  - Value: {x: 4, y: 4}
-    Weight: 1
-  - Value: {x: 5, y: 4}
-    Weight: 0
-  - Value: {x: 7, y: 4}
-    Weight: 0

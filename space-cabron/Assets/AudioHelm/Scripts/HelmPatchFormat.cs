@@ -27,7 +27,7 @@ namespace AudioHelm
         public const int kMaxModulations = 16;
         public const int kMaxCharacters = 15;
 
-        static readonly string[] kModulationSources =
+        public static readonly string[] kModulationSources =
         {
             "aftertouch",
             "amp_envelope",
@@ -56,7 +56,7 @@ namespace AudioHelm
             "velocity",
         };
 
-        static readonly string[] kModulationDestinations =
+        public static readonly string[] kModulationDestinations =
         {
             "amp_attack",
             "amp_decay",

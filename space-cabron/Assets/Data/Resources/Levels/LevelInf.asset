@@ -47,7 +47,7 @@ MonoBehaviour:
         type: 2}
       FixedStartingimprovisations: {fileID: 11400000, guid: 7f422710eee24f74b8ca675a95bd57c0,
         type: 2}
-    PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
+    PossibleStartingInstruments: {fileID: 11400000, guid: ba36c52e6d8dbab4d831429c8b14ac91,
       type: 2}
   DrumMelody:
     BPM: 30

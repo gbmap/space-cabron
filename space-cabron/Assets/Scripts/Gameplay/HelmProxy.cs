@@ -20,6 +20,12 @@ namespace Gmap.CosmicMusicUtensil
             set => Controller.channel = value;
         }
 
+        void Start()
+        {
+            if (RandomizePatchOnLoad)
+                Randomize();
+        }
+
         public void Play(OnNoteArgs args)
         {
             var note = args.Note;
@@ -38,31 +44,46 @@ namespace Gmap.CosmicMusicUtensil
         private IEnumerator LoadPatchCoroutine(TextAsset patch)
         {
             yield return new WaitForSeconds(0.1f);
-            var helmPatch = gameObject.GetComponent<AudioHelm.HelmPatch>();
-            if (!helmPatch)
-                helmPatch = gameObject.AddComponent<AudioHelm.HelmPatch>();
+            AudioHelm.HelmPatch helmPatch = GetPatch();
             helmPatch.LoadPatchDataFromText(patch.text);
 
             Controller = GetComponent<AudioHelm.HelmController>();
             if (RandomizePatchOnLoad)
-                RandomizePatch(helmPatch);
+                Randomize();
 
             Controller.LoadPatch(helmPatch);
         }
 
+        private AudioHelm.HelmPatch GetPatch()
+        {
+            var helmPatch = gameObject.GetComponent<AudioHelm.HelmPatch>();
+            if (!helmPatch)
+                helmPatch = gameObject.AddComponent<AudioHelm.HelmPatch>();
+            return helmPatch;
+        }
+
+        public void Randomize() {
+            var patch = GetPatch();
+            patch.patchData.settings = new HelmSynthGenerator.HelmSynthGenerator()
+                                                             .Generate();
+            Controller.LoadPatch(patch);
+        }
+
         public void RandomizePatch(AudioHelm.HelmPatch patch)
         {
-            var config = patch.patchData;
-            var fields = config.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var field in fields)
-            {
-                if (field.FieldType == typeof(float))
-                {
-                    var value = (float)field.GetValue(config);
-                    var newValue = value + Random.Range(-ValueRange, ValueRange);
-                    field.SetValue(config, newValue);
-                }
-            }
+            // var config = patch.patchData.settings;
+            var generator = new HelmSynthGenerator.HelmSynthGenerator();
+            patch.patchData.settings = generator.Generate();
+            // var fields = config.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+            // foreach (var field in fields)
+            // {
+            //     if (field.FieldType == typeof(float))
+            //     {
+            //         var value = (float)field.GetValue(config);
+            //         var newValue = value + Random.Range(-value*ValueRange, value*ValueRange);
+            //         field.SetValue(config, newValue);
+            //     }
+            // }
         }
     }
 

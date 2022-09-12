@@ -200,7 +200,7 @@ MonoBehaviour:
   Controller: {fileID: 671385366}
   Sampler: {fileID: 0}
   RandomizePatchOnLoad: 1
-  ValueRange: 0.1
+  ValueRange: 5
   ProbabilityOfChange: 0.5
 --- !u!114 &671385365
 MonoBehaviour:
