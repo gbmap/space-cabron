@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5d37f0132fbfd418446e7ca2dfd044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelConfiguration: {fileID: 11400000, guid: 301f723e76ae6ce46a764c1b709f5593, type: 2}
+  LevelConfiguration: {fileID: 11400000, guid: 1517692841c1d3042996dfda1fbc0b19, type: 2}
   Score: {fileID: 11400000, guid: aa824d1a8fcc8554cb98a9f945ae3c4e, type: 2}
 --- !u!114 &208686888
 MonoBehaviour:

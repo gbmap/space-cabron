@@ -137,7 +137,10 @@ public class DroneTests  : DefaultTestScene
 
         yield return new WaitForSeconds(2.0f);
 
-        player.GetComponent<Health>().Destroy();
+        Health health = player.GetComponent<Health>();
+        if (health != null) {
+            health.Destroy();
+        }
         yield return new WaitForSeconds(5f);
 
         var player2 = GameObject.FindGameObjectWithTag("Player");

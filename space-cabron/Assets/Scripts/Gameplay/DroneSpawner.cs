@@ -68,24 +68,24 @@ namespace SpaceCabron.Gameplay
 
         public void ConfigureDrone(GameObject instance, GameObject playerInstance)
         {
-            if (playerInstance == null)
-                return;
-
-            instance.name = instance.name + playerInstance.name[playerInstance.name.Length-1];
-
-            FollowAtAnOffset offset = instance.GetComponent<FollowAtAnOffset>();
-            offset.Offset = UnityEngine.Random.insideUnitSphere;
-            offset.Offset.z = 0f;
-            offset.Offset.Normalize();
-            offset.Target = playerInstance.transform;
-
-            RepeatNoteWithStep step = instance.GetComponent<RepeatNoteWithStep>();
-            if (step != null)
+            if (playerInstance != null)
             {
-                step.UpdateReferences(playerInstance);
+                instance.name = instance.name + playerInstance.name[playerInstance.name.Length-1];
 
-                int steps = new int[] { 3, 5, 7, 15, 17, 19 }[UnityEngine.Random.Range(0, 6)];
-                step.Steps = steps;
+                FollowAtAnOffset offset = instance.GetComponent<FollowAtAnOffset>();
+                offset.Offset = UnityEngine.Random.insideUnitSphere;
+                offset.Offset.z = 0f;
+                offset.Offset.Normalize();
+                offset.Target = playerInstance.transform;
+
+                RepeatNoteWithStep step = instance.GetComponent<RepeatNoteWithStep>();
+                if (step != null)
+                {
+                    step.UpdateReferences(playerInstance);
+
+                    int steps = new int[] { 3, 5, 7, 15, 17, 19 }[UnityEngine.Random.Range(0, 6)];
+                    step.Steps = steps;
+                }
             }
 
             // Means this is a melody drone.
@@ -135,8 +135,10 @@ namespace SpaceCabron.Gameplay
                 }
 
                 TurntableBehaviour otherTurntable = otherPlayer.GetComponentInChildren<TurntableBehaviour>();
-
                 turntable.ForceSetTurntable(otherTurntable.Turntable as Turntable);
+
+                instance.GetComponent<MelodySwitcher>().Generate(DroneInstrument.GetMelodyFactory(true));
+
 
                 var update = instance.GetComponent<UpdateBackgroundShaderGlobalVariables>();
                 Destroy(update);
@@ -166,6 +168,7 @@ namespace SpaceCabron.Gameplay
             }
 
             DroneInstrument.ConfigureTurntable(turntable, true);
+            IMelodyPlayer.Generate(instance, DroneInstrument.GetMelodyFactory(true));
             var tt = instance.GetComponentInChildren<InjectTurntableMelodyNotationOnAwake>();
             if (tt != null)
                 Destroy(tt);

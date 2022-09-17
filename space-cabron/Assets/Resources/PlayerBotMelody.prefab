@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1019307496587858916}
     m_Modifications:
+    - target: {fileID: 1154412014155406218, guid: 570b2b318c3ef4d4290bb35e281dd60c,
+        type: 3}
+      propertyPath: RandomizePatchOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}
       propertyPath: NoteTime
@@ -21,7 +26,7 @@ PrefabInstance:
         type: 3}
       propertyPath: BPMReference.GetFrom
       value: 
-      objectReference: {fileID: 11400000, guid: 9ae749a27ae89f94d97079cb2b8e5e6e,
+      objectReference: {fileID: 11400000, guid: 34f322f85ffd61f4ab27b5ecd6b88d33,
         type: 2}
     - target: {fileID: 1555594259488647050, guid: 570b2b318c3ef4d4290bb35e281dd60c,
         type: 3}

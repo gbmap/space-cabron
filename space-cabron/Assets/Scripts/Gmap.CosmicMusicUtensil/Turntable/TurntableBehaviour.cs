@@ -53,7 +53,7 @@ namespace Gmap.CosmicMusicUtensil
     }
 
 
-    public class TurntableBehaviour : MonoBehaviour, ITurntable
+    public class TurntableBehaviour : MonoBehaviour, ITurntable, IMelodyPlayer
     {
         public IntBusReference BPMReference;
         public ScriptableCompositeBar Bar;
@@ -122,8 +122,13 @@ namespace Gmap.CosmicMusicUtensil
             set { Turntable.MaxBPM = value; }
         }
 
+        public int MelodyPlayerPriority => 1;
+
         void Awake()
         {
+            if (BPMReference == null)
+                return;
+
             BPMReference.Update();
         }
 
@@ -135,6 +140,10 @@ namespace Gmap.CosmicMusicUtensil
 
         void Update()
         {
+            if (Turntable == null){
+                return;
+            }
+
             Turntable.Update(Callback_OnNote);
         }
 
@@ -178,6 +187,11 @@ namespace Gmap.CosmicMusicUtensil
         public void SetImproviser(Improviser i)
         {
             Turntable.SetImproviser(i);
+        }
+
+        public void Generate(MelodyFactory factory)
+        {
+            SetMelody(factory.GenerateMelody());
         }
     }
 }

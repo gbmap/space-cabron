@@ -33,6 +33,11 @@ namespace Gmap.ScriptableReferences
         [SerializeField]
         protected List<ScriptableReferenceItem<T>> Items = new List<ScriptableReferenceItem<T>>();
 
+        public List<ScriptableReferenceItem<T>> GetItems()
+        {
+            return Items;
+        }
+
         public IEnumerable<T> GetEnumerator()
         {
             return Items.Select(i => i.Value);

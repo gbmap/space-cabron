@@ -15,7 +15,9 @@ namespace Gmap.CosmicMusicUtensil
         public float HoldTime { get; set; } = 0.1f;
     }
 
-    public class OnBarArgs : OnNoteArgs {}
+    public class OnBarArgs : OnNoteArgs {
+        public int BarIndex { get; set; }
+    }
 
     public class OnImprovisationArgs
     {
@@ -41,6 +43,18 @@ namespace Gmap.CosmicMusicUtensil
         public System.Action<OnBarArgs> OnBar { get; set; }
         public System.Action<OnImprovisationArgs> OnImprovisationAdded { get; set; }
         public System.Action<OnImprovisationArgs> OnImprovisationRemoved { get; set; }
+    }
+
+    public interface IMelodyPlayer {
+        int MelodyPlayerPriority { get; }
+        void Generate(MelodyFactory factory);
+
+        public static void Generate(GameObject target, MelodyFactory factory) {
+            IMelodyPlayer mp = target.GetComponentsInChildren<IMelodyPlayer>()
+                                     .OrderByDescending(x => x.MelodyPlayerPriority)
+                                     .FirstOrDefault();
+            mp.Generate(factory);
+        }
     }
 
     public class Turntable : ITurntable
@@ -112,6 +126,9 @@ namespace Gmap.CosmicMusicUtensil
 
         public void Update(System.Action<OnNoteArgs> OnNote)
         {
+            if (Melody == null)
+                return;
+
             if (Melody.IsEmpty)
                 return;
 
@@ -175,6 +192,7 @@ namespace Gmap.CosmicMusicUtensil
                 currentBarIndex++;
                 OnBar?.Invoke(new OnBarArgs
                 {
+                    BarIndex = currentBarIndex,
                     Turntable = this,
                     Note = melody.GetNote(0)
                 });

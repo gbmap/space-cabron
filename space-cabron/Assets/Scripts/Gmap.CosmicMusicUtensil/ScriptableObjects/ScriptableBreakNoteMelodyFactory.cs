@@ -15,6 +15,7 @@ namespace Gmap.CosmicMusicUtensil
         public ImprovisationPool ImprovisationPool;
         public int NumberOfBreaks = 3;
         public int NumberOfBars = 2;
+        public IntBusReference NumberOfShuffles;
 
         public override ScriptableMelodyFactory Clone()
         {
@@ -24,7 +25,9 @@ namespace Gmap.CosmicMusicUtensil
             clone.Octave = Octave.Clone() as RandomIntReference;
             clone.TimeSignature = TimeSignature.Clone() as Vector2IntPool;
             clone.NumberOfBreaks = NumberOfBreaks;
+            clone.NumberOfBars = NumberOfBars;
             clone.ImprovisationPool = ImprovisationPool.Clone() as ImprovisationPool;
+            clone.NumberOfShuffles = PropertyReference<int, IntReference>.Clone<IntBusReference>(NumberOfShuffles);
             return clone;
         }
 
@@ -37,7 +40,8 @@ namespace Gmap.CosmicMusicUtensil
                 TimeSignature.GetNext(), 
                 NumberOfBreaks, 
                 ImprovisationPool,
-                NumberOfBars
+                NumberOfBars,
+                NumberOfShuffles.Value
             );
         }
     }

@@ -52,6 +52,22 @@ PrefabInstance:
       propertyPath: melody.notation
       value: c4/2;c4/2
       objectReference: {fileID: 0}
+    - target: {fileID: 6954135794747433862, guid: 231892c16b4d95442a948d8a420ddc2a,
+        type: 3}
+      propertyPath: BPMReference.GetFrom
+      value: 
+      objectReference: {fileID: 11400000, guid: 96917b2165ee39b4e83fc79a79145957,
+        type: 2}
+    - target: {fileID: 7282833561959784326, guid: 231892c16b4d95442a948d8a420ddc2a,
+        type: 3}
+      propertyPath: Profile
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7282833561959784326, guid: 231892c16b4d95442a948d8a420ddc2a,
+        type: 3}
+      propertyPath: RandomizePatchOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8436536320496043500, guid: 231892c16b4d95442a948d8a420ddc2a,
         type: 3}
       propertyPath: m_Name
@@ -148,9 +164,9 @@ MonoBehaviour:
   ScoreModulus: 50
   Geometric: 0
   improvisationPool: {fileID: 11400000, guid: 31919b3c1c27d3e4f90fc01036372dae, type: 2}
-  Permanent: 0
+  Permanent: 1
   improvisationCounter:
-    MaxCount: 10
+    MaxCount: 9999
 --- !u!114 &7979726186410792928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +198,22 @@ PrefabInstance:
         type: 3}
       propertyPath: BPMReference._value
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262361107664387882, guid: ecd04033fad88b74f9cfbec922be4551,
+        type: 3}
+      propertyPath: BPMReference.GetFrom
+      value: 
+      objectReference: {fileID: 11400000, guid: e1a7adda7f3137e4dbacca7eed1ba8df,
+        type: 2}
+    - target: {fileID: 5518165920942555946, guid: ecd04033fad88b74f9cfbec922be4551,
+        type: 3}
+      propertyPath: Profile
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518165920942555946, guid: ecd04033fad88b74f9cfbec922be4551,
+        type: 3}
+      propertyPath: RandomizePatchOnLoad
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6670179829887138825, guid: ecd04033fad88b74f9cfbec922be4551,
         type: 3}
@@ -402,6 +434,16 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8044334047283213251, guid: 0206c6dc7c6160049bf5715a61af632d,
+        type: 3}
+      propertyPath: Profile
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044334047283213251, guid: 0206c6dc7c6160049bf5715a61af632d,
+        type: 3}
+      propertyPath: RandomizePatchOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0206c6dc7c6160049bf5715a61af632d, type: 3}
 --- !u!4 &8532393573949153232 stripped
@@ -465,6 +507,11 @@ PrefabInstance:
     - target: {fileID: 1123222023, guid: 93dced58549cf03428f96f2f7ec8898f, type: 3}
       propertyPath: OnEnemyDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544474378487449375, guid: 93dced58549cf03428f96f2f7ec8898f,
+        type: 3}
+      propertyPath: RandomizePatchOnLoad
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2799940495385900029, guid: 93dced58549cf03428f96f2f7ec8898f,
         type: 3}

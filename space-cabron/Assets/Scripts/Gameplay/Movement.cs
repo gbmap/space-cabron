@@ -9,6 +9,7 @@ namespace SpaceCabron.Gameplay
         public bool Shoot { get; set; }
         public bool Pause { get; set; }
         public EColor Color { get; set; }
+        public bool RandomizeInstrument { get; set; }
     }
 
     public class Movement : MonoBehaviour, IBrainHolder<InputState>

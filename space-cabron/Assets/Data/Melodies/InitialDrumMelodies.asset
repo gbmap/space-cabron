@@ -16,11 +16,3 @@ MonoBehaviour:
   Items:
   - Value: {fileID: 11400000, guid: 4c49326ca10424d4a83c5b4a0d931bf8, type: 2}
     Weight: 1
-  - Value: {fileID: 11400000, guid: 830d4c8f019c11b46bbff66e9f37a7a9, type: 2}
-    Weight: 1
-  - Value: {fileID: 11400000, guid: 4d54839afecc03f4fb68b3d5ee5b5ba8, type: 2}
-    Weight: 1
-  - Value: {fileID: 11400000, guid: bb8baa4bb1833284b87e83dacd2cea76, type: 2}
-    Weight: 1
-  - Value: {fileID: 11400000, guid: b889c97b9236e084992884725098b2ed, type: 2}
-    Weight: 1

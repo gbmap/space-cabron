@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay
@@ -28,7 +29,7 @@ namespace SpaceCabron.Gameplay
             }
 
             Vector3 delta = target.transform.position - transform.position; 
-            velocity += Vector3.ClampMagnitude(delta, 1f) * (1f/(Mathf.Max(1f, delta.sqrMagnitude*2f)))
+            velocity = Vector3.ClampMagnitude(delta, 1f) 
                      * Acceleration * Time.fixedDeltaTime;
             transform.position += velocity;
         }
@@ -37,12 +38,12 @@ namespace SpaceCabron.Gameplay
         {
             while (target == null)
             {
-                Collider2D obj = Physics2D.OverlapCircle(
+                Collider2D obj = Physics2D.OverlapCircleAll(
                     transform.position, 
                     Distance, 
                     Layer.value,
                     0f
-                );
+                ).OrderBy(o => Vector3.Distance(transform.position, o.transform.position)).FirstOrDefault();
                 if (obj != null)
                 {
                     target = obj;

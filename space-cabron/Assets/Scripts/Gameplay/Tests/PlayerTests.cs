@@ -14,6 +14,7 @@ using SpaceCabron.Gameplay.Multiplayer;
 using System.Linq;
 using SpaceCabron.Gameplay.Interactables;
 using UnityEditor;
+using System;
 
 public class DefaultTestScene
 {
@@ -69,6 +70,11 @@ public class DefaultTestScene
         }
     }
 
+    public static void DestroyAllEnemies()
+    {
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        System.Array.ForEach(enemies, e => e.GetComponent<Health>().Destroy());
+    }
 }
 
 public class PlayerTests : DefaultTestScene

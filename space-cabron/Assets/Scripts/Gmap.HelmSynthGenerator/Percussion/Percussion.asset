@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65dab3579f03eb448d90ec497724482, type: 3}
+  m_Name: Percussion
+  m_EditorClassIdentifier: 
+  RandomType: 1
+  Items:
+  - Value: {fileID: 4900000, guid: 15900ff6be226774fa2cd2907387d517, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 58fbd824da7a25941a61de58e98131d9, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 4f91bb1aa7d987f4fa75314267eb3609, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: e6775d36214fc0345b1dd0232b600ff3, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 7b0c6683ba4dc4a45bc6de6fee7a4932, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: fed860c6bb99c174fa7df690ce2e48f1, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 0052273c5a5ce174ebcbde30781e71e7, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 4572461672e62ba4f88b57e8015c5db6, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 9d4e2eb257f773d4e9848dabb42b6d54, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 75525ec83ebe2724a80adb925e1db21c, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 1b40f6d85633923409582aa483e97d4d, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: daf96ee2308103640963e77996d7b0c9, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 8a430d8005a2a7f4692e121770fd6921, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 21c86d3c0766b564ca9db57bf4f75b36, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 7de11de9c506ed848a1565d980aeeab7, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 544a89a3bc9fa6a41aeebd34962c0f32, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 5a2f5d9c4037a3d44a75884eb9d01563, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 7f8cb4c9c3d3daf4797c6eb4526a7e30, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: e296f05f095548d46a4f4ab6e47163d9, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 6c6ade4865f0aa64f82f11af3ef405f4, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 72c886a5dbedd7a47883b90639a62e7f, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 8c9cb2f5e9f23b64e8112cdc671ffd90, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 11be182b91c5abe4183292b36ffe38d0, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: d1510bb10170429469115c1e7f4e8b06, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 76d5c53755928f5459e5de41b1f03529, type: 2}
+    Weight: 1
+  - Value: {fileID: 4900000, guid: 33f84ef7d3b82fd4a867f21c3ebdf22e, type: 2}
+    Weight: 1
+  - Value: {fileID: 0}
+    Weight: 1

@@ -35,7 +35,8 @@ namespace SpaceCabron.Gameplay
                 Movement = RewiredPlayer.GetAxis2D("MoveHorizontal", "MoveVertical"),
                 Shoot = color != EColor.None,
                 Pause = RewiredPlayer.GetButtonDown("Pause"),
-                Color = color
+                Color = color,
+                RandomizeInstrument = RewiredPlayer.GetButton("ChangeInstrument")
             };
         }
 

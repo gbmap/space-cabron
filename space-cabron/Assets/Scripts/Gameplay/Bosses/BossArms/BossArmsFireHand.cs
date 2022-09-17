@@ -1,81 +1,88 @@
 using System.Collections;
 using UnityEngine;
 
-public class BossArmsFireHand : MonoBehaviour
-{
-    [SerializeField] Transform shoulder;
-    [SerializeField] Transform hand;
-
-    public float RotationSpeed = 5f;
-    public float AngleRange = 2f;
-    public float HandSpeed = 10f;
-
-    private float initialHandLocalY;
-
-    void Start()
+namespace SpaceCabron.Gameplay.Bosses { 
+    public class BossArmsFireHand : BossBehaviour
     {
-        initialHandLocalY = hand.transform.localPosition.y;
-        // StartCoroutine(FireHand(GameObject.FindGameObjectWithTag("Player")));
-    }
+        [SerializeField] Transform shoulder;
+        [SerializeField] Transform hand;
 
-    public IEnumerator FireHand(GameObject player)
-    {
-        float time = 0f;
-        int numberOfIterations = Random.Range(100, 200);
-        float targetTime = Random.Range(5f, 7f);
-        while (shoulder!= null && time <= targetTime)
+        public float RotationSpeed = 5f;
+        public float AngleRange = 2f;
+        public float HandSpeed = 10f;
+
+        private float initialHandLocalY;
+
+        void Start()
         {
-            if (player == null)
+            initialHandLocalY = hand.transform.localPosition.y;
+            // StartCoroutine(FireHand(GameObject.FindGameObjectWithTag("Player")));
+        }
+
+        public IEnumerator FireHand(GameObject player)
+        {
+            float time = 0f;
+            int numberOfIterations = Random.Range(100, 200);
+            float targetTime = Random.Range(5f, 7f);
+            while (shoulder!= null && time <= targetTime)
             {
-                shoulder.transform.Rotate(
-                    Vector3.forward * Mathf.Sin(time*RotationSpeed + Mathf.PI / 2f) * AngleRange * Time.deltaTime, 
-                    Space.Self
-                );
+                if (player == null)
+                {
+                    shoulder.transform.Rotate(
+                        Vector3.forward * Mathf.Sin(time*RotationSpeed + Mathf.PI / 2f) * AngleRange * Time.deltaTime, 
+                        Space.Self
+                    );
+                }
+                else
+                {
+                    Vector3 deltaPlayer = player.transform.position - shoulder.transform.position;
+                    Vector3 deltaHand = hand.transform.position - shoulder.transform.position;
+                    float angle = Vector3.SignedAngle(deltaPlayer, deltaHand, Vector3.forward);
+                    shoulder.transform.Rotate(
+                        Vector3.forward * -angle * RotationSpeed * Time.deltaTime
+                    );
+                }
+                yield return null;
+                time += Time.deltaTime;
             }
-            else
+
+            yield return new WaitForSeconds(1.0f);
+
+            while (Camera.main.WorldToViewportPoint(hand.position).y > 0.05f)
             {
-                Vector3 deltaPlayer = player.transform.position - shoulder.transform.position;
-                Vector3 deltaHand = hand.transform.position - shoulder.transform.position;
-                float angle = Vector3.SignedAngle(deltaPlayer, deltaHand, Vector3.forward);
-                shoulder.transform.Rotate(
-                    Vector3.forward * -angle * RotationSpeed * Time.deltaTime
-                );
+                hand.transform.localPosition += Vector3.down * HandSpeed * Time.deltaTime;
+                yield return null;
             }
-            yield return null;
-            time += Time.deltaTime;
         }
 
-        yield return new WaitForSeconds(1.0f);
-
-        while (Camera.main.WorldToViewportPoint(hand.position).y > 0.05f)
+        public IEnumerator RecoverHand()
         {
-            hand.transform.localPosition += Vector3.down * HandSpeed * Time.deltaTime;
-            yield return null;
-        }
-    }
+            while (hand != null && Mathf.Abs(hand.transform.localPosition.y - initialHandLocalY) > 0.1f)
+            {
+                float delta = initialHandLocalY - hand.transform.localPosition.y;
+                hand.transform.localPosition += Vector3.up 
+                                            * HandSpeed*0.25f 
+                                            * delta 
+                                            * Time.deltaTime;
+                yield return null;
+            }
 
-    public IEnumerator RecoverHand()
-    {
-        while (hand != null && Mathf.Abs(hand.transform.localPosition.y - initialHandLocalY) > 0.1f)
-        {
-            float delta = initialHandLocalY - hand.transform.localPosition.y;
-            hand.transform.localPosition += Vector3.up 
-                                         * HandSpeed*0.25f 
-                                         * delta 
-                                         * Time.deltaTime;
-            yield return null;
+            while (shoulder != null && Mathf.Abs(shoulder.transform.rotation.z) > 0.001f)
+            {
+                float z = shoulder.transform.rotation.z;
+                shoulder.transform.rotation = Quaternion.Lerp(
+                    shoulder.transform.rotation, 
+                    Quaternion.identity, 
+                    Time.deltaTime
+                );
+                yield return null;
+            }
+            yield break;
         }
 
-        while (shoulder != null && Mathf.Abs(shoulder.transform.rotation.z) > 0.001f)
+        protected override IEnumerator CLogic()
         {
-            float z = shoulder.transform.rotation.z;
-            shoulder.transform.rotation = Quaternion.Lerp(
-                shoulder.transform.rotation, 
-                Quaternion.identity, 
-                Time.deltaTime
-            );
-            yield return null;
+            yield break;
         }
-        yield break;
     }
 }

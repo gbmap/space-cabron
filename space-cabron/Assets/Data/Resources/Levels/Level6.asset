@@ -35,8 +35,8 @@ MonoBehaviour:
     PossibleStartingInstruments: {fileID: 11400000, guid: 170f0e9dd275bd545b599395341bcbe3,
       type: 2}
   PlayerMelody:
-    BPM: 40
-    MaxBPM: 120
+    BPM: 120
+    MaxBPM: 240
     MelodyFactory: {fileID: 11400000, guid: 4d4588d053973c249ac48397b057b68f, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
@@ -47,7 +47,7 @@ MonoBehaviour:
         type: 2}
       FixedStartingimprovisations: {fileID: 11400000, guid: 7f422710eee24f74b8ca675a95bd57c0,
         type: 2}
-    PossibleStartingInstruments: {fileID: 11400000, guid: bc314c2f496f2e04797784bd79e0e7a7,
+    PossibleStartingInstruments: {fileID: 11400000, guid: a7b1ece47a98f7f4d9212337fd13c071,
       type: 2}
   DrumMelody:
     BPM: 30
@@ -60,7 +60,7 @@ MonoBehaviour:
         _value: 0
       PossibleStartingImprovisations: {fileID: 0}
       FixedStartingimprovisations: {fileID: 0}
-    PossibleStartingInstruments: {fileID: 11400000, guid: c2edac38a5b243e4fa9a63df2c2bec7a,
+    PossibleStartingInstruments: {fileID: 11400000, guid: 84e83030e64613e4a9d3eccce49107f6,
       type: 2}
   AmbientMelody:
     BPM: 30

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,15 @@ namespace Gmap.ScriptableReferences
             if (SendTo)
                 SendTo.Value = _value;
         }
+
+        public static T Clone<T>(T instance) where T : PropertyReference<ValueType, WrappedType>
+        {
+            T clone = Activator.CreateInstance<T>();
+            clone.GetFrom = instance.GetFrom;
+            clone.SendTo = instance.SendTo;
+            return clone;
+        }
+
     }
 
     [System.Serializable]

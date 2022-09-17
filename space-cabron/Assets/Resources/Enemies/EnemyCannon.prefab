@@ -134,7 +134,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845278815985660862}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94a3cae4cccc89e4299fc399fa7cb45f, type: 3}
   m_Name: 
@@ -148,6 +148,7 @@ MonoBehaviour:
   AngleRange: 30
   AngleOffset: 180
   RandomizeAngleOffset: 0
+  FollowPlayer: 0
 --- !u!114 &5936113686687271461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +177,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InjectOnStart: 1
   Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
+--- !u!114 &1584734210648413169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845278815985660862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0abca7bcc3f33445bd27f2432aef879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
+  UsePool: 1
+  Cooldown: 3
+  TimeOffset: 0
+  Bullets: 7
+  CooldownPerBullet: 0.05
+  AngleRange: 30
+  AngleOffset: 180
+  RandomizeAngleOffset: 0
+  FollowPlayer: 0

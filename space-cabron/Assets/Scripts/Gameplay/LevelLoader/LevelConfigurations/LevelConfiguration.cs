@@ -95,17 +95,19 @@ namespace SpaceCabron.Gameplay
             };
         }
 
+        public MelodyFactory GetMelodyFactory(bool useLastUsed) {
+            if (useLastUsed && MelodyFactory.LastUsedFactory != null)
+                return MelodyFactory.LastUsedFactory;
+            else
+                return MelodyFactory;
+        }
+
         public void ConfigureTurntable(
             ITurntable turntable, 
             bool useLastUsedFactory
         ) {
-            Melody melody = null;
-            if (useLastUsedFactory && MelodyFactory.LastUsedFactory != null)
-                melody = MelodyFactory.LastUsedFactory.GenerateMelody();
-            else
-                melody = MelodyFactory.GenerateMelody();
+            Melody melody = GetMelodyFactory(useLastUsedFactory).GenerateMelody();
             turntable.SetMelody(melody);
-
             ImprovisationConfiguration.Apply(turntable);
         }
 

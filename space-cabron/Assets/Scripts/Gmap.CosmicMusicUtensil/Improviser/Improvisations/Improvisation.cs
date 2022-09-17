@@ -6,19 +6,19 @@ namespace Gmap.CosmicMusicUtensil
 {
     public abstract class Improvisation
     {
-        protected SelectionStrategy noteSelectionStrategy;
+        public SelectionStrategy NoteSelectionStrategy;
         protected SelectionStrategy barSelectionStrategy;
-        protected SelectionStrategy subNoteSelectionStrategy;
+        public SelectionStrategy SubNoteSelectionStrategy;
         public Improvisation(
             SelectionStrategy noteSelectionStrategy,
             SelectionStrategy barSelectionStrategy,
             SelectionStrategy subNoteSelectionStrategy=null
         ) {
-            this.noteSelectionStrategy = noteSelectionStrategy;
+            this.NoteSelectionStrategy = noteSelectionStrategy;
             this.barSelectionStrategy = barSelectionStrategy;
             if (subNoteSelectionStrategy == null)
                 subNoteSelectionStrategy = new RandomSelectionStrategy();
-            this.subNoteSelectionStrategy = subNoteSelectionStrategy;
+            this.SubNoteSelectionStrategy = subNoteSelectionStrategy;
         }
 
         protected abstract Note[] ApplyImprovisation(Melody melody, int barIndex, Note note, int noteIndex);
@@ -26,7 +26,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public virtual bool ShouldApply(Melody melody, int barIndex, Note[] note, int noteIndex)
         {
-            return noteSelectionStrategy.ShouldSelect(melody.NoteArray, noteIndex)
+            return NoteSelectionStrategy.ShouldSelect(melody.NoteArray, noteIndex)
                 && barSelectionStrategy.ShouldSelect(melody.NoteArray, barIndex);
         }
 
@@ -38,7 +38,7 @@ namespace Gmap.CosmicMusicUtensil
                 List<Note> noteList = new List<Note>();
                 for (int i = 0; i < notes.Length; i++)
                 {
-                    if (subNoteSelectionStrategy.ShouldSelect(notes, i))
+                    if (SubNoteSelectionStrategy.ShouldSelect(notes, i))
                     {
                         Note[] newNotes = ApplyImprovisation(melody, barIndex, notes[i], noteIndex);
                         noteList.AddRange(newNotes);
@@ -54,7 +54,7 @@ namespace Gmap.CosmicMusicUtensil
 
         public override string ToString()
         {
-            return $"{Info()}:\n\tNote: {noteSelectionStrategy.ToString()}\n\tBar: {barSelectionStrategy.ToString()}";
+            return $"{Info()}:\n\tNote: {NoteSelectionStrategy.ToString()}\n\tBar: {barSelectionStrategy.ToString()}";
         }
     }
 
@@ -73,7 +73,7 @@ namespace Gmap.CosmicMusicUtensil
         ) : base(noteSelectionStrategy, barSelectionStrategy) 
         {
             TimesToDuplicate = System.Math.Max(0, timesToDuplicate+1);
-            subNoteSelectionStrategy = new RandomSelectionStrategy();
+            SubNoteSelectionStrategy = new RandomSelectionStrategy();
 
             if (modifierForDuplicates == null)
                 modifierForDuplicates = new NullNoteModifier();

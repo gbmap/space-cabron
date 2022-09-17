@@ -159,6 +159,7 @@ namespace Gmap.CosmicMusicUtensil
         int numberOfImprovisations;
         ImprovisationPool improvisations;
         int numberOfBars;
+        int numberOfShuffles;
 
         public RandomImprovisationMelodyFactory(
             ENote root,
@@ -167,7 +168,8 @@ namespace Gmap.CosmicMusicUtensil
             Vector2Int timeSignature,
             int numberOfImprovisations,
             ImprovisationPool improvisations,
-            int numberOfBars
+            int numberOfBars,
+            int numberOfShuffles
         ) {
             this.root = root;
             this.scale = scale;
@@ -176,6 +178,7 @@ namespace Gmap.CosmicMusicUtensil
             this.numberOfImprovisations = numberOfImprovisations;
             this.improvisations = improvisations;
             this.numberOfBars = numberOfBars;
+            this.numberOfShuffles = numberOfShuffles;
         }
 
         public Melody GenerateMelody()
@@ -201,9 +204,33 @@ namespace Gmap.CosmicMusicUtensil
             {
                 int index = Random.Range(0, m.Length);
                 var improvisation = improvisations.GetNext().Get();
+                improvisation.NoteSelectionStrategy = new RangeStrategy(index, index);
+
+                // Improvisations use subnoteselection to apply improvisations 
+                // on notes generated previously by other improvisations,
+                // but, since we are trying to apply <improvisation> to an specific
+                // note, we need to set the subnote selection strategy to the same strategy.
+                improvisation.SubNoteSelectionStrategy = improvisation.NoteSelectionStrategy;
                 m = new Melody(improvisation.Apply(m, 0, m.NoteArray, index));
             }
 
+            if (m.NoteArray.Length == 1)
+                return m;
+
+            var notesShuffled = m.NoteArray;
+            for (int i = 0; i < numberOfShuffles; i++) {
+                int i1 = Random.Range(0, notesShuffled.Length);
+                int i2 = Random.Range(0, notesShuffled.Length);
+                while (i1 == i2) {
+                    i2 = Random.Range(0, notesShuffled.Length);
+                }
+
+                var temp = notesShuffled[i1];
+                notesShuffled[i1] = notesShuffled[i2];
+                notesShuffled[i2] = temp;
+            }
+
+            m = new Melody(notesShuffled);
             return m;
         }
 

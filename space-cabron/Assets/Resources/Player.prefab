@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 655430734}
   - component: {fileID: 4799287862381865209}
   - component: {fileID: 2649800235607177160}
+  - component: {fileID: 3634790991124244238}
   m_Layer: 8
   m_Name: Instrument
   m_TagString: Instrument
@@ -200,8 +201,8 @@ MonoBehaviour:
   Controller: {fileID: 671385366}
   Sampler: {fileID: 0}
   RandomizePatchOnLoad: 1
-  ValueRange: 5
-  ProbabilityOfChange: 0.5
+  LoadRandomPatchOnRandomize: 0
+  Profile: 0
 --- !u!114 &671385365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,6 +361,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03967dc9e22a9f3478e21853a7730fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3634790991124244238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671385363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9750acfb6f64e49a9503108eb01eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Turntable: {fileID: 671385365}
+  Structure: 1212
+  MelodyPatterns: {fileID: 11400000, guid: c0ee114433247c947be1894494c02f3a, type: 2}
 --- !u!1 &8875341672761901925
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +398,7 @@ GameObject:
   - component: {fileID: 8960374101879715445}
   - component: {fileID: 4028480632272702308}
   - component: {fileID: 5571610043482372228}
+  - component: {fileID: 6368915882521754207}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -656,5 +673,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ccc5c6491c8360489c0efd2ab65c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6368915882521754207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875341672761901925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83680fab72482fb4f9bf1bb929fc36ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

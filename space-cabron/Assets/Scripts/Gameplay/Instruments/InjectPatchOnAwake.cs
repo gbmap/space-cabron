@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
@@ -17,17 +18,21 @@ namespace Gmap.Instruments
         IEnumerator Start()
         {
             yield return new WaitForSeconds(0.2f);
-            var helmPatch = gameObject.GetComponent<AudioHelm.HelmPatch>();
-            if (!helmPatch)
-                helmPatch = gameObject.AddComponent<AudioHelm.HelmPatch>();
+            HelmProxy proxy = GetComponent<HelmProxy>();
+            // var helmPatch = gameObject.GetComponent<AudioHelm.HelmPatch>();
+            // if (!helmPatch)
+            //     helmPatch = gameObject.AddComponent<AudioHelm.HelmPatch>();
 
             if (PatchPool)
                 SpecificPatch = PatchPool.GetNext();
-            
-            helmPatch.LoadPatchDataFromText(SpecificPatch.text);
 
-            controller = GetComponent<AudioHelm.HelmController>();
-            controller.LoadPatch(helmPatch);
+            proxy.LoadPatch(SpecificPatch);
+            
+            // helmPatch.LoadPatchDataFromText(SpecificPatch.text);
+            
+
+            // controller = GetComponent<AudioHelm.HelmController>();
+            // controller.LoadPatch(helmPatch);
         }
     }
 }

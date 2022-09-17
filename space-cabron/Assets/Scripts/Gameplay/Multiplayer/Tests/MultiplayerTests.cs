@@ -91,16 +91,13 @@ public class MultiplayerTests
     public IEnumerator OnePlayerWinSpawnsOtherPlayer()
     {
         yield return LoadLevel(2);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         LevelTests.DisableEnemySpawner();
         PlayerTests.DestroyAllDrones();
 
         yield return new WaitForSeconds(3f);
         
-        System.Array.ForEach(
-            GameObject.FindGameObjectsWithTag("Enemy"), 
-            e=>e.GetComponent<Health>().Destroy()
-        );
+        PlayerTests.DestroyAllEnemies();
 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         players[0].GetComponent<Health>().Destroy();

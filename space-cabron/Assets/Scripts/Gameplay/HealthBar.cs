@@ -80,11 +80,8 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        // barRenderer.enabled = colorHealth.CurrentHealth > 1;
-
-        // List<float> indexes = new List<float>();
-        // for (int i = colorHealth.CurrentHealth; i > 0; i--)
-        //     indexes.Add((float)colorHealth.ColorLife[i-1]);
+        if (barRenderer == null)
+            return;
 
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         mpb.SetInt("_NumberOfColors", Mathf.Min(10, colorHealth.MaxHealth));

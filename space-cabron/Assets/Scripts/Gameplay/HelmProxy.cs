@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
 
 namespace Gmap.CosmicMusicUtensil
 {
@@ -11,19 +9,13 @@ namespace Gmap.CosmicMusicUtensil
         public AudioHelm.Sampler Sampler;
 
         public bool RandomizePatchOnLoad;
-        public float ValueRange = 0.1f;
-        public float ProbabilityOfChange = 0.5f;
+        public bool LoadRandomPatchOnRandomize;
+        public HelmSynthGenerator.EGeneratorProfile Profile;
 
         public int Channel 
         {
             get => Controller.channel;
             set => Controller.channel = value;
-        }
-
-        void Start()
-        {
-            if (RandomizePatchOnLoad)
-                Randomize();
         }
 
         public void Play(OnNoteArgs args)
@@ -63,27 +55,21 @@ namespace Gmap.CosmicMusicUtensil
         }
 
         public void Randomize() {
-            var patch = GetPatch();
-            patch.patchData.settings = new HelmSynthGenerator.HelmSynthGenerator()
-                                                             .Generate();
-            Controller.LoadPatch(patch);
-        }
+            if (!RandomizePatchOnLoad) {
+                return ;
+            }
 
-        public void RandomizePatch(AudioHelm.HelmPatch patch)
-        {
-            // var config = patch.patchData.settings;
-            var generator = new HelmSynthGenerator.HelmSynthGenerator();
-            patch.patchData.settings = generator.Generate();
-            // var fields = config.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
-            // foreach (var field in fields)
-            // {
-            //     if (field.FieldType == typeof(float))
-            //     {
-            //         var value = (float)field.GetValue(config);
-            //         var newValue = value + Random.Range(-value*ValueRange, value*ValueRange);
-            //         field.SetValue(config, newValue);
-            //     }
-            // }
+            // return;
+            var patch = GetPatch();
+
+            if (patch.patchData == null)
+                patch.patchData = new AudioHelm.HelmPatchFormat();
+            patch.patchData.settings = HelmSynthGenerator.GeneratorFactory
+                                                         .Create(Profile, true)
+                                                         .Generate(patch.patchData.settings);
+
+            Debug.Log(HelmSynthGenerator.HelmSynthGenerator.HelmSettingsToString(patch.patchData.settings));
+            Controller.LoadPatch(patch);
         }
     }
 

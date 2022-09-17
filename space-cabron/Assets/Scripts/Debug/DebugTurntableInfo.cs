@@ -33,6 +33,7 @@ namespace Gmap.Debug
 #if UNITY_EDITOR
         void OnGUI()
         {
+            return;
             GUILayout.Label($"Note Index: {turntableBehaviour.NoteIndex}");
             GUILayout.Label($"Bar Index: {turntableBehaviour.BarIndex}");
             var melody = turntableBehaviour.Melody;

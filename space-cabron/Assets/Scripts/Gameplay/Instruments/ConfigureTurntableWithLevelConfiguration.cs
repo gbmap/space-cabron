@@ -34,8 +34,10 @@ namespace SpaceCabron.Gameplay
                 turntable.MaxBPM = instrumentConfig.MaxBPM;
             }
 
-            if (!wasConfigured || ReloadMelody)
+            if (!wasConfigured || ReloadMelody) {
                 instrumentConfig.ConfigureTurntable(turntable, false);
+                IMelodyPlayer.Generate(gameObject, instrumentConfig.GetMelodyFactory(false));
+            }
         }
 
         private void LoadInstrument(InstrumentConfiguration instrumentConfig)

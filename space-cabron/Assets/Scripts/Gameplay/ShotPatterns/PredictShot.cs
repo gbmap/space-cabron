@@ -15,7 +15,7 @@ namespace SpaceCabron.Gameplay
             }
         }
 
-        protected override float GetAngle()
+        protected override float GetAngle(GameObject player)
         {
             if (Player == null)
                 return 180f;

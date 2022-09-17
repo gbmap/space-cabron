@@ -11,6 +11,8 @@ namespace Gmap
         float[] NoteTimes = new float[nNotes];
         float[] NextNoteTimes = new float[nNotes];
 
+        float expectedNextNote = 0f;
+
         int Index
         {
             get { return Mathf.Clamp(gameObject.name[gameObject.name.Length - 1] - '0', 0, 1); }
@@ -23,8 +25,16 @@ namespace Gmap
 
         public void OnNote(OnNoteArgs n)
         {
+            float delta = Time.time - expectedNextNote;
+            System.Array.ForEach(LastNoteTimes, (x) => x += delta);
+            System.Array.ForEach(NoteTimes, (x) => x += delta);
+            System.Array.ForEach(NextNoteTimes, (x) => x += delta);
+            UpdateBuffers();
+
             Shader.SetGlobalFloat("_Beat", Time.time);
             Shader.SetGlobalFloat("_LastNoteDuration", n.Duration);
+
+            expectedNextNote = Time.time + n.Duration;
         }
 
         public void OnBar(OnBarArgs args)
@@ -38,10 +48,15 @@ namespace Gmap
             startTime = UpdateNoteTimes(args, startTime, args.Turntable.BarIndex, NoteTimes);
             UpdateNoteTimes(args, startTime, args.Turntable.BarIndex + 1, NextNoteTimes);
 
-            Shader.SetGlobalInteger("_NoteCount"+Index.ToString(), nNotes);
-            Shader.SetGlobalFloatArray("_LastNoteTimes"+Index.ToString(), LastNoteTimes);
-            Shader.SetGlobalFloatArray("_NoteTimes"+Index.ToString(), NoteTimes);
-            Shader.SetGlobalFloatArray("_NextNoteTimes"+Index.ToString(), NextNoteTimes);
+            UpdateBuffers();
+        }
+
+        private void UpdateBuffers()
+        {
+            Shader.SetGlobalInteger("_NoteCount" + Index.ToString(), nNotes);
+            Shader.SetGlobalFloatArray("_LastNoteTimes" + Index.ToString(), LastNoteTimes);
+            Shader.SetGlobalFloatArray("_NoteTimes" + Index.ToString(), NoteTimes);
+            Shader.SetGlobalFloatArray("_NextNoteTimes" + Index.ToString(), NextNoteTimes);
         }
 
         private void CacheLastNoteTimes()

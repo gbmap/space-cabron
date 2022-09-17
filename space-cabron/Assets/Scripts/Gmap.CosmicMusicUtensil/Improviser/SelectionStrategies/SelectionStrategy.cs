@@ -57,24 +57,26 @@ namespace Gmap.CosmicMusicUtensil
         }
     }
 
-    public class RandomSelectionStrategy : SelectionStrategy
+    public class RandomSelectionStrategy : RangeStrategy
     {
         int seed;
         public RandomSelectionStrategy()
-        {
-            seed = Random.Range(0, 100);
+            : base(0, 0) {
+            int r = Random.Range(0, 8);
+            Min = r;
+            Max = r;
         }
 
-        public bool ShouldSelect(Note[] notes, int index)
-        {
-            return ShouldSelect(notes.Length, index);
-        }
+        // public bool ShouldSelect(Note[] notes, int index)
+        // {
+        //     return ShouldSelect(notes.Length, index);
+        // }
 
-        public bool ShouldSelect(int length, int index)
-        {
-            var r = new System.Random(seed);
-            return index == r.Next(0, length);
-        }
+        // public bool ShouldSelect(int length, int index)
+        // {
+        //     var r = new System.Random(seed);
+        //     return index == r.Next(0, length);
+        // }
     }
 
     public class LastSelectionStrategy : SelectionStrategy
