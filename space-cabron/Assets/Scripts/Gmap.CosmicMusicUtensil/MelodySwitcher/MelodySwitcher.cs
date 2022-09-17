@@ -13,6 +13,10 @@ namespace Gmap.CosmicMusicUtensil {
         public const int MAX_MELODIES = 8;
         private Melody[] melodies = new Melody[MAX_MELODIES];
 
+        public Melody GetMelody(int index) {
+            return melodies[index%MAX_MELODIES];
+        }
+
         public StringReferencePool MelodyPatterns;
         SongStructureGenerator songStructureGenerator;
 

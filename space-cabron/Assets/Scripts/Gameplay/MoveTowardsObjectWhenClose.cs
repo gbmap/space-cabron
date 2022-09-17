@@ -30,7 +30,7 @@ namespace SpaceCabron.Gameplay
 
             Vector3 delta = target.transform.position - transform.position; 
             velocity = Vector3.ClampMagnitude(delta, 1f) 
-                     * Acceleration * Time.fixedDeltaTime;
+                     * Acceleration*100f * Time.fixedDeltaTime;
             transform.position += velocity;
         }
 

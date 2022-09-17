@@ -13,6 +13,8 @@ namespace Gmap
 
         float expectedNextNote = 0f;
 
+        int noteTimesCursor = 0;
+
         int Index
         {
             get { return Mathf.Clamp(gameObject.name[gameObject.name.Length - 1] - '0', 0, 1); }
@@ -26,9 +28,9 @@ namespace Gmap
         public void OnNote(OnNoteArgs n)
         {
             float delta = Time.time - expectedNextNote;
-            System.Array.ForEach(LastNoteTimes, (x) => x += delta);
+            // System.Array.ForEach(LastNoteTimes, (x) => x += delta);
             System.Array.ForEach(NoteTimes, (x) => x += delta);
-            System.Array.ForEach(NextNoteTimes, (x) => x += delta);
+            // System.Array.ForEach(NextNoteTimes, (x) => x += delta);
             UpdateBuffers();
 
             Shader.SetGlobalFloat("_Beat", Time.time);
@@ -39,14 +41,24 @@ namespace Gmap
 
         public void OnBar(OnBarArgs args)
         {
-            System.Array.ForEach(NoteTimes, x => x = 0);
-            System.Array.ForEach(NextNoteTimes, x => x = 0);
-
-            CacheLastNoteTimes();
-
             float startTime = Time.time + args.Turntable.LastNote.GetDuration(args.Turntable.BPS);
-            startTime = UpdateNoteTimes(args, startTime, args.Turntable.BarIndex, NoteTimes);
-            UpdateNoteTimes(args, startTime, args.Turntable.BarIndex + 1, NextNoteTimes);
+
+            MelodySwitcher ms = GetComponentInChildren<MelodySwitcher>();
+            if (ms != null) {
+                var improviser = args.Turntable.Improviser;
+
+                int i = args.BarIndex % ms.Structure.Length;
+                var melody = ms.GetMelody(ms.Structure[i]-'0'-1);
+                startTime = UpdateNoteTimes(args, melody, improviser, startTime, args.Turntable.BarIndex, NoteTimes);
+
+                int i2 = (args.BarIndex+1) % ms.Structure.Length;
+                var melody2 = ms.GetMelody(ms.Structure[i2]-'0'-1);
+                UpdateNoteTimes(args, melody2, improviser, startTime, args.Turntable.BarIndex+1, NoteTimes);
+            }
+            else {
+                startTime = UpdateNoteTimes(args, args.Turntable.Melody, args.Turntable.Improviser, startTime, args.Turntable.BarIndex, NoteTimes);
+                UpdateNoteTimes(args, args.Turntable.Melody, args.Turntable.Improviser, startTime, args.Turntable.BarIndex + 1, NoteTimes);
+            }
 
             UpdateBuffers();
         }
@@ -54,9 +66,9 @@ namespace Gmap
         private void UpdateBuffers()
         {
             Shader.SetGlobalInteger("_NoteCount" + Index.ToString(), nNotes);
-            Shader.SetGlobalFloatArray("_LastNoteTimes" + Index.ToString(), LastNoteTimes);
+            // Shader.SetGlobalFloatArray("_LastNoteTimes" + Index.ToString(), LastNoteTimes);
             Shader.SetGlobalFloatArray("_NoteTimes" + Index.ToString(), NoteTimes);
-            Shader.SetGlobalFloatArray("_NextNoteTimes" + Index.ToString(), NextNoteTimes);
+            // Shader.SetGlobalFloatArray("_NextNoteTimes" + Index.ToString(), NextNoteTimes);
         }
 
         private void CacheLastNoteTimes()
@@ -65,23 +77,26 @@ namespace Gmap
         }
 
         private float UpdateNoteTimes(OnBarArgs args,
+                                     Melody melody,
+                                     Improviser improviser,
                                      float startTime,
                                      int barIndex,
                                      float[] noteTimes)
         {
             var turntable = args.Turntable;
-            var melody = args.Turntable.Melody;
-            var improviser = args.Turntable.Improviser;
+            // var melody = args.Turntable.Melody;
+            // var improviser = args.Turntable.Improviser;
             var notes = Enumerable.Range(0, melody.Length)
                       .SelectMany(i => improviser.Improvise(melody, barIndex, melody.GetNote(i), i, false))
                       .ToArray();
 
             float value = startTime;
-            noteTimes[0] = value;
+            // noteTimes[noteTimesCursor] = value;
             for (int i = 0; i < notes.Length; i++)
             {
                 value += notes[i].GetDuration(args.Turntable.BPS);
-                noteTimes[i+1] = value;
+                noteTimes[noteTimesCursor] = value;
+                noteTimesCursor = (noteTimesCursor + 1) % noteTimes.Length;
             }
             return value;
         }
