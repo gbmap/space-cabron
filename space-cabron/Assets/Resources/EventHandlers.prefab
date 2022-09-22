@@ -135,6 +135,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIndex: 0
+  ComboTime:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 11400000, guid: baaf7836a84a1d04bb7611f44775186c, type: 2}
+    _value: 0
 --- !u!1 &5448817628468721440
 GameObject:
   m_ObjectHideFlags: 0

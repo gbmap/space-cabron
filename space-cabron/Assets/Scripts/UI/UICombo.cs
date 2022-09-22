@@ -1,5 +1,6 @@
 using System;
 using Frictionless;
+using Gmap.ScriptableReferences;
 using SpaceCabron.Messages;
 using UnityEngine;
 
@@ -7,12 +8,22 @@ namespace SpaceCabron.UI {
     public class UICombo : MonoBehaviour
     {
         public int PlayerIndex;
+        public FloatBusReference ComboTime;
         private TMPro.TextMeshProUGUI text;
         private Animator animator;
+
+        private UnityEngine.UI.RawImage imageComboTime;
         
         void Awake() {
             text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
             animator = GetComponentInChildren<Animator>();
+            imageComboTime = GetComponentInChildren<UnityEngine.UI.RawImage>();
+        }
+
+        void Update() {
+            if (imageComboTime) {
+                imageComboTime.transform.localScale = new Vector3(ComboTime.Value, 1, 1);
+            }
         }
 
         void OnEnable()
@@ -35,6 +46,7 @@ namespace SpaceCabron.UI {
             if (text) {
                 text.text = msg.CurrentCombo.ToString();
                 text.enabled = true;
+                imageComboTime.enabled = true;
             }
 
             if (animator) {
@@ -50,6 +62,7 @@ namespace SpaceCabron.UI {
             if (text) {
                 text.text = "0";
                 text.enabled = false;
+                imageComboTime.enabled = false;
             }
         }
     }

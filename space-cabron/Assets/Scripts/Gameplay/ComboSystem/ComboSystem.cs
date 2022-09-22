@@ -1,5 +1,6 @@
 using System;
 using Frictionless;
+using Gmap.ScriptableReferences;
 using SpaceCabron.Messages;
 using UnityEngine;
 
@@ -10,14 +11,31 @@ namespace SpaceCabron.Gameplay.Combo
         public int PlayerIndex = 0;
         private int CurrentCombo = 0;
 
+        public FloatBusReference ComboTime;
+
+        void Update() {
+            if (ComboTime.Value <= 0f) {
+                return;
+            }
+
+            ComboTime.Value -= Time.deltaTime/3;
+            if (ComboTime.Value <= 0f) {
+                MessageRouter.RaiseMessage(new Messages.MsgOnComboBroken{
+                    PlayerIndex = PlayerIndex,
+                    Combo = CurrentCombo
+                });
+                CurrentCombo = 0;
+            }
+        }
+
         void OnEnable() {
             MessageRouter.AddHandler<Messages.MsgOnNotePlayedInTime>(Callback_OnNotePlayedInTime);
             MessageRouter.AddHandler<Messages.MsgOnNotePlayedOutOfTime>(Callback_OnNotePlayedOutOfTime);
             MessageRouter.AddHandler<Messages.MsgOnWrongBulletHit>(Callback_OnWrongBulletHit);
             MessageRouter.AddHandler<Gmap.Gameplay.MsgOnObjectHit>(Callback_OnObjectHit);
+            MessageRouter.AddHandler<Messages.MsgOnComboIncrease>(Callback_OnComboIncreased);
         }
 
-       
 
         void OnDisable() {
             MessageRouter.RemoveHandler<Messages.MsgOnNotePlayedInTime>(Callback_OnNotePlayedInTime);
@@ -78,6 +96,11 @@ namespace SpaceCabron.Gameplay.Combo
                 PlayerIndex = this.PlayerIndex,
                 CurrentCombo = ++CurrentCombo
             });
+        }
+
+        private void Callback_OnComboIncreased(MsgOnComboIncrease obj)
+        {
+            ComboTime.Value = 1f;
         }
     }
 }
