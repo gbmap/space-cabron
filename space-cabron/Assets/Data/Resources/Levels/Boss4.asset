@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Boss4
   m_EditorClassIdentifier: 
   NextLevel: {fileID: 11400000, guid: ac0471ca953a7f943862f4e4bd5ff8f2, type: 2}
-  PossibleBosses: {fileID: 11400000, guid: f08259bb1bd1bdf4eb1dd4c9212c458a, type: 2}
+  PossibleBosses: {fileID: 11400000, guid: 3dc25ec310aaf8c4b9a7718ac24b610c, type: 2}

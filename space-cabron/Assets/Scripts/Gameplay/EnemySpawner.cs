@@ -163,7 +163,7 @@ namespace Gmap
             int tries = 0;
             do
             {
-                t = Random.Range(0.15f, 0.85f);
+                t = Random.Range(0.35f, 0.65f);
                 Vector3 p = GetEnemyPosition(t);
                 c = Physics2D.OverlapCircle(p, 0.5f);
             } while (c != null && c.gameObject.CompareTag("Enemy") && tries++ < 10);

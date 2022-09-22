@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
 using Gmap.Gun;
 using SpaceCabron.Gameplay;
+using SpaceCabron.Messages;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SpaceCabron.Gameplay
 {
@@ -28,7 +31,7 @@ namespace SpaceCabron.Gameplay
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
-        float _waitTime = 0.3f;
+        float _waitTime = 0.2f;
 
         float _energy;
         float Energy
@@ -50,6 +53,8 @@ namespace SpaceCabron.Gameplay
 
         TurntableBehaviour turntable;
         GunBehaviour gun;
+
+        public UnityEvent<OnNoteArgs> OnFire;
 
         protected virtual void Awake()
         {
@@ -92,8 +97,17 @@ namespace SpaceCabron.Gameplay
                 return;
 
             LastInputState = Brain.GetInputState(new InputStateArgs{Object=gameObject});
-            if (LastInputState.Shoot)
+            if (LastInputState.Shoot) {
+                bool wrongTime = Time.time - (LastNote + lastNoteArgs.Duration - _waitTime) < 0f;
+                if (waitingForPress == null && wrongTime) {
+                    MessageRouter.RaiseMessage(new MsgOnNotePlayedOutOfTime {
+                        PlayerIndex = Brain is ScriptableInputBrain 
+                                    ? ((ScriptableInputBrain)Brain).Index 
+                                    : -1
+                    });
+                }
                 _lastPress = Time.time;
+            }
             Energy = Mathf.Clamp01(Energy + Time.deltaTime*0.1f);
         }
 
@@ -114,6 +128,7 @@ namespace SpaceCabron.Gameplay
                 }
                 yield return null;
             }
+            waitingForPress = null;
         }
 
         IEnumerator DisableGun(float time)
@@ -125,24 +140,34 @@ namespace SpaceCabron.Gameplay
 
         protected virtual void FireGun(OnNoteArgs args, bool special)
         {
-            _isSpecial = special;
-            lastShotData = gun.Fire(new FireRequest
-            {
-                BulletScale = Mathf.Max(0.01f, args.Duration*5f),
-                Special = special
+            MessageRouter.RaiseMessage(new Messages.MsgOnNotePlayedInTime {
+                PlayerIndex = Brain is ScriptableInputBrain 
+                            ? ((ScriptableInputBrain)Brain).Index 
+                            : -1
             });
+
+            _isSpecial = special;
+            lastShotData = gun.Fire(new FireRequest(
+                Mathf.Max(0.01f, args.Duration*5f),
+                special,
+                this 
+            ));
 
             foreach (var instance in lastShotData.BulletInstances)
             {
                 Bullet bullet = instance.GetComponent<Bullet>();
-                if (bullet != null)
+                if (bullet != null) {
+                    bullet.ShotData = lastShotData;
                     bullet.IsSpecial = special;
+                }
             }
 
             if (waitingForPress != null)
                 StopCoroutine(waitingForPress);
             waitingForPress = null;
             _lastPress = -float.NegativeInfinity;
+
+            OnFire?.Invoke(args);
         }
     }
 }

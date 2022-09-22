@@ -75,7 +75,7 @@ Material:
     - _ResistantHueOffset: 0.08
     - _Shininess: 0.078125
     - _SmoothnessTextureChannel: 0
-    - _Spawn: 0
+    - _Spawn: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0

@@ -10,6 +10,7 @@ namespace SpaceCabron.Gameplay.Bosses
     {
         protected BossBehaviour Parent;
 
+        public bool RunOnAwake = false;
         public bool IsRunning { get; private set; }
 
         public void StartLogic() { 
@@ -28,6 +29,8 @@ namespace SpaceCabron.Gameplay.Bosses
             healths = GetComponentsInChildren<ColorHealth>();
             mainHealth = GetComponent<ColorHealth>();
             mainHealth.OnDestroy += Callback_OnDestroyed;
+            if (RunOnAwake)
+                StartLogic();
         }
 
         public void EnableColorHealth()

@@ -5004,8 +5004,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 10
   CanTakeDamage: 1
-  IsResistant: 0
   OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDestroyUnity:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &3545090140313851220
@@ -5021,7 +5023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet:
-    Prefab: {fileID: 2543485086492442931, guid: 97e6e0714bc62ff4883de3db5e575663,
+    Prefab: {fileID: 8908428500956338377, guid: 544b3056fad6f8845b90fbcddb17f2e8,
       type: 3}
   GunData: {fileID: 11400000, guid: 1878086ff22555f4284509b0078b3b19, type: 2}
 --- !u!114 &3897595233867613395
@@ -5071,5 +5073,7 @@ MonoBehaviour:
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  LastShotTime: 0
+  Color: 0
   Direction: {x: 0, y: 0}
   IsResistant: 0

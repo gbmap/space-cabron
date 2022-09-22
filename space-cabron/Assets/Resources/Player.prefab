@@ -216,25 +216,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BPMReference:
-    GetFrom: {fileID: 0}
-    SendTo: {fileID: 11400000, guid: 9ae749a27ae89f94d97079cb2b8e5e6e, type: 2}
-    _value: 40
+    GetFrom: {fileID: 11400000, guid: 9ae749a27ae89f94d97079cb2b8e5e6e, type: 2}
+    SendTo: {fileID: 0}
+    _value: 60
   Bar: {fileID: 11400000, guid: 3da6b913f94efee498cebfb89e75bae9, type: 2}
   UnityEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 671385369}
-        m_TargetAssemblyTypeName: Gmap.CosmicMusicUtensil.HelmProxy, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 655430716}
         m_TargetAssemblyTypeName: SpaceCabron.UpdateBackgroundShaderGlobalVariables,
           Assembly-CSharp
@@ -252,6 +240,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: EnemyMaterialController, SpaceCabron.Gameplay
         m_MethodName: Blink
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 671385369}
+        m_TargetAssemblyTypeName: Gmap.CosmicMusicUtensil.HelmProxy, SpaceCabron.Gameplay
+        m_MethodName: Play
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -314,8 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730964901d2e53d42809febf62f92a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnoreConfigurationBPM: 1
+  IgnoreConfigurationBPM: 0
   ReloadMelody: 0
+  OverrideTag: 0
+  Tag: 
 --- !u!114 &655430734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,6 +665,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnergyValue: {fileID: 11400000, guid: c2cafcdf10acbf24289db2fd74b72bf4, type: 2}
+  OnFire:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Gmap.CosmicMusicUtensil.HelmProxy, SpaceCabron.Gameplay
+        m_MethodName: Play
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5571610043482372228
 MonoBehaviour:
   m_ObjectHideFlags: 0

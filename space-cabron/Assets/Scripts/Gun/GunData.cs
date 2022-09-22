@@ -9,6 +9,7 @@ namespace Gmap.Gun
         public BulletData Bullet;
         public bool Special;
         public float BulletScale;
+        public MonoBehaviour ObjectFiring;
     }
 
     public class ShotData
@@ -16,6 +17,7 @@ namespace Gmap.Gun
         public float Time;
         public Vector3 Position;
         public GameObject[] BulletInstances;
+        public MonoBehaviour ObjectFiring;
     }
     
     /// <summary>
@@ -62,6 +64,7 @@ namespace Gmap.Gun
                     BulletInstances = new GameObject[]{instance},
                     Position = shotPosition,
                     Time = Time.time,
+                    ObjectFiring = shotRequest.ObjectFiring
                 };
             }
             else

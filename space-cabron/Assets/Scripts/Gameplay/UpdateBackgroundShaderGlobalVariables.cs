@@ -1,5 +1,9 @@
+using System;
 using System.Linq;
+using Frictionless;
 using Gmap.CosmicMusicUtensil;
+using SpaceCabron.Gameplay.Interactables;
+using SpaceCabron.Messages;
 using UnityEngine;
 
 namespace Gmap
@@ -18,6 +22,22 @@ namespace Gmap
         int Index
         {
             get { return Mathf.Clamp(gameObject.name[gameObject.name.Length - 1] - '0', 0, 1); }
+        }
+
+        void Awake() {
+            MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
+            MessageRouter.AddHandler<MsgOnUpgradeTaken>(Callback_OnUpgradeTaken);
+        }
+
+        void OnDestroy() {
+            MessageRouter.RemoveHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
+            MessageRouter.AddHandler<MsgOnUpgradeTaken>(Callback_OnUpgradeTaken);
+        }
+
+        private void Callback_OnUpgradeTaken(MsgOnUpgradeTaken obj){
+        }
+
+        private void Callback_OnPlayerSpawned(MsgOnPlayerSpawned obj){
         }
 
         void Update()
@@ -51,9 +71,9 @@ namespace Gmap
                 var melody = ms.GetMelody(ms.Structure[i]-'0'-1);
                 startTime = UpdateNoteTimes(args, melody, improviser, startTime, args.Turntable.BarIndex, NoteTimes);
 
-                int i2 = (args.BarIndex+1) % ms.Structure.Length;
-                var melody2 = ms.GetMelody(ms.Structure[i2]-'0'-1);
-                UpdateNoteTimes(args, melody2, improviser, startTime, args.Turntable.BarIndex+1, NoteTimes);
+                // int i2 = (args.BarIndex+1) % ms.Structure.Length;
+                // var melody2 = ms.GetMelody(ms.Structure[i2]-'0'-1);
+                // UpdateNoteTimes(args, melody2, improviser, startTime, args.Turntable.BarIndex+1, NoteTimes);
             }
             else {
                 startTime = UpdateNoteTimes(args, args.Turntable.Melody, args.Turntable.Improviser, startTime, args.Turntable.BarIndex, NoteTimes);
@@ -66,9 +86,7 @@ namespace Gmap
         private void UpdateBuffers()
         {
             Shader.SetGlobalInteger("_NoteCount" + Index.ToString(), nNotes);
-            // Shader.SetGlobalFloatArray("_LastNoteTimes" + Index.ToString(), LastNoteTimes);
             Shader.SetGlobalFloatArray("_NoteTimes" + Index.ToString(), NoteTimes);
-            // Shader.SetGlobalFloatArray("_NextNoteTimes" + Index.ToString(), NextNoteTimes);
         }
 
         private void CacheLastNoteTimes()
@@ -76,13 +94,14 @@ namespace Gmap
             System.Array.Copy(NoteTimes, 0, LastNoteTimes, 0, NoteTimes.Length);
         }
 
-        private float UpdateNoteTimes(OnBarArgs args,
-                                     Melody melody,
-                                     Improviser improviser,
-                                     float startTime,
-                                     int barIndex,
-                                     float[] noteTimes)
-        {
+        private float UpdateNoteTimes(
+            OnBarArgs args,
+            Melody melody,
+            Improviser improviser,
+            float startTime,
+            int barIndex,
+            float[] noteTimes
+        ) {
             var turntable = args.Turntable;
             // var melody = args.Turntable.Melody;
             // var improviser = args.Turntable.Improviser;
@@ -91,7 +110,7 @@ namespace Gmap
                       .ToArray();
 
             float value = startTime;
-            // noteTimes[noteTimesCursor] = value;
+            noteTimes[noteTimesCursor] = value;
             for (int i = 0; i < notes.Length; i++)
             {
                 value += notes[i].GetDuration(args.Turntable.BPS);

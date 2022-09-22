@@ -18,6 +18,7 @@
 			"Queue"="Transparent" 
 		}
 		Blend One OneMinusSrcAlpha
+        Cull Off
 
         Pass
         {
@@ -60,11 +61,11 @@
             const float _Green = 0.16;
             const float _Blue = 0.24;
             int _ColorIndex = 0;
-            float _EngineTime = -1.;
+            float _EngineTime = -10.;
 
             float last_shot_factor() 
             {
-                return 1. - saturate(_EngineTime - _LastShotTime);
+                return 1. - saturate(_Time.y - _LastShotTime);
             }
 
             v2f vert (appdata v)
@@ -96,6 +97,7 @@
 
 				i.uv += spawnfxuv(i.uv, _Spawn)*_Spawn;
                 fixed4 col = tex2D(_MainTex, i.uv);
+                // col = basecolor;
                 float a = col.a;
 
                 const float _Pink = 0.0;

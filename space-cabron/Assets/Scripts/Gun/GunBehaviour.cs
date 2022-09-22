@@ -12,6 +12,14 @@ namespace Gmap.Gun
     {
         public float BulletScale;
         public bool Special;
+        public MonoBehaviour ObjectFiring;
+
+        public FireRequest(float bulletScale, bool special, MonoBehaviour objectFiring)
+        {
+            BulletScale = bulletScale;
+            Special = special;
+            ObjectFiring = objectFiring;
+        }
     }
 
     public class GunBehaviour : MonoBehaviour
@@ -29,7 +37,8 @@ namespace Gmap.Gun
                 Gun = GunData,
                 Bullet = this.Bullet,
                 Special = request.Special,
-                BulletScale = request.BulletScale
+                BulletScale = request.BulletScale,
+                ObjectFiring = request.ObjectFiring
             };
             LastShot = GunData.Fire(LastShot, shotRequest);
             return LastShot;
@@ -37,10 +46,7 @@ namespace Gmap.Gun
 
         public void Fire()
         {
-            Fire(new FireRequest {
-                BulletScale = 1f,
-                Special = false
-            });
+            Fire(new FireRequest(1f, false, null));
         }
     }
 }

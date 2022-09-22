@@ -27,6 +27,10 @@ namespace SpaceCabron.Gameplay
                 r.material.SetFloat("_ColorIndex",
                                     (int)value);
                 color = value; 
+
+                TrailRenderer tr = GetComponentInChildren<TrailRenderer>();
+                if (tr)
+                    tr.material.SetFloat("_ColorIndex", (int)value);
             }
         }
     }

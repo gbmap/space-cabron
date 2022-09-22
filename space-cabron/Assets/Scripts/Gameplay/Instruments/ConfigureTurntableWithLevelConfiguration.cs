@@ -11,6 +11,10 @@ namespace SpaceCabron.Gameplay
         public bool IgnoreConfigurationBPM = false;
         public bool ReloadMelody = true;
         private bool wasConfigured = false;
+
+        public bool OverrideTag;
+        public string Tag;
+
         public void Configure(LevelConfiguration configuration)
         {
             var injectables = GetComponentsInChildren<Injectable>();
@@ -69,6 +73,8 @@ namespace SpaceCabron.Gameplay
 
         private string GetTag()
         {
+            if (OverrideTag)
+                return Tag;
             if (transform.parent == null || transform.parent.tag == "Untagged")
                 return gameObject.tag;
             return transform.parent.tag;

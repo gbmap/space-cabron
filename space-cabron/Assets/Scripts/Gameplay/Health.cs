@@ -1,5 +1,6 @@
 ﻿using Frictionless;
 using Gmap.CosmicMusicUtensil;
+using Gmap.Gun;
 using ObjectPool;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,7 @@ namespace Gmap.Gameplay
         public Bullet bullet;
         public Collider2D collider;
         public Health health;
+        public MonoBehaviour objectFiring;
     }
     public class MsgOnObjectDestroyed : MsgOnObjectHit { }
 
@@ -59,9 +61,12 @@ namespace Gmap.Gameplay
         {
             OnSetResistant?.Invoke(v);
         }
-
-        public virtual bool TakeDamage(Bullet b, Collider2D collider)
-        {
+    
+        public virtual bool TakeDamage(
+            Bullet b, 
+            Collider2D collider,
+            MonoBehaviour objectFiring=null
+        ) {
             if (!enabled)
                 return false;
 
@@ -87,7 +92,8 @@ namespace Gmap.Gameplay
             {
                 health = this,
                 bullet = b,
-                collider = collider
+                collider = collider,
+                objectFiring = objectFiring
             });
 
             return true;

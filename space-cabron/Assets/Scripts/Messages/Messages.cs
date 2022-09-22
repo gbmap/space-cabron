@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using Gmap.Gameplay;
 
 namespace SpaceCabron.Messages
-{    
+{
     public class MsgLevelStartedLoading {}
     public class MsgLevelFinishedLoading {}
 
@@ -79,4 +78,30 @@ namespace SpaceCabron.Messages
 
     public class MsgPlayerJoined {}
     public class MsgPlayerLeft {}
+
+    public class MsgOnNotePlayedOutOfTime
+    {
+        public int PlayerIndex;
+    }
+
+    public class MsgOnNotePlayedInTime
+    {
+        public int PlayerIndex;
+    }
+
+    public class MsgOnWrongBulletHit
+    {
+        public int PlayerIndex;
+    }
+
+    public class MsgOnComboBroken 
+    {
+        public int PlayerIndex;
+        public int Combo;
+    }
+
+    public class MsgOnComboIncrease {
+        public int PlayerIndex;
+        public int CurrentCombo;
+    }
 }

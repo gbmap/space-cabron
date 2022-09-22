@@ -116,21 +116,21 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
     private void ShaderFloatCheck(Material m, ref float lastValue, float currentValue, int id)
     {
         if (lastValue != currentValue)
-            m.SetFloat(id, currentValue);
+            m?.SetFloat(id, currentValue);
         lastValue = currentValue;
     }
 
     private void ShaderVectorCheck(Material m, ref Vector2 lastValue, Vector2 currentValue, int id)
     {
         if (lastValue != currentValue)
-            m.SetVector(id, currentValue);
+            m?.SetVector(id, currentValue);
         lastValue = currentValue;
     }
 
     private void ShaderEColorCheck(Material m, ref EColor lastValue, EColor currentValue, int id)
     {
         if (lastValue != currentValue)
-            m.SetFloat(id, (int)currentValue);
+            m?.SetFloat(id, (int)currentValue);
         lastValue = currentValue;
     }
 }

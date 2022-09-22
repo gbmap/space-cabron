@@ -71,6 +71,7 @@ public class HealthBar : MonoBehaviour
 
         transform.position = pos;
         transform.localScale = scale;
+        transform.rotation = Quaternion.identity;
     }
 
     private void Callback_OnDamage()

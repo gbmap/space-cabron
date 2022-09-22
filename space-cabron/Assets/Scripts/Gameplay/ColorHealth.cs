@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Frictionless;
 using Gmap.Gameplay;
 using Gmap.Utils;
 using SpaceCabron.Gameplay;
+using SpaceCabron.Messages;
 using UnityEngine;
 
 public class ColorHealth : Health 
@@ -41,7 +43,9 @@ public class ColorHealth : Health
         ColorLife.AddRange(bag.Next(MaxHealth));
 
         colorIndex = MaxHealth-1;
-        materialController.Color = CurrentColor;
+        if (materialController != null) {
+            materialController.Color = CurrentColor;
+        }
     }
 
     void Update()
@@ -54,20 +58,36 @@ public class ColorHealth : Health
         // }
     }
 
-    public override bool TakeDamage(Bullet bullet, Collider2D collider)
-    {
+    public override bool TakeDamage(Bullet bullet,
+        Collider2D collider,
+        MonoBehaviour objectFiring
+    ) {
         ColorBullet cb = bullet as ColorBullet;
         if (cb == null 
         || cb.Color == CurrentColor)
         {
-            bool tookDamage = base.TakeDamage(bullet, collider);
+            bool tookDamage = base.TakeDamage(bullet, collider, objectFiring);
             if (tookDamage)
             {
-                materialController.Color = CurrentColor;
-                // shouldUpdateColor = true;
+                if (materialController != null) {
+                    materialController.Color = CurrentColor;
+                }
             }
             return tookDamage;
+        } else {
+            if (objectFiring is PlayerFire)
+            {
+                // FIRE! FIRE!
+                var fire = objectFiring as PlayerFire;
+                var input = (fire.Brain as ScriptableInputBrain);
+                if (input != null) {
+                    MessageRouter.RaiseMessage(new MsgOnWrongBulletHit {
+                        PlayerIndex = input.Index,
+                    });
+                }
+            }
         }
+        
         return false;
     }
 }

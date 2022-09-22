@@ -7,10 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1397973683971518099, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c614cdf12db3d8145a83a8bb828849fa,
+        type: 3}
     - target: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48,
         type: 3}
       propertyPath: m_Name
-      value: EnemyBullet
+      value: EnemyBulletPointy
       objectReference: {fileID: 0}
     - target: {fileID: 6297675616790175561, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48,
         type: 3}
@@ -65,6 +71,11 @@ PrefabInstance:
     - target: {fileID: 6297675616790175561, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943299163046976032, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48,
+        type: 3}
+      propertyPath: LastShotTime
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

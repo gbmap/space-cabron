@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace SpaceCabron.Gameplay
     [CreateAssetMenu(menuName="Space Cabrón/Brain/Movement Strategy/Loop Sideways")]
     public class ScriptableLoopSidewaysMovementStrategy : ScriptableMovementStrategy2D
     {
+        // private static Dictionary<GameObject, System.Tuple<Vector3, Vector3>> characterToPositions; 
+        
         static GameObject player;
         static GameObject Player
         {

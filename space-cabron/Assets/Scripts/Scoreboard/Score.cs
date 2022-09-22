@@ -14,6 +14,7 @@ namespace SpaceCabron.Scoreboard
         void OnEnable()
         {
             MessageRouter.AddHandler<Messages.MsgIncreaseScore>(Callback_IncreaseScore);
+            MessageRouter.AddHandler<Messages.MsgOnComboBroken>(Callback_OnComboBroken);
             MessageRouter.AddHandler<Messages.MsgLevelFinishedLoading>(Callback_LevelFinishedLoading);
         }
 
@@ -30,7 +31,13 @@ namespace SpaceCabron.Scoreboard
         void OnDisable()
         {
             MessageRouter.RemoveHandler<Messages.MsgIncreaseScore>(Callback_IncreaseScore);
+            MessageRouter.RemoveHandler<Messages.MsgOnComboBroken>(Callback_OnComboBroken);
             MessageRouter.RemoveHandler<Messages.MsgLevelFinishedLoading>(Callback_LevelFinishedLoading);
+        }
+
+        private void Callback_OnComboBroken(MsgOnComboBroken msg)
+        {
+            Callback_IncreaseScore(new MsgIncreaseScore(msg.Combo*2));         
         }
 
         private void Callback_IncreaseScore(Messages.MsgIncreaseScore msg)

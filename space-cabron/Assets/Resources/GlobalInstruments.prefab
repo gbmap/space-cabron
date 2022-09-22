@@ -181,6 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreConfigurationBPM: 0
   ReloadMelody: 1
+  OverrideTag: 0
+  Tag: 
 --- !u!4 &8532393574900886452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8436536320496043501, guid: 231892c16b4d95442a948d8a420ddc2a,
@@ -320,6 +322,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreConfigurationBPM: 0
   ReloadMelody: 1
+  OverrideTag: 0
+  Tag: 
 --- !u!4 &8532393574554085065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6670179829887138826, guid: ecd04033fad88b74f9cfbec922be4551,
@@ -472,6 +476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreConfigurationBPM: 0
   ReloadMelody: 1
+  OverrideTag: 0
+  Tag: 
 --- !u!114 &8532393575039313929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +517,7 @@ PrefabInstance:
     - target: {fileID: 1544474378487449375, guid: 93dced58549cf03428f96f2f7ec8898f,
         type: 3}
       propertyPath: RandomizePatchOnLoad
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2799940495385900029, guid: 93dced58549cf03428f96f2f7ec8898f,
         type: 3}
@@ -600,6 +606,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreConfigurationBPM: 0
   ReloadMelody: 1
+  OverrideTag: 0
+  Tag: 
 --- !u!4 &4500509527218785437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5581785066351700248, guid: 93dced58549cf03428f96f2f7ec8898f,

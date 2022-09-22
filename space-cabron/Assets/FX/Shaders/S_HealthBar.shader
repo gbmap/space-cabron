@@ -8,7 +8,8 @@ Shader "Unlit/S_HealthBar"
     }
     SubShader
     {
-            Blend One OneMinusSrcAlpha
+        Blend One OneMinusSrcAlpha
+        Cull Off
         Tags { 
             "RenderType"="Transparent" 
             "Queue"="Transparent"

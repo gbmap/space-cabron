@@ -1,5 +1,3 @@
-
-
 using System;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
