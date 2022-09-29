@@ -11,11 +11,11 @@ namespace SpaceCabron.Gameplay.Bosses
 
         protected override IEnumerator CLogic() {
             while (true) {
-                int numberOfPatterns = LerpByHealth(5, 1);
+                int numberOfPatterns = LerpByHealth(10, 3);
                 SelectRandomPattern(numberOfPatterns);
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(LerpByHealth(2f, 4f));
                 DisableShooting();
-                yield return new WaitForSeconds(LerpByHealth(2f, 5f));
+                yield return new WaitForSeconds(LerpByHealth(0.5f, 2f));
             }
         }
 

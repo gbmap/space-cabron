@@ -50,7 +50,7 @@ MonoBehaviour:
   DrumMelody:
     BPM: 30
     MaxBPM: 120
-    MelodyFactory: {fileID: 11400000, guid: abba543eab3654240a3aa913f3c47828, type: 2}
+    MelodyFactory: {fileID: 11400000, guid: 4d4588d053973c249ac48397b057b68f, type: 2}
     ImprovisationConfiguration:
       NumberOfStartingImprovisations:
         GetFrom: {fileID: 0}

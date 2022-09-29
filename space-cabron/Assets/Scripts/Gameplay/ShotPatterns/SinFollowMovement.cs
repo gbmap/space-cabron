@@ -34,17 +34,13 @@ namespace Gmap
             awakenTime = Time.time;
             targetPlayer = GameObject.FindGameObjectsWithTag("Player")
                                      .OrderBy(p => Vector3.Distance(p.transform.position, transform.position))
-                                     .First()?
+                                     .FirstOrDefault()?
                                      .transform;
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (targetPlayer == null)
-                return;
-
-
             UpdateRotation();
 
             Vector2 p = new Vector2(
@@ -56,6 +52,10 @@ namespace Gmap
 
         void UpdateRotation()
         {
+            if (targetPlayer == null) {
+                return;
+            }
+
             Vector3 delta = (targetPlayer.transform.position - transform.position).normalized;
             float targetAngle = 180f
                               + Vector3.SignedAngle(Vector3.down, delta, Vector3.forward)

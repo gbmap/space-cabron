@@ -25,6 +25,7 @@ MonoBehaviour:
   - game_over
   - insert_coin
   - options
+  - help
   - help_label1
   - help_label2
   - help_label3
@@ -44,6 +45,7 @@ MonoBehaviour:
   - FIM DE JOGO
   - INSIRA UMA MOEDA
   - "CONFIGURA\xC7\xD5ES"
+  - AJUDA
   - "Cada inimigo \xE9 colorido de acordo com a sua vulnerabilidade."
   - "Cada cor \xE9 configurada a um bot\xE3o do seu controle."
   - "Voc\xEA pode configurar bot\xF5es diferentes para as cores na tela de configura\xE7\xF5es."

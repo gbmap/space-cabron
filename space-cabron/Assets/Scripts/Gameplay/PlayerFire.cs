@@ -36,9 +36,9 @@ namespace SpaceCabron.Gameplay
         {
             base.FireGun(args, special);
             SetBulletColors(currentColor);
-            if (args.NoteIndex == 0 && GuidedBullet != null) {
-                FireGuidedBullets();
-            }
+            // if (args.NoteIndex == 0 && GuidedBullet != null) {
+            //     FireGuidedBullets();
+            // }
         }
 
         private void FireGuidedBullets()
