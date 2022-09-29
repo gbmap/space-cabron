@@ -29,12 +29,16 @@ namespace Gmap.CosmicMusicUtensil
 
         public void LoadPatch(TextAsset patch)
         {
-            if (gameObject == null) {
+            if (gameObject == null || patch == null) {
                 return;
             }
 
-            UnityEngine.Debug.Log($"Loading patch: {patch.name} in {transform.parent}/{gameObject.name}");
-            StartCoroutine(LoadPatchCoroutine(patch));
+            try {
+                UnityEngine.Debug.Log($"Loading patch: {patch.name} in {transform.parent}/{gameObject.name}");
+                StartCoroutine(LoadPatchCoroutine(patch));
+            } catch (System.Exception ex) {
+                Debug.LogWarning("Couldn't load patch.");
+            }
         }
 
         private IEnumerator LoadPatchCoroutine(TextAsset patch)

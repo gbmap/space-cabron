@@ -1,16 +1,17 @@
 using UnityEngine;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Utils;
+using SpaceCabron.Gameplay;
 
 namespace Gmap
 {
-    public abstract class CollisionHandler<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class CollisionHandler : MonoBehaviour
     {
         public bool HandleOnlyOnce = true;
         protected bool hasHandled;
         public void OnTriggerEnter2D(Collider2D other)
         {
-            T t = other.GetComponentInChildren<T>();
+            TurntableBehaviour t = TurntableResolver.Create("GlobalInstruments","PlayerInstrument").Get();
             if (t == null)
                 return;
 
@@ -18,10 +19,10 @@ namespace Gmap
                 HandleCollision(t);
         }
 
-        protected abstract void HandleCollision(T t);
+        protected abstract void HandleCollision(TurntableBehaviour t);
     }
 
-    public class AddModifierOnCollision : CollisionHandler<TurntableBehaviour>
+    public class AddModifierOnCollision : CollisionHandler
     {
         public MelodyModifier.EType ModifierType;
 

@@ -16,6 +16,7 @@ TagManager:
   - PlayerChip
   - Drone
   - Bullet
+  - GlobalInstruments
   layers:
   - Default
   - TransparentFX

@@ -1,26 +1,51 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
 using Gmap.Gun;
-using SpaceCabron.Gameplay;
 using SpaceCabron.Messages;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace SpaceCabron.Gameplay
-{
+{ 
+    [System.Serializable]
+    public class TurntableResolver
+    {
+        // Gets ChildObjectName from the first object found with Tag. 
+        public string Tag;
+        public string ChildObjectName;
+        public virtual TurntableBehaviour Get()
+        {
+            GameObject obj = GameObject.FindGameObjectWithTag(Tag);
+            if (obj == null) {
+                Debug.LogWarning($"Object with tag {Tag} not found.");
+                return null;
+            }
+            
+            Transform transform = obj.transform.Find(ChildObjectName);
+            if (transform == null) {
+                return null;
+                // throw new System.Exception("Couldn't find child object " + ChildObjectName + " on object with tag " + Tag);
+            }
+
+            TurntableBehaviour tb = transform.GetComponentInChildren<TurntableBehaviour>();
+            return tb;
+        }
+
+        public static TurntableResolver Create(string tag, string childObjectName) {
+            return new TurntableResolver {
+                Tag = tag,
+                ChildObjectName = childObjectName
+            };
+        }
+    }
+
     public class Fire : MonoBehaviour, IBrainHolder<InputState>
     {
-        private class TurntableResolver
-        {
-            public virtual TurntableBehaviour Get(GameObject go)
-            {
-                return go.GetComponentInChildren<TurntableBehaviour>();
-            }
-        }
+       
+        public bool UseTurntableResolver = false;
+        public TurntableResolver Resolver;
 
         public Gmap.ScriptableReferences.FloatReference EnergyValue;
 
@@ -31,7 +56,7 @@ namespace SpaceCabron.Gameplay
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
-        float _waitTime = 0.2f;
+        float _waitTime = 0.25f;
 
         float _energy;
         float Energy
@@ -63,13 +88,18 @@ namespace SpaceCabron.Gameplay
 
         void Start()
         {
-            turntable = GetTurntable(false, "");
-            turntable.UnityEvent.AddListener(Callback_OnNote);
+            turntable = GetTurntable(UseTurntableResolver);
+            if (turntable) {
+                turntable.UnityEvent.AddListener(Callback_OnNote);
+            }
         }
 
-        protected TurntableBehaviour GetTurntable(bool resolveWithTag, string tag)
+        protected TurntableBehaviour GetTurntable(bool useResolver)
         {
-            return new TurntableResolver().Get(gameObject);
+            if (useResolver)
+                return Resolver.Get();
+            else
+                return GetComponentInChildren<TurntableBehaviour>();
         }
 
         public void Callback_OnNote(OnNoteArgs n)
@@ -97,7 +127,7 @@ namespace SpaceCabron.Gameplay
                 return;
 
             LastInputState = Brain.GetInputState(new InputStateArgs{Object=gameObject});
-            if (LastInputState.Shoot) {
+            if (LastInputState.Shoot && lastNoteArgs != null) {
                 bool wrongTime = Time.time - (LastNote + lastNoteArgs.Duration - _waitTime) < 0f;
                 if (waitingForPress == null && wrongTime) {
                     MessageRouter.RaiseMessage(new MsgOnNotePlayedOutOfTime {

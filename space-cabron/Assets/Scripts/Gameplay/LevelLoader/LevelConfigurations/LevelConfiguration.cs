@@ -136,6 +136,7 @@ namespace SpaceCabron.Gameplay
         [SerializeField] private InstrumentConfiguration DrumMelody;
         [SerializeField] private InstrumentConfiguration AmbientMelody;
         [SerializeField] private InstrumentConfiguration HitConfiguration;
+        [SerializeField] private InstrumentConfiguration BassConfiguration;
         public BackgroundConfiguration Background;
 
         private Dictionary<string, InstrumentConfiguration> dictTagToInstrument;
@@ -149,9 +150,16 @@ namespace SpaceCabron.Gameplay
                     dictTagToInstrument.Add("Metronome", DrumMelody);
                     dictTagToInstrument.Add("Ambient", AmbientMelody);
                     dictTagToInstrument.Add("Hit", HitConfiguration);
+                    dictTagToInstrument.Add("Bass", CreateBassConfig());
                 }
                 return dictTagToInstrument;
             }
+        }
+
+        private InstrumentConfiguration CreateBassConfig() {
+            InstrumentConfiguration bassConfiguration = BassConfiguration.Clone();
+            bassConfiguration.MelodyFactory = PlayerMelody.MelodyFactory;
+            return bassConfiguration;
         }
 
         public InstrumentConfiguration GetInstrumentConfigurationByTag(string tag)
@@ -181,6 +189,7 @@ namespace SpaceCabron.Gameplay
             clone.PlayerMelody = PlayerMelody.Clone();
             clone.AmbientMelody = AmbientMelody.Clone();
             clone.HitConfiguration = HitConfiguration.Clone();
+            clone.BassConfiguration = BassConfiguration.Clone();
             clone.NextLevel = NextLevel;
             return clone;
         }

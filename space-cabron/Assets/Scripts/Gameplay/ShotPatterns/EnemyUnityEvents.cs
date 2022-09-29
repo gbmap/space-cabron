@@ -19,13 +19,13 @@ namespace Gmap.Gameplay
         {
             this.Melody = new Melody(Melody);
             MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnEnemyHit);
-            MessageRouter.AddHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
+            // MessageRouter.AddHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
         }
 
         void OnDestroy()
         {
             MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnEnemyHit);
-            MessageRouter.RemoveHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
+            // MessageRouter.RemoveHandler<MsgOnObjectHit>(Callback_OnEnemyHit);
         }
 
         private void Callback_OnEnemyHit(MsgOnObjectHit obj)

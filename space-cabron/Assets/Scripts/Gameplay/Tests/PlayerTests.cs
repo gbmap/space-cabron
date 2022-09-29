@@ -31,6 +31,8 @@ public class DefaultTestScene
     {
         if (GameObject.FindObjectOfType<DroneSpawner>() == null)
             eventHandlers = GameObject.Instantiate(Resources.Load<GameObject>("EventHandlers"));
+
+        GameObject.Instantiate(Resources.Load<GameObject>("GlobalInstruments"));
     }
 
     [TearDown]

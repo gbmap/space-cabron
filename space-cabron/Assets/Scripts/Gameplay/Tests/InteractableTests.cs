@@ -5,6 +5,7 @@ using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
 using Gmap.ScriptableReferences;
 using NUnit.Framework;
+using SpaceCabron.Gameplay;
 using SpaceCabron.Gameplay.Interactables;
 using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Messages;
@@ -308,9 +309,10 @@ public class InteractableTests
         yield return new WaitForSeconds(2f);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        TurntableBehaviour t = player.GetComponentInChildren<TurntableBehaviour>();
-
-        Assert.AreEqual(1,t.Improviser.NumberOfImprovisations);
-        Assert.AreEqual(improvisation,t.Improviser.GetEnumerable().ToList()[0]);
+        var t = TurntableResolver.Create("GlobalInstruments", "PlayerInstrument").Get();
+        if (t != null) {
+            Assert.AreEqual(1,t.Improviser.NumberOfImprovisations);
+            Assert.AreEqual(improvisation,t.Improviser.GetEnumerable().ToList()[0]);
+        }
     }
 }

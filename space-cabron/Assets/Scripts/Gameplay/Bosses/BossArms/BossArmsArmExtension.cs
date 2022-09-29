@@ -10,6 +10,11 @@ namespace SpaceCabron.Gameplay.Bosses
 
         void Update()
         {
+            if (shoulder == null || hand == null) {
+                Destroy(gameObject);
+                return;
+            }
+
             Vector3 a = shoulder.transform.position;
             Vector3 b = hand.transform.position;
 

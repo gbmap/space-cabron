@@ -48,11 +48,19 @@ namespace SpaceCabron.Gameplay.Bosses {
 
             yield return new WaitForSeconds(1.0f);
 
-            while (Camera.main.WorldToViewportPoint(hand.position).y > 0.05f)
+
+
+            while (hand != null && IsInsideScreen(hand.position))
             {
                 hand.transform.localPosition += Vector3.down * HandSpeed * Time.deltaTime;
                 yield return null;
             }
+        }
+
+        private bool IsInsideScreen(Vector3 position)
+        {
+            Vector3 screenPoint = Camera.main.WorldToViewportPoint(position);
+            return screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
         }
 
         public IEnumerator RecoverHand()

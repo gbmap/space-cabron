@@ -1,7 +1,7 @@
-using System;
 using System.Linq;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
+using Gmap.Gameplay;
 using SpaceCabron.Gameplay.Interactables;
 using SpaceCabron.Messages;
 using UnityEngine;
@@ -14,24 +14,38 @@ namespace Gmap
         float[] LastNoteTimes = new float[nNotes];
         float[] NoteTimes = new float[nNotes];
         float[] NextNoteTimes = new float[nNotes];
+        int noteTimesCursor = 0;
+
+        float[] EnemyKillTimes = new float[10];
+        Vector4[] EnemyKillPositions = new Vector4[10];
+        int enemyKillCursor = 0;
 
         float expectedNextNote = 0f;
 
-        int noteTimesCursor = 0;
 
         int Index
         {
-            get { return Mathf.Clamp(gameObject.name[gameObject.name.Length - 1] - '0', 0, 1); }
+            get { return Mathf.Clamp(gameObject.name[gameObject.name.Length - 1] - '0', 0, 0); }
         }
 
         void Awake() {
             MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
             MessageRouter.AddHandler<MsgOnUpgradeTaken>(Callback_OnUpgradeTaken);
+            MessageRouter.AddHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
+            UpdateBuffers();
+            UpdateEnemyKillBuffers();
+        }
+
+        private void UpdateEnemyKillBuffers()
+        {
+            System.Array.ForEach(EnemyKillTimes, (x) => x = -10f);
+            Shader.SetGlobalFloatArray("_EnemyKillTimes", EnemyKillTimes);
         }
 
         void OnDestroy() {
             MessageRouter.RemoveHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
-            MessageRouter.AddHandler<MsgOnUpgradeTaken>(Callback_OnUpgradeTaken);
+            MessageRouter.RemoveHandler<MsgOnUpgradeTaken>(Callback_OnUpgradeTaken);
+            MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnObjectDestroyed);
         }
 
         private void Callback_OnUpgradeTaken(MsgOnUpgradeTaken obj){
@@ -48,9 +62,7 @@ namespace Gmap
         public void OnNote(OnNoteArgs n)
         {
             float delta = Time.time - expectedNextNote;
-            // System.Array.ForEach(LastNoteTimes, (x) => x += delta);
             System.Array.ForEach(NoteTimes, (x) => x += delta);
-            // System.Array.ForEach(NextNoteTimes, (x) => x += delta);
             UpdateBuffers();
 
             Shader.SetGlobalFloat("_Beat", Time.time);
@@ -70,10 +82,6 @@ namespace Gmap
                 int i = args.BarIndex % ms.Structure.Length;
                 var melody = ms.GetMelody(ms.Structure[i]-'0'-1);
                 startTime = UpdateNoteTimes(args, melody, improviser, startTime, args.Turntable.BarIndex, NoteTimes);
-
-                // int i2 = (args.BarIndex+1) % ms.Structure.Length;
-                // var melody2 = ms.GetMelody(ms.Structure[i2]-'0'-1);
-                // UpdateNoteTimes(args, melody2, improviser, startTime, args.Turntable.BarIndex+1, NoteTimes);
             }
             else {
                 startTime = UpdateNoteTimes(args, args.Turntable.Melody, args.Turntable.Improviser, startTime, args.Turntable.BarIndex, NoteTimes);
@@ -119,5 +127,25 @@ namespace Gmap
             }
             return value;
         }
+
+        private void Callback_OnObjectDestroyed(MsgOnObjectDestroyed obj)
+        {
+            if (Camera.main == null) {
+                return;
+            }
+
+            Vector3 viewportPos = Camera.main.WorldToScreenPoint(obj.health.transform.position);
+            viewportPos.x/=Screen.width;
+            viewportPos.y/=Screen.height;
+            float time = Time.time;
+
+            EnemyKillPositions[enemyKillCursor] = viewportPos;
+            EnemyKillTimes[enemyKillCursor] = time;
+            enemyKillCursor = (enemyKillCursor + 1) % EnemyKillTimes.Length;
+
+            Shader.SetGlobalFloatArray("_EnemyKillTimes", EnemyKillTimes);
+            Shader.SetGlobalVectorArray("_EnemyKillPositions", EnemyKillPositions);
+        }
+
     }
 }

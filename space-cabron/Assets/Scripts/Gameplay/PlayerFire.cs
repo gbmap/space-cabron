@@ -1,6 +1,7 @@
 using System;
+using Frictionless;
 using Gmap.CosmicMusicUtensil;
-using Gmap.Gameplay;
+using SpaceCabron.Messages;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay
@@ -10,6 +11,8 @@ namespace SpaceCabron.Gameplay
         EColor currentColor = EColor.Pink;
 
         EnemyMaterialController materialController;
+
+        public GameObject GuidedBullet;
 
         protected override void Awake()
         {
@@ -33,6 +36,18 @@ namespace SpaceCabron.Gameplay
         {
             base.FireGun(args, special);
             SetBulletColors(currentColor);
+            if (args.NoteIndex == 0 && GuidedBullet != null) {
+                FireGuidedBullets();
+            }
+        }
+
+        private void FireGuidedBullets()
+        {
+            for (int i = 0; i < 3; i++) {
+                var instance = Instantiate(GuidedBullet, transform.position, Quaternion.identity);
+                instance.GetComponent<ColorBullet>().Color 
+                    = (EColor)UnityEngine.Random.Range(0,4);
+            }
         }
 
         private void SetBulletColors(EColor color)

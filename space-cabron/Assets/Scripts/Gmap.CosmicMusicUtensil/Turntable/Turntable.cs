@@ -13,6 +13,7 @@ namespace Gmap.CosmicMusicUtensil
         public Note Note { get; set; }
         public float Duration { get; set; }
         public float HoldTime { get; set; } = 0.1f;
+        public int NoteIndex { get; set; }
     }
 
     public class OnBarArgs : OnNoteArgs {
@@ -173,7 +174,8 @@ namespace Gmap.CosmicMusicUtensil
                 Turntable = this,
                 Note = note,
                 HoldTime = Mathf.Max(0.1f, Mathf.Lerp(noteTime, noteTime*duration, HoldNote?1f:0f)),
-                Duration = duration
+                Duration = duration,
+                NoteIndex = NoteIndex
             });
             LastNote = note;
             LastNoteTime = Time.time;

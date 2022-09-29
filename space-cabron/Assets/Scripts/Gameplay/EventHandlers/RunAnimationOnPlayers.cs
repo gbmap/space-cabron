@@ -15,12 +15,12 @@ namespace SpaceCabron.Gameplay
         int animationCount = 0;
         LevelConfiguration levelConfiguration;
 
-        void OnEnable()
+        void Awake()
         {
             MessageRouter.AddHandler<SpaceCabron.Messages.MsgLevelWon>(Callback_LevelWon);
         }
 
-        void OnDisable()
+        void OnDestroy()
         {
             MessageRouter.RemoveHandler<SpaceCabron.Messages.MsgLevelWon>(Callback_LevelWon);
         }

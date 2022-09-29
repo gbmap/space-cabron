@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98de4929c4706fb49913b5824e0a2543, type: 3}
+  m_Name: Level11CBoss5
+  m_EditorClassIdentifier: 
+  NextLevel: {fileID: 11400000, guid: 0098f6934c6f49146b999eb74dd3324c, type: 2}
+  PossibleBosses: {fileID: 11400000, guid: dc9aa22501c15d7439ac09eeeb2bc0ea, type: 2}

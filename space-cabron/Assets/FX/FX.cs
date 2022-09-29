@@ -69,6 +69,9 @@ public class FX : Singleton<FX>
             Vector3 offset = UnityEngine.Random.insideUnitSphere * 0.3f;
             offset.z = 0f;
             SpawnExplosion(sz, pos + offset, shouldDamage);
+            if (sz == EExplosionSize.Big) {
+                Instantiate(Prefabs.EnemyDebris, pos+offset, Quaternion.identity);
+            }
             yield return new WaitForSeconds(0.05f);
         }
     }
@@ -88,4 +91,5 @@ public class FX : Singleton<FX>
                          && obj.bullet != null;
         SpawnExplosionCluster(4, obj.health.transform.position, shouldDamage);
     }
+
 }

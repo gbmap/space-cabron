@@ -16,3 +16,5 @@ MonoBehaviour:
   - {fileID: 7623507080045574984, guid: 0e2afddf9a7421c48a916a70d73232de, type: 3}
   - {fileID: 5726426320504031278, guid: af65608056550bd458c91e9a5d7243b8, type: 3}
   - {fileID: 0}
+  EnemyDebris: {fileID: 471660678028172619, guid: 3a6578fa7d57ce14b8db0c28d92eebc5,
+    type: 3}

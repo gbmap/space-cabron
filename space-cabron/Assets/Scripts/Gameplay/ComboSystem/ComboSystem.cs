@@ -1,4 +1,3 @@
-using System;
 using Frictionless;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Messages;
@@ -31,7 +30,6 @@ namespace SpaceCabron.Gameplay.Combo
         void OnEnable() {
             MessageRouter.AddHandler<Messages.MsgOnNotePlayedInTime>(Callback_OnNotePlayedInTime);
             MessageRouter.AddHandler<Messages.MsgOnNotePlayedOutOfTime>(Callback_OnNotePlayedOutOfTime);
-            MessageRouter.AddHandler<Messages.MsgOnWrongBulletHit>(Callback_OnWrongBulletHit);
             MessageRouter.AddHandler<Gmap.Gameplay.MsgOnObjectHit>(Callback_OnObjectHit);
             MessageRouter.AddHandler<Messages.MsgOnComboIncrease>(Callback_OnComboIncreased);
         }
@@ -40,8 +38,8 @@ namespace SpaceCabron.Gameplay.Combo
         void OnDisable() {
             MessageRouter.RemoveHandler<Messages.MsgOnNotePlayedInTime>(Callback_OnNotePlayedInTime);
             MessageRouter.RemoveHandler<Messages.MsgOnNotePlayedOutOfTime>(Callback_OnNotePlayedOutOfTime);
-            MessageRouter.RemoveHandler<Messages.MsgOnWrongBulletHit>(Callback_OnWrongBulletHit);
             MessageRouter.RemoveHandler<Gmap.Gameplay.MsgOnObjectHit>(Callback_OnObjectHit);
+            MessageRouter.RemoveHandler<Messages.MsgOnComboIncrease>(Callback_OnComboIncreased);
         } 
         
         private void Callback_OnNotePlayedInTime(MsgOnNotePlayedInTime msg)

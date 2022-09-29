@@ -665,6 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b136ff8845dd241b1a7245658ac23a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RunOnAwake: 0
   shoulder: {fileID: 334571285818782440}
   hand: {fileID: 334571285405459027}
   RotationSpeed: 1
@@ -774,13 +775,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334571285885012689}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e616191902998349a48511fc13c8e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  CanTakeDamage: 1
+  CanTakeDamage: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -828,13 +829,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe32f44e30e8cf4fbbeb5323bc6663b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RunOnAwake: 0
   LeftArmHealth: {fileID: 0}
   RightArmHealth: {fileID: 0}
   MainHealth: {fileID: 0}
   HandLeft: {fileID: 334571286093711275}
   HandRight: {fileID: 8199919683223484699}
   Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
-  BulletSinSpeed: {fileID: 0}
+  BulletSinSpeed: {fileID: 6441336503125283929, guid: 94b1bf02b656dd9429d89ba1f0e98a46,
+    type: 3}
   BulletSpawnLeft: {fileID: 4547382554377202460}
   BulletSpawnRight: {fileID: 7682434400708855308}
 --- !u!114 &1259617755384300846
@@ -1080,6 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b136ff8845dd241b1a7245658ac23a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RunOnAwake: 0
   shoulder: {fileID: 334571286093711271}
   hand: {fileID: 334571284435609930}
   RotationSpeed: 1

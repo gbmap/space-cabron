@@ -26,13 +26,13 @@ namespace SpaceCabron.Gameplay
         void OnEnable()
         {
             MessageRouter.AddHandler<MsgOnPermanentImprovisationUpgrade>(Callback_OnPermanentImprovisationUpgrade);
-            MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
+            // MessageRouter.AddHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
         }
 
         void OnDisable()
         {
             MessageRouter.RemoveHandler<MsgOnPermanentImprovisationUpgrade>(Callback_OnPermanentImprovisationUpgrade);
-            MessageRouter.RemoveHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
+            // MessageRouter.RemoveHandler<MsgOnPlayerSpawned>(Callback_OnPlayerSpawned);
         }
 
         private void Callback_OnPermanentImprovisationUpgrade(
@@ -48,10 +48,11 @@ namespace SpaceCabron.Gameplay
             }
 
             TurntableBehaviour turntable = msg.Player.GetComponentInChildren<TurntableBehaviour>();
-
-            int playerIndex = GetPlayerIndexFromGameObject(msg.Player);
-            foreach (Improvisation improvisation in GetImprovisationsForPlayerIndex(playerIndex))
-                turntable.ApplyImprovisation(improvisation, -1);
+            if (turntable != null) {
+                int playerIndex = GetPlayerIndexFromGameObject(msg.Player);
+                foreach (Improvisation improvisation in GetImprovisationsForPlayerIndex(playerIndex))
+                    turntable.ApplyImprovisation(improvisation, -1);
+            }
         }
 
         private IEnumerable<Improvisation> GetImprovisationsForPlayerIndex(int playerIndex)

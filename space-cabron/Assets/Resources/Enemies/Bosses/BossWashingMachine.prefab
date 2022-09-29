@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1630072673935089662}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -1.5, y: 0, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6532955970065618593}
@@ -80,8 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39926e3c4668ca7468dc6ff33ca9a5b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdc8493be18f934b91f9d5b631dae95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
-  UsePool: 1
+  Bullet: {fileID: 6441336503125283929, guid: 94b1bf02b656dd9429d89ba1f0e98a46, type: 3}
+  UsePool: 0
   Cooldown: 2
   TimeOffset: 0
   AngleIncrement: 10
@@ -273,8 +272,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39926e3c4668ca7468dc6ff33ca9a5b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -310,8 +308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdc8493be18f934b91f9d5b631dae95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
-  UsePool: 1
+  Bullet: {fileID: 6441336503125283929, guid: 94b1bf02b656dd9429d89ba1f0e98a46, type: 3}
+  UsePool: 0
   Cooldown: 2
   TimeOffset: 0
   AngleIncrement: 10
@@ -515,8 +513,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39926e3c4668ca7468dc6ff33ca9a5b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -552,8 +549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdc8493be18f934b91f9d5b631dae95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
-  UsePool: 1
+  Bullet: {fileID: 6441336503125283929, guid: 94b1bf02b656dd9429d89ba1f0e98a46, type: 3}
+  UsePool: 0
   Cooldown: 2
   TimeOffset: 0
   AngleIncrement: 10
@@ -953,6 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781e035a463b40c4194a867199bd2588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RunOnAwake: 0
 --- !u!1 &5895919182684725903
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +982,7 @@ Transform:
   m_GameObject: {fileID: 5895919182684725903}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2608586695278035424}
@@ -1033,8 +1031,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39926e3c4668ca7468dc6ff33ca9a5b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1070,8 +1067,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdc8493be18f934b91f9d5b631dae95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
-  UsePool: 1
+  Bullet: {fileID: 6441336503125283929, guid: 94b1bf02b656dd9429d89ba1f0e98a46, type: 3}
+  UsePool: 0
   Cooldown: 2
   TimeOffset: 0
   AngleIncrement: 10
@@ -1157,6 +1154,7 @@ GameObject:
   - component: {fileID: 5895919183498660310}
   - component: {fileID: 5895919183498660304}
   - component: {fileID: 5895919183498660311}
+  - component: {fileID: 598804382311555717}
   m_Layer: 9
   m_Name: boss_washing_machine_chickens
   m_TagString: Untagged
@@ -1244,6 +1242,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AngularSpeed: 45
+--- !u!114 &598804382311555717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5895919183498660309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5611dd9930b2d14f849e5a98c417db7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullet: {fileID: 2205689374102637201, guid: 39f6025f6ea3ab14883c7fc5e2ccbe48, type: 3}
+  UsePool: 0
+  Cooldown: 0.5
+  TimeOffset: 0
+  _angle: 0
+  randomizeAngle: 0
+  angleRange: 0
+  Relative: 1
 --- !u!1 &6349420622201390742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,7 +1668,7 @@ PrefabInstance:
         type: 3}
       propertyPath: colorHealth
       value: 
-      objectReference: {fileID: 6949636984831741839}
+      objectReference: {fileID: 4532631762447692629}
     - target: {fileID: 886687527247452625, guid: f5b75cf3346c6ee4193fba9ff276ebc2,
         type: 3}
       propertyPath: enemyRenderer
@@ -1750,7 +1768,7 @@ PrefabInstance:
         type: 3}
       propertyPath: colorHealth
       value: 
-      objectReference: {fileID: 6949636984831741839}
+      objectReference: {fileID: 6548221612731423365}
     - target: {fileID: 886687527247452625, guid: f5b75cf3346c6ee4193fba9ff276ebc2,
         type: 3}
       propertyPath: enemyRenderer
@@ -1850,7 +1868,7 @@ PrefabInstance:
         type: 3}
       propertyPath: colorHealth
       value: 
-      objectReference: {fileID: 6949636984831741839}
+      objectReference: {fileID: 5898225502271476864}
     - target: {fileID: 886687527247452625, guid: f5b75cf3346c6ee4193fba9ff276ebc2,
         type: 3}
       propertyPath: enemyRenderer
@@ -1950,7 +1968,7 @@ PrefabInstance:
         type: 3}
       propertyPath: colorHealth
       value: 
-      objectReference: {fileID: 6949636984831741839}
+      objectReference: {fileID: 8991786079111895010}
     - target: {fileID: 886687527247452625, guid: f5b75cf3346c6ee4193fba9ff276ebc2,
         type: 3}
       propertyPath: enemyRenderer

@@ -31,8 +31,15 @@ namespace Gmap.Gameplay
             BaseLevelConfiguration level, 
             System.Action OnFinishedLoading = null
         ) {
+            if (level == null) {
+                Debug.LogError("Attempting to load null level.");
+                Debug.Break();
+                return;
+            }
+
             if (CurrentLevelConfiguration != null)
                 CurrentLevelConfiguration.GetLoader().Unload();
+
             
             level.GetLoader(OnFinishedLoading).Load();
             CurrentLevelConfiguration = level;

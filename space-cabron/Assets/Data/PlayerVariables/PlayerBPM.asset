@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6817882c3ff73442b3c6af599605411, type: 3}
   m_Name: PlayerBPM
   m_EditorClassIdentifier: 
-  value: 60
+  value: 120

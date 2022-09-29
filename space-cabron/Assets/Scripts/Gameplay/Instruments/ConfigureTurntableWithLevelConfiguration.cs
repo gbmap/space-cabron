@@ -3,6 +3,7 @@ using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
 using Gmap.Instruments;
 using SpaceCabron.Gameplay;
+using System.Linq;
 
 namespace SpaceCabron.Gameplay
 {
@@ -39,8 +40,14 @@ namespace SpaceCabron.Gameplay
             }
 
             if (!wasConfigured || ReloadMelody) {
+                var factory = instrumentConfig.GetMelodyFactory(false);
+                MelodySwitcher ms = GetComponentInChildren<MelodySwitcher>();
+                if (ms != null) {
+                    ms.Generate(factory);
+                }
+
                 instrumentConfig.ConfigureTurntable(turntable, false);
-                IMelodyPlayer.Generate(gameObject, instrumentConfig.GetMelodyFactory(false));
+                IMelodyPlayer.Generate(gameObject, factory);
             }
         }
 
@@ -73,9 +80,14 @@ namespace SpaceCabron.Gameplay
 
         private string GetTag()
         {
+            string[] ignoreTags = new string[] { 
+                "Untagged",
+                "GlobalInstruments"
+            };
+
             if (OverrideTag)
                 return Tag;
-            if (transform.parent == null || transform.parent.tag == "Untagged")
+            if (transform.parent == null || ignoreTags.Contains(transform.parent.tag))
                 return gameObject.tag;
             return transform.parent.tag;
         }

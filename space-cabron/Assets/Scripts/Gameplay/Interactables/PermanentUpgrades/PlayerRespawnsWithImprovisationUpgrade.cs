@@ -20,8 +20,14 @@ namespace SpaceCabron.Gameplay.Interactables
             if (!base.Interact(args))
                 return false;
 
-            TurntableBehaviour t = args.Interactor.GetComponentInChildren<TurntableBehaviour>();
-            t.ApplyImprovisation(Improvisation.Get(), -1);
+            TurntableResolver resolver = TurntableResolver.Create("GlobalInstruments", "PlayerInstrument");
+
+            TurntableBehaviour t = resolver.Get();
+            if (t != null) {
+                t.ApplyImprovisation(Improvisation.Get(), -1);
+            } else {
+                Debug.LogWarning("Couldn't find turntable behaviour.");
+            }
 
             MessageRouter.RaiseMessage(
                 new MsgOnPermanentImprovisationUpgrade {

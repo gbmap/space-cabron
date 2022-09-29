@@ -81,7 +81,7 @@ namespace SpaceCabron.Gameplay
                 RepeatNoteWithStep step = instance.GetComponent<RepeatNoteWithStep>();
                 if (step != null)
                 {
-                    step.UpdateReferences(playerInstance);
+                    step.UpdateReferences(GetPlayerInstruments());
 
                     int steps = new int[] { 3, 5, 7, 15, 17, 19 }[UnityEngine.Random.Range(0, 6)];
                     step.Steps = steps;
@@ -137,7 +137,10 @@ namespace SpaceCabron.Gameplay
                 TurntableBehaviour otherTurntable = otherPlayer.GetComponentInChildren<TurntableBehaviour>();
                 turntable.ForceSetTurntable(otherTurntable.Turntable as Turntable);
 
-                instance.GetComponent<MelodySwitcher>().Generate(DroneInstrument.GetMelodyFactory(true));
+                MelodySwitcher ms = instance.GetComponent<MelodySwitcher>();
+                if (ms != null && DroneInstrument != null) {
+                    ms.Generate(DroneInstrument.GetMelodyFactory(true));
+                }
 
 
                 var update = instance.GetComponent<UpdateBackgroundShaderGlobalVariables>();
@@ -206,7 +209,7 @@ namespace SpaceCabron.Gameplay
             UpdatePlayerName(instance, msg.PlayerIndex);
             MakeInvincible(instance);
             SetupPlayerBrain(instance, msg.PlayerIndex);
-            ConfigurePlayerWithNewMelody(instance, instance.GetComponentInChildren<TurntableBehaviour>());
+            // ConfigurePlayerWithNewMelody(instance, instance.GetComponentInChildren<TurntableBehaviour>());
             PlayStartingAnimationIfNotRespawned(instance, msg);
             MakeDronesFollowAndUpdateMelody(instance);
 
@@ -269,14 +272,33 @@ namespace SpaceCabron.Gameplay
                                             .Where(d=>d.name[d.name.Length-1] == playerIndex.ToString()[0])
                                             .ToArray();
             drones.Select(d => d.GetComponent<FollowAtAnOffset>())
-                  .ToList().ForEach(f => f.Target = instance.transform);
+                  .ToList()
+                  .ForEach(f => f.Target = instance.transform);
 
             System.Array.ForEach(drones, d =>
             {
                 RepeatNoteWithStep step = d.GetComponent<RepeatNoteWithStep>();
+                if (step == null) {
+                    return;
+                }
+
+                TurntableResolver resolver = new TurntableResolver();
+                resolver.Tag = "GlobalInstruments";
+                resolver.ChildObjectName = "PlayerInstrument";
+
+                var turntable = resolver.Get();
+                if (turntable != null)
+                    step.UpdateReferences(turntable.gameObject);
+                /*
                 if (step != null)
                     step.UpdateReferences(instance);
+                */
             });
+        }
+
+        private static GameObject GetPlayerInstruments()
+        {
+            return GameObject.Find("PlayerInstrument");
         }
     }
 }

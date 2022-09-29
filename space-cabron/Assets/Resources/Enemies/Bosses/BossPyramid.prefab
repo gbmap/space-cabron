@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 7501325578565453529}
   m_Layer: 9
   m_Name: boss_pyramid_quarter_ur
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 8408268499854755825}
   m_Layer: 9
   m_Name: boss_pyramid_quarter_bl
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1115,7 +1115,7 @@ GameObject:
   - component: {fileID: 8829399693582561983}
   m_Layer: 9
   m_Name: boss_pyramid_quarter_br
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1296,7 +1296,7 @@ GameObject:
   - component: {fileID: 7236053575086237683}
   m_Layer: 9
   m_Name: boss_pyramid_quarter_ul
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1566,13 +1566,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7712014564513058811}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e616191902998349a48511fc13c8e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 30
-  CanTakeDamage: 1
+  CanTakeDamage: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -1620,7 +1620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee917580f5496ab4892e6051edbc84bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunOnAwake: 1
+  RunOnAwake: 0
   PyramidUpperLeft: {fileID: 7712014564507587696}
   PyramidUpperRight: {fileID: 7712014563411888500}
   PyramidLowerLeft: {fileID: 7712014563608919423}

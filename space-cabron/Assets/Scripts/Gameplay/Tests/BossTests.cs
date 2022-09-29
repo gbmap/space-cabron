@@ -98,8 +98,23 @@ public class BossTests
         yield return new WaitForSeconds(5.0f);
         Assert.IsTrue(bossBehaviours.All(b => b.IsRunning == true));
 
-        System.Array.ForEach(bossBehaviours, b => b.GetComponent<Health>().Destroy());
+        ColorHealth[] healths = GameObject.FindObjectsOfType<ColorHealth>(false)
+                                          .Where(h=>h.CanTakeDamage)
+                                          .ToArray();
+        if (healths.Length > 1) {
+            System.Array.ForEach(healths, h => h.Destroy());
+            Assert.IsTrue(GameObject.FindObjectOfType<BossBehaviour>() != null);
+        }
+
         yield return new WaitForSeconds(2.0f);
+
+        ColorHealth main = GameObject.FindObjectsOfType<ColorHealth>(false).FirstOrDefault();
+        if (main != null) {
+            main.Destroy();
+        };
+
+        yield return new WaitForSeconds(1.0f);
+
         Assert.IsTrue(GameObject.FindObjectOfType<BossBehaviour>() == null);
     }
 

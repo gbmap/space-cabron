@@ -18,6 +18,7 @@ public class MultiplayerTests
     public IEnumerator TearDown()
     {
         System.Array.ForEach(GameObject.FindGameObjectsWithTag("Player"), p => GameObject.Destroy(p));
+        MultiplayerManager.PlayerCount = 1;
         yield break;
     }
 
@@ -42,16 +43,15 @@ public class MultiplayerTests
         Assert.AreEqual(nPlayers, GameObject.FindGameObjectsWithTag("Player").Length);
     }
 
+    // [UnityTest]
+    // public IEnumerator MultiplePlayersSpawnWithTheSameMelody()
+    // {
+    //     yield return LoadLevel(2);
 
-    [UnityTest]
-    public IEnumerator MultiplePlayersSpawnWithTheSameMelody()
-    {
-        yield return LoadLevel(2);
-
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        var melodies = players.Select(p=>p.GetComponentInChildren<ITurntable>().Melody);
-        Assert.IsTrue(melodies.All(m => m.Notation == melodies.First().Notation));
-    }
+    //     GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+    //     var melodies = players.Select(p=>p.GetComponentInChildren<ITurntable>().Melody);
+    //     Assert.IsTrue(melodies.All(m => m.Notation == melodies.First().Notation));
+    // }
 
     [UnityTest]
     public IEnumerator OnePlayerDeathDoesntTransitionToGameOver()

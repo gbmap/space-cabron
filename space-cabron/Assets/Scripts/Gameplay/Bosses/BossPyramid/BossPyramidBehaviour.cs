@@ -1,10 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace SpaceCabron.Gameplay.Bosses {
+namespace SpaceCabron.Gameplay.Bosses
+{
     public class BossPyramidBehaviour : BossBehaviour
     {
         public GameObject PyramidUpperLeft;
@@ -71,14 +71,11 @@ namespace SpaceCabron.Gameplay.Bosses {
 
         private Transform GetPyramid(int i)
         {
-            return pyramidToPosition.Keys.ToArray()[i].transform;
-            
+            return pyramidToPosition.Keys.ToArray()[i];
         }
 
         void Update() {
-            // int i = 0;
             for (int i = 0; i < pyramidToPosition.Keys.Count; i++) {
-            // foreach (var pyramid in pyramidToPosition.Keys) {
                 var pyramid = GetPyramid(i);
                 if (pyramid  == null){
                     continue;
@@ -115,10 +112,6 @@ namespace SpaceCabron.Gameplay.Bosses {
         {
             while (true)
             {
-                // yield return RotateUpAxis(2);
-                // yield return new WaitForSeconds(10f);
-                // yield return ResetRotation();
-
                 for (int i = 0; i < 2; i++) {
                     SetRotationConfig(new RotationConfig(90f, 1f, 1f, 0.25f, Vector3.forward), new System.Func<float, int, float>[] {
                         ConstExtensionFunc,ConstExtensionFunc,ConstExtensionFunc,ConstExtensionFunc
@@ -129,6 +122,7 @@ namespace SpaceCabron.Gameplay.Bosses {
                         SinExtensionFunc,ConstExtensionFunc,ConstExtensionFunc,SinExtensionFunc
                     });
                     yield return new WaitForSeconds(10f);
+
                     SetRotationConfig(new RotationConfig(45f, 4.0f, 0.5f, 0.5f, Vector3.forward), new System.Func<float, int, float>[] {
                         SinExtensionFunc,SinExtensionFunc,SinExtensionFunc,SinExtensionFunc
                     });
@@ -136,21 +130,11 @@ namespace SpaceCabron.Gameplay.Bosses {
 
                     StandStill();
                     yield return ResetRotation();
-                    // yield return new WaitForSeconds(10f);
+
                     RotationSpeed = 45f;
                     yield return RotateUpAxis(1);
                 }
-
-                // SetRotationConfig(new RotationConfig(90f, 4.0f, 0.5f, 0.5f, Vector3.up), new System.Func<float, int, float>[] {
-                //     ConstExtensionFunc,ConstExtensionFunc,ConstExtensionFunc,ConstExtensionFunc
-                // });
-                // yield return new WaitForSeconds(10f);
             }
-            // yield return CExtendPyramid(PyramidUpperLeft, Vector2.one, 2f);
-            // yield return CExtendPyramid(PyramidUpperRight, Vector2.one, 2f);
-            // yield return CExtendPyramid(PyramidLowerLeft, Vector2.one, 2f);
-            // yield return CExtendPyramid(PyramidLowerRight, Vector2.one, 2f);
-            // yield return RotatePyramids(100);
         }
 
         private IEnumerator RotateUpAxis(int halfRotations)
@@ -174,7 +158,7 @@ namespace SpaceCabron.Gameplay.Bosses {
             float totalTime = 2f;
             while (true)
             {
-                float angle = Mathf.Lerp(PyramidRoots.transform.eulerAngles.x, 0f, t/totalTime);
+                float angle = Mathf.Lerp(PyramidRoots.transform.eulerAngles.x, 0f, Mathf.Clamp01(t/totalTime));
                 PyramidRoots.transform.rotation = Quaternion.Euler(
                     PyramidRoots.transform.eulerAngles.x,
                     PyramidRoots.transform.eulerAngles.y,
@@ -215,7 +199,10 @@ namespace SpaceCabron.Gameplay.Bosses {
             RotationAxis = config.RotationAxis;
         }
 
-        protected void SetRotationConfig(RotationConfig config, System.Func<float, int, float>[] pyramidExtensionFunctions) {
+        protected void SetRotationConfig(
+            RotationConfig config, 
+            System.Func<float, int, float>[] pyramidExtensionFunctions
+        ) {
             SetRotationConfig(config);
             PyramidExtensionFunctions = pyramidExtensionFunctions;
         }

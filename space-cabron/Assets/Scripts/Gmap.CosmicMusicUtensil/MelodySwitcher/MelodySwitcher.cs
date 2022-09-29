@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Gmap.ScriptableReferences;
 using UnityEngine;
 
-namespace Gmap.CosmicMusicUtensil {
+namespace Gmap.CosmicMusicUtensil
+{
     public class MelodySwitcher : MonoBehaviour, IMelodyPlayer
     {
         public TurntableBehaviour Turntable;
@@ -25,10 +23,6 @@ namespace Gmap.CosmicMusicUtensil {
 
             songStructureGenerator = new SongStructureGenerator(this, MelodyPatterns);
             songStructureGenerator.Generate();
-        }
-
-        void Start() {
-            Turntable.SetMelody(melodies[0]);
         }
 
         private void Callback_OnBar(OnBarArgs msg)

@@ -144,7 +144,6 @@ public class LevelTests
     {
         var player = GameObject.FindWithTag("Player");
         player.GetComponent<Health>().CanTakeDamage = false;
-        player.GetComponentInChildren<TurntableBehaviour>().enabled = false;
         return player;
     }
 

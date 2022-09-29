@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a412e08cb62da7a44a12a2c3445b6396, type: 3}
   m_Name: Level7Buffer
   m_EditorClassIdentifier: 
-  NextLevel: {fileID: 11400000, guid: f9b188f255fc0be4cbfe7bbba77e59b4, type: 2}
+  NextLevel: {fileID: 11400000, guid: 3c8e37c7ccc04724fbc32ec1b28f7229, type: 2}
   NumberOfUpgrades: {fileID: 11400000, guid: 09477d687a268b241a7ab5416e078fd5, type: 2}
   PossibleUpgrades: {fileID: 11400000, guid: f877efa3c2182e446a9e0f5cdff1974e, type: 2}
   NextLevelInteractable: {fileID: 11400000, guid: 9431ca96e4fda9b4398793d9f2908b62,

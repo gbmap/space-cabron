@@ -45,6 +45,9 @@
             float _LastNoteTimes1[100];
             float _NextNoteTimes1[100];
 
+            float _EnemyKillTimes[10];
+            float3 _EnemyKillPositions[10];
+
             const float4 _PlayerLinesColor0 = float4(1., 0., 0., 1.);
             const float4 _PlayerLinesColor1 = float4(0., 1., 0., 1.);
 
@@ -66,6 +69,38 @@
                 l = smoothstep(-line_width, -line_width+0.01, l) 
                   - smoothstep(line_width-0.01, line_width, l);
                 return l;
+            }
+
+            float sqr(float2 uv, float2 sz, float2 pos, float angle) {
+                float2 sqrUv = uv;
+                sqrUv = mul(float2x2(
+                    cos(angle), -sin(angle), sin(angle), cos(angle)
+                ), sqrUv);
+
+                pos = mul(float2x2(
+                    cos(angle), -sin(angle), sin(angle), cos(angle)
+                ), pos);
+
+                float2 sqrSz = sz;
+                fixed2 sqr = step(pos-sqrSz*.5, sqrUv) - step(pos+sqrSz*.5, sqrUv);
+                return sqr.x*sqr.y;
+            }
+
+            float kill_animation(float2 uv, float2 kill_pos_screen, float kill_time, float t) {
+
+                float animation_t = saturate((t-kill_time)*2.5);
+                animation_t = pow(animation_t, 0.25);
+                float2 bigger_square_sz = lerp(float2(0.15, 0.15), float2(0.25, 0.25), animation_t);
+                float2 smaller_square_sz = lerp(
+                    float2(0.00, 0.00),
+                    bigger_square_sz,
+                    animation_t
+                );
+
+                float angle = radians(45. +(noise(float2(kill_time, kill_time))-1.)*60.);
+                float hitsquare = sqr(uv, bigger_square_sz, kill_pos_screen, angle) 
+                                - sqr(uv, smaller_square_sz, kill_pos_screen, angle);
+                return saturate(hitsquare);
             }
 
             fixed4 frag (v2f i) : SV_Target
@@ -96,15 +131,32 @@
                 hsv.g *= 0.725;
                 clr.rgb = hsv_to_rgb(hsv);
 
+                float expt = 0.125*step(0.5, frac(screen.y*1.5+_Time.y*0.5));
+                clr.rgb *= 0.5;
+                clr.rgb = pow(clr.rgb, 1.0+expt);
+
                 clr.rgb *= 1.-line_time(_EngineTime, screen);
                 float l = 0.;
-                for (int i = 0; i < _NoteCount0; i++)
-                {
+                for (int i = 0; i < _NoteCount0; i++) {
                     l = max(l, line_time(_NoteTimes0[i], screen, 0.01));
-                    l = max(l, line_time(_LastNoteTimes0[i], screen, 0.01));
-                    l = max(l, line_time(_NextNoteTimes0[i], screen, 0.01));
                 }
                 clr.rgb = lerp(clr.rgb, float4(1.,1.,1.,1.)*0.5, l/(screen.y*5.));
+                clr.rgb += hash(screen.xy*100.+_Time.xy)*0.1;
+
+                float hitsquare = 0.;
+                float2 hituv = screen;
+                hituv.y /= 2.;
+                for (int i = 0; i < 10; i++) 
+                {
+                    hitsquare += kill_animation(hituv, _EnemyKillPositions[i], _EnemyKillTimes[i], _EngineTime);
+                }
+
+                hsv = rgb_to_hsv_no_clip(fixed3(1.0,0.0,0.0));
+                hsv.r = frac(hsv.r + _Time.y + screen.x+screen.y);
+                clr.rgb = lerp(clr.rgb, hsv_to_rgb(hsv),hitsquare*0.1);
+
+                // clr.rgb += saturate(hitsquare);
+
 
                 // l = 0.;
                 // for (int i = 0; i < _NoteCount1; i++)

@@ -66,10 +66,19 @@ namespace Gmap.CosmicMusicUtensil
 
         public void UpdateReferences(GameObject target)
         {
-            Turntable = target.GetComponentInChildren<TurntableBehaviour>();
-            Turntable.OnNote += OnNote;
+            if (target == null) {
+                Debug.LogWarning("Target is null");
+                return;
+            }
 
-            Proxy = target.GetComponentInChildren<HelmProxy>();
+            Turntable = target.GetComponentInChildren<TurntableBehaviour>();
+            if (Turntable) {
+                Turntable.OnNote += OnNote;
+                Proxy = target.GetComponentInChildren<HelmProxy>();
+            }
+            else {
+                throw new System.NullReferenceException("Couldn't find TurntableBehaviour on " + target.name);
+            }
         }
     }
 }

@@ -10,5 +10,6 @@ public class FXPrefabsEditor : Editor
     {
         var fx = target as FXPrefabs;
         fx.Explosions = EnumPrefabEditor<FX.EExplosionSize, GameObject>.Draw(target, ref fx.Explosions);
+        fx.EnemyDebris = (GameObject)EditorGUILayout.ObjectField("Enemy Debris", fx.EnemyDebris, typeof(GameObject), false);
     }
 }
