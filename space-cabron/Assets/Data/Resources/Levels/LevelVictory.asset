@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98de4929c4706fb49913b5824e0a2543, type: 3}
-  m_Name: Level11CBoss5
+  m_Script: {fileID: 11500000, guid: d755f6d0c1d5c75438548b448c13fdb3, type: 3}
+  m_Name: LevelVictory
   m_EditorClassIdentifier: 
-  NextLevel: {fileID: 11400000, guid: 0d584ceac6ca67c4ebb5ae9e4f490d0a, type: 2}
-  PossibleBosses: {fileID: 11400000, guid: dc9aa22501c15d7439ac09eeeb2bc0ea, type: 2}
+  NextLevel: {fileID: 0}
