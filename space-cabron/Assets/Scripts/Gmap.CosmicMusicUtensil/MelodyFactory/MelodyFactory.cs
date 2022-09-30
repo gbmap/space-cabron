@@ -119,9 +119,28 @@ namespace Gmap.CosmicMusicUtensil
                       .Select(i=>timeSignature.y)
                       .ToArray();
 
-            ENote[] tones = Enumerable.Range(0, timeSignature.x)
-                                   .Select(i=>GetRandomNote())
-                                   .ToArray();     
+            ShuffleBag<int> steps = new ShuffleBag<int>();
+            steps.Add(-1, 5);
+            steps.Add(1, 5);
+            steps.Add(-2, 3);
+            steps.Add(2, 3);
+            steps.Add(-3, 2);
+            steps.Add(3, 2);
+            steps.Add(-4, 1);
+            steps.Add(4, 1);
+
+            ENote[] tones = new ENote[timeSignature.x];
+            ENote currentTone = scale.GetNote(root, 0);
+            int currentIndex = 0;
+            for (int i = 0; i < timeSignature.x; i++) {
+                tones[i] = currentTone;
+                currentIndex += steps.Next();
+                currentTone = scale.GetNote(root, currentIndex);
+            }
+
+            // ENote[] tones = Enumerable.Range(0, timeSignature.x)
+            //                        .Select(i=>GetRandomNote())
+            //                        .ToArray();     
 
             Note[] notes = Enumerable.Range(0, timeSignature.x)
                       .Select(i=>new Note(

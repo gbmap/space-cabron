@@ -71,6 +71,9 @@ public class InteractableTests
         GameObject objectInstance,
         InteractableBehaviour interactableBehaviour
     ) {
+        if (interactableBehaviour == null)
+            yield break;
+
         yield return MoveTo(brain, objectInstance, interactableBehaviour.transform.position);
         yield return new WaitForFixedUpdate();
         Assert.IsTrue(interactableBehaviour.IsSelected);
@@ -173,7 +176,7 @@ public class InteractableTests
         BaseLevelConfiguration level = Resources.Load<BaseLevelConfiguration>("Levels/Level0");
         yield return LevelTests.LoadLevelAndWait(level);
         LevelTests.DisableEnemySpawner();
-        var player = LevelTests.MakePlayerInvincible();
+        var player = PlayerTests.MakePlayerInvincible();
 
         NextLevelInteractable interactable = ScriptableObject.CreateInstance<NextLevelInteractable>();
         interactable.Interact(new Interactable.InteractArgs {

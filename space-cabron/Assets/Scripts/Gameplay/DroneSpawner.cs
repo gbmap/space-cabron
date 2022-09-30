@@ -31,12 +31,14 @@ namespace SpaceCabron.Gameplay
         {
             MessageRouter.AddHandler<MsgSpawnDrone>(SpawnDrone);
             MessageRouter.AddHandler<MsgSpawnPlayer>(SpawnPlayer);
+            // MessageRouter.AddHandler<MsgIncreaseScore>(Callback_OnIncreaseScore);
         }
 
         void OnDisable()
         {
             MessageRouter.RemoveHandler<MsgSpawnDrone>(SpawnDrone);
             MessageRouter.RemoveHandler<MsgSpawnPlayer>(SpawnPlayer);
+            // MessageRouter.RemoveHandler<MsgIncreaseScore>(Callback_OnIncreaseScore);
         }
 
         private void SpawnDrone(MsgSpawnDrone msg)

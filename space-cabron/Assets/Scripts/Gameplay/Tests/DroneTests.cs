@@ -20,8 +20,10 @@ public class DroneTests  : DefaultTestScene
         LevelLoader.Load(Resources.Load<LevelConfiguration>("Levels/Level0"));
         yield return new WaitForSeconds(2.0f);
 
+        TurntableResolver resolver = TurntableResolver.Create("GlobalInstruments", "PlayerInstrument");
+
         var player = GameObject.FindGameObjectWithTag("Player");
-        var playerTurntable = player.GetComponentInChildren<ITurntable>();
+        var playerTurntable = resolver.Get();
         GameObject drone = null;
         MessageRouter.RaiseMessage(new MsgSpawnDrone 
         { 
@@ -116,7 +118,8 @@ public class DroneTests  : DefaultTestScene
     [UnityTest]
     public IEnumerator CollisionWithMultipleDronesSpawnsOnlyOnePlayer()
     {
-        var player = SpawnPlayer();
+        var player = PlayerTests.SpawnPlayer();
+        PlayerTests.MakePlayerInvincible();
         yield return new WaitForSeconds(0.2f);
         for (int i = 0; i< 5; i++)
         {

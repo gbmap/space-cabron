@@ -1,20 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 using UnityEngine.TestTools;
-using Gmap;
 using Gmap.Gameplay;
 using SpaceCabron.Messages;
 using SpaceCabron.Gameplay;
 using Frictionless;
-using Gmap.CosmicMusicUtensil;
 using UnityEngine.SceneManagement;
-using SpaceCabron.Gameplay.Multiplayer;
-using System.Linq;
-using SpaceCabron.Gameplay.Interactables;
-using UnityEditor;
-using System;
 
 public class DefaultTestScene
 {
@@ -56,6 +48,13 @@ public class DefaultTestScene
         var instance = GameObject.Instantiate(playerPrefab);
         instance.name = "Player0";
         return instance;
+    }
+
+    public static GameObject MakePlayerInvincible()
+    {
+        var player = GameObject.FindWithTag("Player");
+        player.GetComponent<Health>().CanTakeDamage = false;
+        return player;
     }
 
     public static void DestroyAllDrones()

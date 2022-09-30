@@ -190,7 +190,7 @@ namespace SpaceCabron.Gameplay
             clone.AmbientMelody = AmbientMelody.Clone();
             clone.HitConfiguration = HitConfiguration.Clone();
             clone.BassConfiguration = BassConfiguration.Clone();
-            clone.NextLevel = NextLevel;
+            // clone.NextLevel = NextLevel;
             return clone;
         }
     }

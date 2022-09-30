@@ -18,10 +18,27 @@ namespace SpaceCabron.Gameplay.Level
 
     public abstract class BaseLevelConfiguration : ScriptableObject, ILevelConfiguration
     {
+        [SerializeField] private LevelList LevelList;
+
         public abstract ILevelLoader GetLoader(System.Action OnFinishedLoading =null);
         public abstract ILevelConfiguration Clone();
 
-        public BaseLevelConfiguration NextLevel;
+        public BaseLevelConfiguration NextLevel {
+            get {
+                if (LevelList == null) {
+                    LevelList = Resources.Load<LevelList>("LevelList");
+                    if (LevelList == null) {
+                        throw new Exception("LevelList not found");
+                    }
+                }
+
+                int index = LevelList.List.IndexOf(this);
+                if (index == -1 || index == LevelList.List.Count - 1) {
+                    return LevelList.List[0];
+                }
+                return LevelList.List[index + 1];
+            }
+        }
     }
 
     public interface ILevelLoader

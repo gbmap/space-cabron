@@ -36,7 +36,7 @@ namespace Gmap.CosmicMusicUtensil
             try {
                 UnityEngine.Debug.Log($"Loading patch: {patch.name} in {transform.parent}/{gameObject.name}");
                 StartCoroutine(LoadPatchCoroutine(patch));
-            } catch (System.Exception ex) {
+            } catch (System.Exception) {
                 Debug.LogWarning("Couldn't load patch.");
             }
         }

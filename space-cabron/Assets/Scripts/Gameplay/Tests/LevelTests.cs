@@ -140,13 +140,6 @@ public class LevelTests
         return spawner;
     }
 
-    public static GameObject MakePlayerInvincible()
-    {
-        var player = GameObject.FindWithTag("Player");
-        player.GetComponent<Health>().CanTakeDamage = false;
-        return player;
-    }
-
     public static PlayerControlBrain InjectPlayerWithControlBrain(GameObject player)
     {
         PlayerControlBrain brain = ScriptableObject.CreateInstance<PlayerControlBrain>();
@@ -172,7 +165,7 @@ public class LevelTests
     {
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
-        MakePlayerInvincible();
+        PlayerTests.MakePlayerInvincible();
         yield return new WaitForSeconds(10f);
         MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
         yield return new WaitForSeconds(12f);
@@ -185,7 +178,7 @@ public class LevelTests
         LevelConfiguration level = Resources.Load<LevelConfiguration>("Levels/Level0");
         yield return LoadLevelAndWait(level);
         DisableEnemySpawner();
-        MakePlayerInvincible();
+        PlayerTests.MakePlayerInvincible();
 
         var enemyPrefab = Resources.Load<GameObject>("Enemies/EnemyThug");
         var enemyInstance = GameObject.Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -219,7 +212,7 @@ public class LevelTests
         int sceneCount = SceneManager.sceneCount;
         SceneManager.SetActiveScene(s);
 
-        var player = MakePlayerInvincible();
+        var player = PlayerTests.MakePlayerInvincible();
         Vector3 playerPosition = player.transform.position;
 
         MessageRouter.RaiseMessage(new MsgOnScoreChanged(int.MaxValue, int.MaxValue));
@@ -248,7 +241,7 @@ public class LevelTests
         yield return LoadLevelAndWait(level);
 
         DisableEnemySpawner();
-        var player = MakePlayerInvincible();
+        var player = PlayerTests.MakePlayerInvincible();
         var brain = PlayerControlBrain.CreateInstance<PlayerControlBrain>();
         brain.Shoot = false;
         InjectBrainToActor<InputState>.Inject(player, brain);
@@ -268,9 +261,11 @@ public class LevelTests
         // Go to next level (Level1)
         InteractableBehaviour interactable = GameObject.FindObjectsOfType<InteractableBehaviour>()
                                                        .FirstOrDefault(i => i.Interactable is NextLevelInteractable);
-        yield return InteractableTests.InteractWithInteractable(
-            brain, player, interactable
-        );
+        if (interactable != null) {
+            yield return InteractableTests.InteractWithInteractable(
+                brain, player, interactable
+            );
+        }
         yield return new WaitForSeconds(1.0f);
 
         // Win level (Level1Buffer)
@@ -282,9 +277,12 @@ public class LevelTests
         // Go to next level (Level2)
         interactable = GameObject.FindObjectsOfType<InteractableBehaviour>()
                                                        .FirstOrDefault(i => i.Interactable is NextLevelInteractable);
-        yield return InteractableTests.InteractWithInteractable(
-            brain, player, interactable
-        );
+
+        if (interactable != null) {
+            yield return InteractableTests.InteractWithInteractable(
+                brain, player, interactable
+            );
+        }
 
         yield return null;
 
@@ -306,7 +304,7 @@ public class LevelTests
         yield return LoadLevelAndWait(level);
 
         DisableEnemySpawner();
-        var player = MakePlayerInvincible();
+        var player = PlayerTests.MakePlayerInvincible();
         var brain = PlayerControlBrain.CreateInstance<PlayerControlBrain>();
         brain.Shoot = false;
         InjectBrainToActor<InputState>.Inject(player, brain);
@@ -337,7 +335,7 @@ public class LevelTests
         yield return LoadLevelAndWait(level);
 
         DisableEnemySpawner();
-        var player = MakePlayerInvincible();
+        var player = PlayerTests.MakePlayerInvincible();
         var brain = PlayerControlBrain.CreateInstance<PlayerControlBrain>();
         brain.Shoot = false;
         InjectBrainToActor<InputState>.Inject(player, brain);
@@ -354,7 +352,7 @@ public class LevelTests
         menu.Retry();
 
         yield return new WaitForSeconds(3f);
-        player = MakePlayerInvincible();
+        player = PlayerTests.MakePlayerInvincible();
 
         Assert.AreEqual(2, GameObject.FindGameObjectsWithTag("Drone").Length);
     }
