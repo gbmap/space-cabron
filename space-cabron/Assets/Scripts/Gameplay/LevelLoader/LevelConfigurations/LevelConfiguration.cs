@@ -76,44 +76,6 @@ namespace SpaceCabron.Gameplay
     }
 
     [System.Serializable]
-    public class InstrumentConfiguration : ICloneable<InstrumentConfiguration>
-    {
-        public int BPM = 30;
-        public int MaxBPM = 120;
-        public ScriptableMelodyFactory MelodyFactory;
-        public ImprovisationConfiguration ImprovisationConfiguration;
-        public TextAssetPool PossibleStartingInstruments;
-
-        public InstrumentConfiguration Clone()
-        {
-            return new InstrumentConfiguration
-            {
-                BPM = BPM,
-                MelodyFactory = MelodyFactory != null ? MelodyFactory.Clone() : null,
-                ImprovisationConfiguration = ImprovisationConfiguration != null ? ImprovisationConfiguration.Clone() : null,
-                PossibleStartingInstruments = PossibleStartingInstruments != null ? PossibleStartingInstruments.Clone() as TextAssetPool : null
-            };
-        }
-
-        public MelodyFactory GetMelodyFactory(bool useLastUsed) {
-            if (useLastUsed && MelodyFactory.LastUsedFactory != null)
-                return MelodyFactory.LastUsedFactory;
-            else
-                return MelodyFactory;
-        }
-
-        public void ConfigureTurntable(
-            ITurntable turntable, 
-            bool useLastUsedFactory
-        ) {
-            Melody melody = GetMelodyFactory(useLastUsedFactory).GenerateMelody();
-            turntable.SetMelody(melody);
-            ImprovisationConfiguration.Apply(turntable);
-        }
-
-    }
-
-    [System.Serializable]
     public class BackgroundConfiguration : ICloneable<BackgroundConfiguration>
     {
         public Material Material;
@@ -132,11 +94,6 @@ namespace SpaceCabron.Gameplay
     {
         public GameplayConfiguration Gameplay;
         [SerializeField] private InstrumentConfiguration EnemyMelody;
-        [SerializeField] private InstrumentConfiguration PlayerMelody;
-        [SerializeField] private InstrumentConfiguration DrumMelody;
-        [SerializeField] private InstrumentConfiguration AmbientMelody;
-        [SerializeField] private InstrumentConfiguration HitConfiguration;
-        [SerializeField] private InstrumentConfiguration BassConfiguration;
         public BackgroundConfiguration Background;
 
         private Dictionary<string, InstrumentConfiguration> dictTagToInstrument;
@@ -145,21 +102,13 @@ namespace SpaceCabron.Gameplay
                 if (dictTagToInstrument == null)
                 {
                     dictTagToInstrument = new Dictionary<string, InstrumentConfiguration>();
-                    dictTagToInstrument.Add("EnemySpawner", EnemyMelody);
-                    dictTagToInstrument.Add("Player", PlayerMelody);
-                    dictTagToInstrument.Add("Metronome", DrumMelody);
-                    dictTagToInstrument.Add("Ambient", AmbientMelody);
-                    dictTagToInstrument.Add("Hit", HitConfiguration);
-                    dictTagToInstrument.Add("Bass", CreateBassConfig());
+                    dictTagToInstrument.Add("Player", Resources.Load<InstrumentConfiguration>("PlayerInstrumentConfiguration"));
+                    dictTagToInstrument.Add("Metronome", Resources.Load<InstrumentConfiguration>("MetronomeInstrumentConfiguration"));
+                    dictTagToInstrument.Add("Ambient", Resources.Load<InstrumentConfiguration>("AmbientInstrumentConfiguration"));
+                    dictTagToInstrument.Add("Hit", Resources.Load<InstrumentConfiguration>("EnemyHitInstrumentConfiguration"));
                 }
                 return dictTagToInstrument;
             }
-        }
-
-        private InstrumentConfiguration CreateBassConfig() {
-            InstrumentConfiguration bassConfiguration = BassConfiguration.Clone();
-            bassConfiguration.MelodyFactory = PlayerMelody.MelodyFactory;
-            return bassConfiguration;
         }
 
         public InstrumentConfiguration GetInstrumentConfigurationByTag(string tag)
@@ -184,13 +133,7 @@ namespace SpaceCabron.Gameplay
             LevelConfiguration clone = ScriptableObject.CreateInstance<LevelConfiguration>();
             clone.Background = Background.Clone();
             clone.Gameplay = Gameplay.Clone();
-            clone.EnemyMelody = EnemyMelody.Clone();
-            clone.DrumMelody = DrumMelody.Clone();
-            clone.PlayerMelody = PlayerMelody.Clone();
-            clone.AmbientMelody = AmbientMelody.Clone();
-            clone.HitConfiguration = HitConfiguration.Clone();
-            clone.BassConfiguration = BassConfiguration.Clone();
-            // clone.NextLevel = NextLevel;
+            clone.EnemyMelody = EnemyMelody?.Clone();
             return clone;
         }
     }

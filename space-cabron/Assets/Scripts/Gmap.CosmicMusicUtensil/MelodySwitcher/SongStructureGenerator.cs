@@ -19,7 +19,7 @@ namespace Gmap.CosmicMusicUtensil
         }
 
         public void Generate() {
-            int nPatterns = 1;
+            int nPatterns = 2;
             string finalSong = "";
             for (int i = 0; i < nPatterns; i++) {
                 string pattern = possiblePatterns.GetNext().Value;
@@ -33,15 +33,11 @@ namespace Gmap.CosmicMusicUtensil
                     if (patternCharacterToMelodyIndex.ContainsKey(c))
                         continue;
 
-                    int melodyIndex = c - 'A'; // UnityEngine.Random.Range(0, MelodySwitcher.MAX_MELODIES);
-                    // if (melodyIndexes.Contains(melodyIndex))
-                    //     melodyIndex = (melodyIndex + 1) % MelodySwitcher.MAX_MELODIES;
+                    int melodyIndex = c - 'A'; 
 
                     if (!patternCharacterToMelodyIndex.ContainsKey(c)) {
                         patternCharacterToMelodyIndex.Add(c, melodyIndexes[k++]);
                     }
-                    // patternCharacterToMelodyIndex[c] = melodyIndex;
-                    // melodyIndexes.Add(melodyIndex);
                 }
 
                 string hyperMeasureStructure = "";

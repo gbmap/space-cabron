@@ -18,6 +18,7 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
 
     Coroutine shootCoroutine;
 
+
     public bool CanFire
     {
         get { return Time.time > _lastShot + Cooldown; }
@@ -41,6 +42,7 @@ public abstract class ShotPattern : MonoBehaviour, IBrainHolder<InputState>
 
     void Awake()
     {
+        UsePool = false;
         _lastShot = -TimeOffset;
         if (_enemyBulletPool == null && UsePool)
         {

@@ -1,8 +1,13 @@
 using Gmap.ScriptableReferences;
 using UnityEngine;
+using Frictionless;
 
 namespace Gmap.CosmicMusicUtensil
 {
+    public class MsgOnSongStructureChanged {
+
+    }
+
     public class MelodySwitcher : MonoBehaviour, IMelodyPlayer
     {
         public TurntableBehaviour Turntable;
@@ -18,6 +23,8 @@ namespace Gmap.CosmicMusicUtensil
         public StringReferencePool MelodyPatterns;
         SongStructureGenerator songStructureGenerator;
 
+        public AudioClip OnStructureChangedSound;
+
         void Awake() {
             Turntable.OnBar += Callback_OnBar;
 
@@ -29,17 +36,25 @@ namespace Gmap.CosmicMusicUtensil
         {
             int structureIndex= msg.BarIndex % Structure.Length;
             if (structureIndex == 0) {
+                MessageRouter.RaiseMessage(new MsgOnSongStructureChanged());
+                if (OnStructureChangedSound != null) {
+                    AudioSource.PlayClipAtPoint(OnStructureChangedSound, Vector3.zero);
+                }
                 songStructureGenerator.Generate();
             }
+
             int melodyIndex = Structure[structureIndex]-'0'-1;
-            if (melodies[melodyIndex] == null)
+            if (melodies[melodyIndex] == null) {
                 return;
+            }
+
             Turntable.SetMelody(melodies[melodyIndex]);
         }
 
         public void GenerateMelodies(MelodyFactory factory) {
-            for (int i = 0; i < melodies.Length; i++)
+            for (int i = 0; i < melodies.Length; i++) {
                 melodies[i] = factory.GenerateMelody();
+            }
             Turntable.SetMelody(melodies[0]);
         }
 

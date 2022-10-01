@@ -17,9 +17,9 @@ MonoBehaviour:
   Octave: {fileID: 11400000, guid: 2196f2cb2133e9145aa9aa9072f16a22, type: 2}
   TimeSignature: {fileID: 11400000, guid: a5f89cb008c070c4d85078fef24b5032, type: 2}
   ImprovisationPool: {fileID: 11400000, guid: 4647bdbf7b566274c95e6a7540119db2, type: 2}
-  NumberOfBreaks: 3
+  NumberOfBreaks: 1
   NumberOfBars: 1
   NumberOfShuffles:
     GetFrom: {fileID: 11400000, guid: cd0462d57f15e2d46bb948049dfe1e67, type: 2}
     SendTo: {fileID: 0}
-    _value: 6
+    _value: 20

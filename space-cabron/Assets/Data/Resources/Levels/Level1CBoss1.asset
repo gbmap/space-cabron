@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98de4929c4706fb49913b5824e0a2543, type: 3}
   m_Name: Level1CBoss1
   m_EditorClassIdentifier: 
-  NextLevel: {fileID: 11400000, guid: 8fffd2f7157fec446bfecb5570fb9908, type: 2}
+  LevelList: {fileID: 11400000, guid: ea9e9120dc70f3e429ecbf4640a49cd5, type: 2}
   PossibleBosses: {fileID: 11400000, guid: 664d49a81784bfe46ad145228aa60625, type: 2}

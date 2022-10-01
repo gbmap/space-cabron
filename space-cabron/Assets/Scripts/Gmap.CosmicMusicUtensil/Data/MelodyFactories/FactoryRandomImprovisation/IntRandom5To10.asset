@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: IntRandom5To10
   m_EditorClassIdentifier: 
   value: 7
-  Min: 5
-  Max: 10
+  Min: 10
+  Max: 20

@@ -138,10 +138,6 @@ namespace Gmap.CosmicMusicUtensil
                 currentTone = scale.GetNote(root, currentIndex);
             }
 
-            // ENote[] tones = Enumerable.Range(0, timeSignature.x)
-            //                        .Select(i=>GetRandomNote())
-            //                        .ToArray();     
-
             Note[] notes = Enumerable.Range(0, timeSignature.x)
                       .Select(i=>new Note(
                           tones[i],
@@ -206,9 +202,35 @@ namespace Gmap.CosmicMusicUtensil
                       .Select(i=>timeSignature.y)
                       .ToArray();
 
-            ENote[] tones = Enumerable.Range(0, timeSignature.x*numberOfBars)
-                                   .Select(i=>GetRandomNote())
-                                   .ToArray();     
+            // ENote[] tones = Enumerable.Range(0, timeSignature.x*numberOfBars)
+            //                        .Select(i=>GetRandomNote())
+            //                        .ToArray();     
+            // int octave = this.octave.Value;
+
+            ShuffleBag<int> steps = new ShuffleBag<int>();
+            steps.Add(-1, 5);
+            steps.Add(1, 5);
+            steps.Add(-2, 3);
+            steps.Add(2, 3);
+            steps.Add(-3, 2);
+            steps.Add(3, 2);
+            steps.Add(-4, 1);
+            steps.Add(4, 1);
+            steps.Add(-5, 1);
+            steps.Add(5, 1);
+            steps.Add(-6, 1);
+            steps.Add(6, 1);
+            steps.Add(-7, 1);
+            steps.Add(7, 1);
+
+            ENote[] tones = new ENote[timeSignature.x*numberOfBars];
+            ENote currentTone = scale.GetNote(root, 0);
+            int currentIndex = 0;
+            for (int i = 0; i < timeSignature.x; i++) {
+                tones[i] = currentTone;
+                currentIndex += steps.Next();
+                currentTone = scale.GetNote(root, currentIndex);
+            }
 
             Note[] notes = Enumerable.Range(0, timeSignature.x*numberOfBars)
                       .Select(i=>new Note(
