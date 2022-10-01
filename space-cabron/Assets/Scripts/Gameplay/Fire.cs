@@ -107,8 +107,12 @@ namespace SpaceCabron.Gameplay
             if (!_canFire)
                 return;
 
+            if (lastNoteArgs == null) {
+                lastNoteArgs = n;
+            }
+
+            bool special = Mathf.Abs(Time.time - _lastPress) < lastNoteArgs.Duration*0.5f;
             lastNoteArgs = n;
-            bool special = Mathf.Abs(Time.time - _lastPress) < _waitTime;
             if (special)
             {
                 Energy += _energyLoss * 1f/3f;
@@ -148,7 +152,7 @@ namespace SpaceCabron.Gameplay
                 yield break;
 
             float timeWaited = 0f;
-            while (timeWaited < _waitTime)
+            while (timeWaited < Mathf.Min(_waitTime,lastNoteArgs.Duration*0.5f))
             {
                 timeWaited += Time.deltaTime;
                 if (LastInputState.Shoot)

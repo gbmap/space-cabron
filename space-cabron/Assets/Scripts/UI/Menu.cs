@@ -2,6 +2,7 @@ using System;
 using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Gameplay;
+using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Gameplay.Multiplayer;
 using UnityEngine;
 
@@ -9,16 +10,18 @@ namespace Gmap.Gameplay
 {
     public class Menu : MonoBehaviour
     {
-        public LevelConfiguration LevelConfiguration;
+        public BaseLevelConfiguration LevelConfiguration;
         public IntReference Score;
 
         string _customMelody;
 
         void Awake()
         {
+
             if (LevelConfiguration != null)
             {
-                LevelConfiguration = LevelConfiguration.Clone() as LevelConfiguration;
+                LevelList l = Resources.Load<LevelList>("LevelList");
+                LevelConfiguration = l.List[0];
             }
             else
                 throw new System.Exception("Level Configuration can't be null.");
@@ -49,8 +52,8 @@ namespace Gmap.Gameplay
 
                 ScriptableFixedMelodyFactory f = ScriptableObject.CreateInstance<ScriptableFixedMelodyFactory>();
                 f.Notation = _customMelody.ToLower();
-                LevelConfiguration.GetInstrumentConfigurationByTag("Player").MelodyFactory = f;
-                StartGame();
+                // LevelConfiguration.GetInstrumentConfigurationByTag("Player").MelodyFactory = f;
+                // StartGame();
             }
             catch
             {

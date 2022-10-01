@@ -356,4 +356,13 @@ public class LevelTests
 
         Assert.AreEqual(2, GameObject.FindGameObjectsWithTag("Drone").Length);
     }
+
+    [Test]
+    public void NextLevelIsCorrect() {
+        LevelList levels = Resources.Load<LevelList>("LevelList");
+        for (int i = 0; i < levels.List.Count-1; i++) {
+            BaseLevelConfiguration level = levels.List[i];
+            Assert.AreEqual(level.NextLevel, levels.List[i+1]);
+        }
+    }
 }
