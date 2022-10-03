@@ -181,6 +181,8 @@ namespace Gmap
                 GetEnemyPosition(t),
                 Quaternion.identity
             );
+            ColorHealth ch = enemy.GetComponent<ColorHealth>();
+            ch.PopulateLife(HealthGenerator.GetRandom());
             enemies.Add(enemy);
             return enemy;
         }

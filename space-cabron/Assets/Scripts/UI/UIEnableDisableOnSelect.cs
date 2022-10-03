@@ -7,6 +7,10 @@ namespace SpaceCabron.UI
     {
         public Behaviour behaviour;
 
+        void OnDisable() {
+            behaviour.enabled = false;
+        }
+
         public void OnDeselect(BaseEventData eventData)
         {
             behaviour.enabled = false;

@@ -43,9 +43,17 @@ public class ColorHealth : Health
         ColorLife.AddRange(bag.Next(MaxHealth));
 
         colorIndex = MaxHealth-1;
+    }
+
+    void Start() {
         if (materialController != null) {
             materialController.Color = CurrentColor;
         }
+    }
+
+    public void PopulateLife(HealthGenerator generator) {
+        ColorLife.Clear();
+        ColorLife.AddRange(generator.Generate(MaxHealth));
     }
 
     void Update()

@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScaleTowardsDirection: 0
-  Speed: 1.25
+  Speed: 1.5
 --- !u!114 &926212296
 MonoBehaviour:
   m_ObjectHideFlags: 0

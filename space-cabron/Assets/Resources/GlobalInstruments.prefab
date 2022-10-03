@@ -718,19 +718,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7196604244023340051}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8532393575039313929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8726593331079516276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa931519b576e2e41a182173c4cb24b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
 --- !u!114 &8309196349417135869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +734,32 @@ MonoBehaviour:
   ReloadMelody: 1
   OverrideTag: 0
   Tag: 
+--- !u!114 &8532393575039313929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726593331079516276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa931519b576e2e41a182173c4cb24b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MelodyFactory: {fileID: 11400000, guid: 1cac4ea19d9b8e241a0fc26fdef69248, type: 2}
+--- !u!114 &8827130043553845781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726593331079516276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6e2ae857137834d8923d216789af41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImprovisationPool: {fileID: 11400000, guid: 09674130bd2695b40968d6cdcd1a4804, type: 2}
 --- !u!1001 &8287606691187008901
 PrefabInstance:
   m_ObjectHideFlags: 0

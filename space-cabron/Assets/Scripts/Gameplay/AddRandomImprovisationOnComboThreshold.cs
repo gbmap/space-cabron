@@ -32,13 +32,15 @@ public class AddRandomImprovisationOnComboThreshold : MonoBehaviour
             turntable.ApplyImprovisation(ImprovisationPool.GetNext().Get(), false);
         }
 
-        MessageRouter.RaiseMessage(
-            new MsgSpawnDrone
-            {
-                DroneType = MsgSpawnDrone.EDroneType.Melody,
-                Player = MultiplayerManager.GetPlayerWithIndex(msg.PlayerIndex)
-            }
-        );
+        if (GameObject.FindGameObjectsWithTag("Drone").Length < 5) {
+            MessageRouter.RaiseMessage(
+                new MsgSpawnDrone
+                {
+                    DroneType = MsgSpawnDrone.EDroneType.Melody,
+                    Player = MultiplayerManager.GetPlayerWithIndex(msg.PlayerIndex)
+                }
+            );
+        }
     }
 
     private void Callback_OnComboBroken(MsgOnComboBroken obj)
