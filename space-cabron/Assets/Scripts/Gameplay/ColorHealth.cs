@@ -22,7 +22,7 @@ public class ColorHealth : Health
     public List<EColor> ColorLife = new List<EColor>(20);
 
     private EColor PreviousColor => ColorLife[Mathf.Clamp(CurrentHealth, 0, MaxHealth-1)];
-    private EColor CurrentColor => ColorLife[Mathf.Clamp(CurrentHealth-1, 0, MaxHealth-1)];
+    public EColor CurrentColor => ColorLife[Mathf.Clamp(CurrentHealth-1, 0, MaxHealth-1)];
     private int colorIndex;
 
     EnemyMaterialController materialController;

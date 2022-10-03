@@ -20,6 +20,7 @@ namespace SpaceCabron.Scoreboard
 
         private void Callback_LevelFinishedLoading(MsgLevelFinishedLoading obj)
         {
+            Debug.Log("Resetting score...");
             CurrentScore = 0;
         }
 

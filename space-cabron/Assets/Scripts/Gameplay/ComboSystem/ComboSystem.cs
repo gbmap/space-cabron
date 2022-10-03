@@ -96,7 +96,7 @@ namespace SpaceCabron.Gameplay.Combo
             });
         }
 
-        private void Callback_OnComboIncreased(MsgOnComboIncrease obj)
+        private void Callback_OnComboIncreased(MsgOnComboIncrease msg)
         {
             ComboTime.Value = 1f;
         }

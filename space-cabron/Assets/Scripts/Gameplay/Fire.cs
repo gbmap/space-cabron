@@ -72,7 +72,7 @@ namespace SpaceCabron.Gameplay
         }
         float _energyLoss = 0.1f;
 
-        OnNoteArgs lastNoteArgs;
+        public OnNoteArgs LastNoteArgs;
         protected ShotData lastShotData = new ShotData{};
         protected InputState LastInputState = new InputState{};
 
@@ -107,12 +107,12 @@ namespace SpaceCabron.Gameplay
             if (!_canFire)
                 return;
 
-            if (lastNoteArgs == null) {
-                lastNoteArgs = n;
+            if (LastNoteArgs == null) {
+                LastNoteArgs = n;
             }
 
-            bool special = Mathf.Abs(Time.time - _lastPress) < lastNoteArgs.Duration*0.5f;
-            lastNoteArgs = n;
+            bool special = Mathf.Abs(Time.time - _lastPress) < LastNoteArgs.Duration*0.5f;
+            LastNoteArgs = n;
             if (special)
             {
                 Energy += _energyLoss * 1f/3f;
@@ -131,8 +131,8 @@ namespace SpaceCabron.Gameplay
                 return;
 
             LastInputState = Brain.GetInputState(new InputStateArgs{Object=gameObject});
-            if (LastInputState.Shoot && lastNoteArgs != null) {
-                bool wrongTime = Time.time - (LastNote + lastNoteArgs.Duration - _waitTime) < 0f;
+            if (LastInputState.Shoot && LastNoteArgs != null) {
+                bool wrongTime = Time.time - (LastNote + LastNoteArgs.Duration - LastNoteArgs.Duration*0.25f) < 0f;
                 if (waitingForPress == null && wrongTime) {
                     MessageRouter.RaiseMessage(new MsgOnNotePlayedOutOfTime {
                         PlayerIndex = Brain is ScriptableInputBrain 
@@ -146,18 +146,20 @@ namespace SpaceCabron.Gameplay
         }
 
         Coroutine waitingForPress;
+        public bool WaitingForPress { get { return waitingForPress != null;} }
         IEnumerator WaitForPress()
         {
             if (Brain == null)
                 yield break;
 
             float timeWaited = 0f;
-            while (timeWaited < Mathf.Min(_waitTime,lastNoteArgs.Duration*0.5f))
+            while (timeWaited < Mathf.Min(_waitTime,LastNoteArgs.Duration*0.5f))
             {
                 timeWaited += Time.deltaTime;
                 if (LastInputState.Shoot)
                 {
-                    FireGun(lastNoteArgs, true);
+                    FireGun(LastNoteArgs, true);
+                    waitingForPress = null;
                     yield break;
                 }
                 yield return null;
@@ -175,9 +177,7 @@ namespace SpaceCabron.Gameplay
         protected virtual void FireGun(OnNoteArgs args, bool special)
         {
             MessageRouter.RaiseMessage(new Messages.MsgOnNotePlayedInTime {
-                PlayerIndex = Brain is ScriptableInputBrain 
-                            ? ((ScriptableInputBrain)Brain).Index 
-                            : -1
+                PlayerIndex = gameObject.name[gameObject.name.Length-1] - '0'
             });
 
             _isSpecial = special;

@@ -86,7 +86,7 @@ PrefabInstance:
     - target: {fileID: 8070258353430109735, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: MaxHealth
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8742632640915627268, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
@@ -117,6 +117,8 @@ MonoBehaviour:
   Bullet: {fileID: 2415307122904122080, guid: c7e4de8c20be59f40953a9e6327341ea, type: 3}
   UsePool: 0
   Cooldown: 2
+  TimeOffset: 0
   _angle: 180
   randomizeAngle: 1
   angleRange: 60
+  Relative: 0

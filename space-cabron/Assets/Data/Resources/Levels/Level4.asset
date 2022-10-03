@@ -15,10 +15,10 @@ MonoBehaviour:
   LevelList: {fileID: 11400000, guid: ea9e9120dc70f3e429ecbf4640a49cd5, type: 2}
   Gameplay:
     Difficulty: 1
-    ScoreThreshold: 1500
-    EnemyBPMIncreaseValue: 1
-    EnemyBPMScoreModulusToIncrease: 25
-    MaxEnemiesAlive: 8
+    ScoreThreshold: 5000
+    EnemyBPMIncreaseValue: 5
+    EnemyBPMScoreModulusToIncrease: 200
+    MaxEnemiesAlive: 4
     EnemyPool: {fileID: 11400000, guid: fde488160fe36674db9407d7afbd0185, type: 2}
     BossPool: {fileID: 0}
   EnemyMelody: {fileID: 0}

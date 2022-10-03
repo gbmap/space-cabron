@@ -77,6 +77,7 @@ namespace Gmap
         private void UnsubscribeFromScoreChanged()
         {
             MessageRouter.RemoveHandler<MsgOnScoreChanged>(Callback_OnScoreChanged);
+            MessageRouter.RemoveHandler<MsgOnObjectDestroyed>(Callback_OnEnemyDestroyed);
         }
 
         private void Callback_OnScoreChanged(MsgOnScoreChanged obj)
@@ -139,6 +140,9 @@ namespace Gmap
             ScoreThreshold = configuration.Gameplay.ScoreThreshold;
             EnemyPool = configuration.Gameplay.EnemyPool;
             MaxEnemiesAlive = configuration.Gameplay.MaxEnemiesAlive;
+
+            ITurntable t = GetComponentInChildren<ITurntable>();
+            t.BPM = 60;
         }
 
         public void SpawnNext()

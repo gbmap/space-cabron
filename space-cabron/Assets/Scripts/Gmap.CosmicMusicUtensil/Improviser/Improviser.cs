@@ -83,5 +83,9 @@ namespace Gmap.CosmicMusicUtensil
             });
             improvisations.Remove(improvisation);
         }
+
+        public void Clear() {
+            improvisations.Clear();
+        }
     }
 }

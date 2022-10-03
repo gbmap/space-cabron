@@ -3,6 +3,7 @@ using Frictionless;
 using System;
 using System.Collections.Generic;
 using Rewired;
+using System.Linq;
 
 namespace SpaceCabron.Gameplay.Multiplayer
 {
@@ -72,6 +73,11 @@ namespace SpaceCabron.Gameplay.Multiplayer
 
         private void OnPlayerJoined(MsgOnPlayerJoined obj)
         {
+        }
+
+        public static GameObject GetPlayerWithIndex(int index) {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag("Player");
+            return objects.FirstOrDefault(o=>o.name.Last()-'0' == index);
         }
     }
 }

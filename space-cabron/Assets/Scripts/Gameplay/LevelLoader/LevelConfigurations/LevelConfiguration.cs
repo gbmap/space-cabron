@@ -106,6 +106,7 @@ namespace SpaceCabron.Gameplay
                     dictTagToInstrument.Add("Metronome", Resources.Load<InstrumentConfiguration>("MetronomeInstrumentConfiguration"));
                     dictTagToInstrument.Add("Ambient", Resources.Load<InstrumentConfiguration>("AmbientInstrumentConfiguration"));
                     dictTagToInstrument.Add("Hit", Resources.Load<InstrumentConfiguration>("EnemyHitInstrumentConfiguration"));
+                    dictTagToInstrument.Add("EnemySpawner", Resources.Load<InstrumentConfiguration>("EnemySpawnerInstrumentConfiguration"));
                 }
                 return dictTagToInstrument;
             }

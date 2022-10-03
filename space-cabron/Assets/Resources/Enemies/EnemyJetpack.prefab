@@ -111,7 +111,7 @@ PrefabInstance:
     - target: {fileID: 8070258353430109735, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
       propertyPath: MaxHealth
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8742632640915627268, guid: a158df808659c1c40a605ae3ab61debf,
         type: 3}
@@ -148,6 +148,7 @@ MonoBehaviour:
   AngleRange: 20
   AngleOffset: 0
   RandomizeAngleOffset: 0
+  FollowPlayer: 0
 --- !u!114 &6903134273972073228
 MonoBehaviour:
   m_ObjectHideFlags: 0
