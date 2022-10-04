@@ -56,7 +56,12 @@ namespace SpaceCabron.Gameplay
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
-        float _waitTime = 0.25f;
+        float _waitTime = 0.125f;
+        float WaitTime {
+            get {
+                return _waitTime;
+            }
+        }
 
         float _energy;
         float Energy
@@ -111,7 +116,7 @@ namespace SpaceCabron.Gameplay
                 LastNoteArgs = n;
             }
 
-            bool special = Mathf.Abs(Time.time - _lastPress) < LastNoteArgs.Duration*0.5f;
+            bool special = Mathf.Abs(Time.time - _lastPress) < WaitTime;
             LastNoteArgs = n;
             if (special)
             {
@@ -132,7 +137,7 @@ namespace SpaceCabron.Gameplay
 
             LastInputState = Brain.GetInputState(new InputStateArgs{Object=gameObject});
             if (LastInputState.Shoot && LastNoteArgs != null) {
-                bool wrongTime = Time.time - (LastNote + LastNoteArgs.Duration - LastNoteArgs.Duration*0.25f) < 0f;
+                bool wrongTime = Time.time - (LastNote + LastNoteArgs.Duration - WaitTime) < 0f;
                 if (waitingForPress == null && wrongTime) {
                     MessageRouter.RaiseMessage(new MsgOnNotePlayedOutOfTime {
                         PlayerIndex = Brain is ScriptableInputBrain 
@@ -153,7 +158,7 @@ namespace SpaceCabron.Gameplay
                 yield break;
 
             float timeWaited = 0f;
-            while (timeWaited < Mathf.Min(_waitTime,LastNoteArgs.Duration*0.5f))
+            while (timeWaited < WaitTime)
             {
                 timeWaited += Time.deltaTime;
                 if (LastInputState.Shoot)

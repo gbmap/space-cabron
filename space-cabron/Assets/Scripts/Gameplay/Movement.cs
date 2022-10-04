@@ -53,10 +53,13 @@ namespace SpaceCabron.Gameplay
 
             if (Camera.main != null && Brain is ScriptableInputBrain) {
                 Vector3 viewport = Camera.main.WorldToViewportPoint(transform.position + velocity);
-                if (viewport.x < 0f || viewport.x > 1f)
+                if ((viewport.x < 0f && velocity.x < 0f) || (viewport.x > 1f && velocity.x > 0f)) {
                     velocity.x = 0f;
-                else if (viewport.y < 0f || viewport.y > 1f)
+                }
+                else if ( (viewport.y < 0f && velocity.y < 0f)  
+                        || (viewport.y > 1f && velocity.y > 0f ) ) {
                     velocity.y = 0f;
+                }
             }
 
             transform.position += velocity;

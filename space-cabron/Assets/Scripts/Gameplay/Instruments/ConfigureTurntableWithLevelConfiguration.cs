@@ -12,6 +12,7 @@ namespace SpaceCabron.Gameplay
         public bool IgnoreConfigurationBPM = false;
         public bool ReloadMelody = true;
         private bool wasConfigured = false;
+        public bool ResetImproviser = true;
 
         public bool OverrideTag;
         public string Tag;
@@ -48,6 +49,10 @@ namespace SpaceCabron.Gameplay
 
                 instrumentConfig.ConfigureTurntable(turntable, false);
                 IMelodyPlayer.Generate(gameObject, factory);
+            }
+
+            if (ResetImproviser) {
+                turntable.Improviser.Clear();
             }
         }
 

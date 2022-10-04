@@ -1,8 +1,5 @@
-using System;
-using Gmap.CosmicMusicUtensil;
 using Gmap.ScriptableReferences;
 using SpaceCabron.Gameplay;
-using SpaceCabron.Gameplay.Level;
 using SpaceCabron.Gameplay.Multiplayer;
 using UnityEngine;
 
@@ -10,61 +7,45 @@ namespace Gmap.Gameplay
 {
     public class Menu : MonoBehaviour
     {
-        public BaseLevelConfiguration LevelConfiguration;
+        public enum EGameMode
+        {
+            Arcade,
+            BossRun
+        }
+
+        public LevelList ArcadeModeLevelList;
+        public LevelList BossRunLevelList;
         public IntReference Score;
+        public EGameMode GameMode = EGameMode.Arcade;
 
         string _customMelody;
-
-        void Awake()
-        {
-
-            if (LevelConfiguration != null)
-            {
-                LevelList l = Resources.Load<LevelList>("LevelList");
-                LevelConfiguration = l.List[0];
-            }
-            else
-                throw new System.Exception("Level Configuration can't be null.");
-        }
 
         public void SetNumberOfPlayers(int n)
         {
             MultiplayerManager.PlayerCount = n;
         }
 
-        public void SelectRandomMelody()
+        public void SetGameMode(int mode)
         {
-            StartGame();
+            GameMode = (EGameMode)mode;
         }
 
-        public void OnCustomMelodyTextBarChanged(string text)
-        {
-            _customMelody = text;
-        }
-
-        public void OnCustomMelodyConfirmed()
-        {
-            try
-            {
-                Melody m = new Melody(_customMelody.ToLower());
-                if (m.IsEmpty)
-                    throw new System.Exception("Melody is empty.");
-
-                ScriptableFixedMelodyFactory f = ScriptableObject.CreateInstance<ScriptableFixedMelodyFactory>();
-                f.Notation = _customMelody.ToLower();
-                // LevelConfiguration.GetInstrumentConfigurationByTag("Player").MelodyFactory = f;
-                // StartGame();
-            }
-            catch
-            {
-                // ... 
-            }
-        }
-
-        private void StartGame()
+        public void StartGame()
         {
             Score.Value = 0;
-            LevelLoader.Load(LevelConfiguration);
+            LevelLoader.Load(GetLevelList(GameMode).List[0]);
         }
+
+        private LevelList GetLevelList(EGameMode mode) {
+            switch (mode) {
+                case EGameMode.Arcade:
+                    return ArcadeModeLevelList;
+                case EGameMode.BossRun:
+                    return BossRunLevelList;
+                default:
+                    return ArcadeModeLevelList;
+            }
+        }
+        
     }
 }
