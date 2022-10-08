@@ -181,8 +181,17 @@ namespace Gmap
                 GetEnemyPosition(t),
                 Quaternion.identity
             );
-            ColorHealth ch = enemy.GetComponent<ColorHealth>();
-            ch.PopulateLife(HealthGenerator.GetRandom());
+
+            // ColorHealth ch = enemy.GetComponent<ColorHealth>();
+            // ch.PopulateLife(HealthGenerator.GetRandom(), 0);
+
+            // int maxHealth = ch.MaxHealth;
+            // while (maxHealth > 0) {
+            //     int batch = Mathf.Min(maxHealth, 10);
+            //     ch.AddLife(HealthGenerator.GetRandom(), batch);
+            //     maxHealth = Mathf.Max(0, maxHealth - batch);
+            // }
+
             enemies.Add(enemy);
             return enemy;
         }

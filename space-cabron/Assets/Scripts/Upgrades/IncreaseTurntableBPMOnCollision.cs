@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gmap.CosmicMusicUtensil;
+using SpaceCabron.Gameplay;
 
 namespace Gmap
 {
@@ -11,7 +12,7 @@ namespace Gmap
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            var turntable = other.GetComponentInChildren<TurntableBehaviour>();
+            var turntable = TurntableResolver.Create("GlobalInstruments", "PlayerInstrument").Get();
             if (turntable != null)
                 turntable.SetBPM(turntable.BPMReference.Value + BPMIncrease);
         }

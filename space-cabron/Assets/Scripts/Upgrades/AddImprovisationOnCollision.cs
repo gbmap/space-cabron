@@ -27,7 +27,7 @@ namespace SpaceCabron.Upgrades
 
         protected override void HandleCollision(TurntableBehaviour t)
         {
-            // t.ApplyImprovisation(this.improvisation.Get(), 20);
+            t.ApplyImprovisation(this.improvisation.Get(), 5);
         }
 
         private ScriptableImprovisation GetRandomImprovisation()

@@ -17,7 +17,7 @@ namespace SpaceCabron.Gameplay.Combo
                 return;
             }
 
-            ComboTime.Value -= Time.deltaTime/3;
+            ComboTime.Value -= Time.deltaTime/5;
             if (ComboTime.Value <= 0f) {
                 MessageRouter.RaiseMessage(new Messages.MsgOnComboBroken{
                     PlayerIndex = PlayerIndex,

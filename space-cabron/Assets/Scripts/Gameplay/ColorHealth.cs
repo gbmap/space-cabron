@@ -36,13 +36,22 @@ public class ColorHealth : Health
         base.Awake();
         materialController = GetComponentInChildren<EnemyMaterialController>();
 
-        ShuffleBag<EColor> bag = new ShuffleBag<EColor>();
-        foreach (var healthItem in LifeConfiguration)
-            bag.Add(healthItem.Color, healthItem.Weight);
+        // ShuffleBag<EColor> bag = new ShuffleBag<EColor>();
+        // foreach (var healthItem in LifeConfiguration)
+        //     bag.Add(healthItem.Color, healthItem.Weight);
 
-        ColorLife.AddRange(bag.Next(MaxHealth));
+        // ColorLife.AddRange(bag.Next(MaxHealth));
+        PopulateLife(HealthGenerator.GetRandom(), 0);
+
+        int maxHealth = MaxHealth;
+        while (maxHealth > 0) {
+            int batch = Mathf.Min(maxHealth, 10);
+            AddLife(HealthGenerator.GetRandom(), batch);
+            maxHealth = Mathf.Max(0, maxHealth - batch);
+        }
 
         colorIndex = MaxHealth-1;
+        materialController.Color = CurrentColor;
     }
 
     void Start() {
@@ -51,9 +60,17 @@ public class ColorHealth : Health
         }
     }
 
-    public void PopulateLife(HealthGenerator generator) {
+    public void AddLife(HealthGenerator generator, int health) {
+        ColorLife.AddRange(generator.Generate(health));
+    }
+
+    public void PopulateLife(HealthGenerator generator, int health) {
         ColorLife.Clear();
-        ColorLife.AddRange(generator.Generate(MaxHealth));
+        AddLife(generator, health);
+    }
+
+    public void PopulateLife(HealthGenerator generator) {
+        PopulateLife(generator, MaxHealth);
     }
 
     void Update()

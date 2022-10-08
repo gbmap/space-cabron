@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScaleTowardsDirection: 0
-  Speed: 1
+  Speed: 0.5
 --- !u!114 &7619322460319620524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,4 +176,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InjectOnStart: 1
-  Brain: {fileID: 11400000, guid: ae1836d90d9a0d64494eed5333e318f1, type: 2}
+  Brain: {fileID: 11400000, guid: ac04a26d9b8ffe2408071fa2fab9f029, type: 2}

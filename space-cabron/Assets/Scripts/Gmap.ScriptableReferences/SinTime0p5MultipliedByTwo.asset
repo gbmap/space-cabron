@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3eb6702b0e5db1448b57bbbccb39ca8, type: 3}
+  m_Name: SinTime0p5MultipliedByTwo
+  m_EditorClassIdentifier: 
+  value: 0
+  A:
+    GetFrom: {fileID: 11400000, guid: 21cb11e47ceb7cb4fa1118680031c153, type: 2}
+    SendTo: {fileID: 0}
+    _value: -0.92455566
+  B:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 2

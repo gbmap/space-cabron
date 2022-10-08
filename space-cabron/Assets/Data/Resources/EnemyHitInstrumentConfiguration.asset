@@ -24,5 +24,5 @@ MonoBehaviour:
       type: 2}
     FixedStartingimprovisations: {fileID: 11400000, guid: 7f422710eee24f74b8ca675a95bd57c0,
       type: 2}
-  PossibleStartingInstruments: {fileID: 11400000, guid: 84e83030e64613e4a9d3eccce49107f6,
+  PossibleStartingInstruments: {fileID: 11400000, guid: ac96a814f41e6b84287c0effd3d665da,
     type: 2}

@@ -84,13 +84,22 @@ public class HealthBar : MonoBehaviour
         if (barRenderer == null)
             return;
 
+        const int MAX_HEALTH_SQUARES = 10;
+
+        int numberOfHealthSquares = colorHealth.CurrentHealth % MAX_HEALTH_SQUARES == 0 
+                            ? MAX_HEALTH_SQUARES
+                            : colorHealth.CurrentHealth%MAX_HEALTH_SQUARES;
+
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-        mpb.SetInt("_NumberOfColors", Mathf.Min(10, colorHealth.MaxHealth));
+        mpb.SetInt("_NumberOfColors", Mathf.Min(MAX_HEALTH_SQUARES, colorHealth.MaxHealth));
         mpb.SetInt("_Axis", Side >= ESide.Top ? 1 : 0);
-        if (colorHealth.CurrentHealth % 10 == 0 || lastColorValues == null)
+
+
+
+        if (colorHealth.CurrentHealth % MAX_HEALTH_SQUARES == 0 || lastColorValues == null)
         {
             lastColorValues = colorHealth.ColorLife.Take(colorHealth.CurrentHealth)
-                                     .TakeLast(Mathf.Min(10, colorHealth.CurrentHealth))
+                                     .TakeLast(Mathf.Min(10, numberOfHealthSquares))
                                      .Select(c=>(float)c)
                                      .ToArray();
         }
@@ -98,10 +107,7 @@ public class HealthBar : MonoBehaviour
         if (lastColorValues.Length > 0)
             mpb.SetFloatArray("_ColorIndexes", lastColorValues );
 
-        int currentHealth = colorHealth.CurrentHealth % 10 == 0 
-                            ? 10 
-                            : colorHealth.CurrentHealth%10;
-        mpb.SetInt("_CurrentHealth", currentHealth);
+        mpb.SetInt("_CurrentHealth", numberOfHealthSquares);
         barRenderer.SetPropertyBlock(mpb);
     }
 }

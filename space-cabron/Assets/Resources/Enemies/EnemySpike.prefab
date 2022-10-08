@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScaleTowardsDirection: 0
-  Speed: 1
+  Speed: 0.01
 --- !u!114 &5901808839862281625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InjectOnStart: 1
-  Brain: {fileID: 11400000, guid: ae1836d90d9a0d64494eed5333e318f1, type: 2}
+  Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
 --- !u!4 &1574087632006390852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3349841983690886126, guid: a158df808659c1c40a605ae3ab61debf,

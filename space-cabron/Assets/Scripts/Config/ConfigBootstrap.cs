@@ -14,7 +14,7 @@ namespace SpaceCabron.Gameplay
                 gc.Volume = 0.5f;
                 System.IO.File.WriteAllText(Application.persistentDataPath + "/dummy", "");
             }
-            GameConfig.ApplyConfig(gc);
+            // GameConfig.ApplyConfig(gc);
         }
     }
 }

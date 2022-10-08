@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Frictionless;
 using Gmap.CosmicMusicUtensil;
 using Gmap.Gameplay;
@@ -26,7 +27,6 @@ namespace SpaceCabron.Gameplay
             Transform transform = obj.transform.Find(ChildObjectName);
             if (transform == null) {
                 return null;
-                // throw new System.Exception("Couldn't find child object " + ChildObjectName + " on object with tag " + Tag);
             }
 
             TurntableBehaviour tb = transform.GetComponentInChildren<TurntableBehaviour>();
@@ -43,6 +43,11 @@ namespace SpaceCabron.Gameplay
 
     public class Fire : MonoBehaviour, IBrainHolder<InputState>
     {
+        private class NoteQueueItem
+        {
+            public OnNoteArgs NoteArgs;
+            public float Time;
+        }
        
         public bool UseTurntableResolver = false;
         public TurntableResolver Resolver;
@@ -56,26 +61,12 @@ namespace SpaceCabron.Gameplay
         bool _shouldFire;
         bool _canFire = true;
         bool _isSpecial = false;
-        float _waitTime = 0.125f;
+        float _waitTime = 0.175f;
         float WaitTime {
             get {
                 return _waitTime;
             }
         }
-
-        float _energy;
-        float Energy
-        {
-            get { return _energy = 1f; }
-            set 
-            { 
-                float v = Mathf.Clamp01(value);
-                if (EnergyValue != null)
-                    EnergyValue.Value = v;
-                _energy = v;
-            }
-        }
-        float _energyLoss = 0.1f;
 
         public OnNoteArgs LastNoteArgs;
         protected ShotData lastShotData = new ShotData{};
@@ -85,6 +76,8 @@ namespace SpaceCabron.Gameplay
         GunBehaviour gun;
 
         public UnityEvent<OnNoteArgs> OnFire;
+
+        Queue<NoteQueueItem> _noteQueue = new Queue<NoteQueueItem>();
 
         protected virtual void Awake()
         {
@@ -119,14 +112,14 @@ namespace SpaceCabron.Gameplay
             bool special = Mathf.Abs(Time.time - _lastPress) < WaitTime;
             LastNoteArgs = n;
             if (special)
-            {
-                Energy += _energyLoss * 1f/3f;
                 FireGun(n, true);
+            else {
+                _noteQueue.Enqueue(new NoteQueueItem {
+                    NoteArgs = n,
+                    Time = Time.time
+                });
             }
-            else 
-            {
-                waitingForPress = StartCoroutine(WaitForPress());
-            }
+            // waitingForPress = StartCoroutine(WaitForPress());
             LastNote = Time.time;
         }
 
@@ -136,40 +129,35 @@ namespace SpaceCabron.Gameplay
                 return;
 
             LastInputState = Brain.GetInputState(new InputStateArgs{Object=gameObject});
-            if (LastInputState.Shoot && LastNoteArgs != null) {
-                bool wrongTime = Time.time - (LastNote + LastNoteArgs.Duration - WaitTime) < 0f;
-                if (waitingForPress == null && wrongTime) {
+            if (LastInputState.Shoot) {
+                _lastPress = Time.time;
+                if (LastNoteArgs != null) {
+                if (_noteQueue.Count == 0 && (Time.time < (LastNote + LastNoteArgs.Duration - WaitTime))) {
                     MessageRouter.RaiseMessage(new MsgOnNotePlayedOutOfTime {
-                        PlayerIndex = Brain is ScriptableInputBrain 
-                                    ? ((ScriptableInputBrain)Brain).Index 
-                                    : -1
+                        PlayerIndex = GetPlayerIndex() 
                     });
                 }
-                _lastPress = Time.time;
+                }
             }
-            Energy = Mathf.Clamp01(Energy + Time.deltaTime*0.1f);
+
+            UpdateNoteQueue();
         }
 
-        Coroutine waitingForPress;
-        public bool WaitingForPress { get { return waitingForPress != null;} }
-        IEnumerator WaitForPress()
-        {
-            if (Brain == null)
-                yield break;
-
-            float timeWaited = 0f;
-            while (timeWaited < WaitTime)
-            {
-                timeWaited += Time.deltaTime;
-                if (LastInputState.Shoot)
-                {
-                    FireGun(LastNoteArgs, true);
-                    waitingForPress = null;
-                    yield break;
-                }
-                yield return null;
+        public bool WaitingForPress { get { return _noteQueue.Count > 0;} }
+        
+        void UpdateNoteQueue() {
+            if (_noteQueue.Count == 0) {
+                return;
             }
-            waitingForPress = null;
+
+            var note = _noteQueue.Peek();
+            if (Time.time > note.Time + WaitTime) {
+                _noteQueue.Dequeue();
+            }
+            else if (LastInputState.Shoot) {
+                FireGun(note.NoteArgs, true);
+                _noteQueue.Dequeue();
+            }
         }
 
         IEnumerator DisableGun(float time)
@@ -179,10 +167,17 @@ namespace SpaceCabron.Gameplay
             _canFire = true;
         }
 
+        private int GetPlayerIndex() {
+            if (Brain is ScriptableInputBrain) {
+                return ((ScriptableInputBrain)Brain).Index;
+            }
+            return -1;
+        }
+
         protected virtual void FireGun(OnNoteArgs args, bool special)
         {
             MessageRouter.RaiseMessage(new Messages.MsgOnNotePlayedInTime {
-                PlayerIndex = gameObject.name[gameObject.name.Length-1] - '0'
+                PlayerIndex = GetPlayerIndex()
             });
 
             _isSpecial = special;
@@ -201,9 +196,6 @@ namespace SpaceCabron.Gameplay
                 }
             }
 
-            if (waitingForPress != null)
-                StopCoroutine(waitingForPress);
-            waitingForPress = null;
             _lastPress = -float.NegativeInfinity;
 
             OnFire?.Invoke(args);

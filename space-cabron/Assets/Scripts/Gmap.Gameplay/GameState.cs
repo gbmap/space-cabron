@@ -9,11 +9,12 @@ namespace Gmap.Gameplay
         public static GameState Current { get; private set; }
         public void ChangeTo()
         {
-            Current = this;
             MessageRouter.RaiseMessage(new MsgOnStateChanged
             {
+                PreviousState = Current,
                 NewState = this
             });
+            Current = this;
         }
     }
 

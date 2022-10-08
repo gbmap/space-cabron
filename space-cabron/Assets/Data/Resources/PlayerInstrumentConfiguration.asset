@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6acf41419dcce499aa217dfd92ecf1, type: 3}
   m_Name: PlayerInstrumentConfiguration
   m_EditorClassIdentifier: 
-  BPM: 80
+  BPM: 120
   MaxBPM: 120
   MelodyFactory: {fileID: 11400000, guid: 4d4588d053973c249ac48397b057b68f, type: 2}
   ImprovisationConfiguration:
     NumberOfStartingImprovisations:
       GetFrom: {fileID: 0}
       SendTo: {fileID: 0}
-      _value: 0
-    PossibleStartingImprovisations: {fileID: 0}
-    FixedStartingimprovisations: {fileID: 0}
+      _value: 2
+    PossibleStartingImprovisations: {fileID: 11400000, guid: eaff1617cdf034441be69743c23af138,
+      type: 2}
+    FixedStartingimprovisations: {fileID: 11400000, guid: 7f422710eee24f74b8ca675a95bd57c0,
+      type: 2}
   PossibleStartingInstruments: {fileID: 11400000, guid: a7b1ece47a98f7f4d9212337fd13c071,
     type: 2}

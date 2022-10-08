@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
   m_Name: Level9
   m_EditorClassIdentifier: 
-  LevelList: {fileID: 0}
+  LevelList: {fileID: 11400000, guid: ea9e9120dc70f3e429ecbf4640a49cd5, type: 2}
   Gameplay:
     Difficulty: 1
     ScoreThreshold: 5000
@@ -23,4 +23,4 @@ MonoBehaviour:
     BossPool: {fileID: 0}
   EnemyMelody: {fileID: 0}
   Background:
-    Material: {fileID: 2100000, guid: f020e8b04097b9c4eb5534476bea6bf1, type: 2}
+    Material: {fileID: 2100000, guid: bc24348fc2be1d34e9055e2e1b98a6ae, type: 2}

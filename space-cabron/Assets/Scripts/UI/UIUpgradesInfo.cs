@@ -35,11 +35,14 @@ namespace SpaceCabron.UI
 
         private void Callback_OnImprovisationAdded(MsgOnImprovisationAdded msg)
         {
-            if (msg.Object.transform.parent == null)
+            if (msg.Object.name != "PlayerInstrument")
                 return;
 
-            if (!msg.Object.transform.parent.CompareTag("Player"))
-                return;
+            // if (msg.Object.transform.parent == null)
+            //     return;
+
+            // if (!msg.Object.transform.parent.CompareTag("Player"))
+            //     return;
 
             if (!UIUpgradeInfoItem.HasIcon(msg.Improvisation))
                 return;
@@ -54,18 +57,18 @@ namespace SpaceCabron.UI
 
         private void Callback_OnObjectDestroyed(MsgOnObjectDestroyed msg)
         {
-            if (!msg.health.CompareTag("Player"))
-                return;
+            // if (!msg.health.CompareTag("Player"))
+            //     return;
 
-            for (int i = items.Count-1; i >= 0; i--)
-            {
-                UIUpgradeItem item = items[i];
-                // if (item.Temporary)
-                {
-                    Destroy(item.Item.gameObject);
-                    items.Remove(item);
-                }
-            }
+            // for (int i = items.Count-1; i >= 0; i--)
+            // {
+            //     UIUpgradeItem item = items[i];
+            //     // if (item.Temporary)
+            //     {
+            //         Destroy(item.Item.gameObject);
+            //         items.Remove(item);
+            //     }
+            // }
         }
 
         private void AddItem(

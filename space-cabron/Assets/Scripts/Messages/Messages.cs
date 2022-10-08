@@ -5,6 +5,8 @@ namespace SpaceCabron.Messages
     public class MsgLevelStartedLoading {}
     public class MsgLevelFinishedLoading {}
 
+    public class MsgOnRetry {}
+
     public class MsgOnScoreChanged
     {
         public int TotalScore;

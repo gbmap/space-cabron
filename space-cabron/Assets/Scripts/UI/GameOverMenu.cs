@@ -1,4 +1,6 @@
+using Frictionless;
 using Gmap.Gameplay;
+using SpaceCabron.Messages;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +10,7 @@ namespace SpaceCabron.Gameplay
     {
         public void Retry()
         {
+            MessageRouter.RaiseMessage(new MsgOnRetry{});
             if (LevelLoader.CurrentLevelConfiguration != null)
             {
                 LevelLoader.Reload();
