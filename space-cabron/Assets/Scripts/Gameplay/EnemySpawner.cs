@@ -167,7 +167,7 @@ namespace Gmap
             int tries = 0;
             do
             {
-                t = Random.Range(0.35f, 0.65f);
+                t = Random.Range(0.25f, 0.75f);
                 Vector3 p = GetEnemyPosition(t);
                 c = Physics2D.OverlapCircle(p, 0.5f);
             } while (c != null && c.gameObject.CompareTag("Enemy") && tries++ < 10);
@@ -203,7 +203,7 @@ namespace Gmap
 
         private Vector3 GetEnemyPosition(float t)
         {
-            Vector3 p = new Vector3(Mathf.Clamp01(t), 0.9f, 0f);
+            Vector3 p = new Vector3(Mathf.Clamp01(t), Random.Range(0.8f, 0.9f), 0f);
             Vector3 pos = Camera.main.ViewportToWorldPoint(p);
             pos.z = 0f;
             return pos;

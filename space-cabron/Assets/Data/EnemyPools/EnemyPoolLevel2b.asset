@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc7ad5d935a1c4409f2b3f85cf20301, type: 3}
+  m_Name: EnemyPoolLevel2b
+  m_EditorClassIdentifier: 
+  RandomType: 1
+  Items:
+  - Value: {fileID: 6382239780679247123, guid: 5877e8ba45b5f0f459298a5b409ea407, type: 3}
+    Weight: 2
+  - Value: {fileID: 2229898196655776943, guid: 02c73e24a87d0f749be8ff8fbee2837f, type: 3}
+    Weight: 2
+  - Value: {fileID: 4062677880192632986, guid: 4c967ca9059f0c84eb897447ba9c33ad, type: 3}
+    Weight: 2

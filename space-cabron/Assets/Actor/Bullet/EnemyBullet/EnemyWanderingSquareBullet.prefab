@@ -90,3 +90,16 @@ MonoBehaviour:
   BothSigns: 1
   Angle: 90
   Interval: 1
+--- !u!114 &1766715824115516359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325654205945502339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d011eca7e86afe43b2d64f0110346f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Time: 8

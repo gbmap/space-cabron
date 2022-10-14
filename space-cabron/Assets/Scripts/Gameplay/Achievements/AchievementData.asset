@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3373bac08949a409406f69433eece5, type: 3}
+  m_Name: AchievementData
+  m_EditorClassIdentifier: 
+  Achievements:
+  - level: {fileID: 11400000, guid: 5c7aa6789139f2349bc24772b40bbb1c, type: 2}
+    achievementId: ACHIEVEMENT_LEVEL_1
+  - level: {fileID: 11400000, guid: ef7a6d0ad3510904795e358b4860d5c5, type: 2}
+    achievementId: ACHIEVEMENT_LEVEL_2
+  - level: {fileID: 11400000, guid: 3c8e37c7ccc04724fbc32ec1b28f7229, type: 2}
+    achievementId: ACHIEVEMENT_LEVEL_3
+  - level: {fileID: 11400000, guid: f9b188f255fc0be4cbfe7bbba77e59b4, type: 2}
+    achievementId: ACHIEVEMENT_LEVEL_4
+  - level: {fileID: 11400000, guid: c4b8c81439dbf2344a4675e85635ebc8, type: 2}
+    achievementId: ACHIEVEMENT_LEVEL_5
+  - level: {fileID: 11400000, guid: a1243e661985dc94389d16c1aa5e7759, type: 2}
+    achievementId: ACHIEVEMENT_LEVEL_6

@@ -28,7 +28,8 @@ namespace SpaceCabron.Gameplay.Bosses
                 Parent = transform.parent.GetComponentInParent<BossBehaviour>();
             healths = GetComponentsInChildren<ColorHealth>();
             mainHealth = GetComponent<ColorHealth>();
-            mainHealth.OnDestroy += Callback_OnDestroyed;
+            if (mainHealth)
+                mainHealth.OnDestroy += Callback_OnDestroyed;
             if (RunOnAwake)
                 StartLogic();
         }

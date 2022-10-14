@@ -101,29 +101,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 582441218802652270}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6028368411593322907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4062677880192632986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcdc8493be18f934b91f9d5b631dae95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet: {fileID: 9214565770137836120, guid: 01d9b65ac15ac8b4d8333c223a99a946, type: 3}
-  UsePool: 1
-  Cooldown: 2
-  TimeOffset: 0
-  AngleIncrement: 30
-  TimeBetweenBullets: 0.05
-  Relative: 1
-  AngleOffset:
-    GetFrom: {fileID: 0}
-    SendTo: {fileID: 0}
-    _value: 0
 --- !u!114 &2399652468986825184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +129,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InjectOnStart: 1
   Brain: {fileID: 11400000, guid: 62d3b12abdb02a34fa15f753ba544cc0, type: 2}
+--- !u!114 &6028368411593322907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4062677880192632986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcdc8493be18f934b91f9d5b631dae95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullet: {fileID: 9214565770137836120, guid: 01d9b65ac15ac8b4d8333c223a99a946, type: 3}
+  UsePool: 1
+  Cooldown: 2
+  TimeOffset: 0
+  AngleIncrement: 45
+  TimeBetweenBullets: 0.05
+  Relative: 1
+  AngleOffset:
+    GetFrom: {fileID: 0}
+    SendTo: {fileID: 0}
+    _value: 0

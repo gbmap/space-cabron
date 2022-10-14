@@ -27,7 +27,9 @@ namespace SpaceCabron.Messages
         }
     }
 
-    public class MsgLevelWon {}
+    public class MsgLevelWon {
+    }
+
     public class MsgPauseGame 
     {
         public bool Value;

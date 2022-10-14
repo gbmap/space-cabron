@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InjectOnStart: 1
-  Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
+  Brain: {fileID: 11400000, guid: ac04a26d9b8ffe2408071fa2fab9f029, type: 2}
 --- !u!114 &3117596535925832478
 MonoBehaviour:
   m_ObjectHideFlags: 0

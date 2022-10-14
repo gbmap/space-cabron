@@ -102,6 +102,34 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3349597190828647387}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-5930564742854215484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2164155370929651503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947dab274c9bd5d4c8ea7ac429330ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScaleTowardsDirection: 0
+  Speed: 0.2
+--- !u!114 &-3070941310574192123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2164155370929651503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9f8715e3c1e742aca36b760f9cc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InjectOnStart: 1
+  Brain: {fileID: 11400000, guid: 829fe6685eaa09e41b022ccbe8ab64c5, type: 2}
 --- !u!114 &774792228888595080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +150,16 @@ MonoBehaviour:
   randomizeAngle: 1
   angleRange: 60
   Relative: 0
+--- !u!114 &882147177318494285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2164155370929651503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c168904999ab79e46adef3929d743fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AngularSpeed: 10

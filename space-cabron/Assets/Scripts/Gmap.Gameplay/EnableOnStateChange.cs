@@ -9,6 +9,7 @@ namespace Gmap.Gameplay
     {
         public GameState State;
         public GameObject TargetObject;
+        public AudioClip SoundEffect;
 
         void Awake()
         {
@@ -22,6 +23,11 @@ namespace Gmap.Gameplay
 
         public void OnStateChanged(MsgOnStateChanged msg)
         {
+            if (msg.NewState == State) {
+                if (SoundEffect != null) {
+                    AudioSource.PlayClipAtPoint(SoundEffect, Camera.main.transform.position);
+                }
+            }
             TargetObject.SetActive(msg.NewState == State);
         }
     }

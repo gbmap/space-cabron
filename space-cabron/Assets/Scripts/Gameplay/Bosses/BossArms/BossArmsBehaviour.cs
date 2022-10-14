@@ -111,9 +111,9 @@ namespace SpaceCabron.Gameplay.Bosses
         {
             float angleToPlayer = 180f;
             if (player != null)
-                angleToPlayer = Vector3.Angle(
+                angleToPlayer = Vector3.SignedAngle(
                 gunTransform.position,
-                player.transform.position
+                player.transform.position, Vector3.forward
             );
             return angleToPlayer;
         }

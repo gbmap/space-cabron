@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LoopSidewaysMovementStrategy
   m_EditorClassIdentifier: 
   SteerSpeed: 1
-  Width: 6
+  Width: 3

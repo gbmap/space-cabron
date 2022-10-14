@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using Frictionless;
 using Gmap.Gameplay;
-using Gmap.Utils;
 using SpaceCabron.Gameplay;
 using SpaceCabron.Messages;
 using UnityEngine;
@@ -26,6 +24,7 @@ public class ColorHealth : Health
     private int colorIndex;
 
     EnemyMaterialController materialController;
+    EnemyMaterialController[] materialControllers;
 
     // This prevents multiple colors from being removed
     // by special shots.
@@ -35,6 +34,18 @@ public class ColorHealth : Health
     {
         base.Awake();
         materialController = GetComponentInChildren<EnemyMaterialController>();
+
+        List<EnemyMaterialController> materialControllers = new List<EnemyMaterialController>();
+        var controllers = GetComponentsInChildren<EnemyMaterialController>();
+        foreach (var controller in controllers) {
+            ColorHealth ch = controller.gameObject.GetComponent<ColorHealth>();
+            if (ch != null && ch != this) {
+                continue;
+            }
+            materialControllers.Add(controller);
+        }
+        this.materialControllers = materialControllers.ToArray();
+
 
         // ShuffleBag<EColor> bag = new ShuffleBag<EColor>();
         // foreach (var healthItem in LifeConfiguration)
@@ -51,7 +62,8 @@ public class ColorHealth : Health
         }
 
         colorIndex = MaxHealth-1;
-        materialController.Color = CurrentColor;
+        // materialController.Color = CurrentColor;
+        SetMaterialColors(CurrentColor);
     }
 
     void Start() {
@@ -75,12 +87,7 @@ public class ColorHealth : Health
 
     void Update()
     {
-        // if (shouldUpdateColor)
-        // {
-        //     colorIndex--;
-        //     materialController.Color = CurrentColor;
-        //     shouldUpdateColor = false;
-        // }
+
     }
 
     public override bool TakeDamage(Bullet bullet,
@@ -92,11 +99,8 @@ public class ColorHealth : Health
         || cb.Color == CurrentColor)
         {
             bool tookDamage = base.TakeDamage(bullet, collider, objectFiring);
-            if (tookDamage)
-            {
-                if (materialController != null) {
-                    materialController.Color = CurrentColor;
-                }
+            if (tookDamage) {
+                SetMaterialColors(CurrentColor);
             }
             return tookDamage;
         } else {
@@ -114,5 +118,11 @@ public class ColorHealth : Health
         }
         
         return false;
+    }
+
+    private void SetMaterialColors(EColor color) {
+        foreach (var controller in materialControllers) {
+            controller.Color = color;
+        }
     }
 }

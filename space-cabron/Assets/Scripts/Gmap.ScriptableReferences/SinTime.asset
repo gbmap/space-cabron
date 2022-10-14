@@ -16,4 +16,4 @@ MonoBehaviour:
   X:
     GetFrom: {fileID: 11400000, guid: 2e79a530b90a5bb4481f6b989b192ba4, type: 2}
     SendTo: {fileID: 0}
-    _value: 1278.2512
+    _value: 322.88132

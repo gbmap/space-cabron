@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e21f7946494304aaf7bcf867823169, type: 3}
+  m_Name: Level11
+  m_EditorClassIdentifier: 
+  LevelList: {fileID: 11400000, guid: ea9e9120dc70f3e429ecbf4640a49cd5, type: 2}
+  Gameplay:
+    Difficulty: 1
+    ScoreThreshold: 1000
+    EnemyBPMIncreaseValue: 1
+    EnemyBPMScoreModulusToIncrease: 25
+    MaxEnemiesAlive: 5
+    EnemyPool: {fileID: 11400000, guid: 79d139b667f80544588e318074a3c1af, type: 2}
+    BossPool: {fileID: 0}
+  EnemyMelody: {fileID: 0}
+  Background:
+    Material: {fileID: 2100000, guid: 1e9df52ee049fb6488b1446d33ca525c, type: 2}
