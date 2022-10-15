@@ -12,6 +12,7 @@ public class GameplayMenu : MonoBehaviour
     }
 
     public void Exit() {
+        Resume();
         SceneManager.LoadScene("Menu");
     }
 }

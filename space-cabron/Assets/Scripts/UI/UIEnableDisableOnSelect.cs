@@ -7,9 +7,12 @@ namespace SpaceCabron.UI
     {
         public Behaviour behaviour;
         public AudioClip SoundEffectOverride;
+        public bool DisableOnDisable = true;
 
         void OnDisable() {
-            behaviour.enabled = false;
+            if (DisableOnDisable) {
+                behaviour.enabled = false;
+            }
         }
 
         public void OnDeselect(BaseEventData eventData)

@@ -14,7 +14,7 @@ namespace SpaceCabron.UI
 
         IEnumerator Select()
         {
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(0.02f);
             if (selectable)
                 selectable.Select();
         }

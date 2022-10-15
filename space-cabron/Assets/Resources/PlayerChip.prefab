@@ -59,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 966e90a2f10d9c24c90e244108accea9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4878a7bf57500be4592ea75f2bef2460, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7a26521d5e2342e42943f1b8c568563a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -184,8 +184,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 999999999
   CanTakeDamage: 0
-  IsResistant: 0
   OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDestroyUnity:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6851549082936777234
@@ -203,5 +205,7 @@ MonoBehaviour:
   DamageFactor: 0
   SpawnFactor: 0
   UpgradeValue: 0
+  LastShotTime: 0
+  Color: 0
   Direction: {x: 0, y: 0}
   IsResistant: 0

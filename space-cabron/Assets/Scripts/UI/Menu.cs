@@ -36,6 +36,11 @@ namespace Gmap.Gameplay
             LevelLoader.Load(GetLevelList(GameMode).List[0]);
         }
 
+        public void ExitGame() 
+        {
+            Application.Quit(0);
+        }
+
         private LevelList GetLevelList(EGameMode mode) {
             switch (mode) {
                 case EGameMode.Arcade:

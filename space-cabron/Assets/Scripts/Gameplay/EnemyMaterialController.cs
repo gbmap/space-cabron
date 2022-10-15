@@ -43,6 +43,7 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
 
     public Vector2 Direction = Vector2.zero;
     Vector2 _lastDirection;
+    Vector3 _lastPosition;
 
     Health health;
 
@@ -98,8 +99,11 @@ public class EnemyMaterialController : MonoBehaviour, IBrainHolder<InputState>
 
     private void UpdateDirection()
     {
-        if (Brain == null)
+        if (Brain == null) {
+            Direction = (transform.position - _lastPosition).normalized;
+            _lastPosition = transform.position;
             return;
+        }
 
         Direction = Brain.GetInputState(new InputStateArgs
         {

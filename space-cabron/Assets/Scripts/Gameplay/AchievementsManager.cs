@@ -11,6 +11,12 @@ namespace SpaceCabron.Gameplay
     {
         public AchievementData AchievementData;
 
+        void Awake() {
+            if (!SteamManager.Initialized) {
+                Steamworks.SteamAPI.Init();
+            }
+        }
+
         void OnEnable() {
             MessageRouter.AddHandler<Messages.MsgLevelWon>(Callback_OnLevelWon);
         }
