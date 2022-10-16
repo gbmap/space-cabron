@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gmap.Gameplay;
+using SpaceCabron.Gameplay.Multiplayer;
 using UnityEngine;
 
 namespace SpaceCabron.Gameplay
@@ -13,8 +14,13 @@ namespace SpaceCabron.Gameplay
 
         protected override IEnumerator AnimationCoroutine()
         {
+            int maxPlayers = MultiplayerManager.PlayerCount;
+            
             float halfWidth = 0.25f;
-            float x = Mathf.Lerp(0.5f-halfWidth, 0.5f+halfWidth, ((float)Index)/(MaxPlayers-1));
+            float x = Mathf.Lerp(0.5f-halfWidth, 0.5f+halfWidth, ((float)Index)/(maxPlayers-1));
+            if (maxPlayers == 1) {
+                x = 0.5f;
+            }
 
             Vector3 originalPosition = Vector3.down * 10f;
             if (Camera.main != null)
