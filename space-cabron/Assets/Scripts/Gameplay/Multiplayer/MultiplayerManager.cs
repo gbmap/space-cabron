@@ -1,6 +1,5 @@
 using UnityEngine;
 using Frictionless;
-using System;
 using System.Collections.Generic;
 using Rewired;
 using System.Linq;

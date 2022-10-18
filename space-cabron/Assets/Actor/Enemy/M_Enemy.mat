@@ -62,7 +62,7 @@ Material:
     - _Cutoff: 0.5
     - _Damage: 0
     - _DetailNormalMapScale: 1
-    - _DirectionScale: 1
+    - _DirectionScale: 0.2
     - _DstBlend: 0
     - _Frame: 0
     - _GlossMapScale: 1

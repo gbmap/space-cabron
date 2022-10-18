@@ -15,9 +15,10 @@ namespace SpaceCabron.Gameplay
         protected override IEnumerator AnimationCoroutine()
         {
             int maxPlayers = MultiplayerManager.PlayerCount;
+            int index = gameObject.name == "Player0" ? 0 : 1;
             
             float halfWidth = 0.25f;
-            float x = Mathf.Lerp(0.5f-halfWidth, 0.5f+halfWidth, ((float)Index)/(maxPlayers-1));
+            float x = Mathf.Lerp(0.5f-halfWidth, 0.5f+halfWidth, ((float)index)/(maxPlayers-1));
             if (maxPlayers == 1) {
                 x = 0.5f;
             }
